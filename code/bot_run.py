@@ -13,4 +13,4 @@ async def on_ready():
     await bot.load_extension("cmds.summon")
     await bot.tree.sync(guild=private_guild)
 
-bot.run(os.getenv("TOKEN"))
+bot.run(os.getenv("DISCORDTOKEN"))
