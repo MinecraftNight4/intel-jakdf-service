@@ -1,0 +1,1195 @@
+{
+    "1000030": {
+        "article_name": "ACCOUNT LINKING RECOMMENDED",
+        "article_type": "important",
+        "article_uuid": "1000030",
+        "article_time": 1756807200,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1780359344&Signature=dQLnxeGmfBiwE21wcSa~rC9yIjVhXxu-g8PgQgHNZJtfbW6xqALrVbov5tSta0XuhoxxVH0SYBIG8GCX6-Rj6RLePL8yFEsVi1aTmH2Mo29H6ZtqUFC5ubvaqrPXw4flZZpWBhH5QiB9Hp3YT~bEQXjLRMSwjsUZ3TixcUOgkuobFQ~-aqzHZJhX6UZCpsGA-dzM8Ve9buDgcFv~QX2dG72FfivqGQFRRk05LjBDLbjWJ9BisKk0gV9xWNZk8jjEqhx5awXZ9VdRES~NJLCwAzCzGYxKdFzRusAEnYyHq5j5bjt98XwKjh7etuZnawafCSNEic6Ws6ENqGNRaYsclA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "a7f8aa399c8adb9cab1692d455bcc7f92a450c89387fb16df2b30e3d4cfa6092",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "img",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nThank you for playing KAIJU NO. 8 THE GAME.\nTo protect your game data, we ask that you link your account.\n\n## __`ACCOUNT LINKING`__",
+            "By linking your account, you can easily restore and transfer your game data even if you accidentally delete the app.\nAdditionally, if your current device malfunctions or if you wish to change devices, you can transfer your player data to the new device.\n\n## __`HOW TO LINK YOUR ACCOUNT`__\nYou can link your account to your Apple Account or Google Account.\nSteps to Link Account:",
+            "1. Select the global menu from the top right of the Home screen.\n2. From the Menu (≡) on the top left of the screen, select Account Linking.\n*Account Linking is not possible via \"Data Transfer\" on the title screen.\n3. On the Confirm Link screen, you can choose to \"Sign in with Apple\" or \"Sign in with Google.\"\n4. Sign in with your selected account.",
+            "https://asset.kj8-thegame.com/info/production/content/1000030/24c168d8edfd5660c027eb7977e576f9.png?Expires=1780359344&Signature=M0scTRaiKbJD9WoDzFF2fsRcD6DqPCYyo5ZlgTJBteaDd4UkxzGCWpdAG3OdsH6SLIJpVRJj3SG2miorHw6PZzqbALR4pNsUITIQcPPrwLlu6wQWZKJEz~sTNEKfmVqx6Hnhc-zJNAn1cTEdqnNhdqOWCQChBIYbaiuw78JsaikkoVhslwp7aqROTlDnzeDMsy1Ksfn-BLygKeqU4igLJTC3FZAot024gza8Q-x804HrVp9cpRHTqXaWOY9fCZPc9G3BW919oR4krJ~uZuHLZOCvTW6rTKj8Z-ghvt0F3tNsHs8QMY1iq0zjQ4W14lr~C42qXJLq2FoxVPd68hmTdQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+            "After signing in, the message \"Account linking complete\" will appear upon successful linking.\n*Please keep your linked account information secure and avoid sharing it with others.\n*After account linking is complete, a confirmation email will be automatically sent to the email address associated with the linked account.\n\n## __`FAQ: REGARDING ACCOUNT LINKING`__\nQ1: How do I restore my data or transfer my account?A1: Access Title Menu (≡) on the title screen, select Data Transfer and follow the on-screen instructions.",
+            "Q2: After transferring account, will I be able to pick up my game progress from when I linked my account?A2: You can proceed with the game from when you were last online. For example, if you link your account when a mission is ongoing and transfer your account after clearing the mission, the game will proceed from the time when the mission is cleared.\n\nQ3: After transferring my account to a different device, can I still play on the original device?A3: Yes, you can play on both devices. However, you cannot log in to the same account on both devices simultaneously. If a new login is detected on a device, you will be returned to the title screen on the previous device.",
+            "Q4: Will my linked account be unlinked if I delete my player data?A4: No, deleting your player data will not unlink your account. To unlink an account, go to Menu (≡) > Account Linking.\n\nQ5: I wish to change my linked account.A5: To do so, first unlink your current account via Menu (≡) > Account Linking. You will then be able to link a new account."
+        ],
+        "article_unix": []
+    },
+    "1002400": {
+        "article_name": "TRAINING: DEFENSE FORCE MANUAL—2X REWARDS CAMPAIGN NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002400",
+        "article_time": 1780254000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002400/36f68704a03818e13750b21fe14f8ab5.jpg?Expires=1780359346&Signature=BPWqwWN4VeGzr~vHZ02yU5hClimYrRaWFcSrJlyCVdCszf7WFlAIg5tCfR71kASkfVUj-PdmCHyMB5awlRRC11xNX83foJLvCsKxoIcOsT1kFwmJvXOS5HoXBQwIbFfepbAbw0DXF~ZzFOvq0m2yWTXh8cZEtO-oOijrWTX-njAuiy~UqJK9dY~uGRRzQOUcC885yxMWdLWcP276kcf~QkBL9p222tCeZxFEIJQnV-9TDBMB6WFfywXp5A7uV6VrZ-h~areWSvemmDSFkCktq6lABCGH8GvxA9kgdrkWCG4wkXOwipv0fwbeuGGvBL0lGyDsSChbabS04xmlCt72kQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "15c9cc4fff0cb4b5bc89c23490c89c055aafaea98f58a8d64e97bd5cb832b020",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nThe 2x Rewards Campaign for Training: Defense Force Manual has come online as of <t:1780254000>.\nComplete the designated Training and enhance your characters more!\n\n### __`AVAILABILITY PERIOD`__",
+            "<t:1780254000> - <t:1781377199>\n\n## __`EVENT DESCRIPTION`__\n- During the campaign, receive 2x rewards when completing Training: Defense Force Manual.\n- There is a daily limit to the number of times rewards can be doubled.\n- The daily attempt limit resets at the in-game daily reset time.",
+            "- The double rewards bonus for this campaign does not apply to First Clear Rewards and Player EXP.\n\n## __`IMPORTANT`__\n- If you clear the designated Training when the daily reset occurs during the battle, it will count against your refreshed attempt limit.*If the event has ended at the daily reset time, the rewards will not be doubled.\n- The availability period and content are subject to change without prior notice. We appreciate your understanding."
+        ],
+        "article_unix": [
+            1780254000,
+            1781377199
+        ]
+    },
+    "1002390": {
+        "article_name": "DEFENSE FORCE PASS NOW AVAILABLE!",
+        "article_type": "news",
+        "article_uuid": "1002390",
+        "article_time": 1780254000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002390/3701d60307cde34c6f11bb8f44876700.jpg?Expires=1780359347&Signature=Y4iJfLUKvqaUYbKPU-R9kEdWAL1dWInstxnj-546l5HAee~MwgwlJXzLASuTM6I8LufvU2xBK6gc7jRV9JUt3f4rIkXYamCYnAEC8cNbQ~GuArtmxtq2ZEPRWfWTmSQffKfwmkaJQz~BgzhLAboYxqoxw69HMUI7tiq3DHkbyKvapvbAA~Ui8eU8cwHFokGGO2gwVcdcNUQ~nr4qLF4H9QA~xmO6OUmIs45YeAbo3ckqvbuA6Wv501jQdPUFObL8BXXfsVvtO0CpNPLa-OwdzT-0oPDKWqrtwKQbKCQ1WxKDtVAxkNieKa1N6VhTPYX4DJk6-IylfId7460Ci5U2tQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "54cfd4890d86da88d1ea4459bb757b6f9e23c5df12c0195408f53872288e286c",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`AVAILABILITY PERIOD`__\n<t:1780254000> - <t:1782845999>\n\n## __`OVERVIEW`__\nThe Defense Force Pass is now available! Earn rewards such as enhancement materials by raising your Pass Level!",
+            "After purchasing the Premium Pass or Deluxe Pass, once you reach Pass Lv. 30, you\\'ll receive a Weapon Supply Box III that can be exchanged for a select ★5 weapon.\n\n## __`DETAILS`__\n### __`THE DEFENSE FORCE PASS`__\n- During the period, you can raise your Pass Level by completing missions and accumulating points.",
+            "- At each Pass Level, you can claim rewards such as Gacha Tickets and enhancement materials.\n- The Defense Force Pass changes periodically, and when a new one begins, the missions and your Pass Level will be reset.\n\n### __`POINTS`__\n- There is a limit to the points that can be earned each week.\n- Aside from clearing missions, you can also earn points by spending Dimensional Crystals. These points do not count toward the weekly limit.",
+            "For more details, please check the Defense Force Pass > the \"i\" button.\n\n### __`DEFENSE FORCE PASS TYPES`__\nThere are three types of Defense Force Passes.",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` Free Pass\n> `❚ 2:` This pass is unlocked by default.\n`━ ROW 2 OF 3:`\n> `❚ 1:` Premium Pass\n> `❚ 2:` Purchasing this pass instantly grants you Dimensional Crystal x680. The number of items you can obtain when your Pass Level goes up will also increase.",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` Deluxe Pass\n> `❚ 2:` This is an upgrade to the Premium Pass.\n> `❚ └─` Purchasing this pass instantly grants you Dimensional Crystal x1,080, Weapon Supply Box III x1, Kaiju Core Material x1, and Stamina Jelly x5. It also instantly boosts your Pass Level by 10.\n*The Premium Pass and Deluxe Pass are only valid for the ongoing Defense Force Pass at the time of purchase.",
+            "*The Deluxe Pass is a set that includes the Premium Pass, along with the Dimensional Crystal x1,080, Weapon Supply Box III, etc. that can be received instantly upon purchase. If you purchase the Deluxe Pass first, it counts as also having purchased the Premium Pass. If you purchase the Premium Pass first, you can then purchase the Deluxe Pass at a reduced price. In this case, please note that the number of Dimensional Crystals you instantly receive upon purchasing the Deluxe Pass will be the difference of 400.\n*The select ★5 weapon can only be obtained from the Weapon Supply Box III obtained through the Defense Force Pass.",
+            "*You will also be able to get the Weapon Supply Box III from the next Defense Force Pass.\n*Even if you have reached the weekly point limit, purchasing the Deluxe Pass will still instantly increase your Pass Level.\n\n## __`IMPORTANT`__\n- Due to the nature of the product, returns and exchanges are not accepted.\n- The availability period and content are subject to change without prior notice. We appreciate your understanding.",
+            "- Premium Pass and Deluxe Pass purchases close 1 hour before Defense Force Pass ends.\n- Unclaimed rewards when the period ends will be delivered to Mail (Home screen > Mail). Please also note that unclaimed rewards will be removed when they expire.\n- Defense Force Pass rewards can be claimed on a different device that is linked to the same account.\n- If player data has been deleted, Defense Force Pass rewards cannot be claimed even if a new account has been created on the same device."
+        ],
+        "article_unix": [
+            1780254000,
+            1782845999
+        ]
+    },
+    "1002380": {
+        "article_name": "MONTHLY ITEMS RESET",
+        "article_type": "news",
+        "article_uuid": "1002380",
+        "article_time": 1780254000,
+        "article_logo": null,
+        "article_hash": "ae44d3b4d91f4685f49b9eecac4cadf065e562ec199379abb7ddc7330e80879f",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nMonthly available items have been reset as of <t:1780254000>.\nEven if you purchased these items last month, you can now purchase them again!\n\n### __`MONTHLY GACHA TICKET PACK`__",
+            "*Once-per-month purchase for each account, either in-app or from the Web Store.\n\nPrice\n2,500 JPY\n\nContent",
+            "・Pickup Gacha Ticket x10\n\n### __`DEFENSE FORCE SUPPORT SPECIAL PACK`__\n*Three-times-per-month purchase for each account, either in-app or from the Web Store.\n\nPrice",
+            "2,800 JPY\n\nContent\n・Dimensional Crystal (Paid) x1,500\n・Defense Force Manual III x35\n・Kaijumite III x25",
+            "・Material Supply Box [★2 Role Material] x60\n・Material Supply Box [★3 Role Material] x35\n・Material Supply Box [★2 Attribute Material] x35\n・Material Supply Box [★3 Attribute Material] x40\n・Credit x350,000",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1780254000
+        ]
+    },
+    "1002360": {
+        "article_name": "DATA UPDATE & EVENT PREVIEW",
+        "article_type": "update",
+        "article_uuid": "1002360",
+        "article_time": 1780110000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002360/bccfc5d435778789a6d694a6aef6cf8d.jpg?Expires=1780359350&Signature=G4lHjYeMFIifiioP5YkVB0avtcX3E6Ks8RNtP81n0ou9DeERMzo2xUu51ydqZMTyU-UuYg~6~ssoBO~-ELGBde-uZd-bvmS~fsFVixAQpoV~qyR1RZAFPqRZ7Bvq45IFXfU2F9vdlSuIRntNeKgk~TLrBUxUYEDHr-FwgfoI5G3yDLfNNcCQpBySigewwHyadRD8tFbQIDrdJEXKe8xddLgncrn5f3rVy6ICeS921QBJa~bxA~lv25ZBa~1K7Q0W87ezt5jhOFUtFKiYQn0TOG7nMFmdr~-dOamuVNgbLR3yCUZYCjZg2~Zmim-c4HLjvq~XecbJDwCgzDEWIm10cw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "53f3ec12e503d4a6d49d49ea1fe7a82e6960ee63d0e2eda5bb5749f4e22845de",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nA data update is scheduled for the following time:\n<t:1780282800>",
+            "This data update includes the following content:\n\n## __`EVENT OVERVIEW`__\n■ Main Story Chapter 12 Release\nScheduled to start: <t:1780282800>\nMain Story Chapter 12 and the New Chapter Event will be available.",
+            "The Chapter 12 Release Celebration Login Bonus will also be available starting <t:1780282800>.\nFor more details, please check the upcoming announcement.\n\n■ New Gacha\nScheduled to start: <t:1780282800>\nFor more details, please check our official X ([@kj8_TheGame_EN](https://x.com/Kj8_TheGame_EN)) and future announcement.",
+            "■ Mini Special Event\nScheduled to start: <t:1780455600>\nA new Mini Special Event will be available.\nFor more details, please check the upcoming announcement.",
+            "■ Fierce Battle Area (Limited)\nScheduled to start: <t:1780628400>\nA new Fierce Battle Area (Limited) will be available.\nFor more details, please check the upcoming announcement.\n\n## __`IMPORTANT`__",
+            "The date and time of the data update are subject to change. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1780282800,
+            1780455600,
+            1780628400
+        ]
+    },
+    "1002350": {
+        "article_name": "[UPDATED] VERSION 1.9.1 UPDATE NOW LIVE",
+        "article_type": "news",
+        "article_uuid": "1002350",
+        "article_time": 1780041600,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002355/6f41140cdbd519344c7d83a691478758.jpg?Expires=1780359352&Signature=JIGOUSnIkc-dyM6AIohd1mJD6-cOekWIxQZ2d1GmYkWRzxIevbJuVhCW9wUVr1W5OkkioiRp8aF4bCIJZWsiM0hobuWJ42fF0QCqr7na1JmdLhej1wRfRNB5y9z0hYVGhpriMnhZtpVYrQC5SRPKNZ-QjIhZdfdor3zDhbHMwyIDPbws0HRnvydOZPb3tZJht3JKnY-T7f0m4Q6M3zogR6UsHnMcr-U02sBDppp3yyH~qQqrzrNMnfK4F2C~BTrKGanSHPTsiGA0ctH2Cgd1RVzpu1JFgSxdzUzHRzvL60QfcExEJZ4wgjPAc0BgMt3az1zLkyLLkZlGGClBC-lvXg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "9b111a1d0ef27432f890cc037d43cdf47066c2034f80135f145e48e47269eb1d",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "[Updated <t:1780041600>]\n\nThe mandatory update for this version has been successfully implemented at the time listed above.\nIf you have already performed the optional update beforehand, the mandatory update will not occur for you.",
+            "Thank you for playing KAIJU NO. 8 THE GAME.\nThe Version 1.9.1 update is now available.\nPlease update the app via the Store.\n\n## __`UPDATE CONTENT`__\nImplemented minor fixes.",
+            "## __`COMPENSATION FOR CONFIRMED ISSUES`__\nWe will be sending Dimensional Crystal x50 as compensation for the issues fixed in this update.\nPlease claim the items from the Home screen > Mail.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1780041600
+        ]
+    },
+    "1002345": {
+        "article_name": "RAID BATTLE: KAIJU NO. 10 (GIANT FORM) HP ADJUSTMENT",
+        "article_type": "event",
+        "article_uuid": "1002345",
+        "article_time": 1779958800,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002345/e98da6a85a9c293f660db59a673a252b.jpg?Expires=1780359353&Signature=mvf29NEU3xPoV4vKHtg0IJ06vZZb1JTPDm54MMlKm3V07vmKPTQRIYCD0qjkz~DJVVBnz8RWB-pFuxf1VwacTgaqSa2I15btJQINLIGvRTxIAxHchQ4Rn-MNEorM-6sdfgNiKKoYhln05PK~LRr1faphusGlWk9hD0SoCfvLvjMxpSgu85VrjfZPvSVDGvAX-WVZMM1parSOIOQi6BVxn-mV9oWhBCChFQEtM5eK~RutSGt7oBrtKZJV6Ohy3olrklsZPprPLVm13PDQKWoryNsFg4s2uqr4-3X3MDDDjjyVu5oRjKUUPzLCSb72E-g5X7hOs4OVAw8jAi69XyOkdA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "8eb810e0db18dcafac8e20d97f8679c5614dc0830d6c2d6bd9ad219e9509c476",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`REGARDING THE HP ADJUSTMENT`__\nTo reduce the gameplay burden on our players due to the extended duration of the ongoing Raid Battle, we will be adjusting the Boss\\'s remaining HP. We sincerely apologize for any inconvenience.\n\nAfter this announcement is posted, Dimensional Crystal x150 will be distributed to all players as compensation.\nThe details of this adjustment are as follows.",
+            "## __`ADJUSTMENT DETAILS`__\n・The Boss\\'s remaining HP will be reduced to 20%.\n・Co-Op Damage Mission rewards that become available as a result of this adjustment can be claimed normally.\n\n## __`IMPLEMENTATION SCHEDULE`__",
+            "・Around <t:1780023600>\n\nTo ensure adequate challenge time and provide clearer event timelines, the following change is planned for future Raid Battles:\n・Once the Kaiju\\'s HP drops below a certain threshold, a period will be introduced during which its HP will temporarily stop decreasing.\n*Damage dealt during this period will still count toward your Ranking and mission progress.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1780023600
+        ]
+    },
+    "1002340": {
+        "article_name": "MOP-UP OPERATION NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002340",
+        "article_time": 1780130400,
+        "article_logo": null,
+        "article_hash": "06da4ec7002c9bde09286ea7428e816be244ba76d001d9859759751aa2774e71",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nFollowing the defeat of Kaiju No. 10 (Giant Form), a massive swarm of Kaiju has appeared.\nCommencing the Mop-Up Operation.\nEarn awesome rewards by defeating the Yoju as they put up a desperate final resistance!\n\n### __`AVAILABILITY PERIOD`__",
+            "Until <t:1780973999>.\n\n*If all Kaiju are defeated during the availability period, the Mop-Up Operation will end 24 hours after the stages have concluded.\n\n## __`CHANGES SINCE PREVIOUS ROTATION`__\n- Increased the amount of obtainable rewards for each stage.",
+            "- The limit for replenishing Mop-Up Operation Permits using Dimensional Crystals has changed from no limit to 5 times per day.\n- Battles will now end automatically once you have reached the maximum obtainable rewards for each battle based on the number of Kaiju defeated.\n\n## __`EVENT DESCRIPTION`__\n- The Mop-Up Operation is a competitive event where all players work to neutralize a massive number of Kaiju.\n- The Mop-Up Operation consists of 5 stages, and you can challenge each stage until the remaining number of Kaiju reaches 0.",
+            "- Use specific permits to take part in Mop-Up Operation.¹ ²\n- Each battle ends once 5 rounds have elapsed. Defeat as many Kaiju as possible within 5 rounds.\n- Each of the 5 stages offers different rewards.\n- The more Kaiju you defeat in a single battle, the greater the rewards you obtain.\n- In every stage, there is a rare chance to obtain ★5 Unimaterial [Ant-Type Kaiju α], which guarantees a ★5 Unipart when used during development.\n- Skipping is not available for Mop-Up Operation.",
+            "- The event ends once the remaining number of Kaiju in all stages reaches 0.\n\n¹ During the availability period of the Mop-Up Operation, up to 5 Mop-Up Operation Permits can be claimed on the event screen every 4:00 AM JST. If you have unused Mop-Up Operation Permits at 4:00 AM JST, you can claim new ones to reach a total of 5.\n² Mop-Up Operation Permits can also be replenished up to 5 times per day using Dimensional Crystal x20. The replenish count resets daily at 4:00 AM JST.\n\n## __`IMPORTANT`__",
+            "- If a Mop-Up Operation battle ends in defeat, retreat, or suspension, rewards will still be granted based on the number of Kaiju defeated up until that point. However, Mop-Up Operation Permits will not be refunded."
+        ],
+        "article_unix": [
+            1780973999
+        ]
+    },
+    "1002320": {
+        "article_name": "[UPDATED] RAID BATTLE: KAIJU NO. 10 (GIANT FORM) NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002320",
+        "article_time": 1780130400,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002330/e98da6a85a9c293f660db59a673a252b.jpg?Expires=1780359356&Signature=BsQMaS82Ef0yYcP~EjAmAn3NLYLMU9nMpPsag~~iQ~I9mN686BovmKz77NQmUoxLzS~sG0PhFSNv0h7d5GwjjshmbYZkn3vzzP1nVT3D9gm0cJshUQzqM1xeUD2M254RXe-9JGz3R1LcDzHEBUzGLUseE~idm8qkYN742lCUEna4aJz2IFAMz3f85bGC1xVb4i3HVew-ooQLKu6XXp6b0fzrsEg03e6x-wrcQHAbZ5ZPC9e2qBOXzORyetqZXM-HXmEvQUJP45~dmlkPStXHvzde0RcVMCit63QBBFn13F~WwYNpIgEt3eYyIZI~RRmkC1G0PuysDkOOtu6K~-k6Ng__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "583189cd4d887d003486adfc1785a3c93355a694b845b8a555cc5c4da3944c30",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`UPDATE: COMMENCING MOP-UP OPERATION`__\n[Updated <t:1780130400>]\nThe Boss Kaiju has been defeated thanks to everyone\\'s hard work!\nPlease note that the reward claim deadline for the Raid Battle Missions is <t:1780973999>.",
+            "Following the defeat of Kaiju No. 10 (Giant Form), a massive swarm of Kaiju has appeared.\nCommencing the Mop-Up Operation.\nEarn awesome rewards by defeating the Yoju as they put up a desperate final resistance!\n\nFor more details, please check the relevant announcement.\n[・Mop-Up Operation Now Available!](https://info.kj8-thegame.com/news/news/1002340?language=en)",
+            "## __`OVERVIEW`__\nRaid Battle: Kaiju No. 10 (Giant Form) has come online as of <t:1779505200>.\nRaid Battle is an event in which all players will work together to take down a Boss Kaiju.\nChallenge the Boss Kaiju to progress along the Raid Battle Missions and earn rewards!",
+            "In addition, participate in the rankings to earn titles and rewards.\nDeal as much damage as possible!\n\n## __`ELIGIBILITY`__\nReach Player Rank 4 or higher.",
+            "## __`CHANGES SINCE PREVIOUS ROTATION`__\n- Based on previous Raid Battle statistics, we have increased the Boss Kaiju\\'s HP.\n- Adjusted buff content.\n\nFurthermore, we plan to implement the following adjustment in future Raid Battles to ensure a sufficient challenge period for players.\n- When the Kaiju\\'s HP falls below a certain threshold, it cannot be further reduced for a period of time.",
+            "*Damage dealt during this period will still be reflected in the rankings and missions.\n\n## __`EVENT DESCRIPTION`__\n- Raid Battle is an event in which all players will work together to take down a Boss Kaiju.\n- Use specific permits or Stamina to take part in Raid Battles.¹\n- Raid Battles end once 5 rounds have elapsed. Deal as much damage as possible to the Boss Kaiju within 5 rounds.",
+            "- After challenging a Raid Battle once, players will be able to select the skip option.²\n- Challenge Raid Battles to advance Raid Battle Mission progress and earn rewards.\n\n¹ During the availability period of the Raid Battle, up to 3 Raid Battle Permits can be claimed on the event screen every 4:00 AM JST. If you have unused Raid Battle Permits at 4:00 AM JST, you can claim new ones to reach a total of 3.\n² When skipping, damage from the previous unskipped challenge will be used for damage calculation.",
+            "## __`MISSIONS`__\n- There are 3 types of missions in Raid Battles.\n- Complete these missions to earn points and claim corresponding rewards based on points obtained.\n\n▽ Co-Op Damage Missions\n- During the event period, all players will work together to challenge these co-op missions.",
+            "▽ Daily Missions\n- During the event period, these missions will update every day until the Boss Kaiju is defeated.\n- Daily Missions are updated daily at 4:00 AM JST during the event period.\n\n▽ Limited-Time Missions",
+            "- During the event period, these missions can only be completed once. They remain available until the Boss Kaiju is defeated.\n\n- For more details about each mission, please head to Raid Battle > Raid Battle Missions.\n\n## __`SUPPORT EFFECTS`__\n- Specific Support Effects can be received during Raid Battles.",
+            "- After each Raid Battle challenge, you can select and enhance 1 out of 3 Support Effects.\n- The levels of Support Effects will accumulate and be shared by all players.\n- Enhance Support Effects to deal even more damage to the Boss Kaiju.\n\n## __`RANKING`__\n- Raid Battles feature rankings for the highest damage dealt to the Boss Kaiju in a single battle.",
+            "- You can check your score and rank from Raid Battle > Ranking.¹\n- Obtain rewards after the event ends based on your rank when the Boss Kaiju is neutralized.\n- Ranking rewards will be distributed via Mail after the tallying period following the event\\'s conclusion.²\n- For details on rewards, please refer to Raid Battle > Ranking > Rewards.\n\n¹ The Top 100 info on the Ranking screen is updated every five minutes. Depending on the timing of the update, your score may differ from the score displayed in the rankings.",
+            "² The mail (including any attached items) will be deleted 90 days after you receive it. Please make sure to open the mail and claim the items before the deadline.\n\n## __`IMPORTANT`__\n- This event will be available until the Boss Kaiju is defeated.\n- After the Boss Kaiju is defeated, Daily Missions and Limited-Time Missions can no longer be achieved.\n- After the Boss Kaiju is defeated, the event will end after a certain period. The end time will be updated in News.",
+            "- Once the event ends, any remaining Raid Battle Permits will be recalled.\n- Once the event ends, Raid Battle Mission rewards will no longer be available (and will not be sent to your Mail). Please remember to claim them within the event period."
+        ],
+        "article_unix": [
+            1780130400,
+            1780973999,
+            1779505200
+        ]
+    },
+    "1002300": {
+        "article_name": "SOICHIRO HOSHINA PICKUP GACHA NOW AVAILABLE!",
+        "article_type": "gacha",
+        "article_uuid": "1002300",
+        "article_time": 1779246000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002300/8c4264568fd3878127efdc632a3c5c75.jpg?Expires=1780359358&Signature=k4N1acnnxnJ1b74Svn6EK1q4ZhAQcBK110AG-mhWas9vPmSfoHUV51vQoeRy4QqxTdCaKswk2B~Q-C0VkbJqI5rAkCjjaPlkiQ42eZH2JwqFsYp5G3534iSnAEtPgBA6CnvEkFOQqQcYYsWE6Hs5HIxKJ7r9~1t~ncSSPhoDdSG1SAS-tceNsecVE2AGRAVFjd4rfNzQqC6Z3cDb4Gq4HmhsZe7X~0TNBdiYmbxz85xpTW-pzTgGkJCifFot7WVisyKDaqc1vIhwnm-srI45bUeTC45GinqGR2nmb4FFOXlAV9ymqPDWBrq1LHw-JZRKRDlchH1czk8NR7NI~11pWQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "215fd92bbbc41570949760691b4179a64e1033e6ba3b779ce957d1a768a76d9b",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`AVAILABILITY PERIOD`__\n`━ ROW 1 OF 2:`\n> `❚ 1:` Gacha Availability Period\n> `❚ 2:` <t:1779246000> - <t:1781060399>",
+            "`━ ROW 2 OF 2:`\n> `❚ 1:` Pickup Character/Weapon Exchange Period\n> `❚ 2:` <t:1779246000> - <t:1781665199>\n## __`PICKUP GACHA OVERVIEW`__\n### __`PICKUP CONTENT`__\nThis Pickup Gacha features the following character and weapon!",
+            "■ New ★5 Character\n[Keystone of Western Japan] Soichiro Hoshina (Optimal weapon type: Assault Rifle)\n■ New ★5 Weapon\nAR-6710 (Assault Rifle)",
+            "*For details on the characters and weapons, please refer to Gacha > Pickup Details.\n*The character and weapon listed above are scheduled to appear in future Pickup Gachas after this one ends.\n\n### __`RELATED EVENT & STORY`__\nDuring the gacha availability period, a trial battle for [Keystone of Western Japan] Soichiro Hoshina is available!\nPlay it by going to Events > Trial Battle.",
+            "The story featuring [Keystone of Western Japan] Soichiro Hoshina is available in the Special Event [Whirlwind from the West].\n\n*Even if you are unable to reach the end of the story during the Special Event period, please rest assured that it will be available to view as a Character Story after the event ends.\nYou can access Character Stories from Home > Story > Characters.\n*Character Stories (unlocked at Player Rank 6) can be played at any time after their release.",
+            "## __`PICKUP GACHA DETAILS`__\n### __`PICKUP GACHA MEDALS`__\nFor every pull you perform in the \"Pickup\" gacha type (hereinafter referred to as Pickup Gacha), you will receive 1 Pickup Gacha Medal. The Medals can be exchanged at the Shop for eligible ★5 characters and ★5 weapons.\n*You can also earn Pickup Gacha Medals when you use Gacha Tickets to pull.\n*Pickup Gacha Medals do not have an expiration date.",
+            "*The items available for exchange with Pickup Gacha Medals will be updated periodically. Please refer to the \"Exchange Period\" at the beginning of this announcement for the dates.\n\n### __`GUARANTEED ★4 OR HIGHER CHARACTER`__\nIn Pickup Gacha, if you perform 9 pulls that all result in weapons, your next Pickup Gacha pull is guaranteed to be a ★4 or higher character.\nFor details on available characters, please refer to Gacha > Appearance Rates/History > Appearance Rates > Appearance Rates for Guaranteed ★4 or Higher Character.\n*This guarantee applies whether you perform a 10-pull or 10 single pulls.",
+            "*This guarantee also applies whether you perform 10 pulls on the same Pickup Gacha or a total of 10 pulls across different Pickup Gachas.\n*You can check your past gacha results by going to Gacha > Appearance Rates/History > History.\n*Gacha results from the \"Standard\" or \"Special\" type gachas do not affect this guarantee setting. You can check the gacha type on the Gacha screen and in Gacha > Appearance Rates/History > History.\n\n### __`OBTAINING DUPLICATE CHARACTERS`__",
+            "When you obtain a character you already own, the duplicate copy will automatically be converted into Encounter Stones and/or Talent Shards based on their rarity and how many times you\\'ve obtained them. Encounter Stones can be exchanged for various items in the Shop, while Talent Shards can be used to Ascend characters.\n`━ ROW 1 OF 5:`\n> `❚ 1:` Rarity\n> `❚ 2:` Acquisition Count\n> `❚ 3:` Items Received",
+            "`━ ROW 2 OF 5:`\n> `❚ 1:` ★5\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
+            "`━ ROW 3 OF 5:`\n> `❚ 1:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
+            "`━ ROW 4 OF 5:`\n> `❚ 1:` ★4\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8",
+            "`━ ROW 5 OF 5:`\n> `❚ 1:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8\n\n### __`OBTAINING WEAPONS`__\nWhen you obtain a weapon, you will receive Encounter Stones based on its rarity. Encounter Stones can be exchanged for various items in the Shop.",
+            "`━ ROW 1 OF 4:`\n> `❚ 1:` Weapon Rarity\n> `❚ 2:` Items Received\n`━ ROW 2 OF 4:`\n> `❚ 1:` ★5\n> `❚ 2:` ・Encounter Stone x40",
+            "`━ ROW 3 OF 4:`\n> `❚ 1:` ★4\n> `❚ 2:` ・Encounter Stone x8\n`━ ROW 4 OF 4:`\n> `❚ 1:` ★3\n> `❚ 2:` ・Encounter Stone x2",
+            "*If your weapon storage is full, any weapons and Encounter Stones you receive from Gacha will be sent to your Mail.\n*Unlike characters, when you obtain a weapon you already own, the duplicate copy will not be automatically converted.\n\nIn addition, you can obtain Refinement Crystals by disassembling ★5 weapons from Gacha. Refinement Crystals can be exchanged for certain ★5 weapons in the Shop. For more details, please go to Gacha > Weapon Exchange.\n*To disassemble weapons, open up the global menu on the top right of the Home screen > Storage.\n*Weapon Exchange will be limited to 1 time per month, and will reset on the 1st day of every month at 04:00 JST.",
+            "## __`IMPORTANT`__\n- For details on appearance rates, please refer to Gacha > Appearance Rates/History > Appearance Rates.\n- The availability period and content are subject to change without prior notice. We appreciate your understanding.\n- Pickup characters and weapons may be available again or be on pickup in a future Gacha, Shop, etc."
+        ],
+        "article_unix": [
+            1779246000,
+            1781060399,
+            1781665199
+        ]
+    },
+    "1002290": {
+        "article_name": "SPECIAL EVENT [WHIRLWIND FROM THE WEST] NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002290",
+        "article_time": 1779246000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002290/6d9e8a75c10adbacfbb08036f01e42b6.jpg?Expires=1780359359&Signature=RjD2SlSw-p8H6neXktWZ~XvGK82aBOInXPlcPrCod8Mu4LrIp08hPDi14VGs2W~RfeSZ~d3QYtLHsEuDhrhFSi4BjrIi-ToucfF92dFAPlLxKmos2SyE6qVIQP8oyfBo0nVX9cFy3KZ6RPASJFg8lV6BeXwhlhx9zBQyRNNKYzqqkvLJznPZtHaGBxzRdbRB7CMenEjNj1yeEDxYOpuXNE6obpBPnvLGlBpD~fzl5dnwdW~PA11T8iQLyCbyX6eJKnSXzSIdEv0U1sQ0pIMoEgdvxY5hI76R0sTMV5vgWOfkM60VhEabTW5AIbl1-er9UbhT-ODzeUe2r~g-hiAqdg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "3096145deb9e451b373851cb05e3df6dce95375a5c7817e3aab0ee510446635a",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`SPECIAL EVENT NOW AVAILABLE`__\nThank you for playing KAIJU NO. 8 THE GAME.\n\nSpecial Event [Whirlwind from the West] is now available as of <t:1779246000>.",
+            "In this Special Event, you can earn:\n・A new Home background, also featured in the story\n・Over 1,500 Dimensional Crystals\n・Event-limited ★4 weapon \"AR-Egret 12\" (Assault Rifle)\n・Potential Shards II\n...as well as other rewards and titles!",
+            "Take part in the event from Home > Events > Special Event after clearing Main Story Chapter 0.\n\n*Dimensional Crystals can be obtained from quest clear rewards, mission rewards, and from the Event Gacha.\n*The method for exchanging Interlude Notes varies from event to event.",
+            "### __`AVAILABILITY PERIOD`__\n<t:1779246000> - <t:1781060399>\n\n*Reward claim and the Event Gacha will be available until <t:1781665199>.\n\n## __`EVENT OVERVIEW`__",
+            "The Special Event offers the following content: Story, Quests, and Challenges. Clear quests to unlock the rest of the story.\n\n■ Story\nThe story focuses on specific characters.\nYou must clear quests to progress through parts of the story.",
+            "Even if you are unable to reach the end of the story during the Special Event period, please rest assured that it will be available to view as a Character Story after the event ends.\nYou can access Character Stories from Home > Story > Characters.\n\n■ Quests\nDeploy for quests by consuming Stamina.\nBy clearing a quest, you can proceed to the next one.",
+            "Quests have Combat Objectives. If you clear all Combat Objectives, you will be able to use the skip function on subsequent attempts.\n\nClear quests to obtain Interlude Notes, which can be used in the Event Gacha to exchange for various items.\n\n■ Challenges\nIn Challenges, you can take on high-difficulty battles.",
+            "Stage effects will be active in Challenges. Be sure to make full use of them to secure yourself an advantage.\n\n■ Missions\nYou can earn rewards by clearing various missions.\nYou can also earn Interlude Notes from mission rewards, which can be used in the Event Gacha.",
+            "■ Event Gacha\nYou can perform one pull in the Event Gacha by consuming 10 Interlude Notes to exchange for various items.\nBy adjusting the Pull Settings, you can exchange Interlude Notes for up to 100 pulls at once.\nThe Event Gacha contains up to 800 rewards. By meeting certain conditions, you can reset the rewards and earn them again.\n\nFor Lineups #1 to #6 of the Event Gacha, you can reset the rewards after obtaining all key rewards.",
+            "Resetting the rewards will switch the current lineup to the next one.\n\nThe key rewards for each lineup are as follows:\n・Lineups #1–2: AR-Egret 12, Potential Shard II x10, and Kaiju Core Material\n・Lineup #3: Home background \"Keystone of Western Japan\"\n・Lineups #4–6: AR-Egret 12 and Potential Shard II x10",
+            "For Lineup #7 and beyond, you can reset the rewards after obtaining all rewards in the current lineup.\nAll lineups from #7 onwards will contain the same content.\n\nOnce obtained from the Event Gacha, you can use the Home background even after the event period.",
+            "*If you do not obtain the Home background from the Event Gacha, it will be available for exchange with Encounter Stones at Home > Shop > Encounter Stone after the event period ends.\nIf you already own the featured Home background, it will be converted into the same number of Encounter Stones required for the exchange.\n\n*Interlude Notes will be available for use until <t:1781665199> and will be recalled when expired.\n\n### __`TITLES`__",
+            "In this Special Event, you can obtain separate titles after meeting the following conditions: \"Obtain a total of 27☆ in Special Event Quests\" and \"Obtain a total of 6☆ in Special Event Challenges.\"\n\n## __`SPECIAL EVENT RELEASE CELEBRATION LOGIN BONUS`__\nLog in during the period to get up to 10 Pickup Gacha Tickets and 1 Stamina Jelly.\n\n### __`AVAILABILITY PERIOD`__",
+            "<t:1779246000> - <t:1780858799>\n\n## __`IMPORTANT`__\nThe date and time of the data update are subject to change. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1779246000,
+            1781060399,
+            1781665199,
+            1780858799
+        ]
+    },
+    "1002260": {
+        "article_name": "LARGE CONQUEST: INVIGORATING PURSUIT NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002260",
+        "article_time": 1778727600,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002260/3e3d102bdfe2479014d5f6df6d284648.jpg?Expires=1780359361&Signature=BVPbQzQ4frypz-gIrlRzVBk-CthLyVFB44EoGkh2Qh0utNIZBQOTbwPdPAVtAgvca8egAGnbvvlb8lkWi3KTWIa0WDKuNXGJivgg9crIpPZdEZEAvTW5LbfQEVZUQ7sGQNYs3JuSBWR4yOE13~wGmj8nuIzgviab89i8OZ4HqcFZOp5uzfnc16biOhCFEim1YNjyOdM9tgQDWYw5pNdTf6xqfOjay~BlMfAldF1Ddmx8DfIrEIWIFmZnxinI5u9ALqvBJ9Rc2St29vyMMU6Ed8ayu2zGojpItR02ZlKSQJZ4UISaHIVqaBYsjoyeRvV14tSdeLy2WPBwuIRgn5Oqcg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "72edcc83771aeb65ce56b95f506d99312fe66e05bb3d8dee84470d1d911d6342",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nLarge Conquest: Invigorating Pursuit has come online as of <t:1778727600>.\nLarge Conquest is a battle event where you fight against continuously appearing Kaiju.\nUtilize stage effects, challenge the Kaiju, and clear quests to earn rewards and titles!",
+            "The quick clear feature is available for this event.\nStages up to Stage 04 will be unlocked and available as initial stages. By clearing any unlocked stage with ☆3, all its previous stages will also be considered cleared with ☆3.\n\n### __`AVAILABILITY PERIOD`__\n<t:1778727600> - <t:1781319599>",
+            "## __`ELIGIBILITY`__\nReach Spec-Ops Rank 2 or higher.\n\n## __`EVENT DESCRIPTION`__\n- Large Conquest is a battle event where you fight against continuously appearing Kaiju.\n- Access the event from Events > Large Conquest.",
+            "- Large Conquest does not require Stamina to challenge.\n- Each quest requires you to form 2 squads. Some quests are of higher difficulty.\n- A quest is cleared when a set number of rounds have elapsed or a set number of Kaiju have been neutralized.\n- By completing ⭐︎ Objectives and clearing quests, you can earn rewards like Dimensional Crystals, Proofs of Valor, Emblems of Defense, etc.\n- You can exchange Proofs of Valor and Emblems of Defense for enhancement materials and other items in the Shop.",
+            "## __`STAGE EFFECTS`__\n- Large Conquest features unique stage effects.\n- Utilize the stage effects to give yourself an advantage in neutralizing Kaiju.\n\n## __`TITLES`__\n- In this Large Conquest, you can obtain separate titles after meeting the following conditions: \"Obtain all Clear Rewards\" and \"Obtain the ☆18 Reward.\"",
+            "## __`IMPORTANT`__\n- Once the event ends, Large Conquest rewards will no longer be available (and will not be sent to your Mail). Please remember to claim them within the event period."
+        ],
+        "article_unix": [
+            1778727600,
+            1781319599
+        ]
+    },
+    "1002240": {
+        "article_name": "KIKORU SHINOMIYA PICKUP GACHA RERUN NOW AVAILABLE!",
+        "article_type": "gacha",
+        "article_uuid": "1002240",
+        "article_time": 1778382000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002240/e5fd920b6cf0dda17915d5ed6ee3ff19.jpg?Expires=1780359362&Signature=MK35wGSnraRTJnaFZeZpdnXu9YOSBMz0kqOx4eN1bsAsRzbncWDbxJPutI2UjyRve7s6oghrm9uIpD2rPqUC5VzXiXjyH4HYDXoYlxUVFFDF0SWOpvQGMbhiRMb91HfT70NTXmnDWBnmVl67rQBFBc8EcBHVE~d-xxbnFjcGs1~G3tYWjXQwDMkVLPWq~yfBTQbn1rhOa3k2da176qu7j2h2ivcVV4~bG-lS7lPSj2VP~0NX19G5YA27lMrteiVrmYa8wrrM610FDD-dZwNbMa1BoQZYwRup0VevhOYytIKbsgbDkabjyrrCL1JNitcRkJTK6kj0i~rE61noc5K37w__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "6b43bb6a68bbb9aa209f4b9245ec423989803d63d3582768ad94e73304019d0f",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`AVAILABILITY PERIOD`__\n`━ ROW 1 OF 2:`\n> `❚ 1:` Gacha Availability Period\n> `❚ 2:` <t:1778382000> - <t:1780282799>",
+            "`━ ROW 2 OF 2:`\n> `❚ 1:` Pickup Character/Weapon Exchange Period\n> `❚ 2:` <t:1778382000> - <t:1780887599>\n## __`PICKUP GACHA OVERVIEW`__\n### __`PICKUP CONTENT`__\nThis Pickup Gacha features the following character and weapon!",
+            "■ Featured ★5 Character\n[The Inherited Will] Kikoru Shinomiya (Optimal weapon type: Gauntlet)\n■ Featured ★5 Weapon\nFs-Magni (Gauntlet)",
+            "*For details on the characters and weapons, please refer to Gacha > Pickup Details.\n*The character and weapon listed above will appear in other gachas as well.\n\n### __`RELATED EVENT`__\nDuring the gacha availability period, a trial battle for [The Inherited Will] Kikoru Shinomiya is available!\nPlay it by going to Events > Trial Battle.",
+            "*You can earn clear rewards again upon completing this battle, even if you have already claimed them when this Trial Battle was previously available.\n\n## __`PICKUP GACHA DETAILS`__\n### __`PICKUP GACHA MEDALS`__\nFor every pull you perform in the \"Pickup\" gacha type (hereinafter referred to as Pickup Gacha), you will receive 1 Pickup Gacha Medal. The Medals can be exchanged at the Shop for eligible ★5 characters and ★5 weapons.",
+            "*You can also earn Pickup Gacha Medals when you use Gacha Tickets to pull.\n*Pickup Gacha Medals do not have an expiration date.\n*The items available for exchange with Pickup Gacha Medals will be updated periodically. Please refer to the \"Exchange Period\" at the beginning of this announcement for the dates.\n\n### __`GUARANTEED ★4 OR HIGHER CHARACTER`__\nIn Pickup Gacha, if you perform 9 pulls that all result in weapons, your next Pickup Gacha pull is guaranteed to be a ★4 or higher character.",
+            "For details on available characters, please refer to Gacha > Appearance Rates/History > Appearance Rates > Appearance Rates for Guaranteed ★4 or Higher Character.\n*This guarantee applies whether you perform a 10-pull or 10 single pulls.\n*This guarantee also applies whether you perform 10 pulls on the same Pickup Gacha or a total of 10 pulls across different Pickup Gachas.\n*You can check your past gacha results by going to Gacha > Appearance Rates/History > History.\n*Gacha results from the \"Standard\" or \"Special\" type gachas do not affect this guarantee setting. You can check the gacha type on the Gacha screen and in Gacha > Appearance Rates/History > History.",
+            "### __`OBTAINING DUPLICATE CHARACTERS`__\nWhen you obtain a character you already own, the duplicate copy will automatically be converted into Encounter Stones and/or Talent Shards based on their rarity and how many times you\\'ve obtained them. Encounter Stones can be exchanged for various items in the Shop, while Talent Shards can be used to Ascend characters.\n`━ ROW 1 OF 5:`\n> `❚ 1:` Rarity\n> `❚ 2:` Acquisition Count\n> `❚ 3:` Items Received",
+            "`━ ROW 2 OF 5:`\n> `❚ 1:` ★5\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
+            "`━ ROW 3 OF 5:`\n> `❚ 1:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
+            "`━ ROW 4 OF 5:`\n> `❚ 1:` ★4\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8",
+            "`━ ROW 5 OF 5:`\n> `❚ 1:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8\n\n### __`OBTAINING WEAPONS`__\nWhen you obtain a weapon, you will receive Encounter Stones based on its rarity. Encounter Stones can be exchanged for various items in the Shop.",
+            "`━ ROW 1 OF 4:`\n> `❚ 1:` Weapon Rarity\n> `❚ 2:` Items Received\n`━ ROW 2 OF 4:`\n> `❚ 1:` ★5\n> `❚ 2:` ・Encounter Stone x40",
+            "`━ ROW 3 OF 4:`\n> `❚ 1:` ★4\n> `❚ 2:` ・Encounter Stone x8\n`━ ROW 4 OF 4:`\n> `❚ 1:` ★3\n> `❚ 2:` ・Encounter Stone x2",
+            "*If your weapon storage is full, any weapons and Encounter Stones you receive from Gacha will be sent to your Mail.\n*Unlike characters, when you obtain a weapon you already own, the duplicate copy will not be automatically converted.\n\nIn addition, you can obtain Refinement Crystals by disassembling ★5 weapons from Gacha. Refinement Crystals can be exchanged for certain ★5 weapons in the Shop. For more details, please go to Gacha > Weapon Exchange.\n*To disassemble weapons, open up the global menu on the top right of the Home screen > Storage.\n*Weapon Exchange will be limited to 1 time per month, and will reset on the 1st day of every month at 04:00 JST.",
+            "## __`IMPORTANT`__\n- For details on appearance rates, please refer to Gacha > Appearance Rates/History > Appearance Rates.\n- The availability period and content are subject to change without prior notice. We appreciate your understanding.\n- Pickup characters and weapons may be available again or be on pickup in a future Gacha, Shop, etc."
+        ],
+        "article_unix": [
+            1778382000,
+            1780282799,
+            1780887599
+        ]
+    },
+    "1002230": {
+        "article_name": "[LIMITED] AKARI MINASE PICKUP GACHA NOW AVAILABLE!",
+        "article_type": "gacha",
+        "article_uuid": "1002230",
+        "article_time": 1778382000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002230/4ddfc809df2b9b4a6716e90f57006ead.jpg?Expires=1780359364&Signature=mngZMPjrNDsoajc9wE~qPzbr9VDH91aX8bY-NgX7oEePigjESCf91Og6Q5Id~WGzpoLI7cTHQwJqFPPKkBnYKnJQK7GWU-M932~sy334lYAypo-58RCilRBNXR~Bz2sKQ7IemYamto~XJzszew87f1JEaYNPP7yVkCKr9t8J0C05icoSV6DZk-pdC3IWv-wKh91TZ~N~DesQDWRwFg3cZHkrGHz-QKPssWqv8NsVa-O~M0Vpix2FvQjUmb7OYckI81MtH~PL90JPoZVdw86VWD2cre0MJzwHZWgVr2clFeNSNbO-cmYs-UVjKnQa9fTtGwbs-vLW2mL4136TZtyMmQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "a9f55aaeed91c45b8e8765cb00310740cbd49d0a64b4e1de094598df02fa448f",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`AVAILABILITY PERIOD`__\n`━ ROW 1 OF 2:`\n> `❚ 1:` Gacha Availability Period\n> `❚ 2:` <t:1778382000> - <t:1780282799>",
+            "`━ ROW 2 OF 2:`\n> `❚ 1:` Pickup Character/Weapon Exchange Period\n> `❚ 2:` <t:1778382000> - <t:1780887599>\n## __`PICKUP GACHA OVERVIEW`__\n### __`PICKUP CONTENT`__\nThis Pickup Gacha features the following character and weapon!",
+            "■ New ★5 Character\n[Synchro Aptitude] Akari Minase (Optimal weapon type: Assault Rifle)\n■ New ★5 Weapon\nAR-Hgrumis (Assault Rifle)",
+            "[Synchro Aptitude] Akari Minase can use \"Overflow Attack.\"\nOverflow Attacks activate automatically when specific turns arrive. [Synchro Aptitude] Akari Minase\\'s Overflow Attack performs a Slash attack.\n\n*For details on the characters and weapons, please refer to Gacha > Pickup Details.\n*The character and weapon listed above are available for a limited time in this gacha. They may be available again in the future.",
+            "### __`RELATED EVENT & STORY`__\nDuring the gacha availability period, a trial battle for [Synchro Aptitude] Akari Minase is available!\nPlay it by going to Events > Trial Battle.\n\nThe story featuring [Synchro Aptitude] Akari Minase is available in the Special Event \"In a Gentle Drowse\".\nAlso, [Synchro Aptitude] Akari Minase is featured in Main Story Chapter 11 \"Wanderfalke\"!",
+            "For more details, please check the relevant announcement.\n\n*Even if you are unable to reach the end of the story during the Special Event period, please rest assured that it will be available to view as a Character Story after the event ends.\nYou can access Character Stories from Home > Story > Characters.\n*Character Stories (unlocked at Player Rank 6) can be played at any time after their release.",
+            "## __`PICKUP GACHA DETAILS`__\n### __`PICKUP GACHA MEDALS`__\nFor every pull you perform in the \"Pickup\" gacha type (hereinafter referred to as Pickup Gacha), you will receive 1 Pickup Gacha Medal. The Medals can be exchanged at the Shop for eligible ★5 characters and ★5 weapons.\n*You can also earn Pickup Gacha Medals when you use Gacha Tickets to pull.\n*Pickup Gacha Medals do not have an expiration date.\n*The items available for exchange with Pickup Gacha Medals will be updated periodically. Please refer to the \"Exchange Period\" at the beginning of this announcement for the dates.",
+            "### __`GUARANTEED ★4 OR HIGHER CHARACTER`__\nIn Pickup Gacha, if you perform 9 pulls that all result in weapons, your next Pickup Gacha pull is guaranteed to be a ★4 or higher character.\nFor details on available characters, please refer to Gacha > Appearance Rates/History > Appearance Rates > Appearance Rates for Guaranteed ★4 or Higher Character.\n*This guarantee applies whether you perform a 10-pull or 10 single pulls.\n*This guarantee also applies whether you perform 10 pulls on the same Pickup Gacha or a total of 10 pulls across different Pickup Gachas.",
+            "*You can check your past gacha results by going to Gacha > Appearance Rates/History > History.\n*Gacha results from the \"Standard\" or \"Special\" type gachas do not affect this guarantee setting. You can check the gacha type on the Gacha screen and in Gacha > Appearance Rates/History > History.\n\n### __`OBTAINING DUPLICATE CHARACTERS`__\nWhen you obtain a character you already own, the duplicate copy will automatically be converted into Encounter Stones and/or Talent Shards based on their rarity and how many times you\\'ve obtained them. Encounter Stones can be exchanged for various items in the Shop, while Talent Shards can be used to Ascend characters.",
+            "`━ ROW 1 OF 5:`\n> `❚ 1:` Rarity\n> `❚ 2:` Acquisition Count\n> `❚ 3:` Items Received",
+            "`━ ROW 2 OF 5:`\n> `❚ 1:` ★5\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
+            "`━ ROW 3 OF 5:`\n> `❚ 1:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
+            "`━ ROW 4 OF 5:`\n> `❚ 1:` ★4\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8",
+            "`━ ROW 5 OF 5:`\n> `❚ 1:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8\n\n### __`OBTAINING WEAPONS`__\nWhen you obtain a weapon, you will receive Encounter Stones based on its rarity. Encounter Stones can be exchanged for various items in the Shop.",
+            "`━ ROW 1 OF 4:`\n> `❚ 1:` Weapon Rarity\n> `❚ 2:` Items Received\n`━ ROW 2 OF 4:`\n> `❚ 1:` ★5\n> `❚ 2:` ・Encounter Stone x40",
+            "`━ ROW 3 OF 4:`\n> `❚ 1:` ★4\n> `❚ 2:` ・Encounter Stone x8\n`━ ROW 4 OF 4:`\n> `❚ 1:` ★3\n> `❚ 2:` ・Encounter Stone x2",
+            "*If your weapon storage is full, any weapons and Encounter Stones you receive from Gacha will be sent to your Mail.\n*Unlike characters, when you obtain a weapon you already own, the duplicate copy will not be automatically converted.\n\nIn addition, you can obtain Refinement Crystals by disassembling ★5 weapons from Gacha. Refinement Crystals can be exchanged for certain ★5 weapons in the Shop. For more details, please go to Gacha > Weapon Exchange.\n*To disassemble weapons, open up the global menu on the top right of the Home screen > Storage.\n*Weapon Exchange will be limited to 1 time per month, and will reset on the 1st day of every month at 04:00 JST.",
+            "## __`IMPORTANT`__\n- For details on appearance rates, please refer to Gacha > Appearance Rates/History > Appearance Rates.\n- The availability period and content are subject to change without prior notice. We appreciate your understanding.\n- Pickup characters and weapons may be available again or be on pickup in a future Gacha, Shop, etc."
+        ],
+        "article_unix": [
+            1778382000,
+            1780282799,
+            1780887599
+        ]
+    },
+    "1002220": {
+        "article_name": "SPECIAL EVENT [IN A GENTLE DROWSE] NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002220",
+        "article_time": 1778382000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002220/f6d0781840a743082e627c6dc2d899f0.jpg?Expires=1780359365&Signature=ATZFbONJ0M5MPq-icvL-CPxYMvrVckaYX9abGtlswIqey3WL13Ou~DM98ztE4xuuj4cI7FO1u4v6uCgQfQJwm6poA5snB~ZBJVFezLNCyJotCDYX3C3~DFcIPusDSovLwOqxigCkIpZdd~h7U6igr-ltKBu-qIZuiRaLQYRoLIY98uxj3MlXyE~siGQnaz02EMm6~pQoD1Lyka5d81xt~2zlkuPo~uK5tKfFAUtBFXa2OR4O12mGTaepnwfskXj5llxDsp00F~yuhZxRKBqZnNRxg5uXBekygLMnK3akyk7g~Twvx62djDdeVG7pg-uRM86fvFuLi1f5lUelbmv6IQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "194d45fbb5ffc86ed53eb92634b1addefca089b8c467da6d206ece89739cef01",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`SPECIAL EVENT NOW AVAILABLE`__\nThank you for playing KAIJU NO. 8 THE GAME.\n\nSpecial Event [In a Gentle Drowse] is now available as of <t:1778382000>.",
+            "In this Special Event, you can earn:\n・A new Home background, also featured in the story\n・Over 1,500 Dimensional Crystals\n・Potential Shards II\n...as well as other rewards and titles!",
+            "Take part in the event from Home > Events > Special Event after clearing Main Story Chapter 0.\n\n*Dimensional Crystals can be obtained from quest clear rewards, mission rewards, and from the event item Exchange Shop.\n*The method for exchanging Interlude Notes varies from event to event.\n\n### __`AVAILABILITY PERIOD`__",
+            "<t:1778382000> - <t:1780282799>\n\n*Reward claim and event item exchange will be available until <t:1780887599>.\n\n## __`EVENT OVERVIEW`__\nThe Special Event offers the following content: Story, Quests, and Challenges. Clear quests to unlock the rest of the story.",
+            "■ Story\nThe story focuses on specific characters.\nYou must clear quests to progress through parts of the story.\n\nEven if you are unable to reach the end of the story during the Special Event period, please rest assured that it will be available to view as a Character Story after the event ends.",
+            "You can access Character Stories from Home > Story > Characters.\n\n■ Quests\nDeploy for quests by consuming Stamina.\nBy clearing a quest, you can proceed to the next one.\nQuests have Combat Objectives. If you clear all Combat Objectives, you will be able to use the skip function on subsequent attempts.",
+            "Clear quests to obtain Interlude Notes, which can be exchanged for items in the Shop.\n\nYou can obtain a new Home background by exchanging Interlude Notes in the Shop.\nOnce obtained, you can use this Home background even after the event period.",
+            "*After the event period, the Home background will be available for exchange with Encounter Stones at Home > Shop > Encounter Stone.\nIf you already own the featured Home background, it will be converted into the same number of Encounter Stones required for the exchange.\n\n■ Challenges\nIn Challenges, you can take on high-difficulty battles.\nStage effects will be active in Challenges. Be sure to make full use of them to secure yourself an advantage.",
+            "■ Missions\nYou can earn rewards by clearing various missions.\nYou can also earn the exchange item Interlude Notes from mission rewards, which can be exchanged for various items in the Shop.\n\nIn this event, new missions will unlock sequentially starting from <t:1778439600>.",
+            "The mission unlock schedule is as follows:\n- DAY 2 Missions\n<t:1778439600>\n- DAY 3 Missions\n<t:1778526000>\n- DAY 4 Missions",
+            "<t:1778612400>\n- DAY 5 Missions\n<t:1778698800>\n\n*Interlude Notes will be available for use until <t:1780887599> and will be recalled when expired.",
+            "### __`TITLES`__\nIn this Special Event, you can obtain separate titles after meeting the following conditions: \"Obtain a total of 27☆ in Special Event Quests\" and \"Obtain a total of 6☆ in Special Event Challenges.\"\n\n## __`SPECIAL EVENT RELEASE CELEBRATION LOGIN BONUS`__\nLog in during the period to get up to 10 Pickup Gacha Tickets and 1 Stamina Jelly.",
+            "## __`IMPORTANT`__\nThe date and time of the data update are subject to change. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1778382000,
+            1780282799,
+            1780887599,
+            1778439600,
+            1778526000,
+            1778612400,
+            1778698800
+        ]
+    },
+    "1002190": {
+        "article_name": "FIERCE BATTLE AREA (LIMITED): POINT OF REVERSAL NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1002190",
+        "article_time": 1777604400,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002190/41902813716042ff779b4b5d8cf770c7.jpg?Expires=1780359366&Signature=flHoiZlWm-Gm800NYhupfUWLRTW1Gcl1Ck24MBgnjy2xwcZCLB7pqNDg2kFJCNsFDbcYWwfOJHJ6VygqlsjoaEMnFuFFhBqI11C43R5DxNBJsH-b1FMmqMxhO71XSPCA0575uqBruyuucE-jS2-PrgANFN7cai6s~ViR7JmZnI2ujAEAQRbDS84-xy9rzt6UV38p6GF~SxK2ZFPCOIY-wChzCAiWP4OLr2SoY9F8598QiMYZTYMIh1xr3SKPVOUHiD1MVWuAMJQ5JrC2I1L1v3ALOHr0Ou-w7u~FOU~tVn2fSZ~W2Nd59RpWG8bAcrVknK3YbhglAsBpcUOqYqC9Qg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "076fb7858073520f8e5ee837aa7dcd2918235183b69421cf578bac1c489632a8",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nFierce Battle Area (Limited): Point of Reversal has come online as of <t:1777604400>.\nUnlike Fierce Battle Area (Permanent), Fierce Battle Area (Limited) is a limited-time event that comes with its own unique stage effects.\nAlso, some quests feature trial guest characters that you can include in your squad.\nUtilize stage effects, challenge the Kaiju, and clear quests to earn rewards and titles!",
+            "The quick clear feature is available for this event.\nStages up to Stage 06 will be unlocked and available as initial stages. By clearing any unlocked stage with ☆3, all its previous stages will also be considered cleared with ☆3.\n\n### __`AVAILABILITY PERIOD`__\n<t:1777604400> - <t:1780628399>",
+            "## __`ELIGIBILITY`__\nReach Spec-Ops Rank 2 or higher.\n\n## __`EVENT DESCRIPTION`__\n- Fierce Battle Area (Limited) is a battle event where you can go up against powerful Kaiju.",
+            "- Access the event from Events > Fierce Battle Area.\n- Fierce Battle Area does not require Stamina to challenge.\n- Some quests are of higher difficulty and require you to form 2 squads.\n- By completing ⭐︎ Objectives and clearing quests, you can earn rewards like Dimensional Crystals, Proofs of Valor, Emblems of Defense, etc.\n- You can exchange Proofs of Valor and Emblems of Defense for enhancement materials and other items in the Shop.",
+            "## __`STAGE EFFECTS`__\n- Fierce Battle Area (Limited) features unique stage effects.\n- Utilize the stage effects to give yourself an advantage in neutralizing Kaiju.\n\n## __`TRIAL CHARACTERS`__\n- Some Fierce Battle Area (Limited) quests feature trial guest characters that you can include in your squad.",
+            "## __`TITLES`__\n- In this Fierce Battle Area, you can obtain separate titles after meeting the following conditions: \"Obtain all Clear Rewards\" and \"Obtain the ☆45 Reward.\"\n\n## __`IMPORTANT`__\n- Once the event ends, Fierce Battle Area (Limited) rewards will no longer be available (and will not be sent to your Mail). Please remember to claim them within the event period."
+        ],
+        "article_unix": [
+            1777604400,
+            1780628399
+        ]
+    },
+    "1002265": {
+        "article_name": "FIERCE BATTLE AREA (PERMANENT): HIGH-DIFFICULTY STAGES ADDED!",
+        "article_type": "event",
+        "article_uuid": "1002265",
+        "article_time": 1777604400,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002265/0919c1b2761244207f54b42174535f20.jpg?Expires=1780359368&Signature=dMm~lMPPjvIpYTqSG6eI0c4F9MyylmbwEZbzKBKQUNsvqu5LtlolzWYRVRIdJ24o01~I5tuNf~707His7iYN3Zn8QM34YsQ042Wg9zMOBoPc5mAnIaC3g--w8n9daiJ9tbc5E28hifVdHrYYvE5ohT9PsP4Wkn7NVFmpmdZvMey4WnQZ0AnTT~sPcn-hmksyw6E5s79P1f3GioMCdgqTZ8Q7jIfjuXJhl-uIOI48JUXhS4hsQm-pJqfVd7U14yf~TqrsxXE5lGNuFF3G3~kk-epB5GGULfcpAUqAp5e5~F5LwSSA3qwCM-O8MeaIvxlvFnz7EEr3MGtICV042bTM8A__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "03b309d73a7f21417011d53aebbf36fd583aa382a5382500935fd217a009a1ab",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nNew high-difficulty stages have been added to Fierce Battle Area (Permanent) as of <t:1777604400>.\nFierce Battle Area features battle content where you can go up against powerful Kaiju. Permanent areas can be challenged at any time.\n\nThe stages added this time feature extremely high-difficulty battles. While the rewards may be modest, we encourage you to put your best-trained squads to the test in these new high-difficulty challenges!",
+            "Challenge the Kaiju, complete ⭐︎ Objectives, and clear quests to earn rewards and titles!\n\n### __`AVAILABILITY PERIOD`__\nStarting <t:1777604400>\n\n## __`ELIGIBILITY`__",
+            "Reach Spec-Ops Rank 2 or higher.\n\n## __`EVENT DESCRIPTION`__\n- Fierce Battle Area (Permanent) is a battle event where you can go up against powerful Kaiju.\n- Access the event from Events > Fierce Battle Area.\n- Fierce Battle Area does not require Stamina to challenge.",
+            "- Some quests are of higher difficulty and require you to form 2 squads.\n- By completing ⭐︎ Objectives and clearing quests, you can earn rewards like Dimensional Crystals, Proofs of Valor, Emblems of Defense, etc.\n- You can exchange Proofs of Valor and Emblems of Defense for enhancement materials and other items in the Shop.\n*The high-difficulty stages added this time require you to form only 1 squad. Please note that although rewards such as Dimensional Crystals are not available for these stages, modest clear rewards are still provided.\n\n## __`TITLES`__",
+            "- In this update, you can obtain a title after meeting the following condition: \"Clear Fierce Battle Area (High Difficulty) 5.\"\n\n## __`IMPORTANT`__\n- The availability period and content are subject to change without prior notice. We appreciate your understanding."
+        ],
+        "article_unix": [
+            1777604400
+        ]
+    },
+    "1002170": {
+        "article_name": "NEW TRAININGS: PARAVES-TYPE KAIJU Α & MOLE-TYPE/FEET ADDED!",
+        "article_type": "news",
+        "article_uuid": "1002170",
+        "article_time": 1777604400,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002170/9f16f660c61086583ff51dc6822f2f21.jpg?Expires=1780359369&Signature=UGYQ3ZUV~bjeNDJglvDcgf0Hp5qqPFSFurTTLKmwvmUC76fBz3gKBGKqMqqxf6N0nmD6KjwNeLt2ipN7V0Fv1qeN8BsRAaSUfoVHUClrhJFUeI95REgDQQIse89nSpvZ2tWQDxeANLOEuOT6j0ghIiVwN28R4o4Aii44H2CpAAic21Yr5~G0ZDqayH2lTTmOoGjVx6M59L~xpsRKXKqeiCLE43wl5uKhvGJI9ZHWqi0C2ofrEhAu9NQLIoPEnBv3d9PB3qx0Xj6NEe0frjAgEYNwfnqy6Fa3XToM1xocuDrKftmtKOafeMwb4Qxf5dsUJ5ml-z7LOnU7w1tTWn33nQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "c5dab2bf906d543f544a8752076d208c9e725b80c83c476c6aa3dfcdacf8ab7c",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nNew Trainings and Uniparts suitable for Attackers are now available starting <t:1777604400>!\n\n## __`OVERVIEW`__",
+            "■ New Trainings\n・Paraves-Type Kaiju α has been added to Training: Unimaterial.\nClear the Training and earn Unimaterials [Paraves-Type Kaiju α].\n*Paraves-Type Kaiju α unlocks when you reach Spec-Ops Rank 2.\n\n・Mole-Type/Feet has been added to Training: Honju Neutralization.",
+            "Clear the Training and earn Mole-Type Kaiju Material [Feet].\n\n■ New Uniparts\nThe new Paraves-Type Unipart α set has been added. These uniparts can be developed using Unimaterials [Paraves-Type Kaiju α].\nThis is a unipart set that is suitable for Attackers with skills that consume HP.",
+            "▼ Set Effect\n`━ ROW 1 OF 3:`\n> `❚ 1:` ★9\n> `❚ 2:` ・HP +28.1%\n> `❚ └─` ・CRIT Rate +16.3%\n> `❚ └─` ・After the equipped unit loses HP, applies DMG dealt +3% (2 turn(s)) to the equipped unit. Max 5 stack(s).",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` ★12\n> `❚ 2:` ・HP +37.4%\n> `❚ └─` ・CRIT Rate +21.8%\n> `❚ └─` ・After the equipped unit loses HP, applies DMG dealt +4% (2 turn(s)) to the equipped unit. Max 5 stack(s).",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` ★15\n> `❚ 2:` ・HP +46.8%\n> `❚ └─` ・CRIT Rate +27.2%\n> `❚ └─` ・After the equipped unit loses HP, applies DMG dealt +5% (2 turn(s)) to the equipped unit. Max 5 stack(s).",
+            "*Uniparts unlock when you reach Spec-Ops Rank 2.\n\nAlso, Unimaterial [Paraves-Type Kaiju α] will be added to the Shop\\'s Unipart Resource and Expedition lineups.\n\n### __`IMPORTANT`__\n・The content is subject to change without prior notice.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1777604400
+        ]
+    },
+    "1002150": {
+        "article_name": "MAIN STORY CH. 11 RELEASE & CELEBRATION EVENT",
+        "article_type": "event",
+        "article_uuid": "1002150",
+        "article_time": 1777604400,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002150/315af5711a4b858293471d9cbc430503.jpg?Expires=1780359371&Signature=m~~YPwggmQVZktuF3r5fDWQrmwb~9oo6w634HLr-Oox6oHpMqgAaG~AUQIaEuWKQhjRodfPWC5Hos41YhlSHEpB5BP6NX3Bycqblmi7axUvWTL4x0PCM8MjhfHYl2cBi7EYBRvLliCCgqkJQvICx0ZGtyPUuA3tXiyZEXjjg80erh-cZ6fvFfsppFy0hlsH0XNtlzbL-GWPgBDekTojengb8~u4EBjG~rEo6VbZ576DWjHcZRGGDpm74luMV8l8V4W4beVBVcVPgUZd7kf92ApGSXanrhVYDM5o27s7IceDvt64TeJ-BD7ab22alIMepxDrAdasgmJwB4pH89mkxRw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "ae6ba9f2cb8cb854bc6ac774bf4c513dcf98b4cadd10c27c0753c54af9213494",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`MAIN STORY CHAPTER 11 RELEASE`__\nThank you for playing KAIJU NO. 8 THE GAME.\n\nMain Story Chapter 11 \"Wanderfalke\" is now available as of <t:1777604400>.",
+            "Head to Home > Story and select Main Story Chapter 11 to experience it.\nWhile you can play the content even if you have not cleared the previous Main Story chapters, we recommend clearing up to Chapter 10 first.\n\nIn addition, you can obtain a special Home background upon clearing Main Story Chapter 11.\n\n## __`NEW CHAPTER EVENT`__",
+            "To celebrate the release of Main Story Chapter 11, the New Chapter Event is now available.\nTake part in the event from Home > Events > New Chapter Event after clearing Main Story Chapter 0.\n\n### __`AVAILABILITY PERIOD`__\n<t:1777604400> - <t:1780282799>",
+            "### __`EVENT OVERVIEW`__\nProgress through Main Story Chapter 11 and challenge the score battles to earn rewards such as Dimensional Crystals.\n\n■ Score Battle\nDuring the event, you can challenge score battles of varying difficulties.\nThese battles do not consume Stamina and are unlocked by progressing through the new Main Story chapter.",
+            "Please check the event screen for the specific unlock conditions for each difficulty.\n\nFor the score battles in this event, your performance is evaluated and scored based on the following three criteria:\n・Number of rounds elapsed at victory\n・Total Blast DMG dealt\n・Max DMG in a single attack",
+            "Scores are ranked from C, B, A, to S. (No score will be awarded for a defeat.)\nYour current highest score can be viewed on the event screen. For reference on further increasing your scores, please check the breakdown for each criterion on the Result screen.\n\nThere are two types of rewards related to score battles: first-clear rewards and mission rewards, which are earned by achieving a certain score.\n\n■ Stage Effects",
+            "The New Chapter Event features unique stage effects.\nUtilize the stage effects and push for the highest score.\n\n■ Missions\nYou can earn rewards and titles by clearing various missions.",
+            "## __`MAIN STORY CHAPTER 11 RELEASE CELEBRATION LOGIN BONUS`__\nLog in during the period to get up to 10 Pickup Gacha Tickets.\nIn addition, you can get valuable items such as THE GAME Gacha Tickets and Stamina Jellies.\n\n### __`AVAILABILITY PERIOD`__\n<t:1777604400> - <t:1779821999>",
+            "## __`IMPORTANT`__\nThe schedule for this event is subject to change without prior notice. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1777604400,
+            1780282799,
+            1779821999
+        ]
+    },
+    "1002100": {
+        "article_name": "NEW UPCOMING FEATURE: UNLOCK POTENTIAL!",
+        "article_type": "news",
+        "article_uuid": "1002100",
+        "article_time": 1776826800,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002100/3ec556216afbf8b1556e33ace1a5b6ff.jpg?Expires=1780359372&Signature=ThnlKrfyQ6J619TEe8T53DLdBK38TJbVbN8~XvJ09xzGKOz-KSdLquc7L~M0i-sU4njjhrScUKEgEt5Y8P2LVXgeAE31yvO2nXGcc7VnKNCZrLYDDOW1JqWs6pWHMtrCrWOghncqfQMCkvlSwYPzc2aP9iGxZs57o9FxK7AlheMf6whIiGDoHId~arSYfiOwtIJ1K2irDFA0Qni1KUr-YFKAU4kv-TitpGMboIL7UCqtn4dmyIQhTnE8dgFyRrieQAeTZmwoNcUCsaTbmL12kFJL8HQz8AOTAf2D2zxJQhFgFDUGnKemH0eVAexrzFIYXVolT~l~K1g9ODCayR4OSQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "b8db29b124f32b7a409c0baf04f411618ba9688c3f0a4c67da9d68d2cc2f3f58",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nA new Unlock Potential feature will be added after the next maintenance!\n\nThis new feature will allow you to further enhance the skills and stats of certain characters.",
+            "Before its release, here is an overview of this feature and details regarding the first 3 characters eligible for this feature!\n\n*The next maintenance is scheduled for <t:1777348800>.\n\n### __`AVAILABILITY PERIOD`__\nAfter the next maintenance",
+            "## __`UNLOCK REQUIREMENT`__\nReach Spec-Ops Rank 2 or higher.\n\n## __`PERFORMING UNLOCK POTENTIAL`__\n- Perform Unlock Potential for eligible characters via Home screen > Characters > Unlock Potential.",
+            "- Up to 5 stages can be unlocked for the characters, with each stage providing a skill or stat enhancement.\n- Unlocking requires the new items Potential Shard I and Potential Shard II.\n\n## __`POTENTIAL SHARDS`__\nPotential Shard I and Potential Shard II are new items required for Unlock Potential.",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` Item\n> `❚ 2:` Main Sources",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` Potential Shard I\n> `❚ 2:` ・New Training: Unlock Potential Material\n> `❚ └─` ・Event rewards",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` Potential Shard II\n> `❚ 2:` ・Event rewards\n\n*New Training: Unlock Potential Material will be added after the next maintenance. The Training unlocks when you reach Spec-Ops Rank 2.\n*Training: Unlock Potential Material can be attempted once per day and does not require Stamina to challenge.",
+            "*Potential Shard II will be obtainable for the first time in the event starting <t:1777604400>.\n\n### __`ITEMS REQUIRED TO UNLOCK EACH STAGE`__\n`━ ROW 1 OF 6:`\n> `❚ 1:` Stage\n> `❚ 2:` Required Items",
+            "`━ ROW 2 OF 6:`\n> `❚ 1:` 1\n> `❚ 2:` ・Potential Shard I x250\n`━ ROW 3 OF 6:`\n> `❚ 1:` 2\n> `❚ 2:` ・Potential Shard I x250",
+            "`━ ROW 4 OF 6:`\n> `❚ 1:` 3\n> `❚ 2:` ・Potential Shard I x250\n`━ ROW 5 OF 6:`\n> `❚ 1:` 4\n> `❚ 2:` ・Potential Shard I x250",
+            "`━ ROW 6 OF 6:`\n> `❚ 1:` 5\n> `❚ 2:` ・Potential Shard II x100\n*The above requirement applies to all characters.\n\n## __`ELIGIBLE CHARACTERS`__",
+            "Along with the addition of this feature, the following characters will be eligible for Unlock Potential:\n- ★5 [Hoshina-Style Sword-Slay Technique] Soshiro Hoshina\n- ★5 [Off the Scale] Mina Ashiro\n- ★5 [The Unbreakable Iron Wall] Isao Shinomiya\n\n*More characters are scheduled to be eligible for Unlock Potential in later updates.",
+            "## __`LIST OF ENHANCEMENTS`__\n### __`1. [HOSHINA-STYLE SWORD-SLAY TECHNIQUE] SOSHIRO HOSHINA`__",
+            "`━ ROW 1 OF 6:`\n> `❚ 1:` Stage\n> `❚ 2:` Item Enhanced\n> `❚ 3:` Details",
+            "`━ ROW 2 OF 6:`\n> `❚ 1:` 1\n> `❚ 2:` Passive Skill\n> `❚ 3:` ▼ Effect Enhanced\n> `❚ └─` ・Fierce: This unit\\'s CRIT Rate +44% and CRIT DMG +55%.\n> `❚ └─` *When max enhanced",
+            "`━ ROW 3 OF 6:`\n> `❚ 1:` 2\n> `❚ 2:` Stat\n> `❚ 3:` ATK +100",
+            "`━ ROW 4 OF 6:`\n> `❚ 1:` 3\n> `❚ 2:` Combat Skill\n> `❚ 3:` ▼ Effect Enhanced\n> `❚ └─` ・Deals Slash DMG equal to 135% of this unit\\'s ATK to all Kaiju.\n> `❚ └─` *When max enhanced",
+            "`━ ROW 5 OF 6:`\n> `❚ 1:` 4\n> `❚ 2:` Stat\n> `❚ 3:` HP +200",
+            "`━ ROW 6 OF 6:`\n> `❚ 1:` 5\n> `❚ 2:` Passive Skill\n> `❚ 3:` ▼ New Effect Added\n> `❚ └─` ・After activating Normal Attack, Fierce will not be removed.",
+            "### __`2. [OFF THE SCALE] MINA ASHIRO`__\n`━ ROW 1 OF 6:`\n> `❚ 1:` Stage\n> `❚ 2:` Item Enhanced\n> `❚ 3:` Details",
+            "`━ ROW 2 OF 6:`\n> `❚ 1:` 1\n> `❚ 2:` Passive Skill\n> `❚ 3:` ▼ New Effect Added\n> `❚ └─` ・When attacking a Giant-class Kaiju, this unit\\'s DMG dealt +19.2% and CRIT Rate +100%.",
+            "`━ ROW 3 OF 6:`\n> `❚ 1:` 2\n> `❚ 2:` Stat\n> `❚ 3:` ATK +100",
+            "`━ ROW 4 OF 6:`\n> `❚ 1:` 3\n> `❚ 2:` Combat Skill\n> `❚ 3:` ▼ Effect Enhanced\n> `❚ └─` ・Applies DMG dealt +58.4% (2 turn(s)) and Normal Attack DMG Multiplier +59.4% (2 turn(s)) to this unit.\n> `❚ └─` *When max enhanced",
+            "`━ ROW 5 OF 6:`\n> `❚ 1:` 4\n> `❚ 2:` Stat\n> `❚ 3:` SPD +10",
+            "`━ ROW 6 OF 6:`\n> `❚ 1:` 5\n> `❚ 2:` Passive Skill\n> `❚ 3:` ▼ New Effect Added\n> `❚ └─` ・When Focus is at its max stacks, applies CRIT Rate +100% (2 turn(s)) and CRIT DMG +110% (2 turn(s)) to this unit.\n> `❚ └─` *When max enhanced",
+            "### __`3. [THE UNBREAKABLE IRON WALL] ISAO SHINOMIYA`__\n`━ ROW 1 OF 6:`\n> `❚ 1:` Stage\n> `❚ 2:` Item Enhanced\n> `❚ 3:` Details",
+            "`━ ROW 2 OF 6:`\n> `❚ 1:` 1\n> `❚ 2:` Passive Skill\n> `❚ 3:` ▼ Effect Enhanced\n> `❚ └─` ・While having a Shield, this unit\\'s chance of being targeted by Kaiju greatly increases.",
+            "`━ ROW 3 OF 6:`\n> `❚ 1:` 2\n> `❚ 2:` Stat\n> `❚ 3:` Effect RES +10%",
+            "`━ ROW 4 OF 6:`\n> `❚ 1:` 3\n> `❚ 2:` Combat Skill\n> `❚ 3:` ▼ New Effect Added\n> `❚ └─` ・Applies DMG Taken Reduction +10.8% (2 turn(s)) to all allies.\n> `❚ └─` *When max enhanced",
+            "`━ ROW 5 OF 6:`\n> `❚ 1:` 4\n> `❚ 2:` Stat\n> `❚ 3:` DEF +100",
+            "`━ ROW 6 OF 6:`\n> `❚ 1:` 5\n> `❚ 2:` Passive Skill\n> `❚ 3:` ▼ New Effect Added\n> `❚ └─` ・This unit\\'s Shield Application Multiplier +55%.\n> `❚ └─` *When max enhanced",
+            "## __`IMPORTANT`__\n- The availability period and content are subject to change without prior notice. We appreciate your understanding."
+        ],
+        "article_unix": [
+            1777348800,
+            1777604400
+        ]
+    },
+    "1002060": {
+        "article_name": "VERSION 1.9.0 UPDATE NOW LIVE",
+        "article_type": "update",
+        "article_uuid": "1002060",
+        "article_time": 1777363200,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002070/6f41140cdbd519344c7d83a691478758.jpg?Expires=1780359374&Signature=SJHLxBdBrkCpup~ltSDhwH5gv3ZzW8zHjCemIM8Mt8SyD-FPK9g6gUZ~p0lOLgrC9dvPMCShoB55LI8Vy7zkwNQbAagM6kHXE9f7AR1r4kabDbMou37ZAhA2e~TjPRPT3W4WlJfrZNSoG-rNGnL4N9rhYy13XSn0FhoqYnL3~4n1h4Hq96Mqt-TTE8nsfNxDOoI6opPLfltl7WqGCkhRNzur-JgRlPwD-DInubfKQH~whEv3y3frNpqc~N7PtMAsZZ93ks2GDnskysjsubNmxrLB2anO5se7G5jNBGmIvqaO6n359sAcLTHW2-3dsO-Sm1YIVDViPloqRptIefkfCg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "22c2a7339b495e358615f4217089ad6265d657729b149212a00227b9697ab220",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nThank you for playing KAIJU NO. 8 THE GAME.\n\nMaintenance has been completed. The Version 1.9.0 update is now available.\nThank you for your cooperation during the maintenance.",
+            "## __`UPDATE CONTENT`__\n■ New Gacha\nScheduled to start: <t:1777604400>\nFor more details, please check our official X ([@kj8_TheGame_EN](https://x.com/Kj8_TheGame_EN)) and future announcement.",
+            "■ Main Story Chapter 11 Release\nScheduled to start: <t:1777604400>\nMain Story Chapter 11, the New Chapter Event, and Chapter 11 Release Celebration Login Bonus will be available.\nFor more details, please check the upcoming announcement.\n\n■ Fierce Battle Area (Permanent) New High-Difficulty Stages",
+            "Scheduled to start: <t:1777604400>\nNew high-difficulty stages will be added to Fierce Battle Area (Permanent).\nPut your best-trained squads to the test in these new high-difficulty challenges!\nFor more details, please check the upcoming announcement.\n\n■ Fierce Battle Area (Limited)",
+            "Scheduled to start: <t:1777604400>\nA new Fierce Battle Area (Limited) will be available.\nFor more details, please check the upcoming announcement.\n\n■ Kaiju Rush\nScheduled to start: <t:1777690800>",
+            "Kaiju Rush will be available.\nFor more details, please check the upcoming announcement.\n\n■ Large Conquest\nScheduled to start: <t:1778727600>\nLarge Conquest will be available.",
+            "For more details, please check the upcoming announcement.\n\n■ 2x Training Rewards Campaign\nA campaign offering 2x rewards for certain Trainings will begin.\n\n### __`TRAINING: DEFENSE FORCE MANUAL—2X REWARDS CAMPAIGN AVAILABILITY PERIOD`__",
+            "<t:1777575600> - <t:1778698799>\n\n### __`TRAINING: KAIJUMITE—2X REWARDS CAMPAIGN AVAILABILITY PERIOD`__\n<t:1778698800> - <t:1779476399>\n\n- During the campaign, receive 2x rewards when completing designated Trainings.",
+            "- Rewards can be doubled up to 10 times per day.\n- The daily attempt limit resets at the in-game daily reset time.\nFor more details, please check the upcoming announcement.\n\n■ New Feature: Unlock Potential\nThe new Unlock Potential feature has been added to further enhance certain characters\\' skills and stats.",
+            "By using the new item Potential Shard, you can unlock up to 5 stages, earning various enhancement effects at each stage.\nAdditionally, the new Unlock Potential Material Training has been added as a way to obtain Potential Shard I.\n*This feature and the new Training unlock upon reaching Spec-Ops Rank 2.\nFor more details, please check the relevant announcement.\n[・New Upcoming Feature: Unlock Potential!](https://info.kj8-thegame.com/news/news/1002100?language=en)",
+            "■ Update to New Chapter Event\nThe following updates have been implemented to Score Battles:\n・New score criteria have been added. Furthermore, a dialog has been added to the event screen to allow you to check the score criteria for the respective battle.\n\n■ Updates to Kaiju Rush\nThe following updates have been implemented to Kaiju Rush:",
+            "・Strategy Card scores are now displayed as additive numerical values instead of percentages (%).\n・The design of Strategy Cards has been completely revamped.\n・Visual effects are now displayed for powerful Strategy Cards that appear after Designated Kaiju battles.\n\n■ Recommended Character Display\nScheduled to apply: <t:1777604400>",
+            "In events featuring stage effects, recommended characters who can benefit from those effects will be displayed.\n*This feature will be applied sequentially to events held after the above date.\n\n■ Update to Battle UI\nThe following update has been implemented to the battle screen:\n・When HP is recovered before or after activating a skill due to status effects or stage effects, a preview of the HP recovery amount will be displayed on the character\\'s HP bar.",
+            "*If an HP reduction effect occurs simultaneously, the combined prediction will be displayed.\n\n・Resolved Issues\nThe following issues have been resolved:\n\n・The \"Owned Dimensional Crystals (Paid) Details\" may not update from the previous count.",
+            "*This is only a display issue. The actual amount owned is updated correctly.\n\n・The total neutralization counts displayed on the Large Conquest event screen may not match the sum of the counts for each individual battle.\n\n・For Special Event Daily Missions, if you meet the clear conditions but have yet to claim the mission rewards when the daily reset occurs, a badge notification remains undismissed even though you are unable to claim the rewards after the reset.",
+            "・If you lose a battle when the availability period for Large Conquest has ended and attempt to retry, you may still incorrectly be able to retry the failed battle.\n\n・Unintended behavior may occur during Auto Battle for characters with a companion.\n\n## __`IMPORTANT`__\n- After this maintenance, a download of approximately 1.4 GB for the mobile version, or 4.2 GB for the PC version will be required. A Wi-Fi connection is recommended for download.*This data update will perform data optimization, including data from previous updates. As some data will be overwritten, the app\\'s total size is estimated to be approximately 7.4 GB for the mobile version and 14.9 GB for the PC version.",
+            "We appreciate your cooperation as we continue to work on improving our services.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1777604400,
+            1777690800,
+            1778727600,
+            1777575600,
+            1778698799,
+            1778698800,
+            1779476399
+        ]
+    },
+    "1002080": {
+        "article_name": "[UPDATED] REGARDING CURRENTLY CONFIRMED ISSUES",
+        "article_type": "known issue",
+        "article_uuid": "1002080",
+        "article_time": 1779339600,
+        "article_logo": null,
+        "article_hash": "070e55a2e554d525b7b65c6ea2a595b30170960bff90f322e4973595a4d7b877",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\nWe would like to inform you of the issues we have currently confirmed.\nWe sincerely apologize for any inconvenience.\n\nThese issues are scheduled to be fixed in a future version update.\nWe will make another announcement or update this one once the fix is complete.",
+            "## __`RESOLVED ISSUES`__\nUpdated <t:1779339600>\n・Some items cannot be claimed once the number of owned Encounter Stones reaches the storage limit.\n*The storage limit for Encounter Stones has been increased to 9,999,999.",
+            "## __`ONGOING ISSUES`__\nUpdated <t:1779246000>\n・Under certain conditions during battle, unintended voice lines may play when buffs are applied to all allies.\n*This is only an audio issue. It does not impact the battle or the actual effects.\n\n・When forming a squad with certain combinations of battle buddies, voice lines may not play during Follow-Up Skills or Core Exposures.",
+            "Updated <t:1779246000>\n・After performing Unlock Potential, the screen display may not update correctly and may continue to show the pre-unlock stage.\n*This is only a display issue. The actual unlock (stat increases, etc.) and item consumption are processed correctly.\n*Returning to the Home screen will allow the information to display correctly.\n\n・During battle, if multiple recovery effects occur simultaneously, the amount to be healed may display incorrectly.",
+            "*The actual amount healed is correct.\n\n・A communication error may occur when manually activating an Ultimate during Auto Battle.\n*Turning off Auto Battle before using an Ultimate will allow the battle to proceed normally.\n\n・The PLT destruction animation may play twice during battle.",
+            "*This is only a display issue. It does not affect the display of the remaining PLT count after PLT destruction."
+        ],
+        "article_unix": [
+            1779339600,
+            1779246000
+        ]
+    },
+    "1001878": {
+        "article_name": "REGARDING APP INSTABILITY ON IOS 26.4 AND IPADOS 26.4",
+        "article_type": "known issue",
+        "article_uuid": "1001878",
+        "article_time": 1775704500,
+        "article_logo": null,
+        "article_hash": "d43c9319d9c7efd382da9a3971b9041a9c8152aaf49ae63b2f686e94567ffc0c",
+        "article_node": [
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nWe have identified an issue where the app may unexpectedly shut down more frequently on certain devices that have updated to iOS 26.4 or iPadOS 26.4.\n\nThis issue is currently being investigated. However, it may require some time for a fix to be implemented.",
+            "We sincerely apologize for any inconvenience."
+        ],
+        "article_unix": []
+    },
+    "1001690": {
+        "article_name": "NEW TRAINING: WOLF-TYPE KAIJU Α ADDED!",
+        "article_type": "news",
+        "article_uuid": "1001690",
+        "article_time": 1772334000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1001690/a0a38f3e5d713ee9990af200ef455301.jpg?Expires=1780359378&Signature=SOvwvwmL6mNAKUlAnHNeCRSnGryoNx1Rvpi9Y~GTNWHnj0j4cOgp2NgEKFVTpS8vr9PP6gX60beVOqlwrlGA3rlVBvY73o-a3VKnoMhzFQF9JY~KeyReBKuStN~WOMJVjvBn0Azq5pBXf9CrM2ORjh0NDCe~TynD5mU0aSaWUBkbqUXZsp8-ivIs-1K9GvuNzzSG8gpLlSa6pxIdQ7iDVwwVa4AVKnU6DiqC6RIx37vuE4VlnGNh55bw-KMfi4zijrSdrxe~lZdDmjE8bwvf-glTYAGUNxQkL2O-2gdqnROWImouQIvF5TyhWo~oOmtJXPesJtSCXJhzqVDeAUnitg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "c94aaac613dc8b087ab7c6340017d176acf4d30abdd1a172cfb071e6f3a7b66e",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nNew Trainings and Uniparts suitable for Attackers are now available starting <t:1772334000>!\n\n## __`OVERVIEW`__",
+            "■ New Trainings\n・Wolf-Type Kaiju α has been added to Training: Unimaterial.\nClear the Training and earn Unimaterials [Wolf-Type Kaiju α].\n*Wolf-Type Kaiju α unlocks when you reach Spec-Ops Rank 2.\n\n・Wolf-Type/Claws has been added to Training: Honju Neutralization. Clear the Training and earn Wolf-Type Kaiju Material [Claws].",
+            "■ New Uniparts\nThe new Wolf-Type Unipart α set has been added. These uniparts can be developed using Unimaterials [Wolf-Type Kaiju α].\nThis is a unipart set that is suitable for Attackers that deal status ailments.\n\n▼ Set Effect",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` ★9\n> `❚ 2:` ・CRIT Rate +20.4%\n> `❚ └─` ・Effect Hit Rate +13.4%\n> `❚ └─` ・After the equipped unit activates Combat Skill against a Kaiju that has a status ailment, applies DMG dealt +5.9% (2 turn(s)) to the equipped unit. Max 3 stack(s).",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` ★12\n> `❚ 2:` ・CRIT Rate +27.2%\n> `❚ └─` ・Effect Hit Rate +17.9%\n> `❚ └─` ・After the equipped unit activates Combat Skill against a Kaiju that has a status ailment, applies DMG dealt +7.9% (2 turn(s)) to the equipped unit. Max 3 stack(s).",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` ★15\n> `❚ 2:` ・CRIT Rate +34%\n> `❚ └─` ・Effect Hit Rate +22.4%\n> `❚ └─` ・After the equipped unit activates Combat Skill against a Kaiju that has a status ailment, applies DMG dealt +9.9% (2 turn(s)) to the equipped unit. Max 3 stack(s).",
+            "*Uniparts unlock when you reach Spec-Ops Rank 2.\n\nAlso, Unimaterial [Wolf-Type Kaiju α] will be added to the Shop\\'s Unipart Resource and Expedition lineups.\n\n### __`IMPORTANT`__\n・The content is subject to change without prior notice.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1772334000
+        ]
+    },
+    "1001330": {
+        "article_name": "NEW TRAININGS: WYVERN-TYPE KAIJU Β/KAIJU NO. 6 ADDED!",
+        "article_type": "news",
+        "article_uuid": "1001330",
+        "article_time": 1769914800,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1001330/dad74fde7c1c59e5a96d653f3b9dd9d4.jpg?Expires=1780359380&Signature=DI7EcVtryrTxZioVgN~mjwC7~QHOl8EUVbfJqHMSyUEzFi~uy-kb4lvHXi0N3iWv7ZU9lo43O~W37BGLUlFzEJxLDe~ypeBGtdhT8k1cZPv05rS2jhuJrZZT6-G-VtNZUsNewd2AFpFGLGg1D93ZVWr6o-oqEKw5rpXXu7v1Ig~BFQl5O1uz9xBW5WnaYD-kE5OWyhVXGfFdgkUm~7FnvajvYnwr4PHVwSil2VDHw6-rp7d91bizYvnp5sDM9feZnmYJiHA~dfvteqMdqcKt49SCFOSzdvijoxZYZNkTgh57mIsIKWhUGNjo9fIMziYWkZFztJalRBItYX-MSs~s0g__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "584b19bffab54d18a753989fe12fbcf4ea303d0bb9255641c1daefb1b057bbfb",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nNew Trainings and Uniparts suitable for Supports are now available starting <t:1769914800>!\n\n## __`OVERVIEW`__",
+            "■ New Trainings\n・Wyvern-Type Kaiju β has been added to Training: Unimaterial.\nClear the Training and earn Unimaterials [Wyvern-Type Kaiju β].\n*Wyvern-Type Kaiju β unlocks when you reach Spec-Ops Rank 2.\n\n・Kaiju No. 6 has been added to Training: Identified Kaiju Neutralization. Clear the Training and earn Kaiju No. 6 Exploit Medals.",
+            "*Kaiju No. 6 unlocks when you reach Spec-Ops Rank 2 and clear Main Story Chapter 8.\n\n■ New Uniparts\nThe new Wyvern-Type Unipart β set has been added. These uniparts can be developed using Unimaterials [Wyvern-Type Kaiju β].\nThis unipart set focuses on strengthening all allies, making it ideal for Supports.",
+            "▼ Set Effect",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` ★9\n> `❚ 2:` ・HP +28.1%\n> `❚ └─` ・At the start of battle, applies Increase Ultimate Gauge When Turn Starts (1 turn(s)) to all allies.\n> `❚ └─` ・Increase Ultimate Gauge When Turn Starts: After turn arrives, the target\\'s Ultimate Gauge +72.\n> `❚ └─` ・Before the equipped unit activates Ultimate, applies DMG dealt +4.1% (2 turn(s)) to all allies.",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` ★12\n> `❚ 2:` ・HP +37.4%\n> `❚ └─` ・At the start of battle, applies Increase Ultimate Gauge When Turn Starts (1 turn(s)) to all allies.\n> `❚ └─` ・Increase Ultimate Gauge When Turn Starts: After turn arrives, the target\\'s Ultimate Gauge +96.\n> `❚ └─` ・Before the equipped unit activates Ultimate, applies DMG dealt +5.5% (2 turn(s)) to all allies.",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` ★15\n> `❚ 2:` ・HP +46.8%\n> `❚ └─` ・At the start of battle, applies Increase Ultimate Gauge When Turn Starts (1 turn(s)) to all allies.\n> `❚ └─` ・Increase Ultimate Gauge When Turn Starts: After turn arrives, the target\\'s Ultimate Gauge +120.\n> `❚ └─` ・Before the equipped unit activates Ultimate, applies DMG dealt +6.9% (2 turn(s)) to all allies.",
+            "*Uniparts unlock when you reach Spec-Ops Rank 2.\n\nAlso, Unimaterial [Wyvern-Type Kaiju β] will be added to the Shop\\'s Unipart Resource and Expedition lineups.\n\n### __`IMPORTANT`__",
+            "・The content is subject to change without prior notice.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1769914800
+        ]
+    },
+    "1001320": {
+        "article_name": "THE GAME MISSIONS NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1001320",
+        "article_time": 1769914800,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1001320/4e6f6d24a110535a58069e02643e9e35.jpg?Expires=1780359381&Signature=MYehwAaGCC9WaQ6exVWr5pfDjduaCAMX8xTeOMaqOFWzzF36b-3nbpQz5jhYGI9TamD8mc40aUzDK5RuZDfe-H6cKwsfg2Er-uRvvjTcL87NNZ9oSlZNsFttTmI~mUSrmGJNZFM0WrPcEVwYv3NX4SBs6VtPBB8QnCdtzmS2ZH7ec0yODPFEdK3ZiKB6jQmovIpwZ~Afxa8vjTJxAb-q~flxuWOK623x-mI6ixcoLral7q0TaRxYuBKZTFRHvx5zMydxcnVuDAsYCpOhhl~NVLH7eX-a~Q7vt4Me9mD-RyGvjAiTBCNri~TS01iHAgu53dxQa2HsiQm0BQ82xTA3ZA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "687b32a4aaddb94eeee58db709b33fd934fe1300a011442d7a8b8f7f188b1ac5",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nTHE GAME Missions are now available as of <t:1769914800>.\nComplete missions to earn special Home backgrounds that can only be obtained here!\n\nIn THE GAME Missions, you can earn:",
+            "・A Home background featuring Kaiju No. 8 (Main Story Ch. 8)\n・A Home background featuring Sagan Shinomiya (Main Story Ch. 8)\n・Up to 1,500 Dimensional Crystals\n・Up to 6 THE GAME Gacha Tickets\n...and other rewards!",
+            "Take part in the event from Home > Events > THE GAME Missions after clearing Main Story Chapter 0.\nTHE GAME Missions are permanent and can be completed at any time.\n\n### __`AVAILABILITY PERIOD`__\nStarting <t:1769914800>",
+            "### __`EVENT OVERVIEW`__\nIn THE GAME Missions, completing all missions within a STEP will unlock the next STEP, allowing you to take on new missions.\nIn addition to individual mission rewards within each STEP, you can also earn Completion Rewards based on the total number of missions completed.\n\n## __`IMPORTANT`__\n- The availability period and content are subject to change without prior notice. We appreciate your understanding."
+        ],
+        "article_unix": [
+            1769914800
+        ]
+    },
+    "1000720": {
+        "article_name": "EXPEDITION HARD MODE ADDED!",
+        "article_type": "event",
+        "article_uuid": "1000720",
+        "article_time": 1764126000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000720/7beb321b29b55fa51e3f51e1ad2148c0.jpg?Expires=1780359382&Signature=l34rI89NJDlzNN1NneDABbSk-jbRnIBYO2GtwWhOFGYDlL~ypuZAoISc6irJZ~U9nOy79aMCEGNNIoY~inJWT3VKDUJO~CaOLYdf88BiaZ08F~g1OP8wBJm0O5zotubFVtDcNKc5Z-RuvT9fUzVa25vJQiFIE77KdXrfxe3guF8yNbJevzYW1bizdNV6Z-gkWHFxLizG5bokFVPyQG-xadVoXlOQBSRFSKbUofp6~LIYUIG1cosSQg85CTAGR3lilpFBucpwfij-E29BeU1vgek0C8xSWculbeX5i5t1igSmSxKcQlB5gHRlYPW22lDlXT4eD~pjZE~-CXJ5hkEm2g__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "4341598a24d5243be4bbe13e9531a723d1c3f36c04311d68253867a6145d1c13",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nThe new Expedition HARD Mode has been added after the Version 1.3.5 maintenance.\n\nKaiju that appear in HARD Mode are significantly stronger.",
+            "Take advantage of loot found only in HARD Mode to achieve greater distances!\n\n### __`AVAILABILITY PERIOD`__\nAfter the maintenance\n\n## __`ELIGIBILITY`__",
+            "Reach 1,500 km in Expedition NORMAL Mode.\n\n*The Kaiju that appear in HARD Mode are extremely powerful. We recommend challenging this mode when your attack and HP effect values increased by acquired loot are 2,500% or higher.\n\n## __`EVENT DESCRIPTION`__\n- Expedition HARD Mode is unlocked after reaching 1,500 km in NORMAL Mode (the playable Expedition before this update).",
+            "- You can select NORMAL or HARD for your next deployment from the Deployment Prep screen.\n- The basic gameplay and rules remain the same as Expedition NORMAL Mode.\n- Kaiju stats in HARD Mode are significantly increased compared to NORMAL Mode.\n- Loot obtained by progressing through HARD Mode is separate from the loot obtainable in NORMAL Mode. You cannot obtain NORMAL Mode loot in HARD Mode.\n- The effects of obtained loot are always active in both modes, regardless of which mode they were acquired from.",
+            "### __`UPDATES WITH ADDITION OF HARD MODE`__\n- Increased the rank limit for units.\n- Added new skills obtainable when units reach a certain rank.\n- Added NORMAL, HARD, and Misc. to the Acquisition Mode filter in Loot Overview. Loot categorized as Misc. includes loot purchased on the Deployment Prep screen using Command Rewards or Dimensional Crystals.\n- Loot acquisition rates for NORMAL and HARD Modes can now be checked on the Loot Overview screen.",
+            "## __`IMPORTANT`__\n- With this Expedition update, any ongoing Expedition will be treated as a retreat, and you will start again from the Deployment Prep screen. Please note that you will not obtain any loot, Expedition Points, or Command Rewards from that Expedition. Thank you for your understanding."
+        ],
+        "article_unix": []
+    },
+    "1000800": {
+        "article_name": "NEW TRAINING: FUNGAL-TYPE Β ADDED!",
+        "article_type": "event",
+        "article_uuid": "1000800",
+        "article_time": 1764558000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000800/65d2153bd49a214e0713194ead8f1077.jpg?Expires=1780359384&Signature=lGPakDlmCCsa46SItw3s75KgPzfklWQL8ptKzGCNhNkeFeUiRbCRMWyP~3FuyJc-tKvxo~2ciQVkSjgq~nxSzh~2e4MkccrirAekli9shMX95viqMdXPdjzDfEFuRP3qaeJxCeiea-AHokzFSXADbB32v7ti943jMRPywYaFoAvsDK0~xgAqU2q5qjSSQBAZqsmNb3f86MOixXR3LcqefHph-Uu4OSAJZ5fZ8fcpgYq6AIC4a3qe00sbJp2vhsLoBUbQQEGoPaugvVp5-c-n3ySS9FabcbCp-ba-YrLagBlnKaTWKCbm3LeuOSlakgtvHMz7erXfcfs7dWoWktztrQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "94033536fde3373204d7f2f25b41a950d525771ab219b0c7eaf8ef5dcfc61b24",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nNew Training and Uniparts suitable for Attackers are now available starting <t:1764558000>!\n\n## __`OVERVIEW`__",
+            "■ New Training\n・Fungal-Type Kaiju β has been added to Training: Unimaterial.\nClear the Training and earn Unimaterials [Fungal-Type Kaiju β].\n\n*Fungal-Type Kaiju β unlocks when you reach Spec-Ops Rank 2.",
+            "・Fungal-Type Kaiju β has been added to Training: Honju Neutralization.\nClear the Training and earn Fungal-Type Kaiju Materials (Type 1225) [Caps].\n\n■ New Uniparts\nThe new Fungal-Type Unipart β set has been added. These uniparts can be developed using Unimaterials [Fungal-Type Kaiju β].\nThis is a unipart set for Attackers, making characters who inflict debuffs or status ailments even more powerful.",
+            "▼ Set Effect",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` ★9\n> `❚ 2:` ・ATK +28.1%\n> `❚ └─` ・Each time the equipped unit applies a debuff or status ailment to a Kaiju, applies DEF PEN Rate +2.7% (3 turn(s)) to the equipped unit. Max 3 stack(s).\n> `❚ └─` ・When the equipped unit\\'s Effect Hit Rate is 50% or more, the equipped unit\\'s DMG dealt +19.8%.",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` ★12\n> `❚ 2:` ・ATK +37.4%\n> `❚ └─` ・Each time the equipped unit applies a debuff or status ailment to a Kaiju, applies DEF PEN Rate +3.6% (3 turn(s)) to the equipped unit. Max 3 stack(s).\n> `❚ └─` ・When the equipped unit\\'s Effect Hit Rate is 50% or more, the equipped unit\\'s DMG dealt +25.6%.",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` ★15\n> `❚ 2:` ・ATK +46.8%\n> `❚ └─` ・Each time the equipped unit applies a debuff or status ailment to a Kaiju, applies DEF PEN Rate +4.5% (3 turn(s)) to the equipped unit. Max 3 stack(s).\n> `❚ └─` ・When the equipped unit\\'s Effect Hit Rate is 50% or more, the equipped unit\\'s DMG dealt +32%.",
+            "*Uniparts unlock when you reach Spec-Ops Rank 2.\n\nAlso, Unimaterial [Fungal-Type Kaiju β] will be added to the Shop\\'s Unipart Resource and Expedition lineups.\n\n### __`IMPORTANT`__\n・The content is subject to change without prior notice.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1764558000
+        ]
+    },
+    "1000805": {
+        "article_name": "CHANGES TO WEEKLY LIMIT AND STAMINA FOR IDENTIFIED KAIJU NEUTRALIZATION",
+        "article_type": "news",
+        "article_uuid": "1000805",
+        "article_time": 1764558000,
+        "article_logo": null,
+        "article_hash": "811dc2f03538a196cbe6330b6dd13ac5ecb5621f23da28f1b1c241a3496569e8",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "We are announcing two changes to Training: Identified Kaiju Neutralization starting <t:1765162800>.\n\n(1) Increase to Weekly Limit\nThe reward claim limit for Identified Kaiju Neutralization is currently 3 times per week. This will be changed to 5 times per week.\n\n(2) Stamina Consumption Removal",
+            "The Stamina required for Identified Kaiju Neutralization will be set to 0.\n\nExploit Medals obtainable through Identified Kaiju Neutralization are rare items necessary to enhance a character\\'s skills.\nBe sure to acquire them to enhance your characters!\n\n### __`IMPORTANT`__",
+            "The weekly reset for the reward claim limit before this update will occur on <t:1765134000>.\n\nFrom <t:1765134000> to <t:1765162799>, the limit will remain 3 times and the Stamina cost will remain 20.\nPlayers who have already cleared the quest 3 times during the period above will be able to challenge an additional 2 times after the update.\nPlease note that we are unable to refund Stamina for challenges made during the period above. We appreciate your understanding.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1765162800,
+            1765134000,
+            1765162799
+        ]
+    },
+    "1000575": {
+        "article_name": "NEW SHOP ARRIVAL: DEFENSE FORCE SUPPORT SPECIAL PACK!",
+        "article_type": "news",
+        "article_uuid": "1000575",
+        "article_time": 1762844400,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000575/53190a2d454512b7e20955aa2199714b.jpg?Expires=1780359387&Signature=mcQXx5UMDCFvHqlbwGMZyj5SOf0SGg6xEGNwKjiRsI6DECQgyhndG3J7CXfEvOC6HuVSVZTJwqUh9MHVmmCJhLdtcR4b0HWBahr9NSRq49W~rj4aEVe1jL727TH7pEHJjF7ovOPwGY0Id34Xco47QkS6961ju7znEPwL6rqgV3UOAxHaEUasZi7poAfq9vLOyLVWbNtRpwR7cJOi4xj1XhzWntgrczYer5Z9YiOU~U4vJQS561KWp-52gLPTj1g50Z3MiZOOJODWIByyVRH6QnBsWKfxU6NqVwAht3Y1RMwwmkzyp8ILHfxxKdZC27mbQHuwhQP4Bp9nnS0ZjyFtkg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "daa660dd6478ff8835539779302b3af784c92b67a963b8169c73b6c9d7faa2e6",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nA new pack will be available for purchase starting <t:1762844400>!\n\n### __`DEFENSE FORCE SUPPORT SPECIAL PACK`__",
+            "*Three-times-per-month purchase for each account, either in-app or from the Web Store.\nPrice\n2,800 JPY\n\nContent\n・Dimensional Crystal (Paid) x1,500",
+            "・Defense Force Manual III x35\n・Kaijumite III x25\n・Material Supply Box [★2 Role Material] x60\n・Material Supply Box [★3 Role Material] x35\n・Material Supply Box [★2 Attribute Material] x35\n・Material Supply Box [★3 Attribute Material] x40",
+            "・Credit x350,000\n\n### __`IMPORTANT`__\n・Items received from purchases will be directly added to the number owned. Items exceeding the storage limit will be sent to your Mail.\n・The sales period and contents of each product are subject to change without prior notice.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1762844400
+        ]
+    },
+    "1000610": {
+        "article_name": "NEW TRAINING: CAUDATA-TYPE Α ADDED!",
+        "article_type": "event",
+        "article_uuid": "1000610",
+        "article_time": 1761966000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000610/02c1d2df1b008dd24db5d2200d126a5e.jpg?Expires=1780359388&Signature=BVEk3VqbJcNqltqfUWiAlAVKG74vD0QvTJxE0MIYRzu81KQ6J~0Y-gQ0XOFNueBd9zaGNNaMSCRRoLMhC2M~6CT1YeVkHzSfZQHYWaWJt9czcH-Tb6NEC~mknOc9XHPqPiHnc-hdF-lJZ4yQfDUypvs~sv0eQkvOID66iWQ0uS47EuiLViRNl8dt6fk7aDEYpx7IkwTHCV-zPpbkWWjmYz3qbg-XbcQkEhgluTnaKb0slC3-qBWwx4fMgHxe95-hYRA-wWOxPSHsnz7hB~2zzauzNQr8dNYyX4nDZk7q4D5~iWfzbT51N6BqyLHhHxVA~Dmnvpno2H4YmkBtNeu~3w__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "134583f54de3d64d1d5d4bb78d304c0f0dbced3c8e5f591a48a094fb0a01b7f8",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nNew Training and Uniparts suitable for Attackers are now available starting <t:1761966000>!\n\n## __`OVERVIEW`__",
+            "■ New Training\n・Caudata-Type Kaiju α has been added to Training: Unimaterial.\nClear the Training and earn Unimaterials [Caudata-Type Kaiju α].\n\n*Caudata-Type Kaiju α unlocks when you reach Spec-Ops Rank 2.",
+            "・Kaiju A: Divided Entity has been added to Training: Identified Kaiju Neutralization. Clear the Training and earn Kaiju A: Divided Entity Exploit Medals.\n\n*Kaiju A: Divided Entity unlocks when you reach Spec-Ops Rank 2 and clear Main Story 5-13.\n\n■ New Uniparts\nThe new Caudata-Type Unipart α set has been added. These uniparts can be developed using Unimaterials [Caudata-Type Kaiju α].",
+            "This is a unipart set that can make Follow-Up Attacks and Extra Attacks even more powerful.\n\n▼ Set Effect",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` ★9\n> `❚ 2:` ・CRIT Rate (%) +20.4%\n> `❚ └─` ・ATK +22.4%\n> `❚ └─` ・After the equipped unit activates Follow-Up Skill or Extra Attack, applies DMG dealt +7.2% to the equipped unit. Max 3 stack(s).",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` ★12\n> `❚ 2:` ・CRIT Rate (%) +27.2%\n> `❚ └─` ・ATK +29.9%\n> `❚ └─` ・After the equipped unit activates Follow-Up Skill or Extra Attack, applies DMG dealt +9.6% to the equipped unit. Max 3 stack(s).",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` ★15\n> `❚ 2:` ・CRIT Rate (%) +34%\n> `❚ └─` ・ATK +37.4%\n> `❚ └─` ・After the equipped unit activates Follow-Up Skill or Extra Attack, applies DMG dealt +12% to the equipped unit. Max 3 stack(s).",
+            "*Uniparts unlock when you reach Spec-Ops Rank 2.\n\nAlso, Unimaterial [Caudata-Type Kaiju α] will be added to the Shop\\'s Unipart Resource and Expedition lineups.\n\n### __`IMPORTANT`__\n・The content is subject to change without prior notice.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1761966000
+        ]
+    },
+    "1000420": {
+        "article_name": "NEW TRAINING: ARMORED-TYPE Α ADDED!",
+        "article_type": "event",
+        "article_uuid": "1000420",
+        "article_time": 1759215600,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000420/890b1128f28ab8bdb0ddf9d9df064d06.jpg?Expires=1780359390&Signature=EyXRRhpVxocGbdP14RuAU0rB-vc2VuRwh8hxbnngly8n-o44GuKP2qf3TYjb0qbEIqlGbZekMbbG5NZKP4Pt2bnFZ4y6nzmYKS9QpjjIWiMnb8hhe1G-ZhKPErLji1M~gAY5xg74~7RLOaRWb7MXS2A0OqrnyIyc79Q3q1Qc-5syIehy1OI~DNN-6IW0Ve-~iLCbOcLVWejTG7pijKLosW4ZVt9eUqA05hgvXTz2a2pke03~GikC6BS5X6PTNnqOfI45-V-j2Cdd~RODg~8JQM3Rzh4OOJAzsXmBkyXOJgtTnzBR3y0w6gO8nR3uRhn4TneeH8wlhk2znazrmC4jCw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "18c4033bd8c0b04cf67ffc3d320573747f94decb0532f8aeabfc1aab19d92071",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nNew Training and Uniparts suitable for Attackers are now available starting <t:1759215600>!\n\n## __`OVERVIEW`__",
+            "■ New Training\nArmored-Type Kaiju α has been added to Training: Unimaterial.\nClear the Training and earn Unimaterials [Armored-Type Kaiju α].\n\n*Armored-Type Kaiju α unlocks when you reach Spec-Ops Rank 2.",
+            "■ New Uniparts\nThe new Armored-Type Unipart α set has been added. These uniparts can be developed using Unimaterials [Armored-Type Kaiju α].\nThis is a unipart set that can make Blunt-attribute Attackers even more powerful.\n\n▼ Set Effect",
+            "`━ ROW 1 OF 3:`\n> `❚ 1:` ★9\n> `❚ 2:` ・Blunt DMG Dealt (%) +15.6%\n> `❚ └─` ・ATK +22.4%\n> `❚ └─` ・After the equipped unit activates Ultimate, the equipped unit\\'s DMG dealt +7.5%. Max 3 stack(s).",
+            "`━ ROW 2 OF 3:`\n> `❚ 1:` ★12\n> `❚ 2:` ・Blunt DMG Dealt (%) +20.8%\n> `❚ └─` ・ATK +29.9%\n> `❚ └─` ・After the equipped unit activates Ultimate, the equipped unit\\'s DMG dealt +10%. Max 3 stack(s).",
+            "`━ ROW 3 OF 3:`\n> `❚ 1:` ★15\n> `❚ 2:` ・Blunt DMG Dealt (%) +26%\n> `❚ └─` ・ATK +37.4%\n> `❚ └─` ・After the equipped unit activates Ultimate, the equipped unit\\'s DMG dealt +12.5%. Max 3 stack(s).",
+            "*Uniparts unlock when you reach Spec-Ops Rank 2.\n\nAlso, Unimaterial [Armored-Type Kaiju α] will be added to the Shop\\'s Unipart Resource and Expedition lineups.\n\n### __`IMPORTANT`__\n・The content is subject to change without prior notice.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1759215600
+        ]
+    },
+    "1000430": {
+        "article_name": "PC (STEAM®) VERSION NOW AVAILABLE!",
+        "article_type": "news",
+        "article_uuid": "1000430",
+        "article_time": 1759287600,
+        "article_logo": null,
+        "article_hash": "876a93b4e9fdba5489a26a6e66b98f57c75959331e3670ec7cde43c71423e85e",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\nThe service for the PC (Steam®) version of KAIJU NO. 8 THE GAME has officially begun!\nAccount linking between the PC and mobile versions is also supported.\n\n[PC (Steam®) version here](https://store.steampowered.com/app/3393070/8_THE_GAME/)",
+            "## __`ACCOUNT LINKING AND TRANSFERRING`__\nFor instructions on account linking and account transfer, please check the following announcement:\n[Account Linking Announcement](https://info.kj8-thegame.com/news/news/1000030?language=en)\n\nAccount linking with the mobile version is also possible.\nIf you already have an account on the mobile version, you can link it and perform a data transfer on the PC (Steam®) version to continue playing on the same account.",
+            "## __`IMPORTANT`__\n- Content is subject to change without prior notice. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": []
+    },
+    "1000020": {
+        "article_name": "OFFICIAL RELEASE & PRE-REGISTRATION REWARDS",
+        "article_type": "important",
+        "article_uuid": "1000020",
+        "article_time": 1756602000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000020/56a6eb53d114ea75bb72b5e58e2fe2be.jpg?Expires=1780359393&Signature=LLB8CgqWFz3GefRkz25fGWUzaS-VNVRj4FIrFDCs5oe44QqypTihVP3mwIRJHXpDens23hXpGp~0gj9IKnHA5mWm3BFBDAk5OSa80rNQhiw66ySMgfvJwYBxq8dYpQ80sk2LjV7baZL5i4jqnHdZONYUn6VOY84Hql8GdotR-XXoCoxuyqkGd6vKTJJjWMr8E9k-dm8I9LLwmA1A94Rzfb3O5mzhz2i7BipCwgxybYQPVkOOEuZmKzePOUyDr62H0aWyUc98mIcUnS9TNiPCo-PcxcmBT3hctTHoVkCRmnejVg5~RCRBXhc1Njt6Aqb4GgXVi90KEPTz5eFow7AfZA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "5ee01c9640e0f35815485805898363a8a33521c215b8ff846983a306472d5fc2",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "## __`OVERVIEW`__\nThank you for your patience.\nThe service for KAIJU NO. 8 THE GAME has officially begun as of <t:1756602000>!\nImmerse yourself in the world of Kaiju No. 8, brought to life with stunning graphics.",
+            "We also hit over 1 million pre-registrations worldwide. Thank you for your support and participation!\nYou can claim your pre-registration rewards in-game from the Home screen.\n\n■ Claim from Home > Mail:\n・Credit x100,000\n・Dimensional Crystal x1,000",
+            "・THE GAME Gacha Ticket x20\n・★4 [Aiming for Greater Heights] Mina Ashiro\n・★4 [Blade Specialist] Soshiro Hoshina\n\n*The mail (including any attached items) will be deleted 90 days after you receive it. Please make sure to open the mail and claim the items before the deadline.",
+            "■ Claim from Home > Gacha:\nYou can select 1 of the following ★5 Characters featured in the KAIJU NO. 8 THE GAME Gacha.\n・★5 [Fortitude 9.8] Kaiju No. 8\n・★5 [Guiding Light of the Future] Kikoru Shinomiya\n・★5 [Off the Scale] Mina Ashiro\n・★5 [Hoshina-Style Sword-Slay Technique] Soshiro Hoshina",
+            "・★5 [Japan\\'s Strongest Combatant] Gen Narumi\n・★5 [The Unbreakable Iron Wall] Isao Shinomiya\n・★5 [Aspiration and Honor] Rin Shinonome\n\n## __`OFFICIAL WEBSITE & SOCIAL MEDIA`__\nCatch the latest information, including game news, special content, and campaign info on our official website and social media. Be sure to add these to your favorites and follow us!",
+            "[Official Website](https://kj8-thegame.com/en/)\nOfficial X ([@kj8_TheGame_EN](https://x.com/Kj8_TheGame_EN))\nOfficial YouTube ([@kj8-TheGame-EN](https://www.youtube.com/@kj8-TheGame-EN))\n\n## __`FOR ISSUES DURING GAMEPLAY`__\nOur support site contains an FAQ with answers to common questions about gameplay. If you encounter any problems or have any questions, please check the site.",
+            "You can access the support site from within the game:\nOpen up the global menu on the top right of the Home screen\n> Menu (≡) on the top left of the screen\n> Contact Us\n*You can also submit inquiries on the same site.",
+            "Thank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1756602000
+        ]
+    },
+    "1000090": {
+        "article_name": "THE KAIJU NO. 8 THE GAME WEB STORE",
+        "article_type": "news",
+        "article_uuid": "1000090",
+        "article_time": 1756602000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000090/dad4fafd276988dc07916a8931b9e154.jpg?Expires=1780359394&Signature=AP65ZsWB5EUN4P510RCHPDsS7VpCw0i9afdjeyQb7Hts4TAowv1MJ7k84U47OtiGW7r2Uhr19uhynehObzQRFOS~iGSbRaOWJ0Uc30rh1G5FnrSRZ48t8rylarx138gAqpuRDkFkquE5lELOZx-BfRn2UA~LPg5o4opnx30guNyi5Er0q7FB97TYDa8LlqOUbiSlZMnhsCiCnBoYroPc~an8aiai2crNzdVH-kRjwvtC~hyPGNmdFcAJTNCLx2iThYLhjWLPkiLfNxSSFgKk7Yfzqo1wTCzYGIqCpTNc52rtiN3c71wa4pFMmdI83SNHHzDfkSyV4LLGcXQiHiuS6Q__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "219024969f4f77edfeee11b0d1d9644e3633194b33f0f0121ef88cdec6ec1b4f",
+        "article_node": [
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.The KAIJU NO. 8 THE GAME Official Web Store is now online.Please check out the Official Website.[KAIJU NO. 8 THE GAME Official Website](https://kj8-thegame.com/en/?f=app&utm_source=app_news)"
+        ],
+        "article_unix": []
+    },
+    "1000100": {
+        "article_name": "RELEASE CELEBRATION ITEMS—VALUE ITEMS NOW ON SALE!",
+        "article_type": "news",
+        "article_uuid": "1000100",
+        "article_time": 1756602000,
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000100/53190a2d454512b7e20955aa2199714b.jpg?Expires=1780359396&Signature=ccPfTupmv4iu4W3lbv9ouaQ6FWux3t9-W7dFYtHVwtbtm2Xva6uRl3au37KR~UTDgkjrncKxOPbaAjkUiPMGHAtcAE-8e-2RZM1gzA2EOYR0zV1XHt3uImHustBgkA4r3u-NZWNiaBBjsto7~nmuAMR~sEgtoHAJu8m7g7KOhM2UZnncLxQm~bvQU92dAZNmbsdPnx9S~8APnM-7~wiOlNl-P-PJCXoaEfSFitBtNRBbf3GJ~loZHfrQVYy7MySWaevk00JFlMPvA14SMmm-fUPg-LZG3YopyVIY8-tdJkN5cdJ-CqcOnoIYTnWO7aWwiHWkQKnE9ea1LK1BhIb8fQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "098bb23020be06876ea995194800c48f145135ac72a7772d8f2b4544723eeb5b",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_item": [
+            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nIn commemoration of the game\\'s release, various packs and items will be available for purchase starting <t:1756602000>.\n\n### __`NEW RECRUIT SUPPORT PACK A`__",
+            "*One-time purchase only for each account.\n\nPrice\n280 JPY\n\nContent",
+            "・★4 [Heart of Compassion] Akari Minase x1\n・★4 AR-Honeybee 84 x1\n・Pickup Gacha Ticket x1\n・Defense Force Manual I x50\n・Kaijumite I x30\n・Credit x10,000",
+            "### __`NEW RECRUIT SUPPORT PACK B`__\n*One-time purchase only for each account.\n\nPrice\n280 JPY",
+            "Content\n・★4 [Latent Talent] Iharu Furuhashi x1\n・★4 AR-Octopus 58 x1\n・Pickup Gacha Ticket x1\n・Defense Force Manual I x50",
+            "・Kaijumite I x30\n・Credit x10,000\n\n### __`DELUXE GACHA TICKET PACK`__\n*One-time purchase only for each account, either in-app or from the Web Store.",
+            "Price\n1,800 JPY\n\nContent\n・Pickup Gacha Ticket x10",
+            "### __`MONTHLY GACHA TICKET PACK`__\n*Once-per-month purchase for each account, either in-app or from the Web Store.\n\nPrice\n2,500 JPY",
+            "Content\n・Pickup Gacha Ticket x10\n\n### __`CONTINUOUS SUPPLY DROPS`__\nPrice\n620 JPY",
+            "Content\n・Receive Dimensional Crystal (Paid) x310 upon purchase.\n・Starting the next day, receive Dimensional Crystal (Free) x90 daily for 30 days upon login.\n・Please note you will not be able to claim any Dimensional Crystal (Free) login rewards for days you did not log in.",
+            "### __`DIMENSIONAL CRYSTAL (ONE-TIME PURCHASE BONUS)`__\n*For each of the following items: One-time purchase only for each account, either in-app or from the Web Store.\n\n160 JPY: Dimensional Crystal (Paid) x160*Usual amount: Dimensional Crystal (Paid) x80\n490 JPY: Dimensional Crystal (Paid) x500*Usual amount: Dimensional Crystal (Paid) x250\n1,000 JPY: Dimensional Crystal (Paid) x1,040*Usual amount: Dimensional Crystal (Paid) x520",
+            "1,500 JPY: Dimensional Crystal (Paid) x1,580*Usual amount: Dimensional Crystal (Paid) x790\n3,000 JPY: Dimensional Crystal (Paid) x3,180*Usual amount: Dimensional Crystal (Paid) x1,590\n5,000 JPY: Dimensional Crystal (Paid) x5,400*Usual amount: Dimensional Crystal (Paid) x2,700\n10,000 JPY: Dimensional Crystal (Paid) x11,000*Usual amount: Dimensional Crystal (Paid) x5,500\n\n### __`IMPORTANT`__",
+            "・Items received from purchases will be directly added to the number owned. Items exceeding the storage limit will be sent to players\\' Mail.・The sales period and contents of each product are subject to change without prior notice.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1756602000
+        ]
+    }
+}
