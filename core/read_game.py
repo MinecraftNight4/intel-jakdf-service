@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 import requests
@@ -8,7 +9,7 @@ import re
 
 
 class KaijuReadNews:
-    def __init__(self, storage_file="storage/news.json"):
+    def __init__(self, storage_file="data/news_game.json"):
         self.storage_file = storage_file
         self.news_storage = {}
     
@@ -42,7 +43,7 @@ class KaijuReadNews:
         def replace_ts(match):
             unix = self.transform_unix(match.group(0), False, newsid)
             return f"<t:{unix}>"
-        text = text.replace("'", "\\'")
+        #text = text.replace("'", "\'")
         text = text.replace("{;;nl;;}", "\n")
         text = re.sub(timestamp_regex, replace_ts, text)
         return text.strip()
@@ -73,7 +74,7 @@ class KaijuReadNews:
 
     def transform_table(self, table, news_id) -> list[str]:
         rows = table.select("tr")
-        if len(rows) <= 1:
+        if len(rows) <= 0:
             return [f"`TABLE ERROR: {len(rows)}`"]
         else:
             response_output = []
@@ -125,6 +126,7 @@ class KaijuReadNews:
     
     
     def scan_news(self, news_id: str, html: str):
+        html = html.replace("<br/>", "{;;nl;;}")
         soup = BeautifulSoup(html, 'html.parser')
         try:
             post_time = soup.select_one("p.ui-contents-header-date span.nowrap").get_text(strip=True)
@@ -203,8 +205,23 @@ class KaijuReadNews:
 
 
 
-    def scan_index(self, debug_mode: bool = True):
-        """Escanea el índice y procesa las noticias"""
+    
+    def fetch_single_news(self, news_id: str):
+        """Función para descargar y procesar una sola noticia"""
+        try:
+            url = f"https://info.kj8-thegame.com/news/{news_id}?language=en"
+            response = requests.get(url, timeout=60)
+            response.raise_for_status()
+            
+            print(f"✓ Procesada: {news_id}")
+            self.scan_news(news_id, response.text)
+            return news_id, True
+        except Exception as e:
+            print(f"❌ Error leyendo {news_id}: {e}")
+            return news_id, False
+    
+    def scan_index(self, batch_size: int = 3):
+        """Escanea el índice y procesa las noticias en paralelo por lotes"""
         print("Iniciando scraper...")
 
         try:
@@ -219,6 +236,7 @@ class KaijuReadNews:
 
         self.news_storage.clear()
 
+        # === Crear estructura base ===
         for article in articles:
             article_uuid = article.get("data-content-id")
             if not article_uuid:
@@ -242,17 +260,76 @@ class KaijuReadNews:
                 "article_unix": []
             }
 
-        for news_id in list(self.news_storage.keys()):
-            try:
-                response = requests.get(f"https://info.kj8-thegame.com/news/{news_id}?language=en", timeout=60)
-            except Exception as e:
-                print(f"Error leyendo {news_id}: {e}")
-            if response.status_code == 200:
-                print(f"✓ Procesada: {news_id}")
-                self.scan_news(news_id, response.text)
-                #break
+        news_ids = list(self.news_storage.keys())
+        print(f"Se encontraron {len(news_ids)} noticias. Procesando en lotes de {batch_size}...\n")
+
+        # === Procesamiento en paralelo por lotes ===
+        with ThreadPoolExecutor(max_workers=batch_size) as executor:
+            # Procesamos en lotes para no saturar el servidor
+            for i in range(0, len(news_ids), batch_size):
+                batch = news_ids[i:i + batch_size]
+                print(f"→ Procesando lote {i//batch_size + 1} ({len(batch)} noticias)...")
+                
+                future_to_id = {executor.submit(self.fetch_single_news, nid): nid for nid in batch}
+                
+                for future in as_completed(future_to_id):
+                    news_id, success = future.result()
 
         print(f"\nFinalizado. Total de noticias en memoria: {len(self.news_storage)}")
+    
+    
+    
+    
+    #def scan_index(self, debug_mode: bool = True):
+    #    """Escanea el índice y procesa las noticias"""
+    #    print("Iniciando scraper...")
+    #
+    #    try:
+    #        response = requests.get('https://info.kj8-thegame.com/news?language=en', timeout=60)
+    #        response.raise_for_status()
+    #    except Exception as e:
+    #        print(f"Error al obtener índice: {e}")
+    #        return
+    #
+    #    soup = BeautifulSoup(response.text, 'html.parser')
+    #    articles = soup.select("div.ui-list-block.js-each-content")
+    #
+    #    self.news_storage.clear()
+    #
+    #    for article in articles:
+    #        article_uuid = article.get("data-content-id")
+    #        if not article_uuid:
+    #            continue
+    #            
+    #        article_uuid = str(article_uuid)
+    #        article_node = article.select_one("p.ui-list-category")
+    #        article_node = article_node.get_text(strip=True).lower() if article_node else "unknown"
+    #        article_name = article.select_one("div.ui-list-content")
+    #        article_name = article_name.get_text(strip=True) if article_name else "SIN TÍTULO"
+    #
+    #        self.news_storage[article_uuid] = {
+    #            "article_name": article_name.upper(),
+    #            "article_type": article_node,
+    #            "article_uuid": article_uuid,
+    #            "article_time": 120000,
+    #            "article_logo": None,
+    #            "article_hash": "0",
+    #            "article_node": [],
+    #            "article_item": [],
+    #            "article_unix": []
+    #        }
+    #
+    #    for news_id in list(self.news_storage.keys()):
+    #        try:
+    #            response = requests.get(f"https://info.kj8-thegame.com/news/{news_id}?language=en", timeout=60)
+    #        except Exception as e:
+    #            print(f"Error leyendo {news_id}: {e}")
+    #        if response.status_code == 200:
+    #            print(f"✓ Procesada: {news_id}")
+    #            self.scan_news(news_id, response.text)
+    #            #break
+    #
+    #    print(f"\nFinalizado. Total de noticias en memoria: {len(self.news_storage)}")
     
     
 # ====================== EJECUCIÓN ======================
@@ -261,7 +338,7 @@ if __name__ == "__main__":
     processor = KaijuReadNews()
     
     # ==================== EJECUTAR EL SCRAPER ====================
-    processor.scan_index(debug_mode=True)   # Cambia a False si quieres procesar todas las noticias
+    processor.scan_index(batch_size=4)   # Cambia a False si quieres procesar todas las noticias
     
     # ==================== MOSTRAR RESULTADOS ====================
     print("\n" + "="*60)
