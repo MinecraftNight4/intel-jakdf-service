@@ -1,0 +1,212 @@
+{
+  "gamenews_1000030_1": {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 17,
+        "accent_color": 16747520,
+        "components": [
+          {
+            "type": 12,
+            "items": [
+              {
+                "media": {
+                  "url": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1786129419&Signature=dAlAxr029Pt8LhUR23lbCW58htUL58Fhm40XbxzPy9rActdr076EBv6~mY-kH7mGdwp1o0mHQ5SsZYZuzhLdd5JmPTLJLXi2uJ5i4RFmlj1uzBbIMwyVaxTnXPy9Hlqsqx6dh6sxApeJOGlVir1z3KCFjg0fbjtuA8M738D7hXNE4C-rGdI8ptRZ73yYm8J~dlGfjLH0g3JyFEP-hOt0rUQPbrQAMiFQ8YbcZ2QzjKC1mrcAxx7DFg7wwJh5QT7NG2Pj8wEJLhztoc0RF0DyShGIAy7eBFf0~ogRZtKK7AOYtWm0W0aR-56DVgf3icqBn5Wk5g~-K3KuhDwuj3jWLg__&Key-Pair-Id=K22LOBLWI3HWJQ"
+                }
+              }
+            ]
+          },
+          {
+            "type": 10,
+            "content": "## __ACCOUNT LINKING RECOMMENDED__\n[`🔗`](https://info.kj8-thegame.com/news/1000030?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) Posted on <t:1756807200>."
+          },
+          {
+            "type": 14,
+            "divider": true,
+            "spacing": 1
+          },
+          {
+            "type": 10,
+            "content": "## __`OVERVIEW`__\nThank you for playing KAIJU NO. 8 THE GAME.\nTo protect your game data, we ask that you link your account.\n\n## __`ACCOUNT LINKING`__\nBy linking your account, you can easily restore and transfer your game data even if you accidentally delete the app.\nAdditionally, if your current device malfunctions or if you wish to change devices, you can transfer your player data to the new device.\n\n## __`HOW TO LINK YOUR ACCOUNT`__\nYou can link your account to your Apple Account or Google Account.\nSteps to Link Account:\n1. Select the global menu from the top right of the Home screen.\n2. From the Menu (≡) on the top left of the screen, select Account Linking.\n-# \\**Account Linking is not possible via \"Data Transfer\" on the title screen.*\n\n3. On the Confirm Link screen, you can choose to \"Sign in with Apple\" or \"Sign in with Google.\"\n4. Sign in with your selected account."
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 4,
+            "label": "MENU",
+            "custom_id": "gamenews_000000_1",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "BACK",
+            "custom_id": "gamenews_1000030_0",
+            "disabled": true
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "1/3",
+            "custom_id": "gamenews_1000030_jump",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "NEXT",
+            "custom_id": "gamenews_1000030_2",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  "gamenews_1000030_2": {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 17,
+        "accent_color": 16747520,
+        "components": [
+          {
+            "type": 12,
+            "items": [
+              {
+                "media": {
+                  "url": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1786129419&Signature=dAlAxr029Pt8LhUR23lbCW58htUL58Fhm40XbxzPy9rActdr076EBv6~mY-kH7mGdwp1o0mHQ5SsZYZuzhLdd5JmPTLJLXi2uJ5i4RFmlj1uzBbIMwyVaxTnXPy9Hlqsqx6dh6sxApeJOGlVir1z3KCFjg0fbjtuA8M738D7hXNE4C-rGdI8ptRZ73yYm8J~dlGfjLH0g3JyFEP-hOt0rUQPbrQAMiFQ8YbcZ2QzjKC1mrcAxx7DFg7wwJh5QT7NG2Pj8wEJLhztoc0RF0DyShGIAy7eBFf0~ogRZtKK7AOYtWm0W0aR-56DVgf3icqBn5Wk5g~-K3KuhDwuj3jWLg__&Key-Pair-Id=K22LOBLWI3HWJQ"
+                }
+              }
+            ]
+          },
+          {
+            "type": 10,
+            "content": "## __ACCOUNT LINKING RECOMMENDED__\n[`🔗`](https://info.kj8-thegame.com/news/1000030?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) Posted on <t:1756807200>."
+          },
+          {
+            "type": 14,
+            "divider": true,
+            "spacing": 1
+          },
+          {
+            "type": 10,
+            "content": "**[5] imagen**\n`https://asset.kj8-thegame.com/info/production/content/1000030/24c168d8edfd5660c027eb7977e576f9.png?Expires=1786129419&Signature=T7gR7f1f6r1GSSGBUtmwqTdyBaKxgL5pQJA9T5GIB9bKZ4EFVUOuKyGXavCbRTnte~pfj9ZyMG~cSUzXBX8DP9phjFASnCEA3a2fqPWXd-BxxoZF3k2gXqcMP5aMVnYSrwLaTi~AntH1~os1ABZ2Nv258tDX79r-8Ij4DFyLb7y-1e71Ip8fiI69-zOF-iEaFMSFJa~CII5gr-el~QVVWQp0dhkK7PQvQSukHOq5HSfh9ckcoEQi26ABo0XsqSwdPYpPl49PfIzXAQjQXlYMFZ5zqY9ZLgxobRfwpWohbj~ps55pFl7mrudYfwznGz3hP1Uuf0Fiar84C~6cO1OatQ__&Key-Pair-Id=K22LOBLWI3HWJQ`\n\nAfter signing in, the message \"Account linking complete\" will appear upon successful linking.\n-# \\**Please keep your linked account information secure and avoid sharing it with others.*\n-# \\**After account linking is complete, a confirmation email will be automatically sent to the email address associated with the linked account.*\n\n## __`FAQ: REGARDING ACCOUNT LINKING`__\nQ1: How do I restore my data or transfer my account?\nA1: Access Title Menu (≡) on the title screen, select Data Transfer and follow the on-screen instructions.\n\nQ2: After transferring account, will I be able to pick up my game progress from when I linked my account?\nA2: You can proceed with the game from when you were last online. For example, if you link your account when a mission is ongoing and transfer your account after clearing the mission, the game will proceed from the time when the mission is cleared.\n\nQ3: After transferring my account to a different device, can I still play on the original device?\nA3: Yes, you can play on both devices. However, you cannot log in to the same account on both devices simultaneously. If a new login is detected on a device, you will be returned to the title screen on the previous device.\n\nQ4: Will my linked account be unlinked if I delete my player data?\nA4: No, deleting your player data will not unlink your account. To unlink an account, go to Menu (≡) > Account Linking."
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 4,
+            "label": "MENU",
+            "custom_id": "gamenews_000000_1",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "BACK",
+            "custom_id": "gamenews_1000030_1",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "2/3",
+            "custom_id": "gamenews_1000030_jump",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "NEXT",
+            "custom_id": "gamenews_1000030_3",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  "gamenews_1000030_3": {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 17,
+        "accent_color": 16747520,
+        "components": [
+          {
+            "type": 12,
+            "items": [
+              {
+                "media": {
+                  "url": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1786129419&Signature=dAlAxr029Pt8LhUR23lbCW58htUL58Fhm40XbxzPy9rActdr076EBv6~mY-kH7mGdwp1o0mHQ5SsZYZuzhLdd5JmPTLJLXi2uJ5i4RFmlj1uzBbIMwyVaxTnXPy9Hlqsqx6dh6sxApeJOGlVir1z3KCFjg0fbjtuA8M738D7hXNE4C-rGdI8ptRZ73yYm8J~dlGfjLH0g3JyFEP-hOt0rUQPbrQAMiFQ8YbcZ2QzjKC1mrcAxx7DFg7wwJh5QT7NG2Pj8wEJLhztoc0RF0DyShGIAy7eBFf0~ogRZtKK7AOYtWm0W0aR-56DVgf3icqBn5Wk5g~-K3KuhDwuj3jWLg__&Key-Pair-Id=K22LOBLWI3HWJQ"
+                }
+              }
+            ]
+          },
+          {
+            "type": 10,
+            "content": "## __ACCOUNT LINKING RECOMMENDED__\n[`🔗`](https://info.kj8-thegame.com/news/1000030?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) Posted on <t:1756807200>."
+          },
+          {
+            "type": 14,
+            "divider": true,
+            "spacing": 1
+          },
+          {
+            "type": 10,
+            "content": "Q5: I wish to change my linked account.\nA5: To do so, first unlink your current account via Menu (≡) > Account Linking. You will then be able to link a new account."
+          }
+        ]
+      },
+      {
+        "type": 1,
+        "components": [
+          {
+            "type": 2,
+            "style": 4,
+            "label": "MENU",
+            "custom_id": "gamenews_000000_1",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "BACK",
+            "custom_id": "gamenews_1000030_2",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "3/3",
+            "custom_id": "gamenews_1000030_jump",
+            "disabled": false
+          },
+          {
+            "type": 2,
+            "style": 3,
+            "label": "NEXT",
+            "custom_id": "gamenews_1000030_4",
+            "disabled": true
+          }
+        ]
+      }
+    ]
+  },
+  "gamenews_000000_1": {
+    "flags": 32768,
+    "components": [
+      {
+        "type": 10,
+        "content": "## Menú de Noticias\nSelecciona una noticia o regresa."
+      }
+    ]
+  }
+}
