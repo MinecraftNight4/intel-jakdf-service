@@ -84,7 +84,7 @@ class KaijuReadNews:
         for line in lines:
             if line.startswith("*") and len(line) > 1 and not line[1].isspace():
                 content = line[1:]
-                new_lines.append(f"-# \\**{content}*")
+                new_lines.append(f"-# - *{content}*")
             else:
                 new_lines.append(line)
         text = "\n".join(new_lines)
@@ -92,6 +92,21 @@ class KaijuReadNews:
     
 
 
+    def tool_for_colors(self, category: str) -> str:
+        category = category.lower().strip() if category else ""
+    
+        colors = {
+            "maintenance": "455a64",
+            "important":   "e53935",
+            "update":      "1e88e5",
+            "event":       "43a047",
+            "gacha":       "8e24aa",
+            "news":        "546e7a",
+            "known issue": "fb8c00",
+        }
+        return colors.get(category, "ffffff")
+    
+    
     def tool_for_limit(self, buffer, tag) -> bool:
         if tag in ("h1", "h2"):
             return True
@@ -229,9 +244,9 @@ class KaijuReadNews:
             if tag == "li":
                 buffer += f"- {text}\n"
             elif tag == "h2":
-                buffer += f"## __`{text.upper()}`__\n"
+                buffer += f"> ## __`{text.upper()}`__\n"
             elif tag == "h3":
-                buffer += f"### __`{text.upper()}`__\n"
+                buffer += f"> ### __`{text.upper()}`__\n"
             elif tag == "p":
                 parent_tag = el.parent.name.lower() if el.parent else ""
                 if parent_tag in ("td", "th"):
@@ -302,6 +317,7 @@ class KaijuReadNews:
                 "article_type": article_node,
                 "article_uuid": article_uuid,
                 "article_time": 120000,
+                "article_rgbs": self.tool_for_colors(article_node),
                 "article_logo": None,
                 "article_hash": "0",
                 "article_node": [],
