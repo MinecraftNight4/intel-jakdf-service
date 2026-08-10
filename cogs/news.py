@@ -18,16 +18,25 @@ PUBLIC_COOLDOWN = 60  # segundos
 
 
 def display_time_posted(unix_ts: int) -> str:
-    """Convierte article_time (unix) en texto legible de días."""
     now = int(time.time())
     diff = max(0, now - int(unix_ts))
+    hour = diff // 3600
     days = diff // 86400
+    year = diff // 31556926
 
-    if days == 0:
-        return "Today"
-    if days == 1:
+    if year > 1:
+        return f"{year} years ago"
+    elif year == 1:
+        return "1 year ago"
+    elif days > 1:
+       return f"{days} days ago"
+    elif days == 1:
         return "1 day ago"
-    return f"{days} days ago"
+    elif hour > 1:
+        return f"{hour} hours ago"
+    elif hour == 1:
+            return "1 hour ago"
+    return "0 hours"
 
 def display_emoji_types(article_type: str) -> str:
     """Devuelve el emoji según el tipo de noticia."""
@@ -102,7 +111,7 @@ class NewsPageView(ui.LayoutView):
         flush_text()
 
         if len(container.children) <= (2 if article.get("article_logo") else 1):
-            container.add_item(ui.TextDisplay("*Sin contenido en esta página*"))
+            container.add_item(ui.TextDisplay("*`error_missing_text`*"))
 
         container.add_item(ui.Separator())
 
@@ -169,7 +178,7 @@ class NewsMenuView(ui.LayoutView):
             options = []
             for art in chunk:
                 name = art.get("article_name", "Unknown")[:100]
-                art_type = art.get("article_type", "news")
+                art_type = art.get("article_type", "news").upper()
                 days_text = display_time_posted(art.get("article_time", 0))
                 desc = f"{art_type} | {days_text}"[:100]
 
@@ -192,7 +201,7 @@ class NewsMenuView(ui.LayoutView):
             container.add_item(row)
 
         if num_dropdowns == 0:
-            container.add_item(ui.TextDisplay("*No hay noticias disponibles.*"))
+            container.add_item(ui.TextDisplay("`error_articlewheel_empty`"))
 
         self.add_item(container)
 
