@@ -138,8 +138,8 @@ class NewsPageView(ui.LayoutView):
         row.add_item(ui.Button(
             label=f"PAGE {page} OF {total_pages}",
             style=discord.ButtonStyle.success,
-            custom_id=f"gamenews_{uuid}_index",
-            disabled={total_pages} > 1
+            custom_id=f"gamenews_{uuid}_index_{page}",
+            disabled=total_pages <= 1
         ))
         row.add_item(ui.Button(
             emoji="▶️",
@@ -148,6 +148,104 @@ class NewsPageView(ui.LayoutView):
             disabled=page >= total_pages
         ))
         container.add_item(row)
+        self.add_item(container)
+
+
+class NewsPageIndexView(ui.LayoutView):
+    def __init__(self, article: dict, current_page: int, total_pages: int):
+        super().__init__()
+
+        uuid = article["article_uuid"]
+        title = article.get("article_name", "Unknown")
+
+        container = ui.Container(accent_colour=0xFF8C00)
+        container.add_item(ui.TextDisplay(f"## {title}"))
+        container.add_item(ui.Separator())
+
+        MAX_OPTIONS = 25  # límite de Discord
+
+        # --- Calcular la ventana de páginas ---
+        def window_for(budget: int) -> list[int]:
+            """Ventana consecutiva de `budget` páginas centrada en current_page."""
+            if budget >= total_pages:
+                return list(range(1, total_pages + 1))
+            start = current_page - (budget - 1) // 2
+            end = start + budget - 1
+            if start < 1:
+                start, end = 1, min(total_pages, budget)
+            elif end > total_pages:
+                end = total_pages
+                start = max(1, end - budget + 1)
+            return list(range(start, end + 1))
+
+        pages: list[int] = []
+        need_first = False
+        need_last = False
+
+        if total_pages <= MAX_OPTIONS:
+            # Caben todas: sin saltos
+            pages = list(range(1, total_pages + 1))
+        else:
+            # Probar de más a menos slots de páginas hasta que quepan + saltos
+            for budget in range(MAX_OPTIONS, 0, -1):
+                candidate = window_for(budget)
+                nf = 1 not in candidate
+                nl = total_pages not in candidate
+                jumps = (1 if nf else 0) + (1 if nl else 0)
+                if len(candidate) + jumps <= MAX_OPTIONS:
+                    pages = candidate
+                    need_first = nf
+                    need_last = nl
+                    break
+
+        # --- Construir opciones ---
+        options: list[discord.SelectOption] = []
+
+        if need_first:
+            options.append(discord.SelectOption(
+                label="JUMP TO PAGE 1",
+                value=f"gamenews_{uuid}_1",
+                emoji="🏚️"
+            ))
+
+        for p in pages:
+            is_current = p == current_page
+            options.append(discord.SelectOption(
+                label=f"PAGE {p} OF {total_pages}",
+                value=f"gamenews_{uuid}_{p}",
+                emoji="📍" if is_current else "⏩",
+                default=is_current
+            ))
+
+        if need_last:
+            options.append(discord.SelectOption(
+                label=f"JUMP TO PAGE {total_pages}",
+                value=f"gamenews_{uuid}_{total_pages}",
+                emoji="🚪"
+            ))
+
+        options = options[:MAX_OPTIONS]  # seguridad
+
+        select = ui.Select(
+            custom_id=f"gamenews_{uuid}_indexdd_1",
+            placeholder=f"Jump to page… (now {current_page}/{total_pages})",
+            options=options,
+            min_values=1,
+            max_values=1
+        )
+        row = ui.ActionRow()
+        row.add_item(select)
+        container.add_item(row)
+
+        # Volver a la página actual
+        row_back = ui.ActionRow()
+        row_back.add_item(ui.Button(
+            label="← BACK TO ARTICLE",
+            style=discord.ButtonStyle.secondary,
+            custom_id=f"gamenews_{uuid}_{current_page}"
+        ))
+        container.add_item(row_back)
+
         self.add_item(container)
 
 
@@ -189,11 +287,12 @@ class NewsMenuView(ui.LayoutView):
                 art_type = art.get("article_type", "news").upper()
                 days_text = display_time_posted(art.get("article_time", 0))
                 desc = f"{art_type} | {days_text}"[:100]
+                uuid = art["article_uuid"]
 
                 options.append(discord.SelectOption(
                     label=name,
                     description=desc,
-                    value=str(art["article_uuid"]),
+                    value=f"gamenews_{uuid}_1",          # ← cambio clave
                     emoji=display_emoji_types(art_type)
                 ))
 
@@ -352,8 +451,7 @@ class News(commands.Cog):
                 )
                 return
 
-            article_uuid = values[0]
-            key = f"gamenews_{article_uuid}_1"
+            key = values[0]  # ya es "gamenews_{uuid}_1"
             view = self.cache.get(key)
             if view is None:
                 await interaction.response.edit_message(
@@ -364,7 +462,49 @@ class News(commands.Cog):
             await interaction.response.edit_message(view=view)
             return
 
-        # Navegación de páginas (botones ◀️ ▶️)
+        # Botón "PAGE X OF Y" → mostrar índice de páginas
+        if "_index_" in custom_id and not custom_id.startswith("gamenews_index_"):
+            # Formato: gamenews_{uuid}_index_{page}
+            parts = custom_id.split("_")
+            # parts: ["gamenews", uuid, "index", page]
+            if len(parts) >= 4 and parts[-2] == "index":
+                try:
+                    page = int(parts[-1])
+                    uuid = "_".join(parts[1:-2])  # por si el uuid tuviera guiones bajos
+                except ValueError:
+                    await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+                    return
+
+                # Buscamos el artículo
+                article = None
+                for art in self.sorted_articles:
+                    if art.get("article_uuid") == uuid:
+                        article = art
+                        break
+
+                if article is None:
+                    await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+                    return
+
+                total_items = len(article.get("article_node", []))
+                total_pages = math.ceil(total_items / ITEMS_PER_PAGE) if total_items > 0 else 1
+
+                view = NewsPageIndexView(article, page, total_pages)
+                await interaction.response.edit_message(view=view)
+                return
+
+        # Dropdowns del índice de páginas (gamenews_{uuid}_indexdd_N)
+        if "_indexdd_" in custom_id:
+            values = interaction.data.get("values", [])
+            if not values:
+                await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+                return
+
+            key = values[0]  # ya es "gamenews_{uuid}_{page}"
+            await self._send(interaction, key, edit=True)
+            return
+
+        # Navegación normal de páginas (◀️ ▶️ y BACK)
         await self._send(interaction, custom_id, edit=True)
 
     async def _send(self, interaction: discord.Interaction, key: str, edit: bool = False):
