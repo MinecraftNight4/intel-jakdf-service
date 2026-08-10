@@ -138,7 +138,7 @@ class NewsPageView(ui.LayoutView):
         row.add_item(ui.Button(
             label=f"PAGE {page} OF {total_pages}",
             style=discord.ButtonStyle.success,
-            custom_id=f"gamenews_{uuid}_page",
+            custom_id=f"gamenews_{uuid}_index",
             disabled=True
         ))
         row.add_item(ui.Button(
