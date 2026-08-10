@@ -139,7 +139,7 @@ class NewsPageView(ui.LayoutView):
             label=f"PAGE {page} OF {total_pages}",
             style=discord.ButtonStyle.success,
             custom_id=f"gamenews_{uuid}_index",
-            disabled=True
+            disabled={total_pages} > 1
         ))
         row.add_item(ui.Button(
             emoji="▶️",
