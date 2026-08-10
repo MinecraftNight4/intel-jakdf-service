@@ -17,13 +17,15 @@ MAX_DROPDOWNS = 4
 PUBLIC_COOLDOWN = 60  # segundos
 
 
+#   ===================================================
+#   DEFINE EL HORARIO DEL POSTEO
+#   ===================================================
 def display_time_posted(unix_ts: int) -> str:
     now = int(time.time())
     diff = max(0, now - int(unix_ts))
     hour = diff // 3600
     days = diff // 86400
     year = diff // 31556926
-
     if year > 1:
         return f"{year} years ago"
     elif year == 1:
@@ -38,8 +40,10 @@ def display_time_posted(unix_ts: int) -> str:
             return "1 hour ago"
     return "0 hours"
 
+#   ===================================================
+#   INDEXA EL EMOJI SEGUN EL TIPO DE NOTICIA
+#   ===================================================
 def display_emoji_types(article_type: str) -> str:
-    """Devuelve el emoji según el tipo de noticia."""
     t = (article_type or "").strip().lower()
     mapping = {
         "maintenance": "🚧",
@@ -53,6 +57,10 @@ def display_emoji_types(article_type: str) -> str:
     return mapping.get(t, "⁉️")
 
 
+
+#   ===================================================
+#   REGISTRO DE NOTICIAS POR PAGINA
+#   ===================================================
 class NewsPageView(ui.LayoutView):
     def __init__(self, article: dict, page: int, total_pages: int):
         super().__init__()
@@ -130,7 +138,7 @@ class NewsPageView(ui.LayoutView):
         row.add_item(ui.Button(
             label=f"PAGE {page} OF {total_pages}",
             style=discord.ButtonStyle.success,
-            custom_id=f"gamenews_{uuid}_info",
+            custom_id=f"gamenews_{uuid}_page",
             disabled=True
         ))
         row.add_item(ui.Button(
