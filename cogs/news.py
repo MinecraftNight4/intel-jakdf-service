@@ -21,24 +21,20 @@ PUBLIC_COOLDOWN = 60  # segundos
 #   DEFINE EL HORARIO DEL POSTEO
 #   ===================================================
 def display_time_posted(unix_ts: int) -> str:
-    now = int(time.time())
-    diff = max(0, now - int(unix_ts))
-    hour = diff // 3600
-    days = diff // 86400
-    year = diff // 31556926
-    if year > 1:
-        return f"{year} years ago"
-    elif year == 1:
-        return "1 year ago"
-    elif days > 1:
-       return f"{days} days ago"
-    elif days == 1:
-        return "1 day ago"
-    elif hour > 1:
-        return f"{hour} hours ago"
-    elif hour == 1:
-            return "1 hour ago"
-    return "0 hours"
+    diff = max(0, int(time.time()) - int(unix_ts))
+    units = [
+        (31536000, "year"),
+        (2592000, "month"),
+        (604800, "week"),
+        (86400, "day"),
+        (3600, "hour"),
+        (60, "minute"),
+    ]
+    for seconds, name in units:
+        value = diff // seconds
+        if value >= 1:
+            return f"1 {name} ago" if value == 1 else f"{value} {name}s ago"
+    return "just now"
 
 #   ===================================================
 #   INDEXA EL EMOJI SEGUN EL TIPO DE NOTICIA
@@ -161,16 +157,21 @@ class NewsPageIndexView(ui.LayoutView):
         container = ui.Container(accent_colour=0xFF8C00)
         container.add_item(ui.TextDisplay(f"## {title}"))
         container.add_item(ui.Separator())
-
-        MAX_OPTIONS = 25  # límite de Discord
-
-        # --- Calcular la ventana de páginas ---
+        
+        
+        # ESTA FUNCIÓN ES MATEMATICA PURA.
+        # Crea una lista temporal en base al numero otorgado:
+        # - Si el conteo de paginas es igual o inferior al TOTAL DE PAGINAS, se crea una lista normal. 
+        # - 
+        # - 
         def window_for(budget: int) -> list[int]:
-            """Ventana consecutiva de `budget` páginas centrada en current_page."""
+            # BUDGET = 
             if budget >= total_pages:
                 return list(range(1, total_pages + 1))
+            
             start = current_page - (budget - 1) // 2
             end = start + budget - 1
+            
             if start < 1:
                 start, end = 1, min(total_pages, budget)
             elif end > total_pages:
@@ -182,17 +183,17 @@ class NewsPageIndexView(ui.LayoutView):
         need_first = False
         need_last = False
 
-        if total_pages <= MAX_OPTIONS:
-            # Caben todas: sin saltos
+        if total_pages <= 25:
+            # SI HAY UN EQUIVALENTE A 25 PAGINAS, crear una lista normal.
             pages = list(range(1, total_pages + 1))
         else:
-            # Probar de más a menos slots de páginas hasta que quepan + saltos
-            for budget in range(MAX_OPTIONS, 0, -1):
+            # SI LA LISTA SUPERA 25 ELEMENTOS, c
+            for budget in range(25, 0, -1):
                 candidate = window_for(budget)
-                nf = 1 not in candidate
+                nf = 1 not in candidate 
                 nl = total_pages not in candidate
                 jumps = (1 if nf else 0) + (1 if nl else 0)
-                if len(candidate) + jumps <= MAX_OPTIONS:
+                if len(candidate) + jumps <= 25:
                     pages = candidate
                     need_first = nf
                     need_last = nl
@@ -224,7 +225,7 @@ class NewsPageIndexView(ui.LayoutView):
                 emoji="🚪"
             ))
 
-        options = options[:MAX_OPTIONS]  # seguridad
+        options = options[:25]
 
         select = ui.Select(
             custom_id=f"gamenews_{uuid}_indexdd_1",

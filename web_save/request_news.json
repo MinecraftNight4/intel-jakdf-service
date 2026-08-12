@@ -404,60 +404,6 @@
             1791946799
         ]
     },
-    "1003220": {
-        "article_name": "[LIMITED] RENO ICHIKAWA PICKUP GACHA NOW AVAILABLE!",
-        "article_type": "gacha",
-        "article_uuid": "1003220",
-        "article_time": 1786330800,
-        "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003220/a1575c440eae44f9f178dc6cefbb40aa.jpg?Expires=1786466274&Signature=jPmOiamwbz5zKVgYdoW2lfLfmswNY5q2rOxcvBccaY67y~ejUreDIvlLPnGqhEpyliiDMCUee1a6BiQHdWTAoZQMA36ezs~-it0ulw3RdxOgKNH0dkPbpDJQGh2bXAY70phpPdW-dHj6K~RXaQSUEH~9OuTTLp6ia9eYiO4wFIdEAew606CLLoOg90eiSWqAYxllmaDNDsEErm19persIBaCDPlxZ9a-pSCnTC6BRzvlRLYEj8ay1QRt~I~oBms~y0Hev-Vysmnt~hFiepahSeBhLxVyT~br~6pgWmHRa3bHEVye0F2sdDksR86CV6z5QxPsakpFvc~s~HLBNOuf8w__&Key-Pair-Id=K22LOBLWI3HWJQ",
-        "article_hash": "a51b98e5a83a1cfbe336a809c2517c8fdf7674986bfa4a8218007b29f33c8795",
-        "article_node": [
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt"
-        ],
-        "article_item": [
-            "> ## __`AVAILABILITY PERIOD`__\n`━ ROW 1 OF 2:`\n> `❚ 1:` Gacha Availability Period\n> `❚ 2:` <t:1786330800> - <t:1788231599>",
-            "`━ ROW 2 OF 2:`\n> `❚ 1:` Pickup Character/Weapon Exchange Period\n> `❚ 2:` <t:1786330800> - <t:1788836399>",
-            "> ## __`PICKUP GACHA OVERVIEW`__\n> ### __`PICKUP CONTENT`__\nThis Pickup Gacha features the following character and weapon!\n\n■ New ★5 Character\n[The Reigning King of Kaiju] Reno Ichikawa (Optimal weapon type: Assault Rifle)",
-            "■ New ★5 Weapon\nAR-Okzorom (Assault Rifle)\n\n-# - *For details on the characters and weapons, please refer to Gacha > Pickup Details.*\n-# - *The character and weapon listed above are available for a limited time in this gacha. They may be available again in the future.*",
-            "> ### __`RELATED EVENT & STORY`__\nDuring the gacha availability period, a trial battle for [The Reigning King of Kaiju] Reno Ichikawa is available!\nPlay it by going to Events > Trial Battle.\n\nAlso, [The Reigning King of Kaiju] Reno Ichikawa is featured in Main Story Chapter 14 \"Kaiju A Disaster: Final Showdown\"!\nFor more details, please check the relevant announcement.",
-            "> ## __`PICKUP GACHA DETAILS`__\n> ### __`PICKUP GACHA MEDALS`__\nFor every pull you perform in the \"Pickup\" gacha type (hereinafter referred to as Pickup Gacha), you will receive 1 Pickup Gacha Medal. The Medals can be exchanged at the Shop for eligible ★5 characters and ★5 weapons.\n-# - *You can also earn Pickup Gacha Medals when you use Gacha Tickets to pull.*\n-# - *Pickup Gacha Medals do not have an expiration date.*",
-            "-# - *The items available for exchange with Pickup Gacha Medals will be updated periodically. Please refer to the \"Exchange Period\" at the beginning of this announcement for the dates.*\n\n> ### __`GUARANTEED ★4 OR HIGHER CHARACTER`__\nIn Pickup Gacha, if you perform 9 pulls that all result in weapons, your next Pickup Gacha pull is guaranteed to be a ★4 or higher character.\nFor details on available characters, please refer to Gacha > Appearance Rates/History > Appearance Rates > Appearance Rates for Guaranteed ★4 or Higher Character.\n-# - *This guarantee applies whether you perform a 10-pull or 10 single pulls.*",
-            "-# - *This guarantee also applies whether you perform 10 pulls on the same Pickup Gacha or a total of 10 pulls across different Pickup Gachas.*\n-# - *You can check your past gacha results by going to Gacha > Appearance Rates/History > History.*\n-# - *Gacha results from the \"Standard,\" \"Special,\" or \"Ad\" type gachas do not affect this guarantee setting. You can check the gacha type on the Gacha screen and in Gacha > Appearance Rates/History > History.*\n\n> ### __`OBTAINING DUPLICATE CHARACTERS`__",
-            "When you obtain a character you already own, the duplicate copy will automatically be converted into Encounter Stones, Apatite Petals, and/or Talent Shards based on their rarity and how many times you've obtained them. Encounter Stones can be exchanged for various items in the Shop, while Talent Shards can be used to Ascend characters. Apatite Petals can be exchanged for select ★5 characters in the Shop.\n`━ ROW 1 OF 5:`\n> `❚ 1:` Rarity\n> `❚ 2:` Acquisition Count\n> `❚ 3:` Items Received",
-            "`━ ROW 2 OF 5:`\n> `❚ 1:` ★5\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
-            "`━ ROW 3 OF 5:`\n> `❚ 1:` 8th and beyond\n> `❚ 2:` ・Apatite Petal x1\n> `❚ └─` ・Encounter Stone x100\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x40",
-            "`━ ROW 4 OF 5:`\n> `❚ 1:` ★4\n> `❚ 2:` 2nd to 7th\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8",
-            "`━ ROW 5 OF 5:`\n> `❚ 1:` 8th and beyond\n> `❚ 2:` ・Encounter Stone x20\n> `❚ 3:` ・Character-specific Talent Shard x1\n> `❚ └─` ・Encounter Stone x8",
-            "> ### __`OBTAINING WEAPONS`__\nWhen you obtain a weapon, you will receive Encounter Stones based on its rarity. Encounter Stones can be exchanged for various items in the Shop.\n`━ ROW 1 OF 4:`\n> `❚ 1:` Weapon Rarity\n> `❚ 2:` Items Received",
-            "`━ ROW 2 OF 4:`\n> `❚ 1:` ★5\n> `❚ 2:` ・Encounter Stone x40\n`━ ROW 3 OF 4:`\n> `❚ 1:` ★4\n> `❚ 2:` ・Encounter Stone x8",
-            "`━ ROW 4 OF 4:`\n> `❚ 1:` ★3\n> `❚ 2:` ・Encounter Stone x2\n-# - *If your weapon storage is full, any weapons and Encounter Stones you receive from Gacha will be sent to your Mail.*\n-# - *Unlike characters, when you obtain a weapon you already own, the duplicate copy will not be automatically converted.*",
-            "In addition, you can obtain Refinement Crystals by disassembling ★5 weapons from Gacha. Refinement Crystals can be used to amplify weapons or exchange for certain ★5 weapons in the Shop. For more details, please go to Gacha > Weapon Exchange.\n-# - *To disassemble weapons, open up the global menu on the top right of the Home screen > Storage.*\n-# - *Weapon Exchange will be limited to 1 time per month, and will reset on the 1st day of every month at 04:00 JST.*",
-            "> ## __`IMPORTANT`__\n- For details on appearance rates, please refer to Gacha > Appearance Rates/History > Appearance Rates.\n- The availability period and content are subject to change without prior notice. We appreciate your understanding.\n- Pickup characters and weapons may be available again or be on pickup in a future Gacha, Shop, etc."
-        ],
-        "article_unix": [
-            1786330800,
-            1788231599,
-            1788836399
-        ]
-    },
     "1003200": {
         "article_name": "NEW TRAININGS: ANT-TYPE KAIJU Β & KAIJU A ADDED!",
         "article_type": "news",

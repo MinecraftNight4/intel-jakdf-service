@@ -213,15 +213,14 @@ class KaijuReadNews:
             if tag == "img":
                 img_url = el.get("src")
                 if img_url:
-                    local_or_url = img_url#self.storage_file_news(img_url)
                     if self.news_storage[news_id]["article_logo"] is None:
-                        self.news_storage[news_id]["article_logo"] = local_or_url
+                        self.news_storage[news_id]["article_logo"] = img_url
                     else:
                         if buffer.strip() != "":
                             self.news_storage[news_id]["article_item"].append(buffer.strip())
                             self.news_storage[news_id]["article_node"].append("txt")
                             buffer = ""
-                        self.news_storage[news_id]["article_item"].append(local_or_url)
+                        self.news_storage[news_id]["article_item"].append(img_url)
                         self.news_storage[news_id]["article_node"].append("img")
                         continue
 
@@ -244,9 +243,9 @@ class KaijuReadNews:
             if tag == "li":
                 buffer += f"- {text}\n"
             elif tag == "h2":
-                buffer += f"> ## __`{text.upper()}`__\n"
+                buffer += f"## 🪧 __`{text.upper()}`__\n"
             elif tag == "h3":
-                buffer += f"> ### __`{text.upper()}`__\n"
+                buffer += f"### 🪧 __`{text.upper()}`__\n"
             elif tag == "p":
                 parent_tag = el.parent.name.lower() if el.parent else ""
                 if parent_tag in ("td", "th"):
