@@ -150,66 +150,34 @@ class NewsPageView(ui.LayoutView):
 class NewsPageIndexView(ui.LayoutView):
     def __init__(self, article: dict, current_page: int, total_pages: int):
         super().__init__()
-
+        container = ui.Container(accent_colour=0xFF8C00)
+        
         uuid = article["article_uuid"]
         title = article.get("article_name", "Unknown")
-
-        container = ui.Container(accent_colour=0xFF8C00)
-        container.add_item(ui.TextDisplay(f"## {title}"))
-        container.add_item(ui.Separator())
+        container.add_item(ui.TextDisplay(f"## __{title}__"))
         
-        
-        # ESTA FUNCIÓN ES MATEMATICA PURA.
-        # Crea una lista temporal en base al numero otorgado:
-        # - Si el conteo de paginas es igual o inferior al TOTAL DE PAGINAS, se crea una lista normal. 
-        # - 
-        # - 
-        def window_for(budget: int) -> list[int]:
-            # BUDGET = 
-            if budget >= total_pages:
-                return list(range(1, total_pages + 1))
-            
-            start = current_page - (budget - 1) // 2
-            end = start + budget - 1
-            
-            if start < 1:
-                start, end = 1, min(total_pages, budget)
-            elif end > total_pages:
-                end = total_pages
-                start = max(1, end - budget + 1)
-            return list(range(start, end + 1))
-
-        pages: list[int] = []
-        need_first = False
-        need_last = False
-
         if total_pages <= 25:
-            # SI HAY UN EQUIVALENTE A 25 PAGINAS, crear una lista normal.
+            #   SI HAY 25 ELEMENTOS O MENOS, no se muestra el SALTAR a Inicio/Fin.
             pages = list(range(1, total_pages + 1))
+            need_first = need_last = False
         else:
-            # SI LA LISTA SUPERA 25 ELEMENTOS, c
-            for budget in range(25, 0, -1):
-                candidate = window_for(budget)
-                nf = 1 not in candidate 
-                nl = total_pages not in candidate
-                jumps = (1 if nf else 0) + (1 if nl else 0)
-                if len(candidate) + jumps <= 25:
-                    pages = candidate
-                    need_first = nf
-                    need_last = nl
-                    break
+            #   SUPERANDO LOS 25 ELEMENTOS, calcula cuantos elementos listar por arriba y abajo del index.
+            start = max(1, (current_page - 11) ) 
+            end = min(total_pages, ((start + 22) - 1) )
+            start = max(1, ((end - 22) + 1) )
 
-        # --- Construir opciones ---
+            pages = list(range(start, end + 1))
+            need_first = start > 1
+            need_last = end < total_pages
+
         options: list[discord.SelectOption] = []
-
-        if need_first:
+        if need_first:   # JUMP FIRST PAGE
             options.append(discord.SelectOption(
                 label="JUMP TO PAGE 1",
                 value=f"gamenews_{uuid}_1",
                 emoji="🏚️"
             ))
-
-        for p in pages:
+        for p in pages:   # LISTED PAGES
             is_current = p == current_page
             options.append(discord.SelectOption(
                 label=f"PAGE {p} OF {total_pages}",
@@ -217,18 +185,15 @@ class NewsPageIndexView(ui.LayoutView):
                 emoji="📍" if is_current else "⏩",
                 default=is_current
             ))
-
-        if need_last:
+        if need_last:   # JUMP FINAL PAGE
             options.append(discord.SelectOption(
                 label=f"JUMP TO PAGE {total_pages}",
                 value=f"gamenews_{uuid}_{total_pages}",
                 emoji="🚪"
             ))
-
         options = options[:25]
-
         select = ui.Select(
-            custom_id=f"gamenews_{uuid}_indexdd_1",
+            custom_id=f"gamenews_{uuid}_redirect_1",
             placeholder=f"Jump to page… (now {current_page}/{total_pages})",
             options=options,
             min_values=1,
@@ -238,41 +203,37 @@ class NewsPageIndexView(ui.LayoutView):
         row.add_item(select)
         container.add_item(row)
 
-        # Volver a la página actual
         row_back = ui.ActionRow()
         row_back.add_item(ui.Button(
-            label="← BACK TO ARTICLE",
+            label="← CLOSE INDEX",
             style=discord.ButtonStyle.secondary,
             custom_id=f"gamenews_{uuid}_{current_page}"
         ))
         container.add_item(row_back)
-
+        
         self.add_item(container)
 
 
 class NewsMenuView(ui.LayoutView):
     def __init__(self, sorted_articles: List[dict]):
         super().__init__()
-        refresh_ts = int(time.time()) + 1800
-
+        
+        # COLOR
         container = ui.Container(accent_colour=0xFF8C00)
 
-        header_text = (
-            f"## [`🔗`](https://info.kj8-thegame.com/news?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) "
-            f"KAIJU NO.8 - THE GAME | IN-GAME NEWS\n"
-            f"-# ⏰ *This menu will be updated in <t:{refresh_ts}:R>*"
-        )
-        container.add_item(ui.TextDisplay(header_text))
+        # TITLE
+        refresh_ts = int(time.time()) + 1800
+        container.add_item(ui.TextDisplay(f"## [`🔗`](https://info.kj8-thegame.com/news?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) KAIJU NO.8 - THE GAME | IN-GAME NEWS \n-# ⏰ *News are fetched every 30 minutes. Fetching <t:{refresh_ts}:R>...*"))
+        
+        # BANNER
         gallery = ui.MediaGallery()
-        gallery.add_item(
-            media="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3393070/68c7e753b54b52465e99d8fffd4b4084a15db103/header.jpg"
-        )
+        gallery.add_item(media="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3393070/68c7e753b54b52465e99d8fffd4b4084a15db103/header.jpg")
         container.add_item(gallery)
 
-        # 3) Separator
+        # SEPARATOR
         container.add_item(ui.Separator())
 
-        # 4) Dropdowns (máximo 4 × 25 = 100)
+        # DROPDOWNS
         articles = sorted_articles[:MAX_NEWS_IN_MENU]
         total = len(articles)
         num_dropdowns = min(MAX_DROPDOWNS, math.ceil(total / OPTIONS_PER_DROPDOWN) if total else 0)
@@ -293,7 +254,7 @@ class NewsMenuView(ui.LayoutView):
                 options.append(discord.SelectOption(
                     label=name,
                     description=desc,
-                    value=f"gamenews_{uuid}_1",          # ← cambio clave
+                    value=f"gamenews_{uuid}_1",
                     emoji=display_emoji_types(art_type)
                 ))
 
@@ -307,30 +268,24 @@ class NewsMenuView(ui.LayoutView):
             row = ui.ActionRow()
             row.add_item(select)
             container.add_item(row)
-
         if num_dropdowns == 0:
-            container.add_item(ui.TextDisplay("`error_articlewheel_empty`"))
-
+            container.add_item(ui.TextDisplay("Kaijus are jamming our connection!! \n-# `error_articlewheel_empty`"))
         self.add_item(container)
 
 class NewsErrorView(ui.LayoutView):
     def __init__(self):
         super().__init__()
+        container = ui.Container()
 
-        container = ui.Container(accent_colour=0xFF0000)
-
+        # MEME GIF
         gallery = ui.MediaGallery()
-        gallery.add_item(
-            media="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjI5cHBzeG16dHJyNDY4N2lxYmc1cDlnd2RjeTBmanBlZXViM2dkeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KDDljB0PQQaGjiG57X/giphy.gif"
-        )
+        gallery.add_item(media="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjI5cHBzeG16dHJyNDY4N2lxYmc1cDlnd2RjeTBmanBlZXViM2dkeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KDDljB0PQQaGjiG57X/giphy.gif")
         container.add_item(gallery)
 
-        container.add_item(ui.TextDisplay(
-            "## WHY IS NO.8 HERE!?\nThis article or menu is not longer available..."
-        ))
+        # ERROR MESSAGE
+        container.add_item(ui.TextDisplay("## WHY IS NO.8 HERE!? (＃°Д°)\nSomehow you have requested to view a panel, menu or article that no longer exist or is empty.\n-# `error_gamenews_notavailable`"))
 
-        container.add_item(ui.Separator())
-
+        # BUTTON FALLBACK TO THE MENU
         row = ui.ActionRow()
         row.add_item(ui.Button(
             label="≡ MENU",
@@ -338,7 +293,6 @@ class NewsErrorView(ui.LayoutView):
             custom_id="gamenews_menu"
         ))
         container.add_item(row)
-
         self.add_item(container)
 
 class News(commands.Cog):
@@ -401,7 +355,7 @@ class News(commands.Cog):
     ):
         if not private:
             now = time.time()
-            expires = self._public_cooldowns.get(interaction.user.id, 0)
+            expires = self._public_cooldowns.get(interaction.channel_id, 0)
             if now < expires:
                 remaining = int(expires - now)
                 await interaction.response.send_message(
@@ -409,7 +363,7 @@ class News(commands.Cog):
                     ephemeral=True
                 )
                 return
-            self._public_cooldowns[interaction.user.id] = now + PUBLIC_COOLDOWN
+            self._public_cooldowns[interaction.channel_id] = now + PUBLIC_COOLDOWN
         
         if self.menu_view is None:
             await interaction.response.send_message("❌ Currently this feature is not available! `error_menuindex_empty`", ephemeral=True)
@@ -495,7 +449,7 @@ class News(commands.Cog):
                 return
 
         # Dropdowns del índice de páginas (gamenews_{uuid}_indexdd_N)
-        if "_indexdd_" in custom_id:
+        if "_redirect_" in custom_id:
             values = interaction.data.get("values", [])
             if not values:
                 await interaction.response.edit_message(view=self.error_view or NewsErrorView())

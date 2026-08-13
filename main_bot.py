@@ -8,6 +8,16 @@ intents = discord.Intents.all()
 private_guild = discord.Object(id=1332085001013039194)
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+@bot.command(name="reload")
+@commands.is_owner()  # solo el dueño del bot
+async def reload(ctx, extension: str):
+    try:
+        await bot.reload_extension(f"cogs.{extension}")
+        await ctx.send(f"✅ Cog `{extension}` recargado correctamente.")
+    except Exception as e:
+        await ctx.send(f"❌ Error al recargar: `{e}`")
+
+
 @bot.event
 async def on_ready():
     extensions = [
