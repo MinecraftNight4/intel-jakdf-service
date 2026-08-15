@@ -303,7 +303,7 @@ class News(commands.Cog):
         self.sorted_articles: List[dict] = []
         self.menu_view: NewsMenuView | None = None
         self.error_view: NewsErrorView | None = None
-        self._public_cooldowns: Dict[int, float] = {}  # user_id -> timestamp fin cooldown
+        self._public_cooldowns: Dict[int, float] = {}
 
         self.load_raw()
         self.build_cache()
