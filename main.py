@@ -1,8 +1,3 @@
-"""
-Punto de entrada único del servicio.
-1. Arranca todos los timers de /timer/
-2. Luego inicia el bot de Discord
-"""
 import os
 import discord
 from dotenv import load_dotenv
