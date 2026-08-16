@@ -84,7 +84,7 @@ class KaijuReadNews:
         for line in lines:
             if line.startswith("*") and len(line) > 1 and not line[1].isspace():
                 content = line[1:]
-                new_lines.append(f"\**{content}*")
+                new_lines.append(f"\\**{content}*")
             else:
                 new_lines.append(line)
         text = "\n".join(new_lines)
