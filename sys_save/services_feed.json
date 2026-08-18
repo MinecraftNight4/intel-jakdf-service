@@ -1,0 +1,36 @@
+{
+  "allow_feed_commands": [
+    1332085001013039194
+  ],
+  "feed_game_all.1332085001013039194": {
+    "channel": 1539140784274800671,
+    "publish": false,
+    "text": "This is a placeholder message."
+  },
+  "feed_game_all": {
+    "1332085001013039194": {
+      "channel": 1539140784274800671,
+      "publish": false
+    }
+  },
+  "xcom-kj8_thegame": {
+    "1332085001013039194": {
+      "channel": 1539140784274800671,
+      "publish": true
+    }
+  },
+  "feed_game_event": {
+    "1332085001013039194": {
+      "channel": 1539140784274800671,
+      "publish": false,
+      "text": "Esto es una prueba?"
+    }
+  },
+  "feed_game_patch": {
+    "1332085001013039194": {
+      "channel": 1539140784274800671,
+      "publish": false,
+      "text": "Esto es una prueba?"
+    }
+  }
+}

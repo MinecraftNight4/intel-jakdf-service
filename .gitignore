@@ -1,3 +1,4 @@
 .env
 *.pyc
 /cogs/__pycache__
+*.pyc

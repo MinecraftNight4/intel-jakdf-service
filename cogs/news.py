@@ -8,7 +8,7 @@ import discord
 from discord import app_commands, ui
 from discord.ext import commands
 
-RAW_NEWS_FILE = "web_save/request_news.json"
+RAW_NEWS_FILE = "sys_save/request_news.json"
 ITEMS_PER_PAGE = 4
 ACCENT_COLOR = 0xFFFFFF
 MAX_NEWS_IN_MENU = 100

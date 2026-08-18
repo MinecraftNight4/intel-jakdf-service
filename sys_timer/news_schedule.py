@@ -1,10 +1,6 @@
 from web_get.request_news import KaijuReadNews
 
 def run_news_scan() -> bool:
-    """
-    Ejecuta el scraper de noticias.
-    Devuelve True si se completó correctamente, False si hubo error.
-    """
     try:
         print("📰 [NEWS] Iniciando escaneo de noticias...")
         processor = KaijuReadNews()

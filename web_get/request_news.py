@@ -9,7 +9,7 @@ import re
 
 
 class KaijuReadNews:
-    def __init__(self, storage_file="web_save/request_news.json"):
+    def __init__(self, storage_file="sys_save/request_news.json"):
         self.storage_file = storage_file
         self.news_storage = {}
 
@@ -29,14 +29,14 @@ class KaijuReadNews:
     
     def storage_file_news(self, file_url: str) -> str:
         if not file_url:
-            return "web_save/request_news_error.jpg"
+            return "sys_save/request_news_error.jpg"
         if not file_url.startswith(("http://", "https://")):
             file_url = "https://info.kj8-thegame.com" + file_url.lstrip(".")
         filename = os.path.basename(file_url.split("?")[0].split("#")[0])
         if not filename or "." not in filename:
             filename = hashlib.md5(file_url.encode()).hexdigest() + ".bin"
     
-        save_dir = "web_save/request_news"
+        save_dir = "sys_save/request_news"
         os.makedirs(save_dir, exist_ok=True)
         local_path = os.path.join(save_dir, filename).replace("\\", "/")
         
@@ -54,7 +54,7 @@ class KaijuReadNews:
             return local_path
         except Exception as e:
             print(f"❌ Error al descargar {file_url}: {e}")
-            return "web_save/request_news.jpg"
+            return "sys_save/request_news.jpg"
 
     
     def tool_for_text(self, element, newsid) -> str:

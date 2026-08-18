@@ -26,6 +26,7 @@ async def reload(ctx, extension: str):
 async def on_ready():
     extensions = [
         "cogs.news",
+        "cogs.feeds",
     ]
 
     for ext in extensions:
@@ -35,20 +36,33 @@ async def on_ready():
         except Exception as e:
             print(f"❌ Error al cargar {ext}: {e}")
 
+    # Sync global
     await bot.tree.sync()
-    print(f"Bot listo como {bot.user} | Comandos sincronizados")
+    print("✅ Comandos globales sincronizados")
 
-    # Registrar el callback para que el timer pueda reconstruir la caché
+    # Sync de las guilds que tienen /feed
+    try:
+        from cogs.feeds import load_feeds
+        data = load_feeds()
+        for guild_id in data.get("allow_feed_commands", []):
+            try:
+                await bot.tree.sync(guild=discord.Object(id=int(guild_id)))
+                print(f"✅ Sincronizado en guild {guild_id}")
+            except Exception as e:
+                print(f"❌ Error sync guild {guild_id}: {e}")
+    except Exception as e:
+        print(f"⚠️ Error al sincronizar feeds: {e}")
+
+    print(f"Bot listo como {bot.user}")
+
+    # Callback del timer
     news_cog = bot.get_cog("News")
     if news_cog is not None:
         def rebuild():
             news_cog.load_raw()
             news_cog.build_cache()
-
         set_rebuild_callback(rebuild)
-        print("✅ Callback de rebuild_cache conectado al cog News.")
-    else:
-        print("⚠️ No se encontró el cog News. El timer no podrá reconstruir la caché automáticamente.")
+        print("✅ Callback de rebuild_cache conectado")
 
 
 if __name__ == "__main__":

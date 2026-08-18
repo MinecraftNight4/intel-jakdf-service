@@ -3,8 +3,6 @@ import time
 from datetime import datetime
 
 from .news_schedule import run_news_scan
-
-# Callback que el bot registrará para reconstruir la caché de embeds
 _rebuild_cache_callback = None
 
 
