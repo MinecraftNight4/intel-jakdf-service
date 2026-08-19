@@ -6,7 +6,7 @@ import discord
 from discord import app_commands, ui
 from discord.ext import commands
 
-FEEDS_FILE = "sys_save/services_feed.json"
+FEEDS_FILE = "sys_save/feed_system_setup.json"
 
 FEED_TYPES = {
     "feed_game_all": "Game news | All the news",

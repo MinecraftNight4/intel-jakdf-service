@@ -383,45 +383,33 @@ class News(commands.Cog):
             return
 
         custom_id = interaction.data.get("custom_id", "")
+        is_private_request = custom_id.startswith("private_gamenews_")
+        if is_private_request:
+            custom_id = custom_id.replace("private_gamenews_", "gamenews_", 1)
         if not custom_id.startswith("gamenews_"):
             return
 
-        # Botón MENU → volver al menú
+        # ---------- MENU ----------
         if custom_id == "gamenews_menu":
-            if self.menu_view is None:
-                await interaction.response.send_message(
-                    view=self.error_view or NewsErrorView(),
-                    ephemeral=True
-                )
-                return
-            await interaction.response.edit_message(view=self.menu_view)
+            view = self.menu_view or self.error_view or NewsErrorView()
+            await self._respond(interaction, view, force_private=is_private_request)
             return
-
-        # Dropdown de índice → abrir primera página de la noticia
+        
+        # ---------- Dropdown del menú principal ----------
         if custom_id.startswith("gamenews_index_"):
             values = interaction.data.get("values", [])
             if not values:
-                await interaction.response.edit_message(
-                    view=self.error_view or NewsErrorView()
-                )
+                await self._respond(interaction, self.error_view or NewsErrorView(), force_private=is_private_request)
                 return
 
-            key = values[0]  # ya es "gamenews_{uuid}_1"
-            view = self.cache.get(key)
-            if view is None:
-                await interaction.response.edit_message(
-                    view=self.error_view or NewsErrorView()
-                )
-                return
-
-            await interaction.response.edit_message(view=view)
+            key = values[0]
+            view = self.cache.get(key) or self.error_view or NewsErrorView()
+            await self._respond(interaction, view, force_private=is_private_request)
             return
-
-        # Botón "PAGE X OF Y" → mostrar índice de páginas
+        
+        # ---------- Botón "PAGE X OF Y" → índice ----------
         if "_index_" in custom_id and not custom_id.startswith("gamenews_index_"):
-            # Formato: gamenews_{uuid}_index_{page}
             parts = custom_id.split("_")
-            # parts: ["gamenews", uuid, "index", page]
             if len(parts) >= 4 and parts[-2] == "index":
                 try:
                     page = int(parts[-1])
@@ -430,37 +418,121 @@ class News(commands.Cog):
                     await interaction.response.edit_message(view=self.error_view or NewsErrorView())
                     return
 
-                # Buscamos el artículo
                 article = None
                 for art in self.sorted_articles:
                     if art.get("article_uuid") == uuid:
                         article = art
                         break
-
+            
                 if article is None:
                     await interaction.response.edit_message(view=self.error_view or NewsErrorView())
                     return
-
+            
                 total_items = len(article.get("article_node", []))
                 total_pages = math.ceil(total_items / ITEMS_PER_PAGE) if total_items > 0 else 1
-
-                view = NewsPageIndexView(article, page, total_pages)
-                await interaction.response.edit_message(view=view)
-                return
-
-        # Dropdowns del índice de páginas (gamenews_{uuid}_indexdd_N)
+            
+            view = NewsPageIndexView(article, page, total_pages)
+            await self._respond(interaction, view, force_private=is_private_request)
+            return
+        
+        # ---------- Dropdown de páginas (redirect) ----------
         if "_redirect_" in custom_id:
             values = interaction.data.get("values", [])
             if not values:
-                await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+                await self._respond(interaction, self.error_view or NewsErrorView(), force_private=is_private_request)
                 return
-
-            key = values[0]  # ya es "gamenews_{uuid}_{page}"
-            await self._send(interaction, key, edit=True)
+    
+            key = values[0]
+            view = self.cache.get(key) or self.error_view or NewsErrorView()
+            await self._respond(interaction, view, force_private=is_private_request)
             return
-
-        # Navegación normal de páginas (◀️ ▶️ y BACK)
-        await self._send(interaction, custom_id, edit=True)
+        
+        view = self.cache.get(custom_id) or self.error_view or NewsErrorView()
+        await self._respond(interaction, view, force_private=is_private_request)
+        #
+        #
+        #
+        #
+        #
+        #
+        ## LISTO
+        #if custom_id == "gamenews_menu":
+        #    if self.menu_view is None:
+        #        await interaction.response.send_message(
+        #            view=self.error_view or NewsErrorView(),
+        #            ephemeral=True
+        #        )
+        #        return
+        #    await interaction.response.edit_message(view=self.menu_view)
+        #    return
+        #
+        ## Dropdown de índice → abrir primera página de la noticia
+        ## LISTO
+        #if custom_id.startswith("gamenews_index_"):
+        #    values = interaction.data.get("values", [])
+        #    if not values:
+        #        await interaction.response.edit_message(
+        #            view=self.error_view or NewsErrorView()
+        #        )
+        #        return
+        #
+        #    key = values[0]  # ya es "gamenews_{uuid}_1"
+        #    view = self.cache.get(key)
+        #    if view is None:
+        #        await interaction.response.edit_message(
+        #            view=self.error_view or NewsErrorView()
+        #        )
+        #        return
+        #
+        #    await interaction.response.edit_message(view=view)
+        #    return
+        #
+        ## Botón "PAGE X OF Y" → mostrar índice de páginas
+        ## LISTO
+        #if "_index_" in custom_id and not custom_id.startswith("gamenews_index_"):
+        #    # Formato: gamenews_{uuid}_index_{page}
+        #    parts = custom_id.split("_")
+        #    # parts: ["gamenews", uuid, "index", page]
+        #    if len(parts) >= 4 and parts[-2] == "index":
+        #        try:
+        #            page = int(parts[-1])
+        #            uuid = "_".join(parts[1:-2])  # por si el uuid tuviera guiones bajos
+        #        except ValueError:
+        #            await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+        #            return
+        #
+        #        # Buscamos el artículo
+        #        article = None
+        #        for art in self.sorted_articles:
+        #            if art.get("article_uuid") == uuid:
+        #                article = art
+        #                break
+        #
+        #        if article is None:
+        #            await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+        #            return
+        #
+        #        total_items = len(article.get("article_node", []))
+        #        total_pages = math.ceil(total_items / ITEMS_PER_PAGE) if total_items > 0 else 1
+        #
+        #        view = NewsPageIndexView(article, page, total_pages)
+        #        await interaction.response.edit_message(view=view)
+        #        return
+        #
+        ## Dropdowns del índice de páginas (gamenews_{uuid}_indexdd_N)
+        #
+        #if "_redirect_" in custom_id:
+        #    values = interaction.data.get("values", [])
+        #    if not values:
+        #        await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+        #        return
+        #
+        #    key = values[0]  # ya es "gamenews_{uuid}_{page}"
+        #    await self._send(interaction, key, edit=True)
+        #    return
+        #
+        ## Navegación normal de páginas (◀️ ▶️ y BACK)
+        #await self._send(interaction, custom_id, edit=True)
 
     async def _send(self, interaction: discord.Interaction, key: str, edit: bool = False):
         view = self.cache.get(key)

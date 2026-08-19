@@ -2,11 +2,6 @@
   "allow_feed_commands": [
     1332085001013039194
   ],
-  "feed_game_all.1332085001013039194": {
-    "channel": 1539140784274800671,
-    "publish": false,
-    "text": "This is a placeholder message."
-  },
   "feed_game_all": {
     "1332085001013039194": {
       "channel": 1539140784274800671,
