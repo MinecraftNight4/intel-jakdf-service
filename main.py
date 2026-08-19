@@ -1,9 +1,11 @@
 import os
+import asyncio
 import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 
-from sys_timer.__scheduler import start_all_timers, set_rebuild_callback
+from sys_timer.__scheduler import start_all_timers, set_rebuild_callback, set_feed_callback
+from sys_timer.feed_game_all import process_feed_game_all
 
 load_dotenv()
 
@@ -55,14 +57,26 @@ async def on_ready():
 
     print(f"Bot listo como {bot.user}")
 
-    # Callback del timer
+    # ============================================================
+    # Callbacks del timer
+    # ============================================================
     news_cog = bot.get_cog("News")
     if news_cog is not None:
         def rebuild():
             news_cog.load_raw()
             news_cog.build_cache()
+
         set_rebuild_callback(rebuild)
         print("✅ Callback de rebuild_cache conectado")
+    else:
+        print("⚠️ No se encontró el cog News")
+
+    # Callback de feeds (se ejecuta en el loop del bot)
+    def feed_callback():
+        asyncio.run_coroutine_threadsafe(process_feed_game_all(bot), bot.loop)
+
+    set_feed_callback(feed_callback)
+    print("✅ Callback de feeds conectado")
 
 
 if __name__ == "__main__":
