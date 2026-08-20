@@ -50,21 +50,19 @@ class FeedViewLayout(ui.LayoutView):
 
 
 class Feeds(commands.GroupCog, name="feed"):
-    """Grupo /feed — solo se carga en las guilds autorizadas"""
-
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         super().__init__()
 
-    # ============================================================
+# ============================================================
 # Dentro de la clase Feeds → comando setup
 # ============================================================
-    @app_commands.command(name="setup", description="Setup a feed type in a channel")
+    @app_commands.command(name="setup", description="Setup a feed type in a channel.")
     @app_commands.describe(
-        feed_type="Type of feed to configure",
-        channel="Channel where the feed will be posted",
-        publish="Whether the bot can publish (crosspost) messages",
-        text="Optional ping / custom text (use \\n for new lines, max 1000 chars)",
+        feed_type="Select the type of feed to track.",
+        channel="Select a channel to post.",
+        publish="Allow cross-posting? (Defalt: False | Only for News Channels)",
+        text="Set a custom ping message. (use \\n for new lines, max 1000 chars)",
     )
     @app_commands.choices(
         feed_type=[
@@ -83,56 +81,49 @@ class Feeds(commands.GroupCog, name="feed"):
     ):
         feed_id = feed_type.value
         feed_string = feed_type.name
-        guild_id = str(interaction.guild.id)          # ← ahora lo usamos como string
+        guild_id = str(interaction.guild.id)
 
         # Mensaje de prueba
         test_embed = discord.Embed(
-            description=f"This channel was established as **{feed_string}**",
-            color=0xFF8C00,
+            description=f"## 📢 __FEED SETUP!__ ℹ️\nThis channel now will post content related to **{feed_string}**.",
+            
         )
-
         try:
             await channel.send(embed=test_embed)
         except Exception:
             await interaction.response.send_message(
-                "It was not possible to send a message in this channel...",
+                "## 📢 __FEED ERROR!__ ⚠️\n- The bot is not able to post in the selected channel!\n> Make sure to allow `send message`, `allow attachments` and `manage messages` to the bot.",
                 ephemeral=True,
             )
             return
-
+        
         # ---------- GUARDAR EN FORMATO ANIDADO ----------
         data = load_feeds()
 
-        # Creamos la estructura si no existe
         if feed_id not in data:
             data[feed_id] = {}
-
         entry = {
             "channel": channel.id,
             "publish": bool(publish),
         }
-
         if text and text.strip():
             entry["text"] = text.replace("\\n", "\n")[:1000]
         else:
-            # Si no hay text, nos aseguramos de que no exista la key
             entry.pop("text", None)
 
         data[feed_id][guild_id] = entry
         save_feeds(data)
-
         await interaction.response.send_message(
-            f"The channel {channel.mention} was setup as **{feed_string}**.",
+            f"## 📢 __FEED ENABLED!__ ✅\n- {channel.mention} will post about **`{feed_string}`**.",
             ephemeral=True,
         )
 
     # ============================================================
     # Comando clear
     # ============================================================
-    @app_commands.command(name="clear", description="Disable a feed type from this server")
+    @app_commands.command(name="clear", description="Disable a feed type from this server.")
     @app_commands.describe(
         feed_type="Type of feed to disable",
-        channel="Channel (kept for compatibility)",
     )
     @app_commands.choices(
         feed_type=[
@@ -144,8 +135,7 @@ class Feeds(commands.GroupCog, name="feed"):
     async def clear(
         self,
         interaction: discord.Interaction,
-        feed_type: app_commands.Choice[str],
-        channel: discord.TextChannel,
+        feed_type: app_commands.Choice[str]
     ):
         feed_id = feed_type.value
         feed_string = feed_type.name
@@ -153,25 +143,23 @@ class Feeds(commands.GroupCog, name="feed"):
 
         data = load_feeds()
 
-        # Borramos solo la guild dentro del feed_type
         if feed_id in data and guild_id in data[feed_id]:
             del data[feed_id][guild_id]
 
-            # Si el feed_type queda vacío, lo eliminamos también
             if not data[feed_id]:
                 del data[feed_id]
 
             save_feeds(data)
 
         await interaction.response.send_message(
-            f"The feed **{feed_string}** was disabled from this server",
+            f"## 📢 __FEED DISABLED!__ 🚫\n- `{feed_string}` is not longer active in this server.",
             ephemeral=True,
         )
 
     # ============================================================
     # Comando view
     # ============================================================
-    @app_commands.command(name="view", description="View all configured feeds in this server")
+    @app_commands.command(name="view", description="Check the status of feeds in this server.")
     @app_commands.default_permissions(administrator=True)
     async def view(self, interaction: discord.Interaction):
         guild_id = str(interaction.guild.id)

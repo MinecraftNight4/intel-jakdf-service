@@ -10,26 +10,22 @@ _feed_callback = None
 
 
 def set_rebuild_callback(callback):
-    """Permite al bot registrar la función que reconstruye la caché."""
     global _rebuild_cache_callback
     _rebuild_cache_callback = callback
     print("✅ [TIMER] Callback de rebuild_cache registrado.")
 
 
 def set_feed_callback(callback):
-    """Permite al bot registrar la función que procesa los feeds."""
     global _feed_callback
     _feed_callback = callback
     print("✅ [TIMER] Callback de feeds registrado.")
 
 
 def _should_run_now() -> bool:
-    """True solo en los minutos 0 y 30."""
     return datetime.now().minute in (0, 30)
 
 
 def _news_loop():
-    """Loop principal del timer de noticias."""
     last_run_minute = -1
 
     while True:
@@ -64,16 +60,8 @@ def _news_loop():
 
 
 def start_all_timers():
-    """
-    Inicia TODO lo que esté dentro de /timer/.
-    Actualmente solo el timer de noticias, pero puedes agregar más threads aquí.
-    """
     print("🚀 [TIMER] Iniciando todos los timers...")
 
     news_thread = threading.Thread(target=_news_loop, name="NewsTimer", daemon=True)
     news_thread.start()
     print("✅ [TIMER] Timer de noticias iniciado (cada hora :00 y :30).")
-
-    # Aquí puedes agregar más timers en el futuro:
-    # other_thread = threading.Thread(...)
-    # other_thread.start()

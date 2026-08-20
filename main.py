@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 
 from sys_timer.__scheduler import start_all_timers, set_rebuild_callback, set_feed_callback
-from sys_timer.feed_game_all import process_feed_game_all
+from sys_timer.feed.feed_game_all import process_feed_game_all
 
 load_dotenv()
 
