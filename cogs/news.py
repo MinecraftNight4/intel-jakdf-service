@@ -183,18 +183,18 @@ class NewsPageIndexView(ui.LayoutView):
             is_current = p == current_page
             start = (p - 1) * ITEMS_PER_PAGE
             end = start + ITEMS_PER_PAGE
-            description = ""
             
-            for node_type, content in zip(nodes[start:end], items[start:end]):
-                if node_type == "txt" and content and content.strip():
-                    description = content.strip()[:100]
-                    break
-
+            page_raws = article.get("article_raws", [])[start:end]
+            description = next(
+                (str(r).strip()[:100] for r in page_raws if r and str(r).strip()),
+                None
+            )
+            
             options.append(discord.SelectOption(
                 label=f"PAGE {p} OF {total_pages}",
                 value=f"gamenews_{uuid}_{p}",
                 emoji="📍" if is_current else "⏩",
-                description=description or "[IMAGE]",
+                description=description or None,
             ))
         if need_last:   # JUMP FINAL PAGE
             options.append(discord.SelectOption(
