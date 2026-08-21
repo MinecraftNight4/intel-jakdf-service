@@ -14,7 +14,7 @@ ACCENT_COLOR = 0xFFFFFF
 MAX_NEWS_IN_MENU = 100
 OPTIONS_PER_DROPDOWN = 25
 MAX_DROPDOWNS = 4
-PUBLIC_COOLDOWN = 60  # segundos
+PUBLIC_COOLDOWN = 60
 
 
 #   ===================================================
@@ -153,6 +153,8 @@ class NewsPageIndexView(ui.LayoutView):
         container = ui.Container(accent_colour=0xFF8C00)
         
         uuid = article["article_uuid"]
+        nodes = article.get("article_node", [])
+        items = article.get("article_item", [])
         title = article.get("article_name", "Unknown")
         container.add_item(ui.TextDisplay(f"## __{title}__"))
         
@@ -179,11 +181,20 @@ class NewsPageIndexView(ui.LayoutView):
             ))
         for p in pages:   # LISTED PAGES
             is_current = p == current_page
+            start = (p - 1) * ITEMS_PER_PAGE
+            end = start + ITEMS_PER_PAGE
+            description = ""
+            
+            for node_type, content in zip(nodes[start:end], items[start:end]):
+                if node_type == "txt" and content and content.strip():
+                    description = content.strip()[:100]
+                    break
+
             options.append(discord.SelectOption(
                 label=f"PAGE {p} OF {total_pages}",
                 value=f"gamenews_{uuid}_{p}",
                 emoji="📍" if is_current else "⏩",
-                default=is_current
+                description=description or "[IMAGE]",
             ))
         if need_last:   # JUMP FINAL PAGE
             options.append(discord.SelectOption(
@@ -205,7 +216,7 @@ class NewsPageIndexView(ui.LayoutView):
 
         row_back = ui.ActionRow()
         row_back.add_item(ui.Button(
-            label="← CLOSE INDEX",
+            label="← LEAVE",
             style=discord.ButtonStyle.secondary,
             custom_id=f"gamenews_{uuid}_{current_page}"
         ))
@@ -414,7 +425,7 @@ class News(commands.Cog):
             if len(parts) >= 4 and parts[-2] == "index":
                 try:
                     page = int(parts[-1])
-                    uuid = "_".join(parts[1:-2])  # por si el uuid tuviera guiones bajos
+                    uuid = "_".join(parts[1:-2])
                 except ValueError:
                     await interaction.response.edit_message(view=self.error_view or NewsErrorView())
                     return
@@ -480,21 +491,6 @@ class News(commands.Cog):
                 await interaction.response.send_message(view=view)
         except Exception as e:
             await interaction.response.send_message(f"❌ Error: `{e}`", ephemeral=True)
-
-    # ------------------------------------------------------------------
-    # /rebuild_cache
-    # ------------------------------------------------------------------
-    @app_commands.command(name="rebuild_cache", description="Destruye y reconstruye la caché en memoria")
-    @app_commands.default_permissions(administrator=True)
-    async def rebuild_cache(self, interaction: discord.Interaction):
-        self.load_raw()
-        self.build_cache()
-        await interaction.response.send_message(
-            f"✅ Caché reconstruida.\n"
-            f"• Páginas: `{len(self.cache)}`\n"
-            f"• Noticias: `{len(self.sorted_articles)}`",
-            ephemeral=True
-        )
 
 
 async def setup(bot: commands.Bot):

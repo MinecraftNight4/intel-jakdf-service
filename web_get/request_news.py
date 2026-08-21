@@ -13,7 +13,6 @@ class KaijuReadNews:
         self.storage_file = storage_file
         self.news_storage = {}
 
-
     def storage_data_news(self):
         try:
             os.makedirs(os.path.dirname(self.storage_file), exist_ok=True)
@@ -25,7 +24,6 @@ class KaijuReadNews:
             print(f"   Total de noticias guardadas: {len(self.news_storage)}")
         except Exception as e:
             print(f"❌ Error al guardar el JSON: {e}")
-
     
     def storage_file_news(self, file_url: str) -> str:
         if not file_url:
@@ -55,7 +53,8 @@ class KaijuReadNews:
         except Exception as e:
             print(f"❌ Error al descargar {file_url}: {e}")
             return "sys_save/request_news.jpg"
-
+    
+    
     
     def tool_for_text(self, element, newsid) -> str:
         try:
@@ -89,8 +88,13 @@ class KaijuReadNews:
                 new_lines.append(line)
         text = "\n".join(new_lines)
         return text.strip()
-    
 
+    def tool_for_raws(self, element) -> str:
+        try:
+            text = element.get_text(strip=False)
+        except:
+            return ""
+        return text.strip()
 
     def tool_for_colors(self, category: str) -> str:
         category = category.lower().strip() if category else ""
@@ -105,8 +109,7 @@ class KaijuReadNews:
             "known issue": "fb8c00",
         }
         return colors.get(category, "ffffff")
-    
-    
+ 
     def tool_for_limit(self, buffer, tag) -> bool:
         if tag in ("h1", "h2", "h3"):
             return True
@@ -116,8 +119,8 @@ class KaijuReadNews:
             return True
         return False
 
-        
     
+
     def transform_unix(self, time: str, format: bool = False, saveit: str = "SYNTAX ERROR") -> str:
         if not re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-])", time):
             clean = re.sub(r"[TZ:-]", "", time)
@@ -182,14 +185,6 @@ class KaijuReadNews:
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
     def scan_news(self, news_id: str, html: str):
         html = html.replace("<br/>", "{;;nl;;}")
         soup = BeautifulSoup(html, 'html.parser')
@@ -206,7 +201,8 @@ class KaijuReadNews:
             return
 
         elements = body_container.select("h2, h3, p, li, img, table")
-        buffer = ""
+        buffer_item = ""
+        buffer_raws = ""
         for el in elements:
             tag = el.name
 
@@ -216,10 +212,13 @@ class KaijuReadNews:
                     if self.news_storage[news_id]["article_logo"] is None:
                         self.news_storage[news_id]["article_logo"] = img_url
                     else:
-                        if buffer.strip() != "":
-                            self.news_storage[news_id]["article_item"].append(buffer.strip())
+                        if buffer_item.strip() != "":
+                            self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
+                            self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                             self.news_storage[news_id]["article_node"].append("txt")
-                            buffer = ""
+                            buffer_item = ""
+                            buffer_raws = ""
+                        self.news_storage[news_id]["article_raws"].append("[ATTACHMENT]")
                         self.news_storage[news_id]["article_item"].append(img_url)
                         self.news_storage[news_id]["article_node"].append("img")
                         continue
@@ -227,33 +226,44 @@ class KaijuReadNews:
             if tag == "table":
                 table_lines = self.transform_table(el, news_id)
                 for table_text in table_lines:
-                    if self.tool_for_limit(f"{buffer}{table_text}", tag) == True:
-                        self.news_storage[news_id]["article_item"].append(buffer.strip())
+                    if self.tool_for_limit(f"{buffer_item}{table_text}", tag) == True:
+                        self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
+                        self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                         self.news_storage[news_id]["article_node"].append("txt")
-                        buffer = ""
-                    buffer += f"{table_text}\n"
+                        buffer_item = ""
+                        buffer_raws = ""
+                    buffer_raws += f"[TABLE ITEM] "
+                    buffer_item += f"{table_text}\n"
                 continue
 
-            text = self.tool_for_text(el, news_id)
-            if self.tool_for_limit(f"{buffer}{text}", tag) == True:
-                if buffer.strip() != "":
-                    self.news_storage[news_id]["article_item"].append(buffer.strip())
+            text_raws = self.tool_for_raws(el)
+            text_form = self.tool_for_text(el, news_id)
+            if self.tool_for_limit(f"{buffer_item}{text_form}", tag) == True:
+                if buffer_item.strip() != "":
+                    self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
+                    self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                     self.news_storage[news_id]["article_node"].append("txt")
-                    buffer = ""
+                    buffer_item = ""
+                    buffer_raws = ""
             if tag == "li":
-                buffer += f"- {text}\n"
+                buffer_item += f"- {text_form}\n"
+                buffer_raws += f"{text_raws} "
             elif tag == "h2":
-                buffer += f"## __{text.upper()}__\n"
+                buffer_item += f"## __{text_form.upper()}__\n"
+                buffer_raws += f"{text_raws} "
             elif tag == "h3":
-                buffer += f"### __{text.upper()}__\n"
+                buffer_item += f"### __{text_form.upper()}__\n"
+                buffer_raws += f"{text_raws.upper()} "
             elif tag == "p":
                 parent_tag = el.parent.name.lower() if el.parent else ""
                 if parent_tag in ("td", "th"):
                     continue
-                buffer += f"{text}\n"
-        if buffer.strip():
-            if buffer.strip() != "":
-                self.news_storage[news_id]["article_item"].append(buffer.strip())
+                buffer_item += f"{text_form}\n"
+                buffer_raws += f"{text_raws} "
+        if buffer_item.strip():
+            if buffer_item.strip() != "":
+                self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
+                self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                 self.news_storage[news_id]["article_node"].append("txt")
 
         full_text = ""
@@ -265,12 +275,6 @@ class KaijuReadNews:
                 full_text += item + "\n\n"
         self.news_storage[news_id]["article_hash"] = hashlib.sha256(full_text.encode('utf-8')).hexdigest()
 
-        
-
-
-
-
-    
     def fetch_single_news(self, news_id: str):
         try:
             url = f"https://info.kj8-thegame.com/news/{news_id}?language=en"
@@ -320,6 +324,7 @@ class KaijuReadNews:
                 "article_logo": None,
                 "article_hash": "0",
                 "article_node": [],
+                "article_raws": [],
                 "article_item": [],
                 "article_unix": []
             }
