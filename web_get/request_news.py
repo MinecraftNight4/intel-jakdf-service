@@ -1,4 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from logger import info, warn, crit, log
 from datetime import datetime, timezone
 from bs4 import BeautifulSoup
 import requests
@@ -20,39 +21,9 @@ class KaijuReadNews:
             with open(self.storage_file, 'w', encoding='utf-8') as f:
                 json.dump(self.news_storage, f, ensure_ascii=False, indent=4)
             
-            print(f"✅ Archivo JSON guardado correctamente: {self.storage_file}")
-            print(f"   Total de noticias guardadas: {len(self.news_storage)}")
+            log(f"SAVING: The Database stored x{len(self.news_storage)} news", "news")
         except Exception as e:
-            print(f"❌ Error al guardar el JSON: {e}")
-    
-    def storage_file_news(self, file_url: str) -> str:
-        if not file_url:
-            return "sys_save/request_news_error.jpg"
-        if not file_url.startswith(("http://", "https://")):
-            file_url = "https://info.kj8-thegame.com" + file_url.lstrip(".")
-        filename = os.path.basename(file_url.split("?")[0].split("#")[0])
-        if not filename or "." not in filename:
-            filename = hashlib.md5(file_url.encode()).hexdigest() + ".bin"
-    
-        save_dir = "sys_save/request_news"
-        os.makedirs(save_dir, exist_ok=True)
-        local_path = os.path.join(save_dir, filename).replace("\\", "/")
-        
-        if os.path.isfile(local_path):
-            return local_path
-        try:
-            print(f"⬇️ Descargando: {file_url}")
-            response = requests.get(file_url, timeout=120, stream=True)
-            response.raise_for_status()
-            with open(local_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-            print(f"✅ Guardado en: {local_path}")
-            return local_path
-        except Exception as e:
-            print(f"❌ Error al descargar {file_url}: {e}")
-            return "sys_save/request_news.jpg"
+            log(f"SAVING: Something went wrong: {e}", "news", level="CRIT")
     
     
     
@@ -190,10 +161,8 @@ class KaijuReadNews:
         soup = BeautifulSoup(html, 'html.parser')
         try:
             post_time = soup.select_one("p.ui-contents-header-date span.nowrap").get_text(strip=True)
-            title = soup.select_one("h1").get_text(strip=True)
         except:
             post_time = ""
-            title = "Sin título"
 
         self.news_storage[news_id]["article_time"] = int(self.transform_unix(post_time, False))
         body_container = soup.select_one("div.ui-contents-main-detail.js-detail-body")
@@ -280,29 +249,29 @@ class KaijuReadNews:
             url = f"https://info.kj8-thegame.com/news/{news_id}?language=en"
             response = requests.get(url, timeout=60)
             response.raise_for_status()
-            
-            print(f"✓ Procesada: {news_id}")
+            log(f"FETCHED ARTICLE {news_id} | SUCCESS!", "news")
             self.scan_news(news_id, response.text)
             return news_id, True
+    
         except Exception as e:
-            print(f"❌ Error leyendo {news_id}: {e}")
+            log(f"FETCHED ARTICLE {news_id} | FAILURE", "news", level="CRIT")
             return news_id, False
     
     def scan_index(self, batch_size: int = 3):
-        print("Iniciando scraper...")
-
+        log(f" ", "news")
+        log(f"NEWS UUID INDEX: Requesting...", "news")
         try:
             response = requests.get('https://info.kj8-thegame.com/news?language=en', timeout=60)
             response.raise_for_status()
         except Exception as e:
-            print(f"Error al obtener índice: {e}")
+            log(f"NEWS UUID INDEX: [Failure] {e}", "news", level="CRIT")
             return
 
+        log(f"NEWS UUID INDEX: [Success]", "news")
         soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.select("div.ui-list-block.js-each-content")
 
         self.news_storage.clear()
-
         # === Crear estructura base ===
         for article in articles:
             article_uuid = article.get("data-content-id")
@@ -330,22 +299,20 @@ class KaijuReadNews:
             }
 
         news_ids = list(self.news_storage.keys())
-        print(f"Se encontraron {len(news_ids)} noticias. Procesando en lotes de {batch_size}...\n")
+        log(f"NEWS READING NOW: Requesting (Reading x{batch_size} every time)...", "news")
 
         # === Procesamiento en paralelo por lotes ===
         with ThreadPoolExecutor(max_workers=batch_size) as executor:
             # Procesamos en lotes para no saturar el servidor
             for i in range(0, len(news_ids), batch_size):
                 batch = news_ids[i:i + batch_size]
-                print(f"→ Procesando lote {i//batch_size + 1} ({len(batch)} noticias)...")
-                
+                log(f"NEWS READING NOW: [BATCH {i//batch_size + 1}]", "news")
                 future_to_id = {executor.submit(self.fetch_single_news, nid): nid for nid in batch}
                 
                 for future in as_completed(future_to_id):
                     news_id, success = future.result()
+        log(f"NEWS READING NOW: Thread closed with x{len(self.news_storage)} Articles!", "news")
 
-        print(f"\nFinalizado. Total de noticias en memoria: {len(self.news_storage)}")
-    
     
 # ====================== EJECUCIÓN ======================
 

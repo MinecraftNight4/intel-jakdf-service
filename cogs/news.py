@@ -5,6 +5,7 @@ import time
 from typing import Dict, Any, List
 
 import discord
+from logger import info, warn, crit, log
 from discord import app_commands, ui
 from discord.ext import commands
 
@@ -324,19 +325,18 @@ class News(commands.Cog):
             if os.path.exists(RAW_NEWS_FILE):
                 with open(RAW_NEWS_FILE, "r", encoding="utf-8") as f:
                     self.raw_news = json.load(f)
-                print(f"✅ Datos crudos: {len(self.raw_news)} noticias")
+                log(f"DATABASE: Articles stored x{len(self.raw_news)}", "news")
             else:
-                print(f"⚠️ No se encontró {RAW_NEWS_FILE}")
+                log(f"DATABASE: Articles stored x0 [THE FILE DOESN'T EXIST]!", "cached", "CRIT")
                 self.raw_news = {}
         except Exception as e:
-            print(f"❌ Error cargando raw: {e}")
+            log(f"DATABASE EXCEPTION! {e}", "news", "CRIT")
             self.raw_news = {}
 
     def build_cache(self):
         self.cache.clear()
         self.sorted_articles = []
 
-        # Ordenar por article_time descendente (más recientes primero)
         articles = list(self.raw_news.values())
         articles.sort(key=lambda a: int(a.get("article_time", 0)), reverse=True)
         self.sorted_articles = articles
@@ -352,7 +352,7 @@ class News(commands.Cog):
         # Menú siempre fresco
         self.menu_view = NewsMenuView(self.sorted_articles)
         self.error_view = NewsErrorView()
-        print(f"✅ Caché reconstruida: {len(self.cache)} páginas | {len(self.sorted_articles)} noticias")
+        log(f"ITEMS CACHED AT [cogs/news.py]: NEWS x{len(self.sorted_articles)}, PAGES x{len(self.cache)}", "cached")
 
     # ------------------------------------------------------------------
     # /news [private]

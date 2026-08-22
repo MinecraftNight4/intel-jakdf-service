@@ -1,10 +1,11 @@
 import json
 import os
-from typing import Optional
-
 import discord
-from discord import app_commands, ui
+
+from typing import Optional
 from discord.ext import commands
+from discord import app_commands, ui
+from logger import info, warn, crit, log
 
 FEEDS_FILE = "sys_save/feed_system_setup.json"
 
@@ -200,4 +201,6 @@ async def setup(bot: commands.Bot):
 
     # Cargamos el cog SOLO en las guilds autorizadas
     await bot.add_cog(Feeds(bot), guilds=allowed)
+    log("WARN", "Algo raro pasó", show=False)
+    
     print(f"✅ /feed cargado solo en {len(allowed)} guild(s): {[g.id for g in allowed]}")

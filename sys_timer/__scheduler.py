@@ -1,8 +1,8 @@
 import threading
 import time
 from datetime import datetime
-
 from .news_schedule import run_news_scan
+from logger import info, warn, crit, log
 
 # Callbacks que el bot registrará
 _rebuild_cache_callback = None
@@ -12,13 +12,13 @@ _feed_callback = None
 def set_rebuild_callback(callback):
     global _rebuild_cache_callback
     _rebuild_cache_callback = callback
-    print("✅ [TIMER] Callback de rebuild_cache registrado.")
+    log(f"TIMER: Feature of 'cogs.news' as 'rebuild_cache' was registered.", "cache")
 
 
 def set_feed_callback(callback):
     global _feed_callback
     _feed_callback = callback
-    print("✅ [TIMER] Callback de feeds registrado.")
+    log(f"TIMER: Feature of 'cogs.feeds' as 'feed_cache' was registered.", "cache")
 
 
 def _should_run_now() -> bool:
@@ -32,36 +32,50 @@ def _news_loop():
         now = datetime.now()
         current_minute = now.minute
 
-        # Solo ejecuta una vez por minuto válido (0 o 30)
         if current_minute in (0, 30) and current_minute != last_run_minute:
             last_run_minute = current_minute
-            success = run_news_scan()
-
-            # 1. Reconstruir caché de embeds
-            if success and _rebuild_cache_callback is not None:
+            
+            #
+            # SCHEDULE OF ACTIVITY...
+            #
+            log(f"", "main")
+            log(f"================", "main")
+            log(f"A NEW SCHEDULE IS AVAILABLE!", "main")
+            log(f"- PART 1 | GAME NEWS:", "main")
+            
+            
+            log(f"STATUS: REQUEST", "main")
+            try:
+                success = run_news_scan()
+                log(f"STATUS: REQUEST | SUCCESS", "main")
+            except:
+                log(f"STATUS: REQUEST | FAILURE", "main", level="CRIT")
+            if success is not None:    
+                #
+                # EMBED FOR PAGE READER
+                #
+                log(f"STATUS: EMBEDDING READER", "main")
                 try:
-                    print("🔄 [TIMER] Reconstruyendo caché de embeds de noticias...")
                     _rebuild_cache_callback()
-                    print("✅ [TIMER] Caché de embeds reconstruida.")
-                except Exception as e:
-                    print(f"❌ [TIMER] Error al reconstruir caché: {e}")
-
-            # 2. Procesar feeds (después de la caché)
-            if success and _feed_callback is not None:
+                    log(f"STATUS: EMBEDDING READER | SUCCESS", "main")
+                except:
+                    log(f"STATUS: EMBEDDING READER | FAILURE", "main", level="CRIT")
+                
+                #
+                # EMBED FOR FEED SYSTEM
+                #
+                log(f"STATUS: EMBEDDING FEED", "main")
                 try:
-                    print("📡 [TIMER] Procesando feeds...")
                     _feed_callback()
-                    print("✅ [TIMER] Feeds procesados.")
-                except Exception as e:
-                    print(f"❌ [TIMER] Error en feeds: {e}")
+                except:
+                    log(f"STATUS: EMBEDDING FEED | FAILURE", "main", level="CRIT")
+            log(f"================", "main")
 
-        # Dormir ~20 segundos para no saturar CPU y detectar el minuto a tiempo
         time.sleep(20)
 
 
 def start_all_timers():
-    print("🚀 [TIMER] Iniciando todos los timers...")
-
+    log(f"TIMER: LOADING...", "main")
     news_thread = threading.Thread(target=_news_loop, name="NewsTimer", daemon=True)
     news_thread.start()
-    print("✅ [TIMER] Timer de noticias iniciado (cada hora :00 y :30).")
+    log(f"TIMER: Timers loaded!", "main")
