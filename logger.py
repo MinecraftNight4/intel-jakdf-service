@@ -25,8 +25,15 @@ def _get_log_file(prefix: str = "main") -> str:
     return os.path.join(LOG_DIR, f"{prefix}_{today}.log")
 
 
-def log(message: str, *, prefix: str = "main", level: str = "INFO", show: bool = True):
-    level = level.upper().strip()
+def log(message: str, prefix: str = "main", level: str = "INFO", show: bool = True):
+    """
+    Uso:
+        log("mensaje")
+        log("mensaje", "nombre_archivo")
+        log("mensaje", "nombre_archivo", "WARN")
+        log("mensaje", level="CRIT")
+    """
+    level = str(level).upper().strip()
     if level not in ("INFO", "WARN", "CRIT"):
         level = "INFO"
 
@@ -48,11 +55,11 @@ def log(message: str, *, prefix: str = "main", level: str = "INFO", show: bool =
 # ============================================================
 # ATAJOS
 # ============================================================
-def info(message: str, *, prefix: str = "main", show: bool = True):
-    log("INFO", message, prefix=prefix, show=show)
+def info(message: str, prefix: str = "main", show: bool = True):
+    log(message, prefix=prefix, level="INFO", show=show)
 
-def warn(message: str, *, prefix: str = "main", show: bool = True):
-    log("WARN", message, prefix=prefix, show=show)
+def warn(message: str, prefix: str = "main", show: bool = True):
+    log(message, prefix=prefix, level="WARN", show=show)
 
-def crit(message: str, *, prefix: str = "main", show: bool = True):
-    log("CRIT", message, prefix=prefix, show=show)
+def crit(message: str, prefix: str = "main", show: bool = True):
+    log(message, prefix=prefix, level="CRIT", show=show)

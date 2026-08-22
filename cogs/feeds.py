@@ -8,7 +8,6 @@ from discord import app_commands, ui
 from logger import info, warn, crit, log
 
 FEEDS_FILE = "sys_save/feed_system_setup.json"
-
 FEED_TYPES = {
     "feed_game_all": "Game news | All the news",
     "feed_game_gacha": "Game news | Only gachas",
@@ -201,6 +200,5 @@ async def setup(bot: commands.Bot):
 
     # Cargamos el cog SOLO en las guilds autorizadas
     await bot.add_cog(Feeds(bot), guilds=allowed)
-    log("WARN", "Algo raro pasó", show=False)
-    
-    print(f"✅ /feed cargado solo en {len(allowed)} guild(s): {[g.id for g in allowed]}")
+    log(f"GUILD ONLY - /feed:", "slash", show=False)
+    log(f"Command loaded at {len(allowed)} guild(s) | {[g.id for g in allowed]}", "slash", show=False)

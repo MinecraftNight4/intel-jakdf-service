@@ -12,13 +12,13 @@ _feed_callback = None
 def set_rebuild_callback(callback):
     global _rebuild_cache_callback
     _rebuild_cache_callback = callback
-    log(f"TIMER: Feature of 'cogs.news' as 'rebuild_cache' was registered.", "cache")
+    log(f"TIMER: [REGISTER: cogs.news]", "timer", show=False)
 
 
 def set_feed_callback(callback):
     global _feed_callback
     _feed_callback = callback
-    log(f"TIMER: Feature of 'cogs.feeds' as 'feed_cache' was registered.", "cache")
+    log(f"TIMER: [REGISTER: cogs.feeds]", "timer", show=False)
 
 
 def _should_run_now() -> bool:
@@ -38,44 +38,39 @@ def _news_loop():
             #
             # SCHEDULE OF ACTIVITY...
             #
-            log(f"", "main")
-            log(f"================", "main")
-            log(f"A NEW SCHEDULE IS AVAILABLE!", "main")
-            log(f"- PART 1 | GAME NEWS:", "main")
+            log(f"", "timer")
+            log(f"========[⬇️SCHEDULER⬇️]========", "timer")
             
-            
-            log(f"STATUS: REQUEST", "main")
             try:
                 success = run_news_scan()
-                log(f"STATUS: REQUEST | SUCCESS", "main")
+                log(f"STATUS: REQUEST [SUCCESS]", "timer")
             except:
-                log(f"STATUS: REQUEST | FAILURE", "main", level="CRIT")
-            if success is not None:    
+                log(f"STATUS: REQUEST [FAILURE]", "timer", level="CRIT")
+            if success is not None:
+                
                 #
                 # EMBED FOR PAGE READER
                 #
-                log(f"STATUS: EMBEDDING READER", "main")
                 try:
                     _rebuild_cache_callback()
-                    log(f"STATUS: EMBEDDING READER | SUCCESS", "main")
+                    log(f"STATUS: EMBED READER [SUCCESS]", "timer")
                 except:
-                    log(f"STATUS: EMBEDDING READER | FAILURE", "main", level="CRIT")
+                    log(f"STATUS: EMBED READER [FAILURE]", "timer", level="CRIT")
                 
                 #
                 # EMBED FOR FEED SYSTEM
                 #
-                log(f"STATUS: EMBEDDING FEED", "main")
                 try:
                     _feed_callback()
+                    log(f"STATUS: CROSSPOST [SUCCESS]", "timer")
                 except:
-                    log(f"STATUS: EMBEDDING FEED | FAILURE", "main", level="CRIT")
-            log(f"================", "main")
-
+                    log(f"STATUS: CROSSPOST [FAILURE]", "timer", level="CRIT")
+            log(f"========[⬆️SCHEDULER⬆️]========", "timer")
         time.sleep(20)
 
 
 def start_all_timers():
-    log(f"TIMER: LOADING...", "main")
+    log(f"TIMER: LOADING...", "bots", show=False)
     news_thread = threading.Thread(target=_news_loop, name="NewsTimer", daemon=True)
     news_thread.start()
-    log(f"TIMER: Timers loaded!", "main")
+    log(f"TIMER: Timers loaded!", "bots", show=False)

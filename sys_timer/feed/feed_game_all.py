@@ -3,6 +3,7 @@ import os
 import io
 import math
 from typing import Dict, Any, List, Optional, Tuple
+from logger import info, warn, crit, log
 
 import aiohttp
 import discord
@@ -59,7 +60,7 @@ async def download_image(url: str) -> Optional[Tuple[io.BytesIO, str]]:
                 filename = f"feed_logo_{abs(hash(url)) % 100000}.{ext}"
                 return io.BytesIO(data), filename
     except Exception as e:
-        print(f"⚠️ [FEED] No se pudo descargar imagen: {e}")
+        log(f"[ATTACHMENT]: Error downloading [{url}] due to: {e} ", "feed", level="CRIT", show=False)
         return None
 
 
@@ -169,12 +170,6 @@ class FeedNewsPageView(ui.LayoutView):
 # Lógica principal de feeds
 # -------------------------------------------------
 async def process_feed_game_all(bot: commands.Bot) -> int:
-    """
-    Detecta noticias nuevas por hash y las publica.
-    - Crosspost solo en canales de Anuncios si publish=True.
-    - Al final envía el texto de ping (si existe) sin hacer publish.
-    - Reescribe la lista de hashes con las noticias actuales del scrape.
-    """
     news: Dict[str, Any] = load_json(NEWS_FILE, {})
     setup = load_json(SETUP_FILE, {})
     data  = load_json(DATA_FILE, {})
@@ -186,7 +181,7 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
     feed_channels = setup.get("feed_game_all", {})
 
     if not feed_channels:
-        print("ℹ️ [FEED] No hay canales configurados para feed_game_all")
+        log(f"[FEED]: The category 'feed_game_all' is empty!", "news", show=False)
         return 0
 
     # 1. Hashes actuales del scrape
@@ -205,7 +200,7 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
     if not new_hashes:
         data["feed_game_all"] = list(current_hashes)
         save_json(DATA_FILE, data)
-        print("ℹ️ [FEED] No hay noticias nuevas")
+        log(f"[NEWS]: No new articles available!", "news", level="WARN", show=False)
         return 0
 
     # Ordenar nuevas por fecha (más recientes primero)
@@ -231,9 +226,8 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
             try:
                 channel = await bot.fetch_channel(int(channel_id))
             except Exception:
-                print(f"❌ [FEED] No se pudo obtener canal {channel_id}")
+                log(f"[FEED]: The channel {channel_id} is unreachable!", "news", level="CRIT", show=False)
                 continue
-
         can_publish = bool(entry.get("publish", False))
         is_announcement = getattr(channel, "is_news", lambda: False)()
 
@@ -264,22 +258,18 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
                     view=view,
                     files=files if files else None
                 )
-
-                print(f"✅ [FEED] Enviado: {article.get('article_name')[:50]} → #{getattr(channel, 'name', channel_id)}")
-
+                log(f"[POSTING]: {article.get('article_name')[:50]} → #{getattr(channel, 'name', channel_id)}:", "news", show=False)
+                
                 # Crosspost solo si es canal de Anuncios y publish=True
                 if can_publish and is_announcement:
                     try:
                         await msg.publish()
-                        print(f"📢 [FEED] Crosspost realizado en #{getattr(channel, 'name', channel_id)}")
-                    except discord.HTTPException as e:
-                        # Límite de 10 publicaciones/hora u otros errores de Discord
-                        print(f"⚠️ [FEED] No se pudo hacer crosspost (posible límite 10/h): {e}")
+                        log(f"- CROSSPOSTED: True", "news", show=False)
                     except Exception as e:
-                        print(f"⚠️ [FEED] Error inesperado al hacer publish: {e}")
+                        log(f"- CROSSPOSTED: False | {e}", "news", level="CRIT", show=False)
 
             except Exception as e:
-                print(f"❌ [FEED] Error enviando a {channel_id}: {e}")
+                log(f"[POSTING]: COMMUNICATION ERROR AT {channel_id} | {e}", "news", level="CRIT", show=False)
 
             new_count += 1
 
@@ -288,13 +278,12 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
         if ping_text and str(ping_text).strip():
             try:
                 await channel.send(content=str(ping_text).strip())
-                print(f"🔔 [FEED] Ping enviado en #{getattr(channel, 'name', channel_id)}")
+                log(f"[POSTING]: This ping message was sent to #{getattr(channel, 'name', channel_id)}!", "news", show=False)
             except Exception as e:
-                print(f"⚠️ [FEED] No se pudo enviar el ping: {e}")
-
+                log(f"[POSTING]: This ping message was not dispatched at {channel_id} | {e}", "news", level="CRIT", show=False)
+                
     # 3. Reescribir hashes con el estado actual del scrape
     data["feed_game_all"] = list(current_hashes)
     save_json(DATA_FILE, data)
-
-    print(f"📡 [FEED] {new_count} noticia(s) nueva(s) | Total hashes: {len(current_hashes)}")
+    log(f"[POSTING]: A total of x{new_count} articles sent!", "news", show=False)
     return new_count

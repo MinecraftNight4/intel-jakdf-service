@@ -325,12 +325,12 @@ class News(commands.Cog):
             if os.path.exists(RAW_NEWS_FILE):
                 with open(RAW_NEWS_FILE, "r", encoding="utf-8") as f:
                     self.raw_news = json.load(f)
-                log(f"DATABASE: Articles stored x{len(self.raw_news)}", "news")
+                log(f"DATABASE: Articles stored x{len(self.raw_news)}", "news", show=False)
             else:
-                log(f"DATABASE: Articles stored x0 [THE FILE DOESN'T EXIST]!", "cached", "CRIT")
+                log(f"DATABASE: Articles stored x0 [THE FILE DOESN'T EXIST]!", "cache", "CRIT", show=False)
                 self.raw_news = {}
         except Exception as e:
-            log(f"DATABASE EXCEPTION! {e}", "news", "CRIT")
+            log(f"DATABASE EXCEPTION! {e}", "news", "CRIT", show=False)
             self.raw_news = {}
 
     def build_cache(self):
@@ -352,7 +352,7 @@ class News(commands.Cog):
         # Menú siempre fresco
         self.menu_view = NewsMenuView(self.sorted_articles)
         self.error_view = NewsErrorView()
-        log(f"ITEMS CACHED AT [cogs/news.py]: NEWS x{len(self.sorted_articles)}, PAGES x{len(self.cache)}", "cached")
+        log(f"ITEMS CACHED AT [cogs/news.py]: NEWS x{len(self.sorted_articles)}, PAGES x{len(self.cache)}", "cache", show=False)
 
     # ------------------------------------------------------------------
     # /news [private]

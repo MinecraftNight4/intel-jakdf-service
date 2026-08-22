@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import requests
 import hashlib
 import json
+import math
 import os
 import re
 
@@ -21,9 +22,9 @@ class KaijuReadNews:
             with open(self.storage_file, 'w', encoding='utf-8') as f:
                 json.dump(self.news_storage, f, ensure_ascii=False, indent=4)
             
-            log(f"SAVING: The Database stored x{len(self.news_storage)} news", "news")
+            log(f"SAVING: The Database stored x{len(self.news_storage)} news", "news", show=False)
         except Exception as e:
-            log(f"SAVING: Something went wrong: {e}", "news", level="CRIT")
+            log(f"SAVING: Something went wrong: {e}", "news", level="CRIT", show=False)
     
     
     
@@ -201,7 +202,7 @@ class KaijuReadNews:
                         self.news_storage[news_id]["article_node"].append("txt")
                         buffer_item = ""
                         buffer_raws = ""
-                    buffer_raws += f"[TABLE ITEM] "
+                    buffer_raws += f"[TABLE ITEM]⤷"
                     buffer_item += f"{table_text}\n"
                 continue
 
@@ -216,10 +217,10 @@ class KaijuReadNews:
                     buffer_raws = ""
             if tag == "li":
                 buffer_item += f"- {text_form}\n"
-                buffer_raws += f"{text_raws} "
+                buffer_raws += f"{text_raws}⤷"
             elif tag == "h2":
                 buffer_item += f"## __{text_form.upper()}__\n"
-                buffer_raws += f"{text_raws} "
+                buffer_raws += f"{text_raws}⤷"
             elif tag == "h3":
                 buffer_item += f"### __{text_form.upper()}__\n"
                 buffer_raws += f"{text_raws.upper()} "
@@ -228,7 +229,7 @@ class KaijuReadNews:
                 if parent_tag in ("td", "th"):
                     continue
                 buffer_item += f"{text_form}\n"
-                buffer_raws += f"{text_raws} "
+                buffer_raws += f"{text_raws}⤷"
         if buffer_item.strip():
             if buffer_item.strip() != "":
                 self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
@@ -247,31 +248,32 @@ class KaijuReadNews:
     def fetch_single_news(self, news_id: str):
         try:
             url = f"https://info.kj8-thegame.com/news/{news_id}?language=en"
+            log(f"[ARTICLE {news_id}]: [WRITE: 🔁] [STATUS: 🔁] [TIME: 🔁] [URL: {url}]", "news", show=False)
             response = requests.get(url, timeout=60)
+            log(f"[ARTICLE {news_id}]: [WRITE: 🔁] [STATUS: {response.status_code}] [TIME: {response.elapsed}] [URL: {url}]", "news", show=False)
             response.raise_for_status()
-            log(f"FETCHED ARTICLE {news_id} | SUCCESS!", "news")
             self.scan_news(news_id, response.text)
+            log(f"[ARTICLE {news_id}]: [WRITE: ✅] [STATUS: {response.status_code}] [TIME: {response.elapsed}] [URL: {url}]", "news", show=False)
             return news_id, True
-    
         except Exception as e:
-            log(f"FETCHED ARTICLE {news_id} | FAILURE", "news", level="CRIT")
+            log(f"[ARTICLE {news_id}]: [FAILURE: 🚫] {e}", "news", level="CRIT", show=False)
             return news_id, False
-    
+
     def scan_index(self, batch_size: int = 3):
-        log(f" ", "news")
-        log(f"NEWS UUID INDEX: Requesting...", "news")
+        log(f"NEWS UUID INDEX: [Reading...]", "news", show=False)
         try:
             response = requests.get('https://info.kj8-thegame.com/news?language=en', timeout=60)
             response.raise_for_status()
         except Exception as e:
-            log(f"NEWS UUID INDEX: [Failure] {e}", "news", level="CRIT")
+            log(f"NEWS UUID INDEX: [Failure] {e}", "news", level="CRIT", show=False)
             return
 
-        log(f"NEWS UUID INDEX: [Success]", "news")
         soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.select("div.ui-list-block.js-each-content")
-
         self.news_storage.clear()
+        
+        log(f"NEWS UUID INDEX: [Success] - x{len(articles)} ITEMS", "news", show=False)
+        
         # === Crear estructura base ===
         for article in articles:
             article_uuid = article.get("data-content-id")
@@ -298,20 +300,21 @@ class KaijuReadNews:
                 "article_unix": []
             }
 
-        news_ids = list(self.news_storage.keys())
-        log(f"NEWS READING NOW: Requesting (Reading x{batch_size} every time)...", "news")
-
+        news_ids = list(self.news_storage.keys())        
+        math_all = math.ceil(len(news_ids) / batch_size)
+        math_eta = math_all * 3
+        log(f"NEWS UUID READ: [x{batch_size} Items per batch] [x{math_all} Batch] [ETA: {math_eta}s]", "news", show=False)
+        
         # === Procesamiento en paralelo por lotes ===
         with ThreadPoolExecutor(max_workers=batch_size) as executor:
-            # Procesamos en lotes para no saturar el servidor
             for i in range(0, len(news_ids), batch_size):
+                log(f"NEWS UUID READ: [BATCH N°{i//batch_size + 1}]", "news", show=False)
                 batch = news_ids[i:i + batch_size]
-                log(f"NEWS READING NOW: [BATCH {i//batch_size + 1}]", "news")
                 future_to_id = {executor.submit(self.fetch_single_news, nid): nid for nid in batch}
-                
                 for future in as_completed(future_to_id):
                     news_id, success = future.result()
-        log(f"NEWS READING NOW: Thread closed with x{len(self.news_storage)} Articles!", "news")
+
+        log(f"NEWS UUID READ: [CLOSED] [x{len(self.news_storage)} ITEMS]", "news", show=False)
 
     
 # ====================== EJECUCIÓN ======================

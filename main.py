@@ -37,41 +37,39 @@ async def on_ready():
     ]
 
     # LOAD GLOBAL COMMAND & LISTENERS
+    log(f"SECTION: [GLOBAL COMMANDS] 🔁", "main", show=False)
     for ext in extensions:
-        log(f"GLOBAL COMMANDS: Loading...", "main")
         try:
             await bot.load_extension(ext)
-            log(f"COG: {ext} - SUCCESS", "bots")
+            log(f"- COG: {ext} - SUCCESS!", "bots", show=False)
         except Exception as e:
-            log(f"COG: {ext} - FAILURE", "bots", level="CRIT")
-            log(f"COG: {ext} - FAILURE | {e}", "bots", level="CRIT", show=False)
-        log(f"GLOBAL COMMANDS: Closed!", "main")
+            log(f"- COG: {ext} - FAILURE", "bots", level="CRIT", show=False)
+            log(f"- COG: {ext} - FAILURE | {e}", "bots", level="CRIT", show=False)
     await bot.tree.sync()
+    log(f"SECTION: [GLOBAL COMMANDS] 🚧", "main")
     
     #   LOAD PRIVATE COMMANDS        
+    log(f"SECTION: [PRIVATE COMMANDS] 🔁", "main", show=False)
     try:
-        log(f"PRIVATE COMMANDS: Loading...", "main")
         from cogs.feeds import load_feeds
         data = load_feeds()
         for guild_id in data.get("allow_feed_commands", []):
+            log(f"- GUILD {guild_id} LISTED!", "bots", show=False)
             try:
                 await bot.tree.sync(guild=discord.Object(id=int(guild_id)))
-                log(f"/FEEDS | {guild_id} updated", "bots", show=False)
+                log(f"[✅] /feed", "bots", show=False)
+                
             except Exception as e:
-                log(f"/FEEDS | {guild_id} failure: {e}", "bots", level="CRIT", show=False)
+                log(f"[❌] /feed | Error: {e} ", "bots", level="CRIT", show=False)
     except Exception as e:
-        log(f"/FEEDS exception! {e}", "bots", level="CRIT", show=False)
-    
-    #   BOT LOADING 
-    log(f"SERVICE: Closed!", "bots", level="CRIT", show=False)
-    log(f"BOT OPERATIONS: READY!", "main")
+        log(f"SECTION: [PRIVATE COMMANDS] - {e}", "bots", level="CRIT", show=False)
+    log(f"SECTION: [PRIVATE COMMANDS] 🚧", "main")
     
     
     #=======================================
     #   LOADING TIMER INSTANCE...
     #=======================================
-    log(f"TIMER: Loading...", "bots")
-    
+    log(f"TIMER : [RAW NEWS] 🔁", "main", show=False)
     news_cog = bot.get_cog("News")
     if news_cog is not None:
         def rebuild():
@@ -79,25 +77,26 @@ async def on_ready():
             news_cog.build_cache()
         
         set_rebuild_callback(rebuild)
-        log(f"[rebuild_cache] instance loaded.", "bots", show=False)
+        log(f"RAW NEWS: A temp build was made from scratch!", "main", show=False)
     else:
-        log(f"[rebuild_cache] was not found!", "bots", level="CRIT", show=False)
-    
-    log(f"TIMER: Saving Feed Task...", "bots", show=False)
+        log(f"RAW NEWS: The embed was not possible to be build.", "main", level="CRIT", show=False)
+    log(f"TIMER: [BOOT NEWS] 🚧", "main")
+
+    log(f"TIMER : [BOOT FEED] 🔁", "main", show=False)
     def feed_callback():
         asyncio.run_coroutine_threadsafe(process_feed_game_all(bot), bot.loop)
-    
     set_feed_callback(feed_callback)
-    log(f"TIMER: READY!", "bots", show=False)
-    log(f"TIMER OPERATIONS: READY!", "main")
+    log(f"TIMER: [BOOT FEED] 🚧", "main")
+    log(f"🚧BOOT THREAD CLOSED🚧", "main")
+    
 
 
 if __name__ == "__main__":
-    log(f"~", "main")
+    log(f"", "main")
     
-    log(f"SYSTEM BOOTING...", "main")
+    log(f"SYSTEM BOOTING...", "main", show=False)
     log(f"BOOT: Loading Timers...", "main")
     start_all_timers()
 
-    log(f"BOOT: Loading Bot", "main")
+    log(f"BOOT: Loading Bot...", "main")
     bot.run(os.getenv("DISCORDTOKEN"))
