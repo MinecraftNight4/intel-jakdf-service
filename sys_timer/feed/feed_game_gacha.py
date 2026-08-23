@@ -69,7 +69,7 @@ async def download_image(url: str) -> Optional[Tuple[io.BytesIO, str]]:
 # -------------------------------------------------
 # Determinar el texto de fechas según criterios A / B / C
 # -------------------------------------------------
-def build_gacha_dates_text(article: dict) -> Optional[str]:
+def build_gacha_info_text(article: dict) -> Optional[str]:
     """
     Devuelve el texto de fechas según A, B o C.
     Si no cumple ninguno → None (criterio D).
@@ -124,7 +124,7 @@ class FeedGachaPageView(ui.LayoutView):
     def __init__(
         self,
         article: dict,
-        dates_text: str,
+        info_text: str,
         logo_media: str | None = None,
     ):
         super().__init__()
@@ -157,7 +157,7 @@ class FeedGachaPageView(ui.LayoutView):
         container.add_item(ui.Separator())
 
         # TEXTO de fechas (A / B / C)
-        container.add_item(ui.TextDisplay(dates_text))
+        container.add_item(ui.TextDisplay(info_text))
         container.add_item(ui.Separator())
 
         # BOTONES (mismos custom_id que el sistema de news para que funcionen)
@@ -181,6 +181,9 @@ class FeedGachaPageView(ui.LayoutView):
 # -------------------------------------------------
 # Lógica principal de feeds – solo gacha
 # -------------------------------------------------
+# -------------------------------------------------
+# Lógica principal de feeds – solo gacha
+# -------------------------------------------------
 async def process_feed_game_gacha(bot: commands.Bot) -> int:
     news: Dict[str, Any] = load_json(NEWS_FILE, {})
     setup = load_json(SETUP_FILE, {})
@@ -191,68 +194,76 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
 
     already_sent = set(data[NAMESPACE])
     feed_channels = setup.get(NAMESPACE, {})
+    
+    channel_count = len(feed_channels)
+    gacha_articles = [
+        a for a in news.values()
+        if (a.get("article_type") or "").lower() == "gacha"
+        and a.get("article_hash") and a.get("article_hash") != "0"
+    ]
+    article_count = len(gacha_articles)
 
-    if not feed_channels:
-        log(f"[FEED]: The category '{NAMESPACE}' is empty!", "news", show=False)
+    log(f"[FEED - GACHA]: [CHANNELS: x{channel_count}] [ARTICLES: x{article_count}]", "feed", show=False)
+
+    # -------------------------------------------------
+    # 3) Sin canales → salir temprano
+    # -------------------------------------------------
+    if channel_count == 0:
+        log(f"[FEED - GACHA]: [ERROR: NO CHANNELS] ", "feed", level="WARN", show=False)
+        log(f"[FEED - GACHA]: Thread closed.", "feed", show=False)
+        log(f"", "feed", show=False)
         return 0
 
-    # 1. Hashes actuales del scrape (solo tipo gacha)
     current_hashes = set()
     articles_by_hash = {}
 
-    for article in news.values():
-        if (article.get("article_type") or "").lower() != "gacha":
-            continue
-
+    for article in gacha_articles:
         h = article.get("article_hash")
-        if h and h != "0":
-            current_hashes.add(h)
-            articles_by_hash[h] = article
+        current_hashes.add(h)
+        articles_by_hash[h] = article
 
-    # 2. Hashes nuevos
     new_hashes = current_hashes - already_sent
-
     if not new_hashes:
         data[NAMESPACE] = list(current_hashes)
         save_json(DATA_FILE, data)
-        log(f"[GACHA]: No new articles available!", "news", level="WARN", show=False)
+        log(f"[FEED - GACHA]: [ERROR: NO ARTICLES] ", "feed", level="WARN", show=False)
+        log(f"[FEED - GACHA]: Thread closed.", "feed", show=False)
+        log(f"", "feed", show=False)
         return 0
 
-    # Ordenar nuevas por fecha (más recientes primero)
-    new_articles = sorted(
-        (articles_by_hash[h] for h in new_hashes),
-        key=lambda a: int(a.get("article_time", 0)),
-        reverse=True
-    )
-
+    
+    new_articles = [articles_by_hash[h] for h in new_hashes]
     new_count = 0
+
+    log(f"[FEED - GACHA]: [ARTICLES: x{len(new_articles)}]", "feed", show=False)
+
+
 
     # -------------------------------------------------
     # Publicar en cada canal configurado
     # -------------------------------------------------
+    log(f"[FEED - GACHA]: SENDING ARTICLES... ", "feed", show=False)
     for guild_id, entry in feed_channels.items():
         channel_id = entry.get("channel")
         if not channel_id:
             continue
-
+        
         channel = bot.get_channel(int(channel_id))
         if channel is None:
             try:
                 channel = await bot.fetch_channel(int(channel_id))
             except Exception:
-                log(f"[FEED]: The channel {channel_id} is unreachable!", "news", level="CRIT", show=False)
+                log(f"- [{channel_id}]: FAILURE", "feed", level="CRIT", show=False)
                 continue
-
+        
+        log(f"- [{channel_id}]: SUCCESS", "feed", show=False)
         can_publish = bool(entry.get("publish", False))
         is_announcement = getattr(channel, "is_news", lambda: False)()
-
         for article in new_articles:
-            # Criterios A / B / C
-            dates_text = build_gacha_dates_text(article)
+            info_text = build_gacha_info_text(article)
 
-            if dates_text is None:
-                # Criterio D → no construir embed, pero marcar como procesado
-                log(f"[GACHA]: Skipped (no A/B/C) → {article.get('article_name', '')[:50]}", "news", show=False)
+            if info_text is None:
+                log(f"  - [ERROR: NO FORMAT] - [HASH: {article.get('article_hash')}] {article.get('article_name')}", "feed", level="WARN", show=False)
                 continue
 
             files: List[discord.File] = []
@@ -266,45 +277,41 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
                     files.append(discord.File(file_data, filename=filename))
                     logo_media = f"attachment://{filename}"
 
-            view = FeedGachaPageView(
-                article,
-                dates_text=dates_text,
-                logo_media=logo_media
-            )
+            view = FeedGachaPageView(article, info_text=info_text, logo_media=logo_media)
 
             try:
                 for f in files:
                     f.fp.seek(0)
 
-                msg = await channel.send(
-                    view=view,
-                    files=files if files else None
-                )
-                log(f"[POSTING GACHA]: {article.get('article_name')[:50]} → #{getattr(channel, 'name', channel_id)}", "news", show=False)
-
+                msg = await channel.send(view=view, files=files if files else None)
+                log(f"  - [SEND: SUCCESS] | HASH: {article.get('article_hash')} | {article.get('article_name')}", "feed", show=False)
+                
                 if can_publish and is_announcement:
                     try:
                         await msg.publish()
-                        log(f"- CROSSPOSTED: True", "news", show=False)
+                        log(f"      ⤷ CROSSPOST: [SENT: SUCCESS]", "feed", show=False)
                     except Exception as e:
-                        log(f"- CROSSPOSTED: False | {e}", "news", level="CRIT", show=False)
+                        log(f"      ⤷ CROSSPOST: [SENT: FAILURE] | {e}", "feed", level="WARN", show=False)
+                new_count += 1
 
             except Exception as e:
-                log(f"[POSTING]: COMMUNICATION ERROR AT {channel_id} | {e}", "news", level="CRIT", show=False)
+                log(f"  - [SEND: FAILURE] | HASH: {article.get('article_hash')} | {article.get('article_name')} | {e}", "feed", level="CRIT", show=False)
 
-            new_count += 1
 
-        # Mensaje de ping (después de todas las noticias de este canal)
         ping_text = entry.get("text")
         if ping_text and str(ping_text).strip():
             try:
                 await channel.send(content=str(ping_text).strip())
-                log(f"[POSTING]: This ping message was sent to #{getattr(channel, 'name', channel_id)}!", "news", show=False)
+                log(f"    ⤷ PING: [SENT: SUCCESS] | {ping_text} ", "feed", show=False)
             except Exception as e:
-                log(f"[POSTING]: This ping message was not dispatched at {channel_id} | {e}", "news", level="CRIT", show=False)
+                log(f"    ⤷ PING: [SENT: FAILURE] | {e} ", "feed", level="CRIT", show=False)
+        if ping_text is None:
+            log(f"    ⤷ PING: [SENT: SKIPPED]", "feed", show=False)
 
-    # 3. Guardar TODOS los hashes actuales (incluye los de criterio D)
     data[NAMESPACE] = list(current_hashes)
     save_json(DATA_FILE, data)
-    log(f"[POSTING GACHA]: A total of x{new_count} articles sent!", "news", show=False)
+
+    log(f"[FEED - GACHA]: [SENT x{new_count}]", "feed", show=False)
+    log(f"[FEED - GACHA]: Thread closed.", "feed", show=False)
+    log(f" ", "feed", show=False)
     return new_count

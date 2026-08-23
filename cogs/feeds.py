@@ -195,7 +195,7 @@ class Feeds(commands.GroupCog, name="feed"):
 
 
 async def setup(bot: commands.Bot):
-    log(f"[COMMAND BUILDER]: /FEED", "slash", level="WARN", show=False)
+    log(f"[COMMAND BUILDER]: /FEED", "slash", show=False)
     allowed = []
     data_guilds = load_feeds()
     data_guilds = data_guilds.get("allow_feed_commands", [])
@@ -211,3 +211,4 @@ async def setup(bot: commands.Bot):
     
     await bot.add_cog(Feeds(bot), guilds=allowed)
     log(f"[COMMAND BUILDER]: /FEED (Thread closed!)", "slash", show=False)
+    log(f" ", "slash", show=False)

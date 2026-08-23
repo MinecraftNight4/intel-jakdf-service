@@ -181,7 +181,9 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
     feed_channels = setup.get("feed_game_all", {})
 
     if not feed_channels:
-        log(f"[FEED]: The category 'feed_game_all' is empty!", "news", show=False)
+        log(f"[FEED - ALL]: [ERROR: NO CHANNELS] ", "feed", level="WARN", show=False)
+        log(f"[FEED - ALL]: Thread closed.", "feed", show=False)
+        log(f"", "feed", show=False)
         return 0
 
     # 1. Hashes actuales del scrape
@@ -200,21 +202,22 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
     if not new_hashes:
         data["feed_game_all"] = list(current_hashes)
         save_json(DATA_FILE, data)
-        log(f"[NEWS]: No new articles available!", "news", level="WARN", show=False)
+        log(f"[FEED - ALL]: [ERROR: NO ARTICLES] ", "feed", level="WARN", show=False)
+        log(f"[FEED - ALL]: Thread closed.", "feed", show=False)
+        log(f"", "feed", show=False)
         return 0
 
-    # Ordenar nuevas por fecha (más recientes primero)
     new_articles = sorted(
         (articles_by_hash[h] for h in new_hashes),
         key=lambda a: int(a.get("article_time", 0)),
-        reverse=True
-    )
+        reverse=True)
 
     new_count = 0
 
     # -------------------------------------------------
     # Publicar en cada canal configurado
     # -------------------------------------------------
+    log(f"[FEED - ALL]: SENDING ARTICLES... ", "feed", show=False)
     for guild_id, entry in feed_channels.items():
         channel_id = entry.get("channel")
         if not channel_id:
@@ -226,8 +229,10 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
             try:
                 channel = await bot.fetch_channel(int(channel_id))
             except Exception:
-                log(f"[FEED]: The channel {channel_id} is unreachable!", "news", level="CRIT", show=False)
+                log(f"- [{channel_id}]: FAILURE", "feed", level="CRIT", show=False)
                 continue
+        
+        log(f"- [{channel_id}]: SUCCESS", "feed", show=False)
         can_publish = bool(entry.get("publish", False))
         is_announcement = getattr(channel, "is_news", lambda: False)()
 
@@ -244,46 +249,41 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
                     files.append(discord.File(file_data, filename=filename))
                     logo_media = f"attachment://{filename}"
 
-            view = FeedNewsPageView(
-                article,
-                items_per_page=FEED_ITEMS_PER_PAGE,
-                logo_media=logo_media
-            )
+            view = FeedNewsPageView(article, items_per_page=FEED_ITEMS_PER_PAGE, logo_media=logo_media)
 
             try:
                 for f in files:
                     f.fp.seek(0)
 
-                msg = await channel.send(
-                    view=view,
-                    files=files if files else None
-                )
-                log(f"[POSTING]: {article.get('article_name')[:50]} → #{getattr(channel, 'name', channel_id)}:", "news", show=False)
+                msg = await channel.send(view=view, files=files if files else None)
+                log(f"  - [SEND: SUCCESS] | HASH: {article.get('article_hash')} | {article.get('article_name')}", "feed", show=False)
                 
-                # Crosspost solo si es canal de Anuncios y publish=True
                 if can_publish and is_announcement:
                     try:
                         await msg.publish()
-                        log(f"- CROSSPOSTED: True", "news", show=False)
+                        log(f"      ⤷ CROSSPOST: [SENT: SUCCESS]", "feed", show=False)
                     except Exception as e:
-                        log(f"- CROSSPOSTED: False | {e}", "news", level="CRIT", show=False)
+                        log(f"      ⤷ CROSSPOST: [SENT: FAILURE] | {e}", "feed", level="WARN", show=False)
 
             except Exception as e:
-                log(f"[POSTING]: COMMUNICATION ERROR AT {channel_id} | {e}", "news", level="CRIT", show=False)
-
+                log(f"  - [SEND: FAILURE] | HASH: {article.get('article_hash')} | {article.get('article_name')} | {e}", "feed", level="CRIT", show=False)
             new_count += 1
 
-        # ----- Después de TODAS las noticias de este canal → mensaje de ping -----
         ping_text = entry.get("text")
         if ping_text and str(ping_text).strip():
             try:
                 await channel.send(content=str(ping_text).strip())
-                log(f"[POSTING]: This ping message was sent to #{getattr(channel, 'name', channel_id)}!", "news", show=False)
+                log(f"    ⤷ PING: [SENT: SUCCESS] | {ping_text} ", "feed", show=False)
             except Exception as e:
-                log(f"[POSTING]: This ping message was not dispatched at {channel_id} | {e}", "news", level="CRIT", show=False)
+                log(f"    ⤷ PING: [SENT: FAILURE] | {e} ", "feed", level="CRIT", show=False)
+        if ping_text is None:
+            log(f"    ⤷ PING: [SENT: SKIPPED]", "feed", show=False)
                 
-    # 3. Reescribir hashes con el estado actual del scrape
+
     data["feed_game_all"] = list(current_hashes)
     save_json(DATA_FILE, data)
-    log(f"[POSTING]: A total of x{new_count} articles sent!", "news", show=False)
+    
+    log(f"[FEED - ALL]: [SENT x{new_count}]", "feed", show=False)
+    log(f"[FEED - ALL]: Thread closed.", "feed", show=False)
+    log(f" ", "feed", show=False)
     return new_count

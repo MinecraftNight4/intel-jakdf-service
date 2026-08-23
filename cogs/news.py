@@ -496,4 +496,6 @@ class News(commands.Cog):
 async def setup(bot: commands.Bot):
     log(f"[COMMAND BUILDER]: /NEWS", "slash", show=False)
     await bot.add_cog(News(bot))
+    
     log(f"[COMMAND BUILDER]: /NEWS (Thread closed!)", "slash", show=False)
+    log(f" ", "slash", show=False)
