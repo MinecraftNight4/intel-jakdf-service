@@ -29,74 +29,70 @@ async def reload(ctx, extension: str):
 async def on_ready():
     
     #=======================================
-    #   LOADING BOT INSTANCE...
+    #   COG DEPLOYMENT...
     #=======================================
+    log(f"BOTS: [COGS] LOADING...", "main")
     extensions = [
         "cogs.news",
         "cogs.feeds",
     ]
-
-    # LOAD GLOBAL COMMAND & LISTENERS
-    log(f"SECTION: [GLOBAL COMMANDS] 🔁", "main", show=False)
     for ext in extensions:
         try:
             await bot.load_extension(ext)
-            log(f"- COG: {ext} - SUCCESS!", "bots", show=False)
+            log(f"- [COG: {ext}]: SUCCESS", "bots", show=False)
         except Exception as e:
-            log(f"- COG: {ext} - FAILURE", "bots", level="CRIT", show=False)
-            log(f"- COG: {ext} - FAILURE | {e}", "bots", level="CRIT", show=False)
-    await bot.tree.sync()
-    log(f"SECTION: [GLOBAL COMMANDS] 🚧", "main")
+            log(f"- [COG: {ext}]: FAILURE - {e}", "bots", LEVEL="CRIT", show=False)
+    
+    try:
+        await bot.tree.sync()
+        log(f"[BOT WAKE-UP]: [GLOBAL COMMAND] SUCCESS", "bots", show=False)
+    except Exception as e:
+        log(f"[BOT WAKE-UP]: [GLOBAL COMMAND] FAILURE - {e}", "bots", level="CRIT", show=False)
+    log(f"BOTS: [COGS] DEPLOYED!", "main")
+    
     
     #   LOAD PRIVATE COMMANDS        
-    log(f"SECTION: [PRIVATE COMMANDS] 🔁", "main", show=False)
+    log(f"BOTS: [PRIV] LOADING...", "main")
     try:
         from cogs.feeds import load_feeds
         data = load_feeds()
-        for guild_id in data.get("allow_feed_commands", []):
-            log(f"- GUILD {guild_id} LISTED!", "bots", show=False)
+        
+        for guild_id in data.get("allow_feed_commands", []):    
             try:
                 await bot.tree.sync(guild=discord.Object(id=int(guild_id)))
-                log(f"[✅] /feed", "bots", show=False)
-                
+                log(f"- [{guild_id}]: SUCCESS", "bots", show=False)
             except Exception as e:
-                log(f"[❌] /feed | Error: {e} ", "bots", level="CRIT", show=False)
+                log(f"- [{guild_id}]: FAILURE - {e}", "bots", level="CRIT", show=False)
     except Exception as e:
-        log(f"SECTION: [PRIVATE COMMANDS] - {e}", "bots", level="CRIT", show=False)
-    log(f"SECTION: [PRIVATE COMMANDS] 🚧", "main")
+        log(f"BOTS: [PRIV] FAILURE - {e}", "bots", level="CRIT", show=False)
+    log(f"BOTS: [PRIV] DEPLOYED!", "main")
     
     
     #=======================================
     #   LOADING TIMER INSTANCE...
     #=======================================
-    log(f"TIMER : [RAW NEWS] 🔁", "main", show=False)
+    log(f"BOTS: [TIME] LOADING...", "main")
+    
+    log(f"[TIMER DEPLOY]: NEWS - LOADING...", "cache", show=False)
     news_cog = bot.get_cog("News")
     if news_cog is not None:
         def rebuild():
             news_cog.load_raw()
             news_cog.build_cache()
-        
         set_rebuild_callback(rebuild)
-        log(f"RAW NEWS: A temp build was made from scratch!", "main", show=False)
-    else:
-        log(f"RAW NEWS: The embed was not possible to be build.", "main", level="CRIT", show=False)
-    log(f"TIMER: [BOOT NEWS] 🚧", "main")
-
-    log(f"TIMER : [BOOT FEED] 🔁", "main", show=False)
+    log(f"[TIMER DEPLOY]: NEWS - DEPLOYED!", "cache", show=False)
+    
+    
+    log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
     def feed_callback():
         asyncio.run_coroutine_threadsafe(process_feed_game_all(bot), bot.loop)
     set_feed_callback(feed_callback)
-    log(f"TIMER: [BOOT FEED] 🚧", "main")
-    log(f"🚧BOOT THREAD CLOSED🚧", "main")
+    log(f"[TIMER DEPLOY]: FEED - DEPLOYED!", "cache", show=False)
+    log(f"BOTS: [TIME] DEPLOYED!", "main")
     
 
 
 if __name__ == "__main__":
     log(f"", "main")
-    
-    log(f"SYSTEM BOOTING...", "main", show=False)
-    log(f"BOOT: Loading Timers...", "main")
     start_all_timers()
-
-    log(f"BOOT: Loading Bot...", "main")
     bot.run(os.getenv("DISCORDTOKEN"))

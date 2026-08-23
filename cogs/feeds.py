@@ -57,11 +57,11 @@ class Feeds(commands.GroupCog, name="feed"):
 # ============================================================
 # Dentro de la clase Feeds → comando setup
 # ============================================================
-    @app_commands.command(name="setup", description="Setup a feed type in a channel.")
+    @app_commands.command(name="setup", description="Once the bot detects new content, will send it!")
     @app_commands.describe(
-        feed_type="Select the type of feed to track.",
-        channel="Select a channel to post.",
-        publish="Allow cross-posting? (Defalt: False | Only for News Channels)",
+        feed_type="Select the type of feed. (Only 1 type of feed is allowed per server)",
+        channel="Select the channel to send updates. (Requires: Send Message, Attach Files & Link Embed)",
+        publish="Setup if the bot can cross-post in a newschannel (Requires: Manage Message)",
         text="Set a custom ping message. (use \\n for new lines, max 1000 chars)",
     )
     @app_commands.choices(
@@ -121,7 +121,7 @@ class Feeds(commands.GroupCog, name="feed"):
     # ============================================================
     # Comando clear
     # ============================================================
-    @app_commands.command(name="clear", description="Disable a feed type from this server.")
+    @app_commands.command(name="clear", description="Delist a feed category from the server!")
     @app_commands.describe(
         feed_type="Type of feed to disable",
     )
@@ -159,7 +159,7 @@ class Feeds(commands.GroupCog, name="feed"):
     # ============================================================
     # Comando view
     # ============================================================
-    @app_commands.command(name="view", description="Check the status of feeds in this server.")
+    @app_commands.command(name="view", description="Displays a panel with the current feed settings.")
     @app_commands.default_permissions(administrator=True)
     async def view(self, interaction: discord.Interaction):
         guild_id = str(interaction.guild.id)
@@ -195,10 +195,19 @@ class Feeds(commands.GroupCog, name="feed"):
 
 
 async def setup(bot: commands.Bot):
-    data = load_feeds()
-    allowed = [discord.Object(id=int(gid)) for gid in data.get("allow_feed_commands", [])]
-
-    # Cargamos el cog SOLO en las guilds autorizadas
+    log(f"[COMMAND BUILDER]: /FEED", "slash", level="WARN", show=False)
+    allowed = []
+    data_guilds = load_feeds()
+    data_guilds = data_guilds.get("allow_feed_commands", [])
+    
+    for guild_uuid in data_guilds:
+        try:
+            guild = discord.Object(id=int(guild_uuid))
+            allowed.append(guild)
+            log(f"- [{guild_uuid}] ✅", "slash", show=False)
+        except (ValueError, TypeError):
+            log(f"- [{guild_uuid}] ❌", "slash", level="WARN", show=False)
+    log(f"[COMMAND BUILDER]: /FEED | [x{len(data_guilds)} GUILD(S) LISTED] [x{len(allowed)} GUILD(S) ALLOWED]", "slash", show=False)
+    
     await bot.add_cog(Feeds(bot), guilds=allowed)
-    log(f"GUILD ONLY - /feed:", "slash", show=False)
-    log(f"Command loaded at {len(allowed)} guild(s) | {[g.id for g in allowed]}", "slash", show=False)
+    log(f"[COMMAND BUILDER]: /FEED (Thread closed!)", "slash", show=False)

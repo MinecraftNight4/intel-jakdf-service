@@ -21,10 +21,9 @@ class KaijuReadNews:
             
             with open(self.storage_file, 'w', encoding='utf-8') as f:
                 json.dump(self.news_storage, f, ensure_ascii=False, indent=4)
-            
-            log(f"SAVING: The Database stored x{len(self.news_storage)} news", "news", show=False)
+            log(f"DATABASE: [x{len(self.news_storage)} news] SUCCESS!", "news", show=False)
         except Exception as e:
-            log(f"SAVING: Something went wrong: {e}", "news", level="CRIT", show=False)
+            log(f"DATABASE: [x{len(self.news_storage)} news] FAILURE! | {e}", "news", level="CRIT", show=False)
     
     
     
