@@ -28,5 +28,12 @@
       "publish": true,
       "text": "That's all!"
     }
+  },
+  "feed_game_gacha": {
+    "1332085001013039194": {
+      "channel": 1541191036083118221,
+      "publish": false,
+      "text": "Hola mundo"
+    }
   }
 }
