@@ -10,9 +10,9 @@ from logger import info, warn, crit, log
 FEEDS_FILE = "sys_save/feed_system_setup.json"
 FEED_TYPES = {
     "feed_game_all": "Game news | All the news",
-    "feed_game_gacha": "Game news | Only gachas",
-    "feed_game_event": "Game news | Only events",
-    "feed_game_patch": "Game news | Only updates",
+    "feed_game_gacha": "Game news | Only Gachas",
+    "feed_game_event": "Game news | Only Events",
+    "feed_game_update": "Game news | Only Updates",
     "xcom-kaijuno8_o_en": "x.com | (EN) @kaijuno8_o_en",
     "xcom-kaijuno8_o": "x.com | (JP) @kaijuno8_o",
     "xcom-kj8_thegame_en": "x.com | (EN) @kj8_thegame_en",
@@ -85,7 +85,7 @@ class Feeds(commands.GroupCog, name="feed"):
 
         # Mensaje de prueba
         test_embed = discord.Embed(
-            description=f"## 📢 __FEED SETUP!__ ℹ️\nThis channel now will post content related to **{feed_string}**.",
+            description=f"## 📢 __FEED SETUP!__ ℹ️\nThis channel now will post content related to **{feed_string}**",
             
         )
         try:

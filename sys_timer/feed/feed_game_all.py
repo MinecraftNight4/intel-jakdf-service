@@ -1,7 +1,8 @@
-import json
 import os
 import io
 import math
+import json
+import asyncio
 from typing import Dict, Any, List, Optional, Tuple
 from logger import info, warn, crit, log
 
@@ -250,29 +251,30 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
                     logo_media = f"attachment://{filename}"
 
             view = FeedNewsPageView(article, items_per_page=FEED_ITEMS_PER_PAGE, logo_media=logo_media)
-
+            await asyncio.sleep(2)
             try:
                 for f in files:
                     f.fp.seek(0)
-
-                msg = await channel.send(view=view, files=files if files else None)
+                msg = await asyncio.wait_for(channel.send(view=view, files=files if files else None), timeout=60.0)
                 log(f"  - [SEND: SUCCESS] | HASH: {article.get('article_hash')} | {article.get('article_name')}", "feed", show=False)
                 
                 if can_publish and is_announcement:
                     try:
-                        await msg.publish()
+                        await asyncio.wait_for(msg.publish(), timeout=5.0)
                         log(f"      ⤷ CROSSPOST: [SENT: SUCCESS]", "feed", show=False)
                     except Exception as e:
                         log(f"      ⤷ CROSSPOST: [SENT: FAILURE] | {e}", "feed", level="WARN", show=False)
-
+                        continue
+                
             except Exception as e:
                 log(f"  - [SEND: FAILURE] | HASH: {article.get('article_hash')} | {article.get('article_name')} | {e}", "feed", level="CRIT", show=False)
+                continue
             new_count += 1
 
         ping_text = entry.get("text")
         if ping_text and str(ping_text).strip():
             try:
-                await channel.send(content=str(ping_text).strip())
+                await asyncio.wait_for(channel.send(content=str(ping_text).strip()), timeout=5.0)
                 log(f"    ⤷ PING: [SENT: SUCCESS] | {ping_text} ", "feed", show=False)
             except Exception as e:
                 log(f"    ⤷ PING: [SENT: FAILURE] | {e} ", "feed", level="CRIT", show=False)

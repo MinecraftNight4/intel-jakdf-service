@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from discord.ext import commands
 
 from sys_timer.__scheduler import start_all_timers, set_rebuild_callback, set_feed_callback
+from sys_timer.feed.feed_game_update import process_feed_game_update
+from sys_timer.feed.feed_game_event import process_feed_game_event
 from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
 from sys_timer.feed.feed_game_all import process_feed_game_all
 from logger import info, warn, crit, log
@@ -85,9 +87,15 @@ async def on_ready():
     
     
     log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
+    async def run_all_feeds():
+        await process_feed_game_all(bot)
+        await process_feed_game_gacha(bot)
+        await process_feed_game_event(bot)
+        await process_feed_game_update(bot)
+    
     def feed_callback():
-        asyncio.run_coroutine_threadsafe(process_feed_game_all(bot), bot.loop)
-        asyncio.run_coroutine_threadsafe(process_feed_game_gacha(bot), bot.loop)
+        asyncio.run_coroutine_threadsafe(run_all_feeds(), bot.loop)
+    
     set_feed_callback(feed_callback)
     log(f"[TIMER DEPLOY]: FEED - DEPLOYED!", "cache", show=False)
     log(f"BOTS: [TIME] DEPLOYED!", "main")

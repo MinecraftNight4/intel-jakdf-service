@@ -10,30 +10,44 @@
   },
   "feed_game_event": {
     "1332085001013039194": {
-      "channel": 1539140784274800671,
-      "publish": false,
-      "text": "Esto es una prueba?"
+      "channel": 1541499968941064254,
+      "publish": true,
+      "text": "Solo sobre eventos"
     }
   },
-  "feed_game_patch": {
+  "feed_game_update": {
     "1332085001013039194": {
-      "channel": 1539140784274800671,
-      "publish": false,
-      "text": "Esto es una prueba?"
+      "channel": 1541499997768654858,
+      "publish": true,
+      "text": "Todos los updates"
     }
   },
   "feed_game_all": {
     "1332085001013039194": {
-      "channel": 1539611029099646976,
+      "channel": 1541499851336982609,
       "publish": true,
-      "text": "That's all!"
+      "text": "Todas las noticias"
     }
   },
   "feed_game_gacha": {
     "1332085001013039194": {
-      "channel": 1541191036083118221,
-      "publish": false,
-      "text": "Hola mundo"
+      "channel": 1541499936653451325,
+      "publish": true,
+      "text": "Solo sobre gachas"
+    }
+  },
+  "xcom-kj8_thegame_en": {
+    "1332085001013039194": {
+      "channel": 1541500057050816682,
+      "publish": true,
+      "text": "Twitter Juego"
+    }
+  },
+  "xcom-kaijuno8_o_en": {
+    "1332085001013039194": {
+      "channel": 1541500106170310747,
+      "publish": true,
+      "text": "Twitter Anime"
     }
   }
 }

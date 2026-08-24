@@ -26,38 +26,47 @@ class KaijuReadNews:
             log(f"DATABASE: [x{len(self.news_storage)} news] FAILURE! | {e}", "news", level="CRIT", show=False)
     
     
-    
     def tool_for_text(self, element, newsid) -> str:
         try:
-            text = element.get_text(strip=False)
-        except:
-            return ""
-        #__URL MARKDOWNS__
-        for a in element.select("a[href]"):
-            href = a.get("href", "")
-            htxt = a.get_text(strip=True)
-            if htxt and href:
+            # 1. Primero convertir los <a> a markdown ANTES de sacar el texto plano
+            for a in element.select("a[href]"):
+                href = a.get("href", "").strip()
+                htxt = a.get_text(strip=True)
+                if not htxt or not href:
+                    continue
+
+                # Arreglar URL relativa
                 if not href.startswith(("http://", "https://")):
-                    href = "https://info.kj8-thegame.com/news" + href.lstrip(".")
-                text = text.replace(htxt, f"[{htxt}]({href})", 1)
-        #__UNIX CLEAR & TEXT CLEAR__
+                    if href.startswith("/"):
+                        href = "https://info.kj8-thegame.com" + href
+                    else:
+                        href = "https://info.kj8-thegame.com/news/" + href.lstrip("./")
+                a.replace_with(f"[{htxt}]({href})")
+
+            text = element.get_text(strip=False)
+        except Exception:
+            return ""
+
+        # 2. Timestamps
         timestamp_regex = r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})?\b"
         def replace_ts(match):
             unix = self.transform_unix(match.group(0), False, newsid)
             return f"<t:{unix}>"
         text = text.replace("{;;nl;;}", "\n")
         text = re.sub(timestamp_regex, replace_ts, text)
-        
-        
+
+        # 3. Líneas que empiezan con * (notas del juego)
         lines = text.split("\n")
         new_lines = []
         for line in lines:
-            if line.startswith("*") and len(line) > 1 and not line[1].isspace():
-                content = line[1:]
-                new_lines.append(f"\\**{content}*")
+            stripped = line.lstrip()
+            if stripped.startswith("*") and len(stripped) > 1 and not stripped[1].isspace():
+                content = stripped[1:].strip()
+                new_lines.append(f"*{content}*")
             else:
                 new_lines.append(line)
         text = "\n".join(new_lines)
+
         return text.strip()
 
     def tool_for_raws(self, element) -> str:
@@ -69,7 +78,6 @@ class KaijuReadNews:
 
     def tool_for_colors(self, category: str) -> str:
         category = category.lower().strip() if category else ""
-    
         colors = {
             "maintenance": "455a64",
             "important": "e53935",
