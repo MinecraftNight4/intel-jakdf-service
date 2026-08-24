@@ -22,7 +22,7 @@ def set_feed_callback(callback):
 
 
 def _should_run_now() -> bool:
-    return datetime.now().minute in (0, 51, 30)
+    return datetime.now().minute in (0, 30)
 
 
 def _news_loop():
@@ -32,7 +32,7 @@ def _news_loop():
         now = datetime.now()
         current_minute = now.minute
 
-        if current_minute in (0, 51, 30) and current_minute != last_run_minute:
+        if current_minute in (0, 30) and current_minute != last_run_minute:
             last_run_minute = current_minute
             
             #
