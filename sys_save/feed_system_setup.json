@@ -2,12 +2,6 @@
   "allow_feed_commands": [
     1332085001013039194
   ],
-  "xcom-kj8_thegame": {
-    "1332085001013039194": {
-      "channel": 1539140784274800671,
-      "publish": true
-    }
-  },
   "feed_game_event": {
     "1332085001013039194": {
       "channel": 1541499968941064254,

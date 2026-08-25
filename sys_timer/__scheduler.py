@@ -2,6 +2,7 @@ import threading
 import time
 from datetime import datetime
 from .news_schedule import run_news_scan
+from .xcom_schedule import run_xcom_scan          # ← NUEVO
 from logger import info, warn, crit, log
 
 # Callbacks que el bot registrará
@@ -35,36 +36,43 @@ def _news_loop():
         if current_minute in (0, 30) and current_minute != last_run_minute:
             last_run_minute = current_minute
             
-            #
-            # SCHEDULE OF ACTIVITY...
-            #
             log(f"", "timer")
             log(f"========[⬇️SCHEDULER⬇️]========", "timer")
             
+            # 1. Scrape de noticias del juego
             try:
                 success = run_news_scan()
-                log(f"STATUS: REQUEST [SUCCESS]", "timer")
+                log(f"STATUS: REQUEST NEWS [SUCCESS]", "timer")
             except:
-                log(f"STATUS: REQUEST [FAILURE]", "timer", level="CRIT")
-            if success is not None:
+                log(f"STATUS: REQUEST NEWS [FAILURE]", "timer", level="CRIT")
+                success = False
+
+            # 2. Scrape de XCom (tweets)
+            try:
+                xcom_success = run_xcom_scan()
+                log(f"STATUS: REQUEST XCOM [SUCCESS]", "timer")
+            except:
+                log(f"STATUS: REQUEST XCOM [FAILURE]", "timer", level="CRIT")
+                xcom_success = False
+
+            if success is not None or xcom_success:
                 
-                #
-                # EMBED FOR PAGE READER
-                #
+                # 3. Rebuild cache de news
                 try:
-                    _rebuild_cache_callback()
+                    if _rebuild_cache_callback:
+                        _rebuild_cache_callback()
                     log(f"STATUS: EMBED READER [SUCCESS]", "timer")
                 except:
                     log(f"STATUS: EMBED READER [FAILURE]", "timer", level="CRIT")
                 
-                #
-                # EMBED FOR FEED SYSTEM
-                #
+                # 4. Publicar feeds (news + xcom)
                 try:
-                    _feed_callback()
+                    if _feed_callback:
+                        _feed_callback()
                     log(f"STATUS: CROSSPOST [SUCCESS]", "timer")
                 except:
                     log(f"STATUS: CROSSPOST [FAILURE]", "timer", level="CRIT")
+
             log(f"========[⬆️SCHEDULER⬆️]========", "timer")
         time.sleep(20)
 
