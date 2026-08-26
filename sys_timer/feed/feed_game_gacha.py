@@ -12,8 +12,8 @@ from discord import ui
 from discord.ext import commands
 
 # -------------------------------------------------
-# Constantes
-# -------------------------------------------------
+# CONFIGURACIÓN
+# ------------------------------------------------- 
 FEED_ITEMS_PER_PAGE = 4
 ACCENT_COLOR = 0xFFFFFF
 
@@ -25,8 +25,8 @@ NAMESPACE = "feed_game_gacha"
 
 
 # -------------------------------------------------
-# Helpers de JSON
-# -------------------------------------------------
+# BASE DE DATOS
+# ------------------------------------------------- 
 def load_json(path: str, default=None):
     if default is None:
         default = {}
@@ -46,8 +46,8 @@ def save_json(path: str, data):
 
 
 # -------------------------------------------------
-# Descarga de imagen (persistente)
-# -------------------------------------------------
+# DESCARGA DE ELEMENTOS WEB A FORMATO PERMANENTE
+# ------------------------------------------------- 
 async def download_image(url: str) -> Optional[Tuple[io.BytesIO, str]]:
     if not url or not url.startswith(("http://", "https://")):
         return None
@@ -119,8 +119,8 @@ def build_gacha_info_text(article: dict) -> Optional[str]:
 
 
 # -------------------------------------------------
-# Vista del feed de gacha (banner + título + fechas + botones)
-# -------------------------------------------------
+# GENERADOR DE EMBED
+# ------------------------------------------------- 
 class FeedGachaPageView(ui.LayoutView):
     def __init__(
         self,
@@ -286,6 +286,7 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
                 msg = await asyncio.wait_for(channel.send(view=view, files=files if files else None), timeout=10.0)
                 log(f"  - [SEND: SUCCESS] | HASH: {article.get('article_hash')} | {article.get('article_name')}", "feed", show=False)
                 if can_publish and is_announcement:
+                    await asyncio.sleep(2)
                     try:
                         await asyncio.wait_for(msg.publish(), timeout=5.0)
                         log(f"      ⤷ CROSSPOST: [SENT: SUCCESS]", "feed", show=False)
@@ -301,11 +302,13 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
 
         ping_text = entry.get("text")
         if ping_text and str(ping_text).strip():
+            await asyncio.sleep(2)
             try:
                 await asyncio.wait_for(channel.send(content=str(ping_text).strip()), timeout=5.0)
                 log(f"    ⤷ PING: [SENT: SUCCESS] | {ping_text} ", "feed", show=False)
             except Exception as e:
                 log(f"    ⤷ PING: [SENT: FAILURE] | {e} ", "feed", level="CRIT", show=False)
+                continue
         if ping_text is None:
             log(f"    ⤷ PING: [SENT: SKIPPED]", "feed", show=False)
 

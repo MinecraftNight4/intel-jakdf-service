@@ -12,8 +12,8 @@ from discord import ui
 from discord.ext import commands
 
 # -------------------------------------------------
-# Constantes
-# -------------------------------------------------
+# CONFIGURACIÓN
+# ------------------------------------------------- 
 FEED_ITEMS_PER_PAGE = 4
 ACCENT_COLOR = 0xFFFFFF
 
@@ -23,8 +23,8 @@ DATA_FILE   = "sys_save/feed_system_data.json"
 
 
 # -------------------------------------------------
-# Helpers de JSON
-# -------------------------------------------------
+# BASE DE DATOS
+# ------------------------------------------------- 
 def load_json(path: str, default=None):
     if default is None:
         default = {}
@@ -44,8 +44,8 @@ def save_json(path: str, data):
 
 
 # -------------------------------------------------
-# Descarga de imagen (persistente)
-# -------------------------------------------------
+# DESCARGA DE ELEMENTOS WEB A FORMATO PERMANENTE
+# ------------------------------------------------- 
 async def download_image(url: str) -> Optional[Tuple[io.BytesIO, str]]:
     if not url or not url.startswith(("http://", "https://")):
         return None
@@ -66,8 +66,8 @@ async def download_image(url: str) -> Optional[Tuple[io.BytesIO, str]]:
 
 
 # -------------------------------------------------
-# Vista del feed (solo 1ª página + botones privados)
-# -------------------------------------------------
+# GENERADOR DE EMBED
+# ------------------------------------------------- 
 class FeedNewsPageView(ui.LayoutView):
     def __init__(
         self,
@@ -100,12 +100,7 @@ class FeedNewsPageView(ui.LayoutView):
             gallery.add_item(media=final_logo)
             container.add_item(gallery)
 
-        header = (
-            f"# __{article['article_name']}__\n"
-            f"[`🔗`](https://info.kj8-thegame.com/news/{uuid}"
-            f"?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) "
-            f"Posted on <t:{article['article_time']}>."
-        )
+        header = (f"# __{article['article_name']}__\n [`🔗`](https://info.kj8-thegame.com/news/{uuid}?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8) Posted on <t:{article['article_time']}>.")
         container.add_item(ui.TextDisplay(header))
         container.add_item(ui.Separator())
 
@@ -273,11 +268,13 @@ async def process_feed_game_all(bot: commands.Bot) -> int:
 
         ping_text = entry.get("text")
         if ping_text and str(ping_text).strip():
+            await asyncio.sleep(2)
             try:
                 await asyncio.wait_for(channel.send(content=str(ping_text).strip()), timeout=5.0)
                 log(f"    ⤷ PING: [SENT: SUCCESS] | {ping_text} ", "feed", show=False)
             except Exception as e:
                 log(f"    ⤷ PING: [SENT: FAILURE] | {e} ", "feed", level="CRIT", show=False)
+                continue
         if ping_text is None:
             log(f"    ⤷ PING: [SENT: SKIPPED]", "feed", show=False)
                 

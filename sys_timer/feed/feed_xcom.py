@@ -4,8 +4,13 @@ from typing import Dict, Any
 from logger import info, warn, crit, log
 
 import discord
+import asyncio
 from discord.ext import commands
 
+
+# -------------------------------------------------
+# CONFIGURACIÓN
+# ------------------------------------------------- 
 XCOM_FILE  = "sys_save/request_xcom.json"
 SETUP_FILE = "sys_save/feed_system_setup.json"
 DATA_FILE  = "sys_save/feed_system_data.json"
@@ -32,7 +37,7 @@ def save_json(path: str, data):
 async def process_feed_xcom(bot: commands.Bot) -> int:
     """
     Lee request_xcom.json → compara hashes → publica posts nuevos.
-    Mensaje: [`🔗`](https://fxtwitter.com/i/status/{UUID}) <{URL}>
+    Mensaje: [`🔗`](https://fxtwitter.com/i/status/{uuid}) <{URL}>
     """
     xcom_data: Dict[str, Any] = load_json(XCOM_FILE, {})
     setup = load_json(SETUP_FILE, {})
@@ -48,20 +53,20 @@ async def process_feed_xcom(bot: commands.Bot) -> int:
     log(f"[FEED - XCOM]: Processing {len(accounts)} accounts...", "feed", show=False)
 
     for account in accounts:
-        namespace = f"xcom-{account.lower()}"   # ej: xcom-kj8_thegame_en
+        namespace = f"xcom-{account.lower()}"
 
         if namespace not in data:
             data[namespace] = []
 
         already_sent = set(data[namespace])
-        status_posts = (xcom_data.get(account) or {}).get("STATUS") or {}
+        status_posts = (xcom_data.get(account) or {}).get("status") or {}
 
         # Hashes actuales
         current_hashes = set()
         posts_by_hash = {}
 
         for uuid, post in status_posts.items():
-            h = post.get("HASH")
+            h = post.get("hash")
             if h:
                 current_hashes.add(h)
                 posts_by_hash[h] = post
@@ -74,7 +79,7 @@ async def process_feed_xcom(bot: commands.Bot) -> int:
 
         new_posts = [posts_by_hash[h] for h in new_hashes]
         # Ordenar por UUID descendente (más recientes primero, aproximado)
-        new_posts.sort(key=lambda p: p.get("UUID") or "", reverse=True)
+        new_posts.sort(key=lambda p: p.get("uuid") or "", reverse=True)
 
         log(f"[FEED - XCOM | @{account}]: {len(new_posts)} new posts", "feed", show=False)
 
@@ -102,18 +107,23 @@ async def process_feed_xcom(bot: commands.Bot) -> int:
             is_announcement = getattr(channel, "is_news", lambda: False)()
 
             for post in new_posts:
-                uuid = post.get("UUID") or ""
-                url  = post.get("URL") or ""
+                uuid = post.get("uuid") or ""
+                link = post.get("link") or ""
 
-                content = f"[`🔗`](https://fxtwitter.com/i/status/{uuid}) <{url}>"
+                content = f"[`🔗`](https://fxtwitter.com/i/status/{uuid}) <{link}>"
+
+                await asyncio.sleep(2)
 
                 try:
-                    msg = await channel.send(content=content)
+                    msg = await asyncio.wait_for(
+                        channel.send(content=content),
+                        timeout=10.0
+                    )
                     log(f"  - [SEND: SUCCESS] | {uuid}", "feed", show=False)
 
                     if can_publish and is_announcement:
                         try:
-                            await msg.publish()
+                            await asyncio.wait_for(msg.publish(), timeout=5.0)
                             log(f"      ⤷ CROSSPOST: SUCCESS", "feed", show=False)
                         except Exception as e:
                             log(f"      ⤷ CROSSPOST: FAILURE | {e}", "feed", level="WARN", show=False)
@@ -121,15 +131,17 @@ async def process_feed_xcom(bot: commands.Bot) -> int:
                     total_new += 1
                 except Exception as e:
                     log(f"  - [SEND: FAILURE] | {uuid} | {e}", "feed", level="CRIT", show=False)
+                    continue
 
-            # Texto de ping opcional
             ping_text = entry.get("text")
             if ping_text and str(ping_text).strip():
+                await asyncio.sleep(2)
                 try:
-                    await channel.send(content=str(ping_text).strip())
+                    await asyncio.wait_for(channel.send(content=str(ping_text).strip()),timeout=5.0)
                     log(f"    ⤷ PING: SUCCESS | {ping_text}", "feed", show=False)
                 except Exception as e:
                     log(f"    ⤷ PING: FAILURE | {e}", "feed", level="CRIT", show=False)
+                    continue
 
         data[namespace] = list(current_hashes)
 
