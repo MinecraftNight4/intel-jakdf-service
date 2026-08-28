@@ -250,7 +250,9 @@ class KaijuReadNews:
         ):
             if node == "txt":
                 full_text += item + "\n\n"
-        self.news_storage[news_id]["article_hash"] = hashlib.sha256(full_text.encode('utf-8')).hexdigest()
+        
+        news_hash_dedicated = hashlib.sha256(full_text.encode('utf-8')).hexdigest()
+        self.news_storage[news_id]["article_hash"] = f"{news_id}_{news_hash_dedicated}"
 
     def fetch_single_news(self, news_id: str):
         try:

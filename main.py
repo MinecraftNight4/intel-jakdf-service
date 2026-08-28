@@ -5,10 +5,10 @@ from dotenv import load_dotenv
 from discord.ext import commands
 
 from sys_timer.__scheduler import start_all_timers, set_rebuild_callback, set_feed_callback
-from sys_timer.feed.feed_game_update import process_feed_game_update
+from sys_timer.feed.feed_game_general import process_feed_game_general
+from sys_timer.feed.feed_game_service import process_feed_game_service
 from sys_timer.feed.feed_game_event import process_feed_game_event
 from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
-from sys_timer.feed.feed_game_all import process_feed_game_all
 from sys_timer.feed.feed_xcom import process_feed_xcom
 from logger import info, warn, crit, log
 
@@ -64,13 +64,17 @@ async def run_schedule(ctx):
 
     # 4. Publicar todos los feeds
     try:
-        from sys_timer.feed.feed_game_all import process_feed_game_all
+        #from sys_timer.feed.feed_game_all import process_feed_game_all
         from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
-        from sys_timer.feed.feed_xcom import process_feed_xcom
+        from sys_timer.feed.feed_game_event import process_feed_game_event
+        from sys_timer.feed.feed_game_service import process_feed_game_update
+        #from sys_timer.feed.feed_xcom import process_feed_xcom
 
-        await process_feed_game_all(bot)
+        #await process_feed_game_all(bot)
         await process_feed_game_gacha(bot)
-        await process_feed_xcom(bot)
+        await process_feed_game_event(bot)
+        await process_feed_game_update(bot)
+        #await process_feed_xcom(bot)
 
         await ctx.send("✅ Feeds publicados")
     except Exception as e:
@@ -139,15 +143,14 @@ async def on_ready():
     
     
     log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
-    async def run_all_feeds():
-        await process_feed_game_all(bot)
+    async def process_feed_game():
+        await process_feed_game_general(bot)
+        await process_feed_game_service(bot)
         await process_feed_game_gacha(bot)
         await process_feed_game_event(bot)
-        await process_feed_game_update(bot)
     
     def feed_callback():
-        asyncio.run_coroutine_threadsafe(run_all_feeds(), bot.loop)
-        
+        asyncio.run_coroutine_threadsafe(process_feed_game(bot), bot.loop)
         asyncio.run_coroutine_threadsafe(process_feed_xcom(bot), bot.loop)
     
     set_feed_callback(feed_callback)

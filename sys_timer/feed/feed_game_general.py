@@ -9,7 +9,6 @@ import asyncio
 
 from typing import Dict, Any, List, Optional, Tuple
 from logger import info, warn, crit, log
-from colorthief import ColorThief
 from discord.ext import commands
 from discord import ui
 
@@ -22,8 +21,6 @@ ACCENT_COLOR = 0xFFFFFF
 NEWS_FILE   = "sys_save/request_news.json"
 SETUP_FILE  = "sys_save/feed_system_setup.json"
 DATA_FILE   = "sys_save/feed_system_data.json"
-
-NAMESPACE = "feed_game_event"
 
 
 # -------------------------------------------------
@@ -76,7 +73,6 @@ class FeedNewsPageView(ui.LayoutView):
     def __init__(
         self,
         article: dict,
-        item_rgb: int,
         item_max: int = FEED_ITEMS_PER_PAGE,
         item_ico: str | None = None,
     ):
@@ -86,7 +82,7 @@ class FeedNewsPageView(ui.LayoutView):
         article_uuid = article["article_uuid"]
         article_node = article.get("article_node", [])
         article_item = article.get("article_item", [])
-        article_rgbs = item_rgb or int(article.get("article_rgbs", "ffffff"), 16)
+        article_rgbs = int(article.get("article_rgbs", "ffffff"), 16)
         article_logo = item_ico or article.get("article_logo")
         
         math_item = len(article_node)
@@ -161,22 +157,22 @@ class FeedNewsPageView(ui.LayoutView):
 
 
 # -------------------------------------------------
-# Lógica principal – solo events
+# Lógica principal de feeds
 # -------------------------------------------------
-async def process_feed_game_event(bot: commands.Bot) -> int:
+async def process_feed_game_general(bot: commands.Bot) -> int:
     storage_data = load_json(DATA_FILE, {})
-    storage_sent = load_json(DATA_FILE, {}).get(NAMESPACE, []) or []
-    storage_feed = load_json(SETUP_FILE, {}).get(NAMESPACE, {}) or []
+    storage_sent = load_json(DATA_FILE, {}).get("feed_game_all", []) or []
+    storage_feed = load_json(SETUP_FILE, {}).get("feed_game_all", {}) or []
     storage_news: Dict[str, Any] = load_json(NEWS_FILE, {})
-    
+
+
     #=================#
     # PROCESS OF DATA #
     #=================#
     process_sent = set(storage_sent)
     process_news = [
         read for read in storage_news.values()
-        if (read.get("article_type") or "").lower() == "event"
-        and read.get("article_hash")
+        if read.get("article_hash")
     ]
     index_article_hash = set()
     index_article_data = {}
@@ -191,27 +187,27 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
     debug_all_feed = len(storage_feed)
     debug_can_post = len(process_list)
     debug_not_post = len(storage_news)
-    log(f"[FEED - EVENT]: [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_not_post}]", "feed", show=False)
-
-
+    log(f"[FEED - GENERAL]: [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_not_post}]", "feed", show=False)
+    
+    
     #==============#
     # CLOSE THREAD #
     #==============#
     if (len(storage_feed) == 0) or (not process_list):
-        storage_data[NAMESPACE] = list(index_article_hash)
+        storage_data["feed_game_all"] = list(index_article_hash)
         save_json(DATA_FILE, storage_data)        
-        log(f"[FEED - EVENT]: THREAD CLOSED.", "feed", show=False)
+        log(f"[FEED - GENERAL]: THREAD CLOSED.", "feed", show=False)
         log(f"", "feed", show=False)
         return 0
-
-
+    
+    
     #==================#
     # MESSAGE DELIVERY #
     #==================#
-    log(f"[FEED - EVENT]: SENDING ARTICLES... ", "feed", show=False)
+    log(f"[FEED - GENERAL]: SENDING ARTICLES... ", "feed", show=False)
     debug_post_sent = 0
     for guild_uuid, guild_data in storage_feed.items():
-        
+
 
         feed_data_hold = bot.get_channel(int(guild_data.get("channel")))
         if feed_data_hold is None:
@@ -223,12 +219,11 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
         feed_data_post = getattr(feed_data_hold, "is_news", lambda: False)()
         feed_data_rule = bool(guild_data.get("publish", False))
         log(f"- [ID: {guild_data.get("channel")}] | [IS_NEWS: {feed_data_post}] | [PUBLISH: {feed_data_rule}]", "feed", show=False)
-        
+
 
         for item in process_post:
             message_file: List[discord.File] = []
             message_icon = None
-            message_rgbs = None
             if item.get("article_logo"):
                 message_save = await download_image(item.get("article_logo"))
                 if message_save:
@@ -236,15 +231,10 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
                     result_data.seek(0)
                     message_file.append(discord.File(result_data, filename=result_name))
                     message_icon = f"attachment://{result_name}"
-                    try:
-                        r, g, b = ColorThief(result_data).get_color(quality=1)
-                        message_rgbs = (r << 16) + (g << 8) + b
-                    except Exception:
-                        message_rgbs = None
 
 
             await asyncio.sleep(2)
-            message_data = FeedNewsPageView(item, item_ico=message_icon, item_max=FEED_ITEMS_PER_PAGE, item_rgb=message_rgbs)
+            message_data = FeedNewsPageView(item, item_ico=message_icon, item_max=FEED_ITEMS_PER_PAGE)
             try:
                 for file_item in message_file:
                     file_item.fp.seek(0)
@@ -276,10 +266,10 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
                 log(f"    ⤷ [(!) FAILURE] #ERROR_FLAG_0003 | DUMP: {e} ", "feed", level="CRIT", show=False)
                 continue
 
-    
-    storage_data[NAMESPACE] = list(index_article_hash)
+
+    storage_data["feed_game_all"] = list(index_article_hash)
     save_json(DATA_FILE, storage_data)
-    log(f"[FEED - EVENT]: [SENT: {debug_post_sent}]", "feed", show=False)
-    log(f"[FEED - EVENT]: THREAD CLOSED.", "feed", show=False)
+    log(f"[FEED - GENERAL]: [SENT: {debug_post_sent}]", "feed", show=False)
+    log(f"[FEED - GENERAL]: THREAD CLOSED.", "feed", show=False)
     log(f" ", "feed", show=False)
     return debug_post_sent
