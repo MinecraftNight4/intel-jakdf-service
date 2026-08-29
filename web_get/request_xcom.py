@@ -106,9 +106,9 @@ class KaijuReadXCom:
 
         self.xcom_storage[account]["status"][uuid] = {
             "link": url,
-            "hash": post_hash,
             "uuid": uuid,
             "text": text,
+            "hash": f"{uuid}_{post_hash}"
         }
 
         # ---- roadmap (solo si menciona "content schedule") ----

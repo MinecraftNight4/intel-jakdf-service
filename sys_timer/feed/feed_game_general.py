@@ -186,8 +186,8 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
     #
     debug_all_feed = len(storage_feed)
     debug_can_post = len(process_list)
-    debug_not_post = len(storage_news)
-    log(f"[FEED - GENERAL]: [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_not_post}]", "feed", show=False)
+    debug_all_post = len(storage_news)
+    log(f"[FEED - GENERAL]: [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_all_post}]", "feed", show=False)
     
     
     #==============#
