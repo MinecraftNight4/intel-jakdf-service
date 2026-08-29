@@ -86,7 +86,6 @@ async def reload(ctx, extension: str):
 
 @bot.event
 async def on_ready():
-    
     #=======================================
     #   COG DEPLOYMENT...
     #=======================================
@@ -94,6 +93,7 @@ async def on_ready():
     extensions = [
         "cogs.news",
         "cogs.feeds",
+        "cogs.follow",
     ]
     for ext in extensions:
         try:
@@ -131,7 +131,8 @@ async def on_ready():
     #   LOADING TIMER INSTANCE...
     #=======================================
     log(f"BOTS: [TIME] LOADING...", "main")
-    
+
+
     log(f"[TIMER DEPLOY]: NEWS - LOADING...", "cache", show=False)
     news_cog = bot.get_cog("News")
     if news_cog is not None:
@@ -140,19 +141,24 @@ async def on_ready():
             news_cog.build_cache()
         set_rebuild_callback(rebuild)
     log(f"[TIMER DEPLOY]: NEWS - DEPLOYED!", "cache", show=False)
-    
-    
+
+
     log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
-    async def process_feed_game():
-        await process_feed_game_general(bot)
-        await process_feed_game_service(bot)
-        await process_feed_game_gacha(bot)
-        await process_feed_game_event(bot)
+    async def process_all_feeds():
+        tasks = [
+            process_feed_game_general(bot),
+            process_feed_game_service(bot),
+            process_feed_game_gacha(bot),
+            process_feed_game_event(bot),
+            process_feed_xcom(bot),
+        ]
+        await asyncio.gather(*tasks, return_exceptions=True)
+    
     
     def feed_callback():
-        asyncio.run_coroutine_threadsafe(process_feed_game(bot), bot.loop)
-        asyncio.run_coroutine_threadsafe(process_feed_xcom(bot), bot.loop)
-    
+        asyncio.run_coroutine_threadsafe(process_all_feeds(), bot.loop)
+
+
     set_feed_callback(feed_callback)
     log(f"[TIMER DEPLOY]: FEED - DEPLOYED!", "cache", show=False)
     log(f"BOTS: [TIME] DEPLOYED!", "main")
