@@ -592,13 +592,66 @@
             1791946799
         ]
     },
+    "1003470": {
+        "article_name": "VERSION 2.1.0 MAINTENANCE NOTICE",
+        "article_type": "maintenance",
+        "article_uuid": "1003470",
+        "article_time": 1787974200,
+        "article_rgbs": "455a64",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003471/991d2535abd79a29d2728805fb2b9189.jpg?Expires=1788188417&Signature=SE75p1nh5nGBhwLZSqnuvAmP5DyeWLo84wJS9DEUTV6DqYaXdBwis2PhVOwzBUzQJg~rRLZpgK4aqxsrTbjCmsE-6BCjCECapYMFEdkq2Wykq3NCT-QlbckUwFFhvt5FIfGvIzV~NwsHip0-avIk~kKtRBJO3tyVGZ4IpF~xh~fV6B3SYaADpv2jty013g~LJMYfWMNNQEMFRuU-pK~PWqojOQLtC1GeoSPqHT7Q1ibKb0PwzT0B7N5gpt89xFNumP440nTGFrXDn2ZfZmKkiqcukEvEeZsiW50i9uWISkOvGkKFYOF15rccws5t3wvnnJvksqsFzfqu4eBRY1x2EQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "1003470_8e2899866ff9d8d2a7f957e22e5aebe227fd2628446d3afcee6a3f6196fd3657",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_raws": [
+            "⤷Overview⤷Thank you for playing KAIJU NO. 8 THE GAME.⤷We will be performing maintenance during the following period:⤷⤷",
+            "MAINTENANCE TIME 2026-08-31T04:00:00Z - 2026-08-31T07:59:59Z⤷⤷The game will be unavailable during this time.⤷We appreciate your understanding and cooperation.⤷⤷",
+            "Update Content⤷■ KAIJU NO. 8 THE GAME 1st Anniversary Round 3⤷For more details, please stay tuned for updates on the official X of KAIJU NO. 8 THE GAME (@kj8_TheGame_EN).⤷What's more, we'll be streaming live starting 2026-08-30T11:00:00Z to bring you the latest news on KAIJU NO. 8 THE GAME. Watch it here when the stream begins.⤷⤷■ New Feature: Dimensional Swarm Disaster⤷",
+            "Experience brand-new content where you take on swarms of Kaiju more powerful than ever before.⤷Clear stages, gather Support Effects, equip them, and face the Kaiju.⤷⤷■ Improvement to Story Screen⤷Adjustments will be made to the Story screen.⤷Further details will be released after the maintenance.⤷",
+            "⤷■ Improvement to Fierce Battle Area (Permanent) - High Difficulty⤷・Challenge restrictions will be lifted. Players can take on stages directly, even if prior stages have yet to be cleared.⤷*Following this adjustment, the method for obtaining titles for future Fierce Battle Area (Permanent) High Difficulty stages has been updated.⤷・Stage UI will be updated.⤷⤷",
+            "■ Other Minor Improvements⤷・Pressing outside the Confirm Skip screen will close it.⤷・The confirmation prompt will be skipped when pressing SKIP in Training: Special Enhancement Material.⤷・When selecting the maximum quantity of Stamina Jellies on the Stamina recovery screen, you will only select the amount needed to reach maximum Stamina.⤷⤷■ New Gacha⤷",
+            "Scheduled to start: 2026-08-31T08:00:00Z⤷For more details, please check our official X (@kj8_TheGame_EN) and future announcement.⤷⤷■ New Trainings and Limit Unlock Materials⤷Scheduled to start: 2026-09-01T03:00:00Z⤷New Trainings and limit unlock materials will be added.⤷",
+            "For more details, please check the upcoming announcement.⤷⤷■ Fierce Battle Area (Limited)⤷Scheduled to start: 2026-09-04T03:00:00Z⤷A new Fierce Battle Area (Limited) will be available.⤷For more details, please check the upcoming announcement.⤷",
+            "⤷Important⤷After this maintenance, a download of approximately 4.4 GB for the mobile version, or 7.3 GB for the PC version will be required. A Wi-Fi connection is recommended for download.{;;nl;;}*This data update will perform data optimization, including data from previous updates.⤷We appreciate your cooperation as we continue to work on improving our services.⤷Please note that if you are in the middle of a battle when maintenance begins, when you log in again after maintenance, your game progress may be reset to the state you were in before the battle began.⤷",
+            "We recommend linking your account before maintenance begins. By linking your account, you can easily restore and transfer your game data even if you accidentally delete the app. For more information on how to link your account, please check here.⤷The date and time of the maintenance are subject to change.⤷The maintenance duration may vary depending on our progress. We appreciate your understanding.⤷⤷Thank you for your continued support of KAIJU NO. 8 THE GAME.⤷"
+        ],
+        "article_item": [
+            "## __OVERVIEW__\nThank you for playing KAIJU NO. 8 THE GAME.\nWe will be performing maintenance during the following period:",
+            "### __MAINTENANCE TIME__\n<t:1788148800> - <t:1788163199>\n\nThe game will be unavailable during this time.\nWe appreciate your understanding and cooperation.",
+            "## __UPDATE CONTENT__\n■ KAIJU NO. 8 THE GAME 1st Anniversary Round 3\nFor more details, please stay tuned for updates on the official X of KAIJU NO. 8 THE GAME ([@kj8_TheGame_EN](https://x.com/Kj8_TheGame_EN)).\nWhat's more, we'll be streaming live starting <t:1788087600> to bring you the latest news on KAIJU NO. 8 THE GAME. Watch it [here](https://www.youtube.com/live/hdRzTUeuYAM) when the stream begins.\n\n■ New Feature: Dimensional Swarm Disaster",
+            "Experience brand-new content where you take on swarms of Kaiju more powerful than ever before.\nClear stages, gather Support Effects, equip them, and face the Kaiju.\n\n■ Improvement to Story Screen\nAdjustments will be made to the Story screen.\nFurther details will be released after the maintenance.",
+            "■ Improvement to Fierce Battle Area (Permanent) - High Difficulty\n・Challenge restrictions will be lifted. Players can take on stages directly, even if prior stages have yet to be cleared.\n*Following this adjustment, the method for obtaining titles for future Fierce Battle Area (Permanent) High Difficulty stages has been updated.*\n・Stage UI will be updated.",
+            "■ Other Minor Improvements\n・Pressing outside the Confirm Skip screen will close it.\n・The confirmation prompt will be skipped when pressing SKIP in Training: Special Enhancement Material.\n・When selecting the maximum quantity of Stamina Jellies on the Stamina recovery screen, you will only select the amount needed to reach maximum Stamina.\n\n■ New Gacha",
+            "Scheduled to start: <t:1788163200>\nFor more details, please check our official X ([@kj8_TheGame_EN](https://x.com/Kj8_TheGame_EN)) and future announcement.\n\n■ New Trainings and Limit Unlock Materials\nScheduled to start: <t:1788231600>\nNew Trainings and limit unlock materials will be added.",
+            "For more details, please check the upcoming announcement.\n\n■ Fierce Battle Area (Limited)\nScheduled to start: <t:1788490800>\nA new Fierce Battle Area (Limited) will be available.\nFor more details, please check the upcoming announcement.",
+            "## __IMPORTANT__\n- After this maintenance, a download of approximately 4.4 GB for the mobile version, or 7.3 GB for the PC version will be required. A Wi-Fi connection is recommended for download.\n*This data update will perform data optimization, including data from previous updates.*\nWe appreciate your cooperation as we continue to work on improving our services.\n- Please note that if you are in the middle of a battle when maintenance begins, when you log in again after maintenance, your game progress may be reset to the state you were in before the battle began.",
+            "- We recommend linking your account before maintenance begins. By linking your account, you can easily restore and transfer your game data even if you accidentally delete the app. For more information on how to link your account, please check [here](https://info.kj8-thegame.com/news/news/1000030?language=en).\n- The date and time of the maintenance are subject to change.\n- The maintenance duration may vary depending on our progress. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
+        ],
+        "article_unix": [
+            1788148800,
+            1788163199,
+            1788087600,
+            1788163200,
+            1788231600,
+            1788490800
+        ]
+    },
     "1003460": {
         "article_name": "1ST ANNIVERSARY STEP-UP GACHA III NOW AVAILABLE!",
         "article_type": "gacha",
         "article_uuid": "1003460",
         "article_time": 1787886000,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003460/698976e2da0a247896d99b44d4f696be.jpg?Expires=1788055208&Signature=SOTvq0Tlw3LPc0ddqYJ75paYD0q3N3tOIvy6xXznDVaS2jzFHnyFMDjh7kzLvzNIo9YXUE5D3jUQwcXc9eEcyGdS3IJGFOOpXQtNN-Jge0epxIQWta78~A9P-KQbILitAxuC22UWrXoo8fGoKQrd-s9ItnaRbIcGMiPO3hoRjLXIu8ylzaq0s-F1woPCOruUkn1N8kS5qA9t4TbbY-ToLusLdTeD4EyKMRZ-eTe~jq235LAyw4K0qSstt~QN-~WTFeZLaGQlFnlr7fEwHrDiqiVs2~IGqwHaOoaI4iZZ-NbHQFxRmL7nXOXgxTT~ausrmK4sA6SOKiA0TxD0J0B5IA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003460/698976e2da0a247896d99b44d4f696be.jpg?Expires=1788188417&Signature=LDeSfYDjDI58WFH6C5xvBs68na-cUsz4Hb16Ji0Vqn6CEvvWr06j7MIr-BTMaduIj9-oY1mc5z280rSS0nICh~SvG2vFkLxm1qbkQc4ac5~F4ATI4exbQBL4I7hokvAcyGJghWL3bb0t9sjpG~q6pGB07N~UCwPJ7MlFj8zbcRVwApLF8vnG0mZHv25iKRWeAuQV0ViuafVdfExC6rtIsf6fct2a9HXzdByq-IZ4EX1c4OaDkmZg~xFBVCfDilfYl4J-Z~bJjWftvp-mmJ3VJTmjmhgKa9PeWBLiW9I8bMufVqOgv9WtcJFJE61-FOTaDtkku~a98BVfu3bXnphwsg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003460_61326965726af0234c7b81bb06d4f236c94e90facce9c858dcb8acfab0843eb2",
         "article_node": [
             "txt",
@@ -718,7 +771,7 @@
         "article_uuid": "1003430",
         "article_time": 1787886000,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003430/4ddfc809df2b9b4a6716e90f57006ead.jpg?Expires=1788055208&Signature=RgG9U36K6n3kJ3mxFEqXO0mLSEhq9y7SeD9VwCPUkrN0USsJ4-OM1XInGl2fp94FlTj8EOq40oVUoz5ickDeSJqPy3FdJgg3-3bFunPo~iwPbWo7IGDXBMxYGfVEZrie5DIge6NMicvKTcr3q2HOMk8-fHNxnvRFC3xTIO2cEiud5dxXsj6gq3dr8S8GkpjWGIsW8DYQiMfzvWs6RmBwZP1Y-XpKLFZFgGHeUN5ssIiwUtWF-4-dE1EnJBL5SMaznQiIihnMx-6MfomUwHxzZTUR-SXFmw6-~159tj3QECW~mg6P9uCu1A8PCCTObuQpwmUw6Oj2ExO1oNLLix15mQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003430/4ddfc809df2b9b4a6716e90f57006ead.jpg?Expires=1788188417&Signature=U7FrUjro9edVpHOBv0-CbcctfcZTJf4OITQxr9bOzGoFYE4Lc~1Y0En8ub6oWOgQxWlOp5xhsgtm11IMgLc5eC6y1ajEbyZSzyTtpn9YDKVwaVyb1o0ib1Y538BURZwGczh9mKIzvfvemLcdA3JWkpKdId3HM-xfKutUeV7Hgst6HQcdw89Ku57u3WCOO05p~8AMCN-TSLye2etXV7EDPsoc6MgLKQFVPMdPgBRlMwgU1r2uStqvkvQytilrzxGDDLwsq0Y0YmEbvLvbeljeD0balLxZbRIgFHooSiro7D0HXo-6RpO9BmyL4en79xx~2EYHSuv1s9zvMbyuJAZnCg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003430_11467c6dce4a094d7689153ef3cb3f41b13b9843ed6e80f645d30943474dab31",
         "article_node": [
             "txt",
@@ -801,7 +854,7 @@
         "article_uuid": "1003420",
         "article_time": 1787886000,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003420/fe16a5a586fbeeaf14d1b5ae1f4202bc.jpg?Expires=1788055208&Signature=ghVWe6elO0kRPO7XtT1g6YEIXPkWOIBSQXTglRQ1YaJ7YG8mblNE45uZAkkSQTxli0NC9FCR-x5rFjWe05vT-o~9T3YS73c3GxETZVp8MXAWZnPvq5NzWl9gEYlyPz3YaeSsMvj7gpfEMsUdh2BaoGR1aNksgP9omXnarcdjbMd4waT3UMrREXHs0DPrw7Sxy~wrRK-mga43iMaQWZQyNuwFCy-J6tx5huuly6JEhuuGf-3cU1azs~Ku2LpGhwrGCoBHtS6Cwx4I3Weft778hdrCvsiz3uOR2BnB3bqKwUFh3c9X7cbxwThi6n2rNWgltMZ-6MgYx8Qa2hgnrA6O8w__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003420/fe16a5a586fbeeaf14d1b5ae1f4202bc.jpg?Expires=1788188419&Signature=EbNSyxwtMtkkERdjor8yrMDz~9UvHhlY0tuRz-Tz2NCtC~zuSvFmKdvfjZPsX7kc3eGoaWJxRe~CtVWhv~HTLaJCG0yQLxXGVzKVUbxAJRyisf9fS52pLBU5JKxyOBj7R9fRs8SRL8HzJ~UG96H~Wxa~HjtNg2fszTMs08qwTjT-fbiiFnhF4JDz8wqKjtqeDdnAuwcojzc8cYfXZiPFXnlStpPuo9FH-B0eIfP77gVUcBvPQcx2KSZlGaSnowXi6kmHJJfnr9foxFJW5i~dd-5-kHsUSIv10TXiHtlVnMb-if~~x-eKGKnqaEbubKPLb7L~PTo9kHZNRp8quRNiyw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003420_57878fc3d8eec3539e3cc6bd1d8d999aaf6efa90d106b90b023160816e06f875",
         "article_node": [
             "txt",
@@ -881,7 +934,7 @@
         "article_uuid": "1003410",
         "article_time": 1787886000,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003410/0919c1b2761244207f54b42174535f20.jpg?Expires=1788055209&Signature=lZgSxMOTEQTl-0JZ821AujONBk7-3Sb2CxbTFwFj3qCiCMJUqpJ7yIDMrvnzx~OePnPjtFymXqs6wAZEItMfJeYzr4w5E~5XoLF2lX-qY6306f0Yr6HY0EKHI-Q6NDMM0vDmJ-D~rZ2WSN0aI4OaqjMZhwSP6-ErsZw1viMua47op7d198uGDHxnZP6PISHl3ikyqnQjv1hUIwfI-roGY6RtCw7FTtnYDq6fvUtjpDVSvQd0IRzoRp1yZRZgTACvy01jNk0ygVweMvSETUsfPt4IT1QnIZJfqI5WZsIBS9ZRd9-powbCBiryDhMLp-QT7AurEnRi2GuwZ91p7kneXA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003410/0919c1b2761244207f54b42174535f20.jpg?Expires=1788188419&Signature=QZMstvjclJnguj7kHIdlisOLhwpYR800QN~Ey9zdreVBP4y-dEPER7PJ94EYTwThIid~S~CyfEecVPXq69jbTCWplZPPXmf1p2trzLS0PYB~0vWRKG3jjY6NTgjm-kYZXJxzZc75j1tY4sWBF9D8~qxuT8279iDrLT~t-fhyv8n3beTsWlfon5bbmBGt9bx~ZBVRVzDRI2EgT4nzT4O9SzSNe1cJkPZYiHvV51iS1lgS5Pf~efO3k-ZG4jQRLir1LxPWIwBq4DpQ9N6FZ354I4r1bj57DdTChH7PY6ohbWHA22XgADcIFC~KQAl-JMjCFn1FICMSTUQ8wZtmh4SoZQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003410_ee1937b8b5f58da487f692216d58ae1e7ee85e7ac66a1c9495211f285d71eae0",
         "article_node": [
             "txt",
@@ -923,7 +976,7 @@
         "article_uuid": "1003390",
         "article_time": 1787799600,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003390/c935f13aba22cb927b9a3ec935627ebe.jpg?Expires=1788055209&Signature=DM32FcQVTkKm7XEMMMOTni9Rz5OdHxERvqVmj8hsD2Vv7KYiBtWVkLUDfCQb1-bJab-yIFEQEftJrfz6aSOjcL7JDIIipDlRc2VulbxCwq6HzBG3FMT~G9syJqJ1fgWugr6YooK7H~48TMLEwfcsyxL06B49jTXagB9BtNeQa8hxPIncFar4c-KrEcC5wsiEkQ1FU48RpXY4mommmGxRBQVX98gUMaj6NfyCszWqz3bpYHJTJTy3pngmPum0UhAng7MyTBJJkJnZdj7r0naVgZWFrl6AD-u~7rPqV6QQ3tbaKLBKfbJblOhP5W0cMKeW8wfh3KN88IenXutb4K~dig__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003390/c935f13aba22cb927b9a3ec935627ebe.jpg?Expires=1788188419&Signature=a6AxR7fkCgc8dmBWEtplbtrQkheMJUEZWRux~Qwu2lfP5F8z-cKoGEAU1mvDB6B0QjSHpNttLSlanE23AvFkbmBbMwhf307fPGoCh3fMHPqVMuKQFuH2Q53Orf5w1H0luiPydzeezV8BvQBNQdcLMOFAV-RA9skUyiHv2ud07bzHjuS0KjeuAANFIaK5WCL4XL6WStoN~bb87ntBXdYfCczWRQmcNMnejtS9UR4XGlxvbSvzjgX1vxuXoFO~S2y~rNc9USEmjGKRXq6ag5EPOkmFKdup8g0zUWC7uNAF6EcXLh4WH4gdlRptF6WHKS5g5tV1763EXLyxR0VJLk13kA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003390_61de485edd0e1a52eb73b7caf93365cfaf7b09bd3ba40c617c4379fad91cd6f0",
         "article_node": [
             "txt",
@@ -954,15 +1007,53 @@
             1790823599
         ]
     },
+    "1003380": {
+        "article_name": "MOP-UP OPERATION NOW AVAILABLE!",
+        "article_type": "event",
+        "article_uuid": "1003380",
+        "article_time": 1787975400,
+        "article_rgbs": "43a047",
+        "article_logo": null,
+        "article_hash": "1003380_0cc5e9ea67a85132d1c1c4d637f4d540439d2cf1f25d3253f079bfc54d4b265e",
+        "article_node": [
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt",
+            "txt"
+        ],
+        "article_raws": [
+            "Overview⤷Following the defeat of Kaiju A: Divided Entity, a massive swarm of Kaiju has appeared.⤷Commencing the Mop-Up Operation.⤷Earn awesome rewards by defeating the Yoju as they put up a desperate final resistance!⤷⤷",
+            "AVAILABILITY PERIOD Until 2026-09-05T02:59:59Z.⤷⤷*If all Kaiju are defeated during the availability period, the Mop-Up Operation will end 24 hours after the stages have concluded.⤷⤷",
+            "Event Description⤷The Mop-Up Operation is a competitive event where all players work to neutralize a massive number of Kaiju.⤷The Mop-Up Operation consists of 5 stages, and you can challenge each stage until the remaining number of Kaiju reaches 0.⤷Use specific permits to take part in Mop-Up Operation.¹ ²⤷Each battle ends once 5 rounds have elapsed. Defeat as many Kaiju as possible within 5 rounds.⤷Each of the 5 stages offers different rewards.⤷",
+            "The more Kaiju you defeat in a single battle, the greater the rewards you obtain. Battles will end automatically once you have reached the maximum obtainable rewards.⤷In every stage, there is a rare chance to obtain ★5 Unimaterial [Caudata-Type Kaiju α], which guarantees a ★5 Unipart when used during development.⤷Skipping is not available for Mop-Up Operation.⤷The event ends once the remaining number of Kaiju in all stages reaches 0.⤷⤷¹ During the availability period of the Mop-Up Operation, up to 5 Mop-Up Operation Permits can be claimed on the event screen every 4:00 AM JST. If you have unused Mop-Up Operation Permits at 4:00 AM JST, you can claim new ones to reach a total of 5.⤷",
+            "² Mop-Up Operation Permits can also be replenished up to 5 times per day using Dimensional Crystal x20. The replenish count resets daily at 4:00 AM JST.⤷⤷",
+            "Important⤷If a Mop-Up Operation battle ends in defeat, retreat, or suspension, rewards will still be granted based on the number of Kaiju defeated up until that point. However, Mop-Up Operation Permits will not be refunded.⤷"
+        ],
+        "article_item": [
+            "## __OVERVIEW__\nFollowing the defeat of Kaiju A: Divided Entity, a massive swarm of Kaiju has appeared.\nCommencing the Mop-Up Operation.\nEarn awesome rewards by defeating the Yoju as they put up a desperate final resistance!",
+            "### __AVAILABILITY PERIOD__\nUntil <t:1788577199>.\n\n*If all Kaiju are defeated during the availability period, the Mop-Up Operation will end 24 hours after the stages have concluded.*",
+            "## __EVENT DESCRIPTION__\n- The Mop-Up Operation is a competitive event where all players work to neutralize a massive number of Kaiju.\n- The Mop-Up Operation consists of 5 stages, and you can challenge each stage until the remaining number of Kaiju reaches 0.\n- Use specific permits to take part in Mop-Up Operation.¹ ²\n- Each battle ends once 5 rounds have elapsed. Defeat as many Kaiju as possible within 5 rounds.\n- Each of the 5 stages offers different rewards.",
+            "- The more Kaiju you defeat in a single battle, the greater the rewards you obtain. Battles will end automatically once you have reached the maximum obtainable rewards.\n- In every stage, there is a rare chance to obtain ★5 Unimaterial [Caudata-Type Kaiju α], which guarantees a ★5 Unipart when used during development.\n- Skipping is not available for Mop-Up Operation.\n- The event ends once the remaining number of Kaiju in all stages reaches 0.\n\n¹ During the availability period of the Mop-Up Operation, up to 5 Mop-Up Operation Permits can be claimed on the event screen every 4:00 AM JST. If you have unused Mop-Up Operation Permits at 4:00 AM JST, you can claim new ones to reach a total of 5.",
+            "² Mop-Up Operation Permits can also be replenished up to 5 times per day using Dimensional Crystal x20. The replenish count resets daily at 4:00 AM JST.",
+            "## __IMPORTANT__\n- If a Mop-Up Operation battle ends in defeat, retreat, or suspension, rewards will still be granted based on the number of Kaiju defeated up until that point. However, Mop-Up Operation Permits will not be refunded."
+        ],
+        "article_unix": [
+            1788577199
+        ]
+    },
     "1003360": {
-        "article_name": "RAID BATTLE: KAIJU A: DIVIDED ENTITY NOW AVAILABLE!",
+        "article_name": "[UPDATED] RAID BATTLE: KAIJU A: DIVIDED ENTITY NOW AVAILABLE!",
         "article_type": "event",
         "article_uuid": "1003360",
-        "article_time": 1787540400,
+        "article_time": 1787975400,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003360/90e6e7ae71edc586de8c7c40f273ea78.jpg?Expires=1788055209&Signature=hwv-9o4KonU2KunQ6cDxesusKIRzLh0MzapO1l8aD8g2n73DNqCWuASFTx3O4XubUlpL36JXyYd0PdqFq44MqfLOPuEY0dEhSv9aRI6lukTle~AZxLkHXugo~xw0LRBqQxutBlArjDQMqcUzazGfLcYys89vaI3SWVeOoomtJ9k0VmvM3gFB7CCbTs8eskKjOEpukJm7LDMSnyirVbdaYshwCg8UDDpLK8-nEjkdtHTZKsGZ9mVYgc~Bc3ELUJb9CymiUOykXzprcJFneVHTQQuFUGS4duaE6425FFpN99UEuohiQWO6jRYzBwQPOP-lurIfsCFG-h6vd4qJUN2oqw__&Key-Pair-Id=K22LOBLWI3HWJQ",
-        "article_hash": "1003360_69f24412e4e74d4fa77fb22ef12408ced0310e5bf477d3d314896738c010af89",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003370/90e6e7ae71edc586de8c7c40f273ea78.jpg?Expires=1788188421&Signature=Z9t2m0UZDiW~wviVMzBA7H~1Xe8bS11HoY6cDjQ1eIjdc1PMuwL5z3t-YIGMsBjmvwWs3Jn6ecPR4kNTUzdnVGaGaBfLb4d9ML19gvTPsmo2n6OBsn~iDnvmxCmUISPccHDx5iYRQClUO~t1ytEgRPEOYyiL1ZiUnIocIxhobghZuEJrsSeEiMyux-FXuJU64Z4SsC77Us~se4ZVFwa8yKF4pHmDqIRxrnWq0LHq2ewGZbd6VfgZyNm1SCdjTaDS9RpP9yuSL7j4xWc1oWE1UVirx36D5sKTJomGv2Fia2PQyroS2PboSw93dUvhnnH77eGf-J5E0ZtMBjS1NFNryQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_hash": "1003360_4bce1fcb0aab02fc07a4005bd2422838f13243725575cb01c0e2ab40e9a980b0",
         "article_node": [
+            "txt",
+            "txt",
             "txt",
             "txt",
             "txt",
@@ -978,7 +1069,9 @@
             "txt"
         ],
         "article_raws": [
-            "⤷Overview⤷Raid Battle: Kaiju A: Divided Entity has come online as of 2026-08-24T03:00:00Z.⤷Raid Battle is an event in which all players will work together to take down a Boss Kaiju.⤷Challenge the Boss Kaiju to progress along the Raid Battle Missions and earn rewards!⤷⤷",
+            "⤷Update: Commencing Mop-Up Operation⤷[Updated 2026-08-29T03:50:00Z]⤷The Boss Kaiju has been defeated thanks to everyone's hard work!⤷Please note that the reward claim deadline for the Raid Battle Missions is 2026-09-05T02:59:59Z.⤷⤷",
+            "Following the defeat of Kaiju A: Divided Entity, a massive swarm of Kaiju has appeared.⤷Commencing the Mop-Up Operation.⤷Earn awesome rewards by defeating the Yoju as they put up a desperate final resistance!⤷⤷For more details, please check the relevant announcement.⤷・Mop-Up Operation Now Available!⤷",
+            "⤷Overview⤷Raid Battle: Kaiju A: Divided Entity has come online as of 2026-08-24T03:00:00Z.⤷Raid Battle is an event in which all players will work together to take down a Boss Kaiju.⤷Challenge the Boss Kaiju to progress along the Raid Battle Missions and earn rewards!⤷⤷",
             "In addition, participate in the rankings to earn titles and rewards.⤷Deal as much damage as possible!⤷⤷",
             "Eligibility⤷Reach Player Rank 4 or higher.⤷⤷",
             "Changes Since Previous Rotation⤷Adjusted buff content.⤷⤷",
@@ -993,7 +1086,9 @@
             "Important⤷This event will be available until the Boss Kaiju is defeated.⤷After the Boss Kaiju is defeated, Daily Missions and Limited-Time Missions can no longer be achieved.⤷After the Boss Kaiju is defeated, the event will end after a certain period. The end time will be updated in News.⤷Once the event ends, any remaining Raid Battle Permits will be recalled.⤷Once the event ends, Raid Battle Mission rewards will no longer be available (and will not be sent to your Mail). Please remember to claim them within the event period.⤷"
         ],
         "article_item": [
-            "## __OVERVIEW__\nRaid Battle: Kaiju A: Divided Entity has come online as of <t:1787540400>.\nRaid Battle is an event in which all players will work together to take down a Boss Kaiju.\nChallenge the Boss Kaiju to progress along the Raid Battle Missions and earn rewards!",
+            "## __UPDATE: COMMENCING MOP-UP OPERATION__\n[Updated <t:1787975400>]\nThe Boss Kaiju has been defeated thanks to everyone's hard work!\nPlease note that the reward claim deadline for the Raid Battle Missions is <t:1788577199>.",
+            "Following the defeat of Kaiju A: Divided Entity, a massive swarm of Kaiju has appeared.\nCommencing the Mop-Up Operation.\nEarn awesome rewards by defeating the Yoju as they put up a desperate final resistance!\n\nFor more details, please check the relevant announcement.\n[・Mop-Up Operation Now Available!](https://info.kj8-thegame.com/news/news/1003380?language=en)",
+            "## __OVERVIEW__\nRaid Battle: Kaiju A: Divided Entity has come online as of <t:1787540400>.\nRaid Battle is an event in which all players will work together to take down a Boss Kaiju.\nChallenge the Boss Kaiju to progress along the Raid Battle Missions and earn rewards!",
             "In addition, participate in the rankings to earn titles and rewards.\nDeal as much damage as possible!",
             "## __ELIGIBILITY__\nReach Player Rank 4 or higher.",
             "## __CHANGES SINCE PREVIOUS ROTATION__\n- Adjusted buff content.",
@@ -1008,6 +1103,8 @@
             "## __IMPORTANT__\n- This event will be available until the Boss Kaiju is defeated.\n- After the Boss Kaiju is defeated, Daily Missions and Limited-Time Missions can no longer be achieved.\n- After the Boss Kaiju is defeated, the event will end after a certain period. The end time will be updated in News.\n- Once the event ends, any remaining Raid Battle Permits will be recalled.\n- Once the event ends, Raid Battle Mission rewards will no longer be available (and will not be sent to your Mail). Please remember to claim them within the event period."
         ],
         "article_unix": [
+            1787975400,
+            1788577199,
             1787540400
         ]
     },
@@ -1017,7 +1114,7 @@
         "article_uuid": "1003350",
         "article_time": 1787252400,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003350/12d55594051c3e0237d8d1dcc3f85267.jpg?Expires=1788055211&Signature=HR2fp6cm7AvhdlUUsUYGb-rJi7rM18iSQRfh~68FZLhkBkxkDWpRhBj0JReTL9xizkOfD8kyGD2OOsNSBJX1Mw-sVyb2bvyGyRrUTHjop67Xylx~6LQRHZfIihraW7ZrGc5ovGg3Rf3MOh0MPFuWEKIdtQMnXC-da-~pcQ1Y33X2Jf9-p2-pHbsSJulk36~i7Go6IvXDx9MCR4YJEX1jRNOR5FMqBKNlPjzGbkQJOVwp3YQtz2e-8a9po2FyGRkruJvx8j46crBf4lQ3d5jezIuMdPIQlxKBuuV9dNhzvyo~mJtqkB1mH5AgHw01bPH89lfau8UBBZnei26BNAOqQw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003350/12d55594051c3e0237d8d1dcc3f85267.jpg?Expires=1788188421&Signature=lj64OGc0WJq20DWAyR0Dd51O2l2TmYTdjDDiLq4dPhqsV6M0tRO2aw8raDetubd2RiCAu4jXvWfONOp0bkGK3~KW3yoF-MugxPCDB4GRpwjM6JeTJMpJUyNyPyDxY-a-oHSWOY0B2ujXdDINa44w4ZkYK1RaAqFW9qCmbfF-7vUTV2hvJvDUEfGTIIveADIF6IXCEMSqr~C9FZ0LVAo8B4szoPyiWqyGZzbtWA9vrqYwLxl-5uy9SCi7K8yWE7Ps7qfOojSm-K5N0Lj4pUQSPfvOgPxIazqmWjcLPzAtOtnQe3HBOcYakbH9lNYgj1uQ4Ss5CykT2SJoE6TIoYy1gA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003350_b9b5b973377148f8aef2f14580770f9ab809cdfc8a9e21dad7d0090c2eba4de7",
         "article_node": [
             "txt",
@@ -1078,7 +1175,7 @@
         "article_uuid": "1003340",
         "article_time": 1787252400,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003340/afad652531e8cd0b8f858e40ac7c82d6.jpg?Expires=1788055211&Signature=BevuX5u03afL2kIcSl~a~qYhRdMB3ClmuE0odP1uEFcqPemGjsYpvQ0MuEVKArMgHBRVj9MEq3HEPALrV-vPvJhvaxA7VnzgpTZvJH9h0sTW8Hy1ovn221JlRy4ZhH1Vl07twl3dX71qzMEHsdgs2R~5sT~Ik284eQUEUNlmkF9iGqX4aw7LYxlPA9wD9X5ZMkiGS4QUONyLXY-iy0YNmkLiLzsiu7iqhASCS~O3YKEBs3yc63whyTvF3OxkyC1SV6Qeps34A1n8NyMfl81UXibArxoN1Qh-FXWi0UetYTj2jzzqgz9G7hgnHWLO2wZs3wE~d~nc7sYYLsUvehiRGA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003340/afad652531e8cd0b8f858e40ac7c82d6.jpg?Expires=1788188423&Signature=kK6SCuqMbqiYfHxFI5-Dd9ibQ1S9VQHuQInoCr2ntgagwQshzIk6fsVQD7cIid5cqm8Zvt-dHgDtNW-39SoRKAhYjPHG2xlC2Q64n1x3uadXwRXVm0KjJSgXH66IVEopAx3o1L0EAr1yq34sSeOL6prYFaZPrzDzxiubwaWJZ0jZAULVfDjVUi6PGirfKUjkIJhX7v7HEfD3N4aM15VITaOdMeiBDTqfCrwNnIqV5UgXjc7ZNrRTRcfNeqw78Wm5x4oNZ3G8q41isj-LlWGi9i3JVfg1FAm3J~AOfwUVmWDPYWl1e70eOQdH1vAqxT90tc~U8ZZSkp7Imk6GfyeE8w__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003340_fc3c52f927fd84d705f2c4011c6f6f8e2815da09df25e3b683d2bcba5e0b8631",
         "article_node": [
             "txt",
@@ -1109,7 +1206,7 @@
         "article_uuid": "1003335",
         "article_time": 1787194800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003335/39932f1f77e46bc8410b0c32c082523a.jpg?Expires=1788055212&Signature=KXgUYj6pzar4FkfCc4SXV65ClVxCaPfXyArjwiW~ZAV7JSbvmNTdbPi6LSCwiq4duA9OwC0GMUPGDC6cNEM47KYQrm-nUsibz3cRHJOhkCjrndF~-FdnMa0poxbZQtD58oPKimC9BC3zhXx0BL6qWWhJm9Q0OcHHRuj19sqGdYfgNNRl5-llCyIH2p89kkwaYVZcOmq-2ONCGenyFjnkrjlFUEtl48sNtuaDXslnRyT1DNky3-4HHaAjMNPTifq3U8vN6lXwPBqDNCAKqRP1CpGSZ0auKRGSx~sJQ6etAIRuKwaegznoImmJbpO62BipZdESi0dffxH9j5Dq8-s3IQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003335/39932f1f77e46bc8410b0c32c082523a.jpg?Expires=1788188423&Signature=BzPwOr-JVvjgYZ-WzvczaMjob9t6BzI-fJ7rm2ZxsluGBhtZ2s-HQzM1iJ7UD90NW5oq1x~FmsKuQ0kvf9Epw-ybzPNlsk4uG-JKWgKatEGGRhfAIknEMmirfYQY8RgbJKC1rvsGW6CESSkJhFPoJN9tZlLqgbjgZNQ1Bqyn0ACiloKZEuXsrCaOoxOOnK18w9tEl4hZf4oqm12A-5-uptXG4lxytbgRDdL6vjobmmTgJXgcRkTqF4dsFle2TrGB5bidwli~JLUSj3K9UoFOnrfdxkkxi2A1pbiCMtWEaOkpghMPeRHHmU7T3C~88pK6DanBr5XXGwvz8-3CqDTjHA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003335_c7337d4c188363ac654556766e023f4a80ff5a43e075deb1af44459fe43c955c",
         "article_node": [
             "txt",
@@ -1167,7 +1264,7 @@
         "article_uuid": "1003400",
         "article_time": 1787194800,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003400/5b23d4e865b2e84cb1960011d295d0d3.jpg?Expires=1788055212&Signature=gEUzQZuKAY4pO7O9M-pRaymStb5ODEzcRikBcQ-i9xbbDTqAk0F7~YOOvn5HlvpPUqFwzxE65ECsFy0pym5~iGehDgJOdbtbbwjyEUvmcW8FpVosfAap~a3cBZ0Z-gN-eGJQj1wRIePJ3PUVoc5zYNvJJj4Do-JjFwFB0jhKDBTICeY0K8-Jm2mfeNA6Cm2sGnO3PIP1XyoZhEllmNAGfGyoXuOCqav5L77-wsJwPVHf9p5uaOljNp84BKESLNKu1SuCMdUpV6ufZelYNe7wKxvJ~CqaWCe-xG0siJTKmdOeVQVpRL4wHNPiJbHNx2kY--tt~a1GnsfSL4PkS4~-4g__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003400/5b23d4e865b2e84cb1960011d295d0d3.jpg?Expires=1788188425&Signature=jNH0TOkCnG8ahz~jVcq7m6o5v-Ibst0D~-3V4blqVqM0nDCHh7cbD1D6lr-KQqyGl-EfjNB8R~junNzTWdZrYd12naVbfjM8Erm27s12~1n7oDeXgdZN55S61IEymIetLo0x8ryH-P2K7hVnwTMvjBOqidgJFygX5lx7ax1BMAuGdxCt4c3UCasOcjsq6mIFgBX928ZdT4lCH42xuuKViZ7FMwlw27AjJEYZ1jalH~B4fWhec-0s0ZHt4oZtSxreZpJpnMibA9Ywar~NZ2gB-3SZgvH6560s7uqBtG9GnNqVHTDf3zXlceQOFyEGbaRAJOZQO2w-Cs-cQ3-vmIs6yQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003400_84c005acd207fb02ee24dd58ccc1f0ef747989ecfcdbaafdbbf5ef44862700fb",
         "article_node": [
             "txt",
@@ -1250,7 +1347,7 @@
         "article_uuid": "1003330",
         "article_time": 1787194800,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003330/0be46796be09ceb43f49810e62d9df86.jpg?Expires=1788055212&Signature=SxTHKOyrQ4k-Skg86428g0MnIB41A2wFYme19ToKaCfKuN-9PN8YUyLV19GeZPTbtqtGV0GELgzxNoQUraBxY92KuDdPNcKho1~Bs~ImfzfDtGxYHGQdS1qFR0QuX8GT-BthnT9NaVccLdlHDgXMa8jBYbM4X1odWJf8JvlYPHtXP0ez7tKUZrDo2SGH350aQtnL2K4oqqFQYJmIbw0NO2EvacW-5Xx5vP6XKJgZQ3ZmP5Z57C9L-q1dKNaNd1qnsBgY98WatxiZvRdpU1a7020i4oPorQpEnNsLBWDo3ZZrewsUQlHO3oenmOYJ0raHd8WqME5I9DfVb98gK7m9aA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003330/0be46796be09ceb43f49810e62d9df86.jpg?Expires=1788188425&Signature=aRYbVqCBJHlE9i7k3a0kN~xOu7KdeKDQ1rgoLeees4TD1h8PyF7IwM7cv0uviLiwNXfVUTb24DgThPur0cH4yhCqVX6c-poQabqbyzwP4Atvvm0HhTJZYyBTLRxmqd-eFhyAlxCTDQMJq6rRRXV1u-ayD7YUe0BMrVMH8X7t8GGV6cNqwO8d2UqdKj5MwFDgAQBxyhmBy4~sJnVAn95duDpv3QFk~pKXUH3lgVDrIX0eJf6chaH-O1B7i1gZOXcdc4KJNLmvaZOjuKKI7fQYhTCGW8O-1ec3NU0cvhVkQrVn6D47pbE9XMlb79a7-scvi9mU-b2l0GSSR-U6JsuyLQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003330_7b959dc4c387857802f6becafac7fdbdd210561ba879f3ab037cb1dc8af5224c",
         "article_node": [
             "txt",
@@ -1330,7 +1427,7 @@
         "article_uuid": "1003320",
         "article_time": 1787194800,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003320/461ec9db290da9723e6467428a7a8985.jpg?Expires=1788055214&Signature=jJ6-BibCoG4af4WFVLWfkGkaf12puVs0E78OIp-9hXDXzaP59Y-fT4AAB0a9z3TiS7MCy47cI3G8JcHu-fdQIkMvJDcK6z~SaEHIWpnnX9xiKlc~iWc9o1LrDvBWgXEy2zmUzvR0cMvzdiH1ctLH3JJ2um43mQkidQ5Po0CAw0SnWTtbLMb~HbCP2Ju3tJs0CFuibuSBh8FrCKzz9JqDvWnfJYnA~BIRzv2WeWOC7rBqe6Y~8aPGpkIrmKQcFrUFiw45yxa0tbQwc9ujWPN0~5dmJ-8jrgm2M78IouRqpDNYgDW-aNU7qIspndrC5Dr124AQg1t1yw73X8Fv5YCIWw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003320/461ec9db290da9723e6467428a7a8985.jpg?Expires=1788188425&Signature=Bmju8hKIqBdrI08fL~xIXKFtIM2K6TNRLJ3HIVx2av4DPorwlWI3RYBk5HGJnLYO6Doe0Ybl29CtZkQo~Ana6K3Sp2MJCD0pBASFcQffCNPW-4HX6YK69ViHcPu8VWB~z6-uDLoC~v-y9vZ9OWt3FpP30b78-xXsPzwwE8xmxd1MDva1RdjMZdG0TCPUs--Bgj82IIfp~4q1WHulUt3T9oWkrQpKW6JaY46kzmFW84arxPwynaFHy8TSBLQt1K-Mwbt95SymmD9dCCwtOoYqoyiseOaPHpKhu~6yqjfgRgb6UDoLsxLAvdwGPoBWMJRe6BUfs1pbPGIN-z66mgh3aw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003320_f1719a9ad3c4c9a975a5fb1e606bfaea12c49de52275bf4ed31e751d3b577d79",
         "article_node": [
             "txt",
@@ -1409,7 +1506,7 @@
         "article_uuid": "1003310",
         "article_time": 1787296500,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003311/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788055214&Signature=OcOtsYCHJ8L~VewjOIIh5KlfhNaaQkK7IdK5YwIagM60MAwLitoSSwuCF1VrLqCrD1lqp20Wn2pSy1yJpqSNcuk57IFDlCVjZfPWMQblKuyBNmZ4xSpAkyTxgwAf~QDttcSYMgkhfiY3mLXEnxqIb70ivxuE4bu19dh7h-qgze~RRa9hZG0sZ1B43Akgeya2cz2GlzbCRwSe94c~FXjC3wOTxrR-maKr~i2D~I~yItDEVBlW8Ymggf6twr--4FqZgTRUa3gXQa-HQ9TQHudqU12HDrkbZN2ACKDHdNWHjVnGQhXF-a5RBGYZlylFrmcK3vKb7ZWrKuGX9VN3vtyoJQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003311/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788188426&Signature=gcwplr53R3bvX3LQrutO~Gqga0b2y2EgO6dWYRvZ6OOpAN8UEXz9lZmgR27hYTmBYd8QfsacAEBgKq6XuzTcInS7ah8yRipyqz981jRu7NaU10ExHSbetUO4ZnTY8TFSblis79WYBoOmc0nVZL2I6k1g5mV8QJNRrGuZwCKF9JZAzMBDEkp-lBtnDrNsrlXms5pmIu-SYWrgotO8BwEMwCsZrnEDA3HtCQ-kLOMVuhTBVCgiAfSx7QJtTEDPJtzxK3GXuvH208zE6TCK6AxNde-fGiZW5EvjDNh1wdLNMLwyqlCgI0iTriY0uMhOEROxwj5PM18TZjyIqdtNYEAk1A__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003310_7d1996b5fbccb7013fdcb56f331a5a455241330e0d090a83a8075f32e49fc643",
         "article_node": [
             "txt",
@@ -1465,7 +1562,7 @@
         "article_uuid": "1003300",
         "article_time": 1787194800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003300/9c6d38a7dcec5ddc5b5d4bb12d5a8a89.jpg?Expires=1788055214&Signature=WIfgkRkxIo7NOhA0rwEsxmXonuOs4Le-~lIcUllKj4hz77Ghk54Kfpr25vMbu9-5~ZsFaBmRc9qKAMHS-fAhZiNBGe~D-hdhLTSbiYItQYShAsucX9rW8z3WZ8awry6kHRjPL47APqvmgXXa0D8NsSv9cCq4ReEFFINIMbYaJH7xgntMp4glom~~K7N9Q0fOMhodyWB75shfY3DuLLMIygvSn1aCvWFoG0OTEh9BgtLFXabaot5Q5L-j99Dw3WO8FIXHJlOZbRw605prv9r9KzytCzFPRMvQhbeuRpBoRQmJ0XGYKb9yb4aGXVqmXdI5f5DZ63oCymiRjXuD0mPNJw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003300/9c6d38a7dcec5ddc5b5d4bb12d5a8a89.jpg?Expires=1788188426&Signature=Myzjbhq6pf-1lv8HPlEYi08tDbvySqSinM2H0KhSFGQsAZiDdYQKT42TMy1DKk0TtISaY0jQTcRCvdxpMZxCXD6GnZUpmmk9gk8fXz5TDt2GpjXZQLeGFD5wGON3vc4I59dUE09ISoYdKAjbBBdJ~IhspJiSB8CmgYGVTFhr63w6ZeOqP9m6P58armzS3bSSmhUfywUmZ~gspIJ4S2tJq1SFnXjVyur7T7oetG5tFmPwC3oYDsTSEIDbk5UzThcRYat9hWVkZFygiJEE3mOIfCjkqWVN6VqZNCzUwqyHHkeD0syoTDshCBm9u3hs41iqHssSl7CMuintHYcjpo6hOQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003300_97a0be6c13567fc6f4dee94f452c10a555a15c21f10d1cc66238416b636bed01",
         "article_node": [
             "txt",
@@ -1538,7 +1635,7 @@
         "article_uuid": "1003290",
         "article_time": 1787194800,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003290/3ec556216afbf8b1556e33ace1a5b6ff.jpg?Expires=1788055215&Signature=IbqBziM4P8zknQwNRGvujuZAyfTtlOSrw2u2YnByBqZO0F5HphzhbD7y0CtLsSpWlWTYCJSE3G1vxMPllegNix78AunsFkdhzEZZggzrT4HYgmyVqiXb1jfKU2kulpO2afdCPr54d-VmjWNY7WKUTApfoEY-98ovTz5Zu6SStNR5tKUEoQYbaomYsZJ8gnvNddsXyPwqOZVLkXgYjVP8G8yzi2mZ3zb3OWWqIEs4utfiwma0S2ki3Rhpb7BLFAcSM03k33m3bVovsbH1ezhf6aAJZeYZZHn1nIuDuz7JhImO4llhPLranbtewoEiWM01ang~KLbi2tHV7asovGPOpg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003290/3ec556216afbf8b1556e33ace1a5b6ff.jpg?Expires=1788188426&Signature=XIqc7niQ17KMLfE3xynp1pXXbcMQTylCe3cfpd82njnMF8cbWZn~IgetFCJe2KwY1GPJ7BK4b4t7rNAbMIlPt347YiA9VWXb3bXAFuhmMwT6-2rq9ej7eSA8Yw~f0f2zK4HkEob17r~eFvApkVrSpOb6d4oPXsJB~GyciPCbUho7TlvyUzVbW4lrhcJpk-uiZ8~KKUe~~lmG1DtXROTQ~75u-TYDPnCBMfurDv7kMebhR1fKWpRJLI2pDseWn0FXnBKDn~qunmZFFR1xol3ztccu-zCnjH6698W8-FqHKh59OhHezYCpIhoqVKPv1lxeMrqlZC9S6ukKtqir~3nbOQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003290_844533503cf6ae7169db37d54a84a355bec5660630c0ae7efff679270984f778",
         "article_node": [
             "txt",
@@ -1583,7 +1680,7 @@
         "article_uuid": "1003270",
         "article_time": 1787194800,
         "article_rgbs": "1e88e5",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003280/bccfc5d435778789a6d694a6aef6cf8d.jpg?Expires=1788055215&Signature=Z3DiYgUwMPaiU4uXSsWbtspSgX646WnGmPSNyyKscteqR6KdJp5d9krbU9n72EEITFQebMr2u-CTsHmc8j5eXzJU7P7Y60Fm--QoI8-6AwvqEJgiFHDabr91BzQPXnM8vkaZEe77CqvnTIHHoFVnGubv3NAc9iyszqbvgqvvxXpAWrTLc7Vyt3Pmx5MifOJ0jwuRwfgaJ9MWcuuiGsoZR6-4bC-3O9SRxusN8I0FmyxpoTId3w5~jUNvxw7Sx5ANMrpyNw0~GOUHJDYIGZGo5X9tHA7sYfnGSG~5E9disyLGpUIdnEKIRUwUerkFZXubFgucNAhX7e86k7mLrmZT2A__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003280/bccfc5d435778789a6d694a6aef6cf8d.jpg?Expires=1788188428&Signature=HOh~ujdVTvGv5soaw-t-dvFk-m8IjB7F3HD0fmQXy~zEl0Irbgz4KqxWN-9GJ0rG~6Jojy7oKlSG2RZkwjYkv-AGFVGXMWCzPa9ADPYXRmRLwstXpQZgIfSJJAIljHufd8yOtTOofmUWzX14d26fMz197dz0yGfIJzULCSy7RL2qqaqcrcL8s2Xq16Zq2XPl8Bo2v2crVeRyC0echja~vPA8~I7~it7Wsn6EkloKxsYGblaefEch9zIp05pFr9m-ryP4ZpyeYS25A50o0eaVscyVwkY~gxM1NFaem02PpUglasW4~Z7nl0a2JmQk98GLCHQD5xq7mBpSmZ4g9mupFQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003270_a615fe645f031a6049234a9133e2f5690a6d2f8af2ea3b3bd674e301686de5a6",
         "article_node": [
             "txt",
@@ -1668,7 +1765,7 @@
         "article_uuid": "1003260",
         "article_time": 1786935600,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003260/d93eb8aaf61e40100c3c25512017af9c.jpg?Expires=1788055217&Signature=G8emmKMjDLNtat7qmm6kbmtpYZOd3-3fjC~F9urOkox0ZljIHdvS1lGwqCmMl-waR1nTbxfErCh-IGx0xysWZoeW3rq0y6LcSFRKW0Yiq9BECBKG2S3MHKrKQyTNVjID4uhlHzBXHcAOCwbOT2ilW3KpqnGFcUv~4DRJOeiwzkPZ~lfhrIso78abZKhBfi~9EtT2DhXIijdIjj7HURSpeGFYTwq-UXn6FpOm5~0qoLxk-SkfNZT3x9WTLw~Dg3DM24vJ6hNHI0~cYuBjXDh79jZm3PCkqJw2L~YTnbWlU-XfUsQVEcITrnZgBwKeRoRBe699uOXSRkQbdHZQH1nNiA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003260/d93eb8aaf61e40100c3c25512017af9c.jpg?Expires=1788188428&Signature=YuIH0t3fQTcq99QCZjVXJ8QuzqAfwAqN-i7FnoFgWHC4qoKD3riE51XQ1JvbVUqfO6v~cHbTaY6m~f12qzYx1T0jf8c9MmHCT5tN6FhuwiUZwoLX8t-NrUmS7tmBMamhsZUTTyk6uhsEeGbF8Ocmyr8UpjmTFK9fFy6bVRjlxj5EW0MPBMTmy8bnOLjhWfznJPxqgFTYKr7rnYR4payd8OSEoM2k0FUdCYSpTGT4utBPCSMt6tUqVy4v-lyU0oUZPCXltnP3gtzurumlvI0upkrPWjSA3g7EqNR3psaYnkTZuK0kRZBAPvIgo98Ok377Fwa2qimqqmMz28u9gCuBJw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003260_0963abd38ec6d4e0afd018fa75f80215b7c8ceff141d99b0057223f1c377e649",
         "article_node": [
             "txt",
@@ -1748,7 +1845,7 @@
         "article_uuid": "1003250",
         "article_time": 1786935600,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003250/0d5784fee3144dbd59b4ea12ebef2a2c.jpg?Expires=1788055217&Signature=GcvZKX7xr64J0US6ZtjX3ORHSnGQAZwTatsTIb6XpmOpNkkPY2H489~NdTNpWfOMsmlbk1JtIfyZflLD~u6kwUJ3OFM8AJLPDl0XoX5dU2ojjvbIfwuFAHa~4pUmR-HoCLI~5SOXiiKYSkwQ6jMOlmJKN1Pcxz0j0fTR0A0sUBZwdxD14EfW49E0CjJXRr3xdU0nUtPuIUasRcqkPsW84PJKvMXR38Z0f7w4QbWVCQ1MWKKlQzJi4NecldINjADv7kPLvrOxd6-HHfbxDLFlR81udoyoE3vC7gEruKk0kSVVpTwsVKESTIVKQ0XM9rL1ck0aTI0t6UVqcBLzK9OPvA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003250/0d5784fee3144dbd59b4ea12ebef2a2c.jpg?Expires=1788188430&Signature=VBy83-2AIlrWjZeLp8VriB8k364O-lDpbiK6dXFiqknm0N4VgU5QtnZlNBaMMnYC4yMVWhFMs8uXzVbQKyuLbiGVWzY8vfD~PXhD5p2WheMFWyKtN9T0bqjuabXoMaqj~~8pLj6hxtrASO6s8PP8FBHAlfxpJkLYYc25oyn9uoMchHsQ~aUaFqInnwShgoAQrMfty4vBh21aDYPcCILQW-4nt2lbfPKDEskxn0Pdcc7~WNpxbsasY09Yv8LyzDPVZTAOhT9tqjAZ6ajYO-EeIYgSlo9Aq6FHNSaKi23vEo8o-23yotonhFFN5I1AjAa7-iBkWh0oHrmJVqoJB7SGkA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003250_daeebe4f277f73a35b1a77a3d94ea63d58bd30a91c0a1d231a86c69a93cbc3c0",
         "article_node": [
             "txt",
@@ -1828,7 +1925,7 @@
         "article_uuid": "1003240",
         "article_time": 1786849200,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003240/3e3d102bdfe2479014d5f6df6d284648.jpg?Expires=1788055217&Signature=DlBHgF9u1bqJwmgoQ02DnksmK8zPuMrgzT6EsykDYFKeLhpo7KIlZ27d770u6TKc2W-TpeiHvj8pSoCS58Fws7ZwTmqTSNoEjxFlXqSwxwq~kxVQaTTlHcriOqv2mAp~OEKR6hFmdKgz680xTcM3HAH6xsiEdlZlG-wEP78c6NcMTNC2iA-WGppCinZmoS2vfqE0hErKunD626D1WBbjgHPutm82KaEusg8~wwhiu2Xre2GCQ9LUq~0enSa~3S69XWpY1mbJda87uB4N1FfnIyKIZCi~oVAE6LfLBLEPqP2SlECBxu7sq~TE4m2KnLflTgz8JwxrRcWcjrIZZzhFiQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003240/3e3d102bdfe2479014d5f6df6d284648.jpg?Expires=1788188430&Signature=OPw1Ws0gF64Rn6yIrMv61hMR7vYzv7S5CqqAOO~luNKS~JVLrCGvz46BRN97Aq9v~yKZ7RBuQ4GR1H-K7bhQ9OLZCg0okgGRzL-i7LgggPlAvYQc7w1jO2-xihDKZ0F0HMldn5iQeVFque3jL4bDG~WGicCdmvomxovoM6Y5rcKi5EKd0xtf4WPxE2Xb0k-y42ogaFn4TRVTyqP3mzN0xA8fpufMKUV8O4JvBrghblJMNmZbNJ2IsVu9ChqOzqCE3GKKaKk6mowUq3HOxhcYusFhsjqVxlxLUoCIOC-XwLsLgkNxLR0E4LLT0LgP~KzPi4BQ1Fn~RyWFYWcGzXHZsg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003240_740191904d2f8771cbe099e5962062e8365b27aa2ce4a1cc820a9ab9794ff871",
         "article_node": [
             "txt",
@@ -1874,7 +1971,7 @@
         "article_uuid": "1003220",
         "article_time": 1786330800,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003220/a1575c440eae44f9f178dc6cefbb40aa.jpg?Expires=1788055218&Signature=SMFoGDuQLKahV6zZ-1JrQo-t55ucYL2PEcEe0VJCUnoeth16IqTyklh8OW5tWrxYYR6U8bepn4WyIseOfYaR7nkS3h1xJsC3SO-LR5fimXVaUJuPyUd~W3MqmdeBYp7N4NmfN67RpKcifBFdA2DzO1EM-5181o2i1jc9-cFx6mR8h4wwq0Aj~SqrGzF5e4KmjKaxNSddIGsxz3aNLxdzHxVs0v2luTr1O-RgQ4VIVec9i5mbcmx1MPUuCIViqxV28xgoO4fofLydFfbnylDucQ~puguBZHxgYMQLHQLzAOfB9Yjxr5ZY2g3bf-Fqw5q8Mif2wvV-t4G4l69VyDtiTw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003220/a1575c440eae44f9f178dc6cefbb40aa.jpg?Expires=1788188430&Signature=VKiq3bBi4iZMTUYSR9SsSzuMpN6F3zTm8CMHqu1c2FNxGk~j3umW5Ad7SVaP2Co-9ikhTSUfUhozEW020nm-bG8oYQ0VerHK-hLKSgdMbj9HTslhlzYHLX5EjUBadLQAC~VA3XJD7O31iqgzdh2D6Ht~G-4oJgictIdahG2XjXCI7DK3OiqU1o7Lr-eD2KY-qBWOzcEVumD7VLdkKosrjuH1JZUhWo07Jul~SkvKnqsmiYPR6ag5EMiwjbMrpIlWROXDDkxjEoefMz75RaYSldpYkNqZL~QXOTYnZO5DV7QeVPsXd36Gf4ZHsGkZQxjtEHN8bgqCUKz34ZHFiUX0Zg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003220_181acd2e4379f76cdae4f3f26639a6908d096001060440e07d806281063ba642",
         "article_node": [
             "txt",
@@ -1954,7 +2051,7 @@
         "article_uuid": "1003140",
         "article_time": 1786071600,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003140/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788055219&Signature=TfoEvxgjrd9HKadKkK8cw21mOvAaHwhQ~Kjy36o2JBPMqR28R0hdjCQwEVwX~tCAoiO9noVf1bL~z-svglxZ7UDFa82Qkxks9GaXdkJgsn5xHGbfRz6xRZiQdejVdFOi0JZQYul03Ylp2~8e3IV5Tc1Cjp2FmoBXjzRFSn93GbaQDLwjgTp6ZxqDHnniuuJmjz56wqCzKZTomLU-Wq7KaiqCobXC1EuVj0lpLi4RLu7CU7C4D9i2NtdAtQE9tpXuFcq6kNCGH-tY~zs0HsJaYrqGKTB3ZGg4UzJkUtCdPxI2s9inrxXoRa3u5n7RC3S2CJSfzhmL3eIhyaskoNgdDg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003140/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788188432&Signature=Hs1cqGUny3WxhleGQ2tid2PySWZyQikn5InQDGyOGiniuc1oyTnvJVZ0H~D05Phutz7kpLO7~OO~2sztsRK-MJwfC7C942AT9KnCU1K~OwdyPsclQAl~6SNLrvtGB5SqiwK2Bk4EjEVVsY-4ZYDtp~vBrl0ZoSpsTRerqG5kwhoW6EcF74JzFiIZTCswGlXac86aWeMfj00o~UPnBQfJK5vt~UYuhBSVeLgfRyhGf8~AMLRebUFS1ewPMOw7vfnt94~ohY1xrMxFOOQGrXApL1lut5445atmvqW0wD9nCYFJdYutiTFjlg2C2hXl70usN0RI45WepllOZLYdMM~k0Q__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003140_5eecddcabf6d2d3d476f3877029937e9514d1da1e7fa1bd8b1ef646cff43ddb3",
         "article_node": [
             "txt",
@@ -2014,7 +2111,7 @@
         "article_uuid": "1003090",
         "article_time": 1785898800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003090/41902813716042ff779b4b5d8cf770c7.jpg?Expires=1788055219&Signature=VJZgbQLkdOQDJUL6sPkYhzJDdAXDjmH3uu8CGsGRVOriX3ZcV6wqWr5xTNmY7lvG5liFUp965rGPtZjayrbVL9d8J2CctxxkMr41oFv~ktgqOtmUwyCT3N2GRgZ2TqC2us7nSLCGx9DTslfhNwgyWetiAU7~uq~S07CjArslZ8OVjfrB2~ii5eyhh76YXNXm5eo41y4wyHuOUwk0qsRj0TgqfSqceDYSOxRPewkRtTvZ8gQMlqZQuf1XsWK3Um8P68P6BghbMQtk3SPVag5LpZnAowHtBtNTGx~6AkeapKNvZWUCU4N-rr8wvvniQBuQXqM34idWdZMUi-ci0y5EeA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003090/41902813716042ff779b4b5d8cf770c7.jpg?Expires=1788188432&Signature=S3VnMIw5QCUr-QPoFzGXfN32LmMNs6uq~TOfXYF2WGaiiHbF~5FjxgYY8rPzygxSZL~cmDNeqkE1KNirhQn00zh0fLT9ojOzlMsacPUOC928ocQtxSddv2QEHRVKASw1vp5oZS2S-Mv22nOmWxJ8D2g7nm2Jx0-KvlgaQYnJ0bJEVXwnKWGzOKElqAg95LkzyLNPCDsfZIPmReFjfoZBsl~cBMWmlGUicMO7B2fbWRnXWPkRebHHkx895B9BP1-TthRR4~ibuqRHMDlSiMG~FyopJhEjYSG16rzcLWijuAwCwiZA2r5OaHi65Ud0Ljim6zOlT-xtKi86z3w6WQcgZw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003090_ed044682a4b6a445fb057ca67b8491ddb229c867e161b1afe583909a39e646b8",
         "article_node": [
             "txt",
@@ -2063,7 +2160,7 @@
         "article_uuid": "1003080",
         "article_time": 1785726000,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003080/0919c1b2761244207f54b42174535f20.jpg?Expires=1788055220&Signature=EyDoOQE3y~vFuCCLz4dp3mMUXa1JvwqNgAf6gt8Wgibada8tit0VICYz48Hu6gDvXt-IAX71MExYkue4DHbbCLvfVF7pOo-r0bcKK8TVBq6VJ4zfwSlK46ZeYJKpus1mVjbyiiVTI6YY6BBOFcx~iycXghbIeRn8P7uV~3-oy68GBLUt3R-dS3Sks-iObHRHy9Eza2Og9OGvt9d~ury-ZLzINrbzSow0812tMqy-9gW943A0lwAQwvxqGKZxi7k~c-ddc6KH~ZcxCJABG3JnqUJhuSAK3jrmSNF4MCydZndpwceBfy0eKtDvzNTCLQVIfIQgn10GDHzEWwucEoeD8A__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003080/0919c1b2761244207f54b42174535f20.jpg?Expires=1788188432&Signature=UdK-p2kmTV0x90LuFVOxl0-C0I~tbU~LyFpgV5n6pLVJIKfBdg2zCgE-o8MmTGSEgPeahJ4-pkreSWMrFTkAnL-Uw3U-fWf99ixeaIsClKyN44ST70S34BSxosvMlXdJsVexHYbz9SXuOi3uKEJt-TsjEFRJcM9qt1WThiwWAGMNTsd45tiGP83pDkRBjVltvgc28GPiRx2vcHLm2gUxMqqILkRHikQIO~qkxNknuz~uvqEjX0QYDX-IyIA4wkJv36okChcA33FRqa7CsQ~DBanIY9ACyA8t~QqDN~bifxD~tPHRfiiYSUocMkc0hjK9jkXwWTTJb9KsxBJBGbfUMQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003080_fd811793f24bc0d7924f018087fc78b89ff1d1a2d5443966eb57b104667e57fe",
         "article_node": [
             "txt",
@@ -2099,7 +2196,7 @@
         "article_uuid": "1003070",
         "article_time": 1785553200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003070/918257efe490ffd1a8e61938aec6980b.jpg?Expires=1788055220&Signature=TrAxYsnWJN6MAlv0BVIXLZEhyOIkzNHJG7W9iAsKlX4DQzpkgA4p2OCxwcMHspU2IQxywsDAcHnZ5ywKj4TIMfRxMgXM4mmUpOXBQdnjtfv5sVpUzdbKUpqkd8qvPvwXSfA871UXGBsFNBKDVtBrSlZdTbnk296WwKwoLIoWaWoWnzI33eO1hsda90gTcca-EKl3mmOtVd5iQlW~rX4P3i8fCG4HR4b8cuugKSvb5ohttLCxY7UMmlAu8l7Ve8K3~tWlu3FlUfaMdX-JhZ3zRz9z~oxN9476r7Ucz7n-fylT7jkezpmNDTqLbvofaHrlI1h8ZIQHKPyQZ0OOafNgYw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003070/918257efe490ffd1a8e61938aec6980b.jpg?Expires=1788188434&Signature=B1rq3qFDPPV0dtOcIwRB1H3gsFY3Wd9db95uUmvx9shaMn-pKpl4h6JianD3X~mf6q2f31sdheRAzelShLjuxONz~vUyz0qDidMesBeHfFg0qNsrAm9kDr3WuJjuamB2PFOOqUUgLXt6FjfqFG2hK-1pdxEccuHseD3-reUGNoidq3ZEoySNDmmzhopq~BNlCjdNjpO~R60zomHkTkmjCZBLTPr5jkApK~GRq-6671o5110EIM6AXzyJ2GLbSV4SvhtNWojYL60YPnmxsDL8I0Luq9aAtt6Ls5TyjPiOunTHqLSKyLpcxehkzpS79vX9VjZ-gNCG~kEJrldeTeM3Ow__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003070_7ce4301817ff73ce742b5fe36954c48152e4cbe357afe3b0517adb44d1fe47ae",
         "article_node": [
             "txt",
@@ -2182,7 +2279,7 @@
         "article_uuid": "1003060",
         "article_time": 1785553200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003060/26e27a30370ce41c6d328e80b54fffe6.jpg?Expires=1788055220&Signature=WWwrU-MI9RRfGykSRAfFLVj8gtlWt1LskDPoMuNjMtOZRtne8dqr9A9WMtn90-oqk1bArHzPd4PiruRKNF0tt6Yp9CSSNDS2zHjbTNgLkvWR7aTC8fX8H-Fh5JEwcsukxbGIfaUM8JxLzXqG-VNOkP4gGk8mqwxCcDDoZudAGDtv~fAOQcUfJsSoaoQ13snY2qYMT7kEcYUwdMk2ToxEiyQD2CGRCginKeFdhgIQOHA6PT5Mk4gB~BbRNtiQcy2Ty2XMEO3Sw-Asv~yXspWdia6eQMhNJwajz6htQKzgrmmSkahkjXfWuowcUzbMJlXNR9g6xuuWWv6RJ28wZIGKbQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003060/26e27a30370ce41c6d328e80b54fffe6.jpg?Expires=1788188434&Signature=B9tWUl~Ojg8ATtQJyGYDSFkqXOlGSRACLRl02I~gnWQIyiBxKhH~nAw8WynzShilFcD2uTfyE81NILJQAcDZV95RtoukMWhhbvrLk8NC26fDBTb0EkftswoIfVA2sGWfmqKUW9Jd8lDjYXBIZ8G6vui0GS2ZnHLkuZlXFYQTOXmV~ocZrZq5BLQ67vC49ljmnCmKmQ7cJl8uJsVgvaZk0imBvmX76Eh-SmLBFxLQ2bLz35TapVY~pq48x-0sHlbPlhbsSO0N~rR225~uAL3f-OwrQnXV1CsZF2OmYL6ji4K4YQdCexUN2Nv0BDLLK4I8HiI3ehKWEBjaOoGgHqgPRw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003060_759a64d00a903ed8b6a1dcc57696d9390746be5424a93fe95854f4db74aad803",
         "article_node": [
             "txt",
@@ -2262,7 +2359,7 @@
         "article_uuid": "1003020",
         "article_time": 1785553200,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003020/14de70e65d36c3b95da1707f80691ec4.jpg?Expires=1788055222&Signature=OSbpeZIHlYgU5oZ5loQFsirFv605AH~pU2Sd5egPBoIzAv64O4uR1gZtDIwonr0NBSIRQQ5T3Qc7Kxh1C4GoZ8~elc5du5lSIM8ef1NEVv0iHZ5S0c0G0vm96UhWwFhVX-3BBIUDRTTsW5PSvaIEnmPhmy~wwPjl79QrceU-ZCAi95WkGu1HIhxU4P-CR0oNhyKa-DhxbHaTW25puOVxtKg4ujupPYtcktZqss41-mt0pA7kZz4UAaK8h9b4gcZCnSPz1qIGMaP4J1PTowfa-5ZxLFtDBJFL3r1tupYfk5dSDJR4l2IwIraeUmbR765YsepQyE3hv2Q1oic0ADQTzA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003020/14de70e65d36c3b95da1707f80691ec4.jpg?Expires=1788188434&Signature=XNG5IVyK2boVhN-yna-V8U5GwYSEkF70XeSg7CqkysZjLD3LwCoCc9T9TAaG7wL61soC7aUuOz0hVCk2Mz83maDpm7R1Ufix99NoIvyJIPNwO1U8qSBP3cpwL3Sc0loqtOq1H~i6YIImd3oFkBhWJ8IXGvnXM6-DuPUp1ZoI7s~ukPjmHVlbJ6nIqS8MfnN2jBnp1AbRAMTUnV2zRskOgUS-FZhQHi3n-pSMNY9t7dQT3ty4Jc2WgilE20Th9h2TVS4zHVtUDSqfXK6~i891f8Qtom-lBFXCSPXxPvvI6RI1AAlP5XtQ5YNt~VMnKsC~PrI0PM73rb~J0g8mHRd3fA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003020_f3d36068d3f28656bd49192884963487a9b3057d8fc627f8bb9b1097e8c2ebd3",
         "article_node": [
             "txt",
@@ -2318,7 +2415,7 @@
         "article_uuid": "1002990",
         "article_time": 1785524400,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002990/ce8ba5604c67058a054238c8ac023002.jpg?Expires=1788055222&Signature=Y5Fm8jtaRMdNP7OVsZ8d8bAl9kwMPSUYM-eWKQZP8GOOkChKS5w~fJbGhsPrWlW5TdJUryRECBUw18BX~6iLmB5cVTmXgJZZueJWmaRhhA5ewTWBBv~fHWDr3o08ktLkZI91nXTZ5V32YlL0XjX8R1LDcR-LGcGHfeQcr0odZgC03ZUzc80vnwA44TLfVoM31SVV6x3drm7komf~gc8vZgEokeamT32LRSPPeyFep1ucNfqz9SCAv2k3HuI40jxg0vRJygndMAs3vTsGpN~OkXzIGmXJ-JZtN36KKez8uqWNCEwBPvg0WTTcV-Z1AZ0GrqSL3crFLEJoU1UDP8TGzg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002990/ce8ba5604c67058a054238c8ac023002.jpg?Expires=1788188435&Signature=YCXrjg-bto75AI4h-tqKbIbSgb9UZDjza1cL6xtV8afJcN8YyXg9UtGDw9qKZVEp3K-mr-cKknrDH3NaARS2r48hZHn3sOlX-Xvm86qXRn5~dIm2e50Qk5PjByClPCV3aNmbIt5lw0GX6hwb6f-ZeXuC9CVY0R5m9PFcDK0lwbX7Aq8x-FpAuQhWN-WHYOE1WxTDMcz25Z5KQ3qJjaq7MUel0YA-adq80KQtCkqOUKk8s7PymcvbFaLZzGFLIbETEfJquhAgVWAonHkC9QbmvVJrxkG6yqnqrXTuioKa4AVWVM6-LKTq94vzknmiH5uz5NsbTHz4O-tSs~71YTWbyw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1002990_396c2e5b648e42ea6cabf28b950cfc664b86382effbefade53e6f7d968639f02",
         "article_node": [
             "txt",
@@ -2455,7 +2552,7 @@
         "article_uuid": "1002770",
         "article_time": 1784286000,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002771/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788055224&Signature=PY8XN94Nt7QXdcba1-rwFbfNW~HYyx~gTSjkERB3nGQsctI9ThHhEV0St-ibLUgjpPI8AjAcxEeTmiNMUYmrAUEbkH63GIzLgUcCFzsF8M5lJb0qqnatGYn472CrzO5KbtLmpHCzIHHWVHHshG3lIklqCQf8vOTaPmBRHd6TGY4ZRz33mRE0KuNeV0IXK3WQW~QYmVG2qN0gJc-bbaGvhl4KTmJphe2ScCXlAV4EptJ51i7KPLNUJAgMY0ek5F0wt7ozkrXuui2F~9jd4uLzzO2eeos4sZhTKZasgok2oo8z7rqnHPv7xW2QTxwhw-t7Yx-BUO0pD6Tj96gyjwtWHw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002771/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788188437&Signature=fxVXWMg~2UMH5PBHDBLtjK8DvfHVO2GxJJjui2tNftK58SoLArLLrQo5~AsZypFv8yXldZHxtMEUZ3Yc-O6UYB7RR5NslLZjPXYKZ~Em5fDLwnTcpkYvGlwxQNy2pCzDJUN26PclOwOrbl7cFBV1WUvCvlOP5M8Xz4Km4NaIjp~ToIDUffK8RljbeBrh~R1QFFGSORhvR2QgEUk4wXFePHg5GxPXU~mO0FlN2e02c1aPxpsDj4FPHA4Od-NYr84M8AMLi8KlvK7UQSqkUYvW7nOUPQ-J-ZkHLIXoEdu~00sbAFZf-ojLILI~n4kpoTMt0TzzsAmn2VfJE1FTn68~Lw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1002770_fa0cf1a18a248aa4b7e48d132d457b8ad52ea313b86647784f7e2fc49121fdd3",
         "article_node": [
             "txt",
@@ -3064,7 +3161,7 @@
         "article_uuid": "1000030",
         "article_time": 1756807200,
         "article_rgbs": "e53935",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1788055225&Signature=MGM2gxHIz8gZXJOuUJUlthcRtc9H5uoxz2KKn~M3SiiepnqHveTVzNovUlKSFRY-XszVuAoBxgRrIEYGyla4kSDqrZnefdgdpSjSYnIZB-2g3WYp3yXwdHiR0l9l9c5rNlKFA4nm4FDTL9xWxACdWsznE4xIoe5zw7LOrjmmTsCrvja8qGqaSN110O55F70dslX8vpq6~430xiwaroj7iVuuVeLeoiFB9E1jxAwBn4T2DYtcW-xfRIjCfpYeoN80mrlOqCP-y7d7MGroWYbZFDbDAnmtSydglZv4JTWRWvGv8Qb8Y5R6g~mguFWw5567qHsQ0gXkXOokxrtxMpShNA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1788188437&Signature=Ljl6WBsG6XA7pK2MduT9aPHxsKGkoVRRz81RDpgPdb5WS6n8mbe8mZ7YKHJ1Xy6IZDhttaAuOEjqDUjuQGstqE4Zm04zz6n6eLy9XRpz5sZCeReku0kbmPD2DP1yV2eeeSsf5EHbt46lDeOrGdC~T7xN55c2TplGLwz153iuTCkhD2bJsxXuvWwa4gJBQju3MtrRA5253QcsCBqu4A7VzpGeYpRB7Rem4xw34m5n0YcoGQJbzC1aSBXOCd4yolzlDWSO8JdcOkhqhleRPresDJCp5veW1a8Fv-FHPIGy2aRqioP6zz1KfPeyuWQUJN0y74IFzT5cQILqiXqso9ZFeA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000030_1ae8dfe6baa3148e076199a40e7dba92d3bf45d3564a94a12ffb2adf516e44cd",
         "article_node": [
             "txt",
@@ -3093,7 +3190,7 @@
             "## __ACCOUNT LINKING__\nBy linking your account, you can easily restore and transfer your game data even if you accidentally delete the app.\nAdditionally, if your current device malfunctions or if you wish to change devices, you can transfer your player data to the new device.",
             "## __HOW TO LINK YOUR ACCOUNT__\nYou can link your account to your Apple Account or Google Account.\nSteps to Link Account:\n1. Select the global menu from the top right of the Home screen.\n2. From the Menu (≡) on the top left of the screen, select Account Linking.\n*Account Linking is not possible via \"Data Transfer\" on the title screen.*",
             "3. On the Confirm Link screen, you can choose to \"Sign in with Apple\" or \"Sign in with Google.\"\n4. Sign in with your selected account.",
-            "https://asset.kj8-thegame.com/info/production/content/1000030/24c168d8edfd5660c027eb7977e576f9.png?Expires=1788055225&Signature=Vq-iTDUGkI8PPNkb6WHApsKkVRwl~SEZNUeLyZ7L424E6G~H7RLHMVqlbVjDdMgOK~8M4czPibaxi~2Iwm6SgbqaYQqFbx~oUDyqmf57EKeLfgsrdhKan70mnhgW6FpmWq9DnuykdkpwhVnMYqvtFWnN5aibR8BVHZjUUxL~5cjdKI5rYoARz8cqjNiXPsO2QWmmso2cr3iXT-07DzvnS1AxUp~7TOnpATSJvXRuAbqPExGHNnKOUdem80K6KkmzSQ0plpfFrPtMhmBS-6fcgcJiuAb4pq4u20OwFSgFqKsZBwwLBBr~2avS20MBANAFOQruzLZP~Q72YT2Y6Mz~Yg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+            "https://asset.kj8-thegame.com/info/production/content/1000030/24c168d8edfd5660c027eb7977e576f9.png?Expires=1788188437&Signature=P~5Q4qekJEkEUfh8XX39jgp0mZDv11PTCzk6VBbeXgRo4dyGNVHMnFVXOmejp61N397xg5lhbYtoHkZdpksaFTk2PabP34VtwjnoPDvE02qBANbWfK9jvOImpojbWkmh0goRHUPDJ5QdwZGnO-PO2Za-XzQyXmarANAgp4~rvYCYWKCTEOkqjvNKUGkAkDPRAvNdmlp3UgdHCk3w4AOsO~OmBIhoGxfRCk8nWfpZzUNz4DBj8COSvOd0y76Jyf42j-eqVEH6QtV5V7u~JU9pp8HAuAU4R2Xr9V~ZZJ5IhcmcPN7yqVUkhen2P8z1okWUe~wpLyQoTma8VqqlZSgpfQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
             "After signing in, the message \"Account linking complete\" will appear upon successful linking.\n*Please keep your linked account information secure and avoid sharing it with others.*\n*After account linking is complete, a confirmation email will be automatically sent to the email address associated with the linked account.*",
             "## __FAQ: REGARDING ACCOUNT LINKING__\nQ1: How do I restore my data or transfer my account?\nA1: Access Title Menu (≡) on the title screen, select Data Transfer and follow the on-screen instructions.\n\nQ2: After transferring account, will I be able to pick up my game progress from when I linked my account?\nA2: You can proceed with the game from when you were last online. For example, if you link your account when a mission is ongoing and transfer your account after clearing the mission, the game will proceed from the time when the mission is cleared.",
             "Q3: After transferring my account to a different device, can I still play on the original device?\nA3: Yes, you can play on both devices. However, you cannot log in to the same account on both devices simultaneously. If a new login is detected on a device, you will be returned to the title screen on the previous device.\n\nQ4: Will my linked account be unlinked if I delete my player data?\nA4: No, deleting your player data will not unlink your account. To unlink an account, go to Menu (≡) > Account Linking.",
@@ -3107,7 +3204,7 @@
         "article_uuid": "1000575",
         "article_time": 1762844400,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000575/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788055225&Signature=MQ2IhIOJu6MvSgRJqSrf~qSA8aB6x~3TeOy-b96OELyYHF4QNwvO7H6cL36IelTLOBWxfyaSyrl7UF8GORV~0BhtwmZox9Rr6l4S9mE2ny7~wnaevl9hvAyeO~dIYU0FdlE2PG9Ji7v26MeqP9NBYMx2dJ0dyfyUFQdTASpvFjd1ktR-cLvr6bQ9ydFfl6LZNfO6h3e~bJQ1OS7BoxE7X5KuUiBEqd5OukQhwT8lHraViwe2vn-tgxPha2tyAFVi~JPLNaWU-mHyu~KpM7tSfAOV~0x8o3Ta8QSPlKWqiz~XP9tFotIsL4628mt5Ofu95hDhd7z7zzhFCazgwF8HNw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000575/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788188439&Signature=Kn2oaprpJF9yvqC1pWmArRmVoJ4TYFCROwrUO-~2Z1dsbaLwOA21xPr1xv7jDLo1UoMdAPXydhhqkKXlUtjeR1Rxy6yF1vV5VOBFMNC53Rix1zVBh3ICT1D4IdS8Cq7R6SK7NRPTEjdaYPhVlt5x-tshMLkbEOFo4vXt2z~G0fM1fB-kXwyKQaPuFLwDBuokCbr-Vn53PpffszxIFBO-o3ow~ZLTw6G87DoAszQwBZ1~VbXai2rkra8gO3-50itD1Ks07199L-6vgnYck9jUuIVcZnDM2oJjw4Pe9J8oWefMgWrzOIPpRa6rESLIqloNZlNAZ6XtucFurXZHDTa4eA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000575_915682479c668894945863ffd9beaf4c19c3940e7db29ab5ed8bef4ec431caff",
         "article_node": [
             "txt",
@@ -3165,7 +3262,7 @@
         "article_uuid": "1000020",
         "article_time": 1785931200,
         "article_rgbs": "e53935",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000021/56a6eb53d114ea75bb72b5e58e2fe2be.jpg?Expires=1788055227&Signature=QURoKtNVUujGZ6sLM-KGKLRmhdakq1Nj6D2O~ID5t2JAZZlc6ZAdZgOs5KSS65ITvt65erTU1aOrsvsqOgPaQ6tcmEJ00j~E3V8-TP5yiO1V3VPmgdFFTOW3HX4h-aLfpgw57oXvOmf1g5yxK~6zMFJHOBsFcyH8GvP5xHndFfiiX6B-h7e2dtX2MvzWYH8PqhYnUhXtQidO8ksMbNtrPgX-hPByeC7euMbsVKCkzf8CnLexZ6p9AjFgH1nvsqxBNMP-VEabQCJQidtIEYdsRwFLvWd~sGVWweov2Hr7fhVLGC-lyuAJaqvHlS5eEutkoa-AqJiloFPT0Ilhi7jL6g__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000021/56a6eb53d114ea75bb72b5e58e2fe2be.jpg?Expires=1788188439&Signature=S8qKN8z1SgTEfdwwRxnxf5g3XOcC4D8O0f2PRy1LwuU4pXsfFmgFlLdNePLG0mwYkgcz-DRcnWR66yY-u-Mz6gHdvGM32kSOQiXaxoARHICN-Zr1gCTwJNRjOKcqL2XO~2SHEMdSOHQrUdS7WBanWWMojCBSxIp8N6d7RrpuDV1x9Dqb5Etb7C-3~b6eidvAXmPLzNgq3tfJw9-rpX1sMaDyPsVuWRcPZH0BYph6Ddeq-BDaM30yKFJbxXZ8NUtFgD8vZTYuNGoIQFgNj9eWUhbom1j-HSj1ioeIzrlw0fzs-B3Sevgk9aqjZY9rIx5aw1cyN-cf0Fo9fCAYEok0iA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000020_4658e7d266b27a83af3f22626864bf31a4d5cbcab75bc0bb6490a213233d5787",
         "article_node": [
             "txt",
@@ -3207,7 +3304,7 @@
         "article_uuid": "1000100",
         "article_time": 1756602000,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000100/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788055227&Signature=R0CIOGuKIhEAKIoDdI3x0hUP3CFVmYKefni6Ql-TGSxDXcbOp8TbeSjv-ZiY~rqNtrJldiO4JbODpzh4xlU-BcstV9aeoyLd0sw0DupBhMxcWdAoQE-s1WunXIwEeapPHuSta91PCEUM63vFtBKensc~~3wGTG-It7j35GddfEqWjRw8yR4E5z9CsLSsPEL49oXebozVV503KCzzTcRWl2dPU7zjjIFhITfU2l2jRDFiQ4vtwheE8F2FgEq6lVr4A7ms~7JYhVgNlvx3bj9lFn-BVuM-G7ks0Fr8eSyJTDZY7ncyqo1DI00C84FY5gEye7YLX4VeQVebh5rvrtUgQA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000100/53190a2d454512b7e20955aa2199714b.jpg?Expires=1788188441&Signature=TCHXNqynizvg0MBekjmDAC02MjDDRZ-IPTEfx7e8CpC5Y1C299dGojqVfWLakwxwiibUStIM2EJ8mqQ91Gl-KWHVVoLLD3t8iDqHpgRfd172xqTYhBJlVTMb4GCTs8SouG7WI7d9-ov4qX9kdOUwHtrjgnoi02fHEWkwxIYvfg-kaQ3pnbBQtAwj453VzQ-DftBv1zw8GjjtztWpSRu6u9pWNJdDTjzzxaOsapdcygTL~z9-EXkFDLvKeW9sJIlm16UMQuljYp2lpgMJbWU0o9zUpTHOMUI6j8A9hIp2kqBc4ze5i1~o~JzoGDbCKoH8ZiCG708U4tn5rw3m9Kvs4A__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000100_152b68285e6ef2c131695a30fef6cb865ff321d8d799acd8c329dfeef10df139",
         "article_node": [
             "txt",

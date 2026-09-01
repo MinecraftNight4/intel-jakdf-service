@@ -110,7 +110,7 @@ async def process_feed_xcom(bot: commands.Bot) -> int:
                 post_uuid = post.get("uuid") or ""
                 post_link = post.get("link") or ""
                 post_hash = post.get("hash") or ""
-                post_item = f"[`🔗`](https://fxtwitter.com/i/status/{post_uuid}) <{post_link}>\n-# *Embed powered by: [`🔗`](<https://docs.fxembed.com/>) FxEmbed*"
+                post_item = f"[`🔗`](https://fxtwitter.com/i/status/{post_uuid}) <{post_link}>"
 
 
                 await asyncio.sleep(2)

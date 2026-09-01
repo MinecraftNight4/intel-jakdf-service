@@ -123,7 +123,7 @@ class KaijuReadXCom:
                     self.xcom_storage[account]["roadmap"][uuid] = {
                         "source": url,
                         "preview": preview,
-                        "date": post.get("created_timestamp") or 0,
+                        "post_at": post.get("created_timestamp") or 0,
                     }
                     log(f"[roadmap] Nuevo item: {uuid}", "xcom", show=False)
 

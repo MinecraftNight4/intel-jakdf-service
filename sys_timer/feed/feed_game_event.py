@@ -191,7 +191,7 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
     debug_all_feed = len(storage_feed)
     debug_all_post = len(storage_news)
     debug_can_post = len(process_list)
-    log(f"[FEED - EVENT]: [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_not_post}]", "feed", show=False)
+    log(f"[FEED - EVENT]: [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_all_post}]", "feed", show=False)
 
 
     #==============#
