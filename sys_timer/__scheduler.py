@@ -2,7 +2,8 @@ import threading
 import time
 from datetime import datetime
 from .news_schedule import run_news_scan
-from .xcom_schedule import run_xcom_scan          # ← NUEVO
+from .xcom_schedule import run_xcom_scan
+from web_get.request_rmap import run_rmap_scan
 from logger import info, warn, crit, log
 
 # Callbacks que el bot registrará
@@ -55,9 +56,17 @@ def _news_loop():
                 log(f"STATUS: REQUEST XCOM [FAILURE]", "timer", level="CRIT")
                 xcom_success = False
 
+            # 3. Procesar roadmaps con Gemini
+            try:
+                rmap_success = run_rmap_scan()
+                log(f"STATUS: REQUEST RMAP [SUCCESS]", "timer")
+            except:
+                log(f"STATUS: REQUEST RMAP [FAILURE]", "timer", level="CRIT")
+                rmap_success = False
+
             if success is not None or xcom_success:
                 
-                # 3. Rebuild cache de news
+                # 4. Rebuild cache de news
                 try:
                     if _rebuild_cache_callback:
                         _rebuild_cache_callback()
@@ -65,7 +74,7 @@ def _news_loop():
                 except:
                     log(f"STATUS: EMBED READER [FAILURE]", "timer", level="CRIT")
                 
-                # 4. Publicar feeds (news + xcom)
+                # 5. Publicar feeds (news + xcom)
                 try:
                     if _feed_callback:
                         _feed_callback()

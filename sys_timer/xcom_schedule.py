@@ -7,7 +7,7 @@ def run_xcom_scan() -> bool:
     try:
         log(f"OUTSIDE PROTOCOL: Reading XCom...", "xcom", show=False)
         processor = KaijuReadXCom()
-        processor.run()          # hace el fetch + guarda request_xcom.json
+        processor.run()
         
         log(f"OUTSIDE PROTOCOL: CLOSED!", "xcom", show=False)
         return True

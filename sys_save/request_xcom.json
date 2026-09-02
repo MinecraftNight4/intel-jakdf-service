@@ -117,25 +117,17 @@
       }
     },
     "roadmap": {
-      "2084973442873647438": {
-        "source": "https://x.com/kj8_TheGame_EN/status/2084973442873647438",
-        "preview": "https://pbs.twimg.com/media/HO8abfQbIAANBOt.jpg?name=orig",
-        "post_at": 1785931380
-      },
       "2094034487038661103": {
         "source": "https://x.com/kj8_TheGame_EN/status/2094034487038661103",
         "preview": "https://pbs.twimg.com/media/HQ-BREdagAAgJTn.jpg?name=orig",
-        "post_at": 1788091701
+        "post_at": 1788091701,
+        "ends_at": 1788374308
       },
       "2094034439500357933": {
         "source": "https://x.com/kj8_TheGame_EN/status/2094034439500357933",
         "preview": "https://pbs.twimg.com/media/HQ-BOTca0AAeG16.jpg?name=orig",
-        "post_at": 1788091690
-      },
-      "2063546515264536806": {
-        "source": "https://x.com/kj8_TheGame_EN/status/2063546515264536806",
-        "preview": "https://pbs.twimg.com/media/HJ8zEKtbkAAwWWb?format=jpg&name=4096x4096",
-        "post_at": 1788091690
+        "post_at": 1788091690,
+        "ends_at": 1788374495
       }
     }
   },

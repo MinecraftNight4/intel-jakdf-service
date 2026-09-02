@@ -1,178 +1,285 @@
 import os
 import json
+import time
 import requests
-import cv2
-import numpy as np
-from io import BytesIO
-from PIL import Image
+from dotenv import load_dotenv
+from google import genai
+from google.genai import types
+from logger import log
 
-# -------------------------------------------------
-# Configuración
-# -------------------------------------------------
+load_dotenv()
+
+# ============================================================
+# CONFIGURACIÓN
+# ============================================================
 XCOM_FILE = "sys_save/request_xcom.json"
-OUTPUT_DIR = "sys_save/debug_crops"          # Aquí se guardan los recortes
-DEBUG_DIR = "sys_save/debug_detection"       # Aquí se guardan las imágenes con cajas dibujadas
+RMAP_FILE = "sys_save/request_rmap.json"
 
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-os.makedirs(DEBUG_DIR, exist_ok=True)
+MODELS = [
+    "gemini-3.6-flash",
+    "gemini-3.8-flash",
+    "gemini-3.5-flash",
+    "gemini-3.7-flash",
+]
 
-# -------------------------------------------------
-# Utilidades
-# -------------------------------------------------
-def download_image(url: str) -> Image.Image:
-    print(f"  Descargando: {url}")
+MAX_RETRIES = 3
+RETRY_DELAY = 4
+
+client = genai.Client(api_key=os.getenv("GEMINITOKEN"))
+
+
+# ============================================================
+# PROMPT
+# ============================================================
+SYSTEM_PROMPT = """
+You are an expert at reading game content schedule / roadmap images from Kaiju No. 8 THE GAME.
+
+Analyze the provided image carefully and extract EVERY event/schedule item visible.
+
+Return ONLY a valid JSON array. No markdown, no explanations, no extra text.
+
+Each object must have exactly these fields:
+- "event_name": string (full clean name of the event)
+- "type": string (one of: GACHA, STORY EVENT, EVENT, CAMPAIGN, LOGIN BONUS, MAINTENANCE, CHARACTER, WEAPON, or similar short uppercase category)
+- "date_jst": string in format "YYYY-MM-DD HH:MM JST" (if only date is shown, use 12:00)
+- "timestamp": integer (Unix timestamp in seconds for that JST time)
+
+Rules:
+- Convert all times correctly from JST (UTC+9) to Unix timestamp.
+- If a time is not specified, assume 12:00 JST.
+- Events like "Login Bonus" and "2x Training" starts at 04:00 JST.
+- Be as accurate as possible with names.
+- Ignore decorative text, hashtags, and non-event information.
+- Sort the events by timestamp ascending.
+"""
+
+
+# ============================================================
+# UTILIDADES
+# ============================================================
+def load_json(path: str) -> dict:
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+def save_json(path: str, data: dict):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def download_image_bytes(url: str) -> bytes:
     r = requests.get(url, timeout=30)
     r.raise_for_status()
-    return Image.open(BytesIO(r.content)).convert("RGB")
+    return r.content
 
 
-def pil_to_cv2(pil_img: Image.Image) -> np.ndarray:
-    return cv2.cvtColor(np.array(pil_img), cv2.COLOR_RGB2BGR)
+def build_format(listed: list) -> dict:
+    grouped = {}
+    for item in listed:
+        ts = str(item["timestamp"])
+        line = f"- `{item['type']}` {item['event_name']}"
+        if ts not in grouped:
+            grouped[ts] = line
+        else:
+            grouped[ts] += f"\n{line}"
+    return grouped
 
 
-def cv2_to_pil(cv_img: np.ndarray) -> Image.Image:
-    return Image.fromarray(cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB))
+# ============================================================
+# LIMPIEZA DE ROADMAPS EXPIRADOS
+# ============================================================
+def cleanup_expired_roadmaps(xcom: dict, rmap: dict) -> tuple[dict, dict]:
+    now = int(time.time())
+    removed = 0
 
-
-# -------------------------------------------------
-# Detección visual (versión más agresiva + debug)
-# -------------------------------------------------
-def detect_event_boxes(cv_img: np.ndarray, post_id: str) -> list[tuple[int, int, int, int]]:
-    h, w = cv_img.shape[:2]
-    print(f"  Tamaño imagen: {w}x{h}")
-
-    gray = cv2.cvtColor(cv_img, cv2.COLOR_BGR2GRAY)
-
-    # --- Versión A: Canny clásico ---
-    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-    edges = cv2.Canny(blurred, 20, 80)          # umbrales más bajos = más sensibles
-
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (9, 5))
-    closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel, iterations=3)
-
-    contours, _ = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    print(f"  Contornos encontrados: {len(contours)}")
-
-    boxes = []
-    img_area = w * h
-
-    for cnt in contours:
-        area = cv2.contourArea(cnt)
-        if area < 3000:                         # mínimo muy bajo
-            continue
-
-        x, y, bw, bh = cv2.boundingRect(cnt)
-        aspect = bw / float(bh) if bh > 0 else 0
-
-        # Filtros muy permisivos para empezar
-        if aspect < 1.5 or aspect > 7.0:
-            continue
-        if bh < 50 or bw < 150:
-            continue
-        if area / (bw * bh) < 0.5:
-            continue
-
-        # Evitar solo el header y footer extremos
-        if y < 80:
-            continue
-        if y + bh > h - 80:
-            continue
-
-        boxes.append((x, y, bw, bh))
-
-    # Ordenar
-    boxes = sorted(boxes, key=lambda b: (b[1] // 40, b[0]))
-
-    # Eliminar duplicados fuertes
-    final = []
-    for box in boxes:
-        x, y, bw, bh = box
-        overlap = False
-        for fx, fy, fw, fh in final:
-            inter_x1 = max(x, fx)
-            inter_y1 = max(y, fy)
-            inter_x2 = min(x + bw, fx + fw)
-            inter_y2 = min(y + bh, fy + fh)
-            if inter_x2 > inter_x1 and inter_y2 > inter_y1:
-                inter = (inter_x2 - inter_x1) * (inter_y2 - inter_y1)
-                if inter / (bw * bh) > 0.4:
-                    overlap = True
-                    break
-        if not overlap:
-            final.append(box)
-
-    print(f"  Cajas finales después de filtros: {len(final)}")
-
-    # --- Guardar imagen de debug ---
-    debug_img = cv_img.copy()
-    for i, (x, y, bw, bh) in enumerate(final):
-        cv2.rectangle(debug_img, (x, y), (x + bw, y + bh), (0, 255, 0), 3)
-        cv2.putText(debug_img, str(i), (x + 5, y + 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2)
-
-    debug_path = os.path.join(DEBUG_DIR, f"{post_id}_detection.png")
-    cv2.imwrite(debug_path, debug_img)
-    print(f"  Debug guardado → {debug_path}")
-
-    return final
-
-
-# -------------------------------------------------
-# Main (solo descarga + recorte)
-# -------------------------------------------------
-def main():
-    if not os.path.exists(XCOM_FILE):
-        print(f"[ERROR] No existe {XCOM_FILE}")
-        return
-
-    with open(XCOM_FILE, "r", encoding="utf-8") as f:
-        xcom_data = json.load(f)
-
-    for account_name, account_data in xcom_data.items():
+    log(f"ROADMAP CLEANER:", "rmap", level="WARN", show=False)
+    for account, account_data in list(xcom.items()):
+        log(f"[@{account.upper()}]", "rmap", show=False)
         roadmap = account_data.get("roadmap", {})
 
-        for post_id, entry in roadmap.items():
+        for post_id in list(roadmap.keys()):
             post_id = str(post_id)
-            image_url = entry.get("preview")
-            if not image_url:
+
+            # Solo evaluamos los que ya fueron procesados
+            if "ends_at" not in roadmap[post_id]:
                 continue
 
-            print(f"\n[SCAN] {account_name} → {post_id}")
+            rmap_entry = rmap.get(post_id)
+            if not rmap_entry:
+                continue
 
+            listed = rmap_entry.get("listed", [])
+            if not listed:
+                continue
+
+            # Obtenemos el timestamp más alto del roadmap
+            max_ts = max(item.get("timestamp", 0) for item in listed)
+
+            # Si el último evento ya pasó → eliminar
+            if max_ts < now:
+                # Borrar de xcom
+                del xcom[account]["roadmap"][post_id]
+
+                # Borrar de rmap
+                if post_id in rmap:
+                    del rmap[post_id]
+
+                removed += 1
+                log(f"  - [DELETED: {post_id}] [EXPIRED AT: {max_ts}]", "rmap", level="WARN", show=False)
+            else:
+                log(f"  - [SKIPPED: {post_id}] [EXPIRES AT: {max_ts}]", "rmap", show=False)
+
+    if removed > 0:
+        log(f"[DELETED: {removed}]", "rmap", show=False)
+        log(f" ", "rmap", show=False)
+
+    return xcom, rmap
+
+
+# ============================================================
+# LLAMADA A GEMINI CON REINTENTOS + FALLBACK
+# ============================================================
+def ask_gemini(image_bytes: bytes, handshake: str) -> list | None:
+    log(f"ROADMAP SCAN FOR: {handshake}", "gemini-api", show=False)
+    last_error = None
+
+    for model in MODELS:
+        log(f"[MODEL: {model}]: ", "gemini-api", show=False)
+        for attempt in range(1, MAX_RETRIES + 1):
             try:
-                # 1. Descargar
-                original_pil = download_image(image_url)
-                cv_img = pil_to_cv2(original_pil)
+                response = client.models.generate_content(
+                    model=model,
+                    contents=[
+                        types.Part.from_bytes(
+                            data=image_bytes,
+                            mime_type="image/jpeg"
+                        ),
+                        SYSTEM_PROMPT
+                    ],
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        temperature=0.1,
+                    )
+                )
 
-                # 2. Detectar cajas
-                boxes = detect_event_boxes(cv_img, post_id)
+                data = json.loads(response.text)
 
-                if not boxes:
-                    print("  [WARN] 0 tarjetas detectadas")
-                    continue
+                if isinstance(data, list) and len(data) > 0:
+                    log(f"  - [STATUS: SUCCESS] [ATTEMPT: {attempt}/{MAX_RETRIES}] [JSON: TRUE]", "gemini-api", show=False)
+                    return data
 
-                # 3. Recortar y guardar cada una
-                for i, (x, y, w, h) in enumerate(boxes):
-                    # Pequeño padding
-                    pad = 4
-                    x1 = max(0, x - pad)
-                    y1 = max(0, y - pad)
-                    x2 = min(cv_img.shape[1], x + w + pad)
-                    y2 = min(cv_img.shape[0], y + h + pad)
-
-                    crop = cv_img[y1:y2, x1:x2]
-                    crop_pil = cv2_to_pil(crop)
-
-                    out_path = os.path.join(OUTPUT_DIR, f"{post_id}_card_{i:02d}.png")
-                    crop_pil.save(out_path, quality=95)
-                    print(f"  Guardado: {out_path}  ({w}x{h})")
-
-                print(f"  → Total recortadas: {len(boxes)}")
+                log(f"  - [STATUS: SUCCESS] [ATTEMPT: {attempt}/{MAX_RETRIES}] [JSON: FALSE]", "gemini-api", show=False)
+                return []
 
             except Exception as e:
-                print(f"  [ERROR] {e}")
-                import traceback
-                traceback.print_exc()
+                last_error = str(e)
+                error_str = last_error.lower()
+
+                if "503" in error_str or "unavailable" in error_str or "high demand" in error_str:
+                    wait = RETRY_DELAY * attempt
+                    log(f"  - [STATUS: FAILURE] [ATTEMPT: {attempt}/{MAX_RETRIES}] [REPORT: OVERLOAD! - Waiting {wait}s...]", "gemini-api", level="WARN", show=False)
+                    time.sleep(wait)
+                    continue
+                
+                log(f"  - [STATUS: FAILURE] [ATTEMPT: {attempt}/{MAX_RETRIES}] [REPORT: {e}]", "gemini-api", level="WARN", show=False)
+                break
+
+    log(f"  - [STATUS: FAILURE] [ATTEMPTS: FALSE] [REPORT: {last_error}]", "gemini-api", level="CRIT", CRITlevel="CRIT")
+    return None
+
+
+# ============================================================
+# PROCESO PRINCIPAL
+# ============================================================
+def process_roadmaps():
+    xcom = load_json(XCOM_FILE)
+    rmap = load_json(RMAP_FILE)
+
+    if not xcom:
+        log(f"DATABASE: THE DATABASE IS EMPTY!", "rmap", level="WARN", show=False)
+        return
+
+    # 1. Primero limpiamos los que ya expiraron
+    xcom, rmap = cleanup_expired_roadmaps(xcom, rmap)
+
+    processed = 0
+    failed = 0
+
+    for account, account_data in xcom.items():
+        log(f"- ACCOUNT: @{account.upper()}:", "rmap", show=False)
+        roadmap = account_data.get("roadmap", {})
+        for post_id, entry in list(roadmap.items()):
+            post_id = str(post_id)
+            log(f"  - {post_id}", "rmap", show=False)
+
+            # Solo procesar los que NO tengan ends_at
+            if "ends_at" in entry:
+                log(f"    - SKIPPED", "rmap", show=False)
+                continue
+
+            preview = entry.get("preview")
+            source = entry.get("source", "")
+
+            if not preview:
+                log(f"    - FAILURE! | This roadmap doesn't contains an attachment!?", "rmap", level="WARN", show=False)
+                continue
+            
+            log(f"    - READING...", "rmap", level="WARN", show=False)
+            try:
+                image_bytes = download_image_bytes(preview)
+                handshake = source
+                events = ask_gemini(image_bytes, handshake)
+
+                if events is None:
+                    failed += 1
+                    continue
+
+                if not events:
+                    log(f"    - STATUS: No event entries available to index!", "rmap", level="WARN", show=False)
+                    continue
+
+                # Éxito real
+                rmap[post_id] = {
+                    "listed": events,
+                    "format": build_format(events),
+                    "display": preview,
+                    "source": source,
+                    "account": account,
+                    "processed_at": int(time.time())
+                }
+
+                entry["ends_at"] = int(time.time())
+                processed += 1
+                log(f"    - [EVENTS: {len(events)}]", "rmap", show=False)
+
+                time.sleep(4.0)
+
+            except Exception as e:
+                log(f"    - FAILURE | {e}", "rmap", level="CRIT", show=False)
+                failed += 1
+        log(f" ~~~ ", "rmap", show=False)
+
+    # Guardar cambios
+    save_json(RMAP_FILE, rmap)
+    save_json(XCOM_FILE, xcom)
+    log(f"[SCHEDULES READED: {processed}] | [FAILURES: {failed}]", "rmap", show=False)
+    log(f" ", "rmap", show=False)
+
+
+def run_rmap_scan() -> bool:
+    try:
+        process_roadmaps()
+        return True
+    except Exception as e:
+        log(f"FAILURE | {e}", "rmap", show=False)
+        return False
 
 
 if __name__ == "__main__":
-    main()
+    run_rmap_scan()
