@@ -16,6 +16,10 @@ def set_rebuild_callback(callback):
     _rebuild_cache_callback = callback
     log(f"TIMER: [REGISTER: cogs.news]", "timer", show=False)
 
+def set_rebuild_calendar_callback(callback):
+    global _calendar_cache_callback
+    _calendar_cache_callback = callback
+    log(f"TIMER: [REGISTER: cogs.calendar]", "timer", show=False)
 
 def set_feed_callback(callback):
     global _feed_callback

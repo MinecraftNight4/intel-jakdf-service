@@ -4,7 +4,7 @@ import discord
 from dotenv import load_dotenv
 from discord.ext import commands
 
-from sys_timer.__scheduler import start_all_timers, set_rebuild_callback, set_feed_callback
+from sys_timer.__scheduler import start_all_timers, set_rebuild_callback, set_feed_callback, set_rebuild_calendar_callback
 from sys_timer.feed.feed_game_general import process_feed_game_general
 from sys_timer.feed.feed_game_service import process_feed_game_service
 from sys_timer.feed.feed_game_event import process_feed_game_event
@@ -94,13 +94,14 @@ async def on_ready():
         "cogs.news",
         "cogs.feeds",
         "cogs.follow",
+        "cogs.calendar",
     ]
     for ext in extensions:
         try:
             await bot.load_extension(ext)
             log(f"- [COG: {ext}]: SUCCESS", "bots", show=False)
         except Exception as e:
-            log(f"- [COG: {ext}]: FAILURE - {e}", "bots", LEVEL="CRIT", show=False)
+            log(f"- [COG: {ext}]: FAILURE - {e}", "bots", level="CRIT", show=False)
     
     try:
         await bot.tree.sync()
@@ -142,6 +143,16 @@ async def on_ready():
         set_rebuild_callback(rebuild)
     log(f"[TIMER DEPLOY]: NEWS - DEPLOYED!", "cache", show=False)
 
+    # ===== NUEVO: Calendar =====
+    log(f"[TIMER DEPLOY]: CALENDAR - LOADING...", "cache", show=False)
+    calendar_cog = bot.get_cog("Calendar")
+    if calendar_cog is not None:
+        def rebuild_calendar():
+            calendar_cog.rebuild_calendar_cache()
+        # Puedes reutilizar el mismo set_rebuild_callback o crear uno nuevo
+        # Opción limpia: crear set_calendar_rebuild_callback en el scheduler
+        set_rebuild_calendar_callback(rebuild_calendar)   # ← necesitas añadir esta función
+    log(f"[TIMER DEPLOY]: CALENDAR - DEPLOYED!", "cache", show=False)
 
     log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
     async def process_all_feeds():
