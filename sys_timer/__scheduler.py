@@ -7,6 +7,7 @@ from web_get.request_rmap import run_rmap_scan
 from logger import info, warn, crit, log
 
 # Callbacks que el bot registrará
+_calendar_cache_callback = None   # declarado al inicio
 _rebuild_cache_callback = None
 _feed_callback = None
 
