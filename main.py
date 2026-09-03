@@ -28,59 +28,59 @@ async def reload(ctx, extension: str):
     except Exception as e:
         await ctx.send(f"❌ Error al recargar: `{e}`")
 
-#@bot.command(name="runschedule")
-#@commands.is_owner()
-#async def run_schedule(ctx):
-#    """Fuerza la ejecución completa del scheduler (news + xcom + feeds)."""
-#    await ctx.send("⏳ Ejecutando schedules...")
-#
-#    # 1. Scrape de noticias
-#    #try:
-#    #    from sys_timer.news_schedule import run_news_scan
-#    #    success = run_news_scan()
-#    #    await ctx.send(f"✅ News scan: `{'OK' if success else 'FAIL'}`")
-#    #except Exception as e:
-#    #    await ctx.send(f"❌ News scan error: `{e}`")
-#
-#    # 2. Scrape de XCom
-#    #try:
-#    #    from sys_timer.xcom_schedule import run_xcom_scan
-#    #    xcom_success = run_xcom_scan()
-#    #    await ctx.send(f"✅ XCom scan: `{'OK' if xcom_success else 'FAIL'}`")
-#    #except Exception as e:
-#    #    await ctx.send(f"❌ XCom scan error: `{e}`")
-#
-#    # 3. Rebuild cache de news
-#    try:
-#        news_cog = bot.get_cog("News")
-#        if news_cog is not None:
-#            news_cog.load_raw()
-#            news_cog.build_cache()
-#            await ctx.send("✅ Cache rebuild: `OK`")
-#        else:
-#            await ctx.send("⚠️ Cog News no encontrado")
-#    except Exception as e:
-#        await ctx.send(f"❌ Cache rebuild error: `{e}`")
-#
-#    # 4. Publicar todos los feeds
-#    try:
-#        #from sys_timer.feed.feed_game_all import process_feed_game_all
-#        #from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
-#        #from sys_timer.feed.feed_game_event import process_feed_game_event
-#        #from sys_timer.feed.feed_game_service import process_feed_game_update
-#        from sys_timer.feed.feed_xcom import process_feed_xcom
-#
-#        #await process_feed_game_all(bot)
-#        #await process_feed_game_gacha(bot)
-#        #await process_feed_game_event(bot)
-#        #await process_feed_game_update(bot)
-#        await process_feed_xcom(bot)
-#
-#        await ctx.send("✅ Feeds publicados")
-#    except Exception as e:
-#        await ctx.send(f"❌ Feeds error: `{e}`")
-#
-#    await ctx.send("🏁 Schedule completo terminado.")
+@bot.command(name="runschedule")
+@commands.is_owner()
+async def run_schedule(ctx):
+    """Fuerza la ejecución completa del scheduler (news + xcom + feeds)."""
+    await ctx.send("⏳ Ejecutando schedules...")
+
+    # 1. Scrape de noticias
+    #try:
+    #    from sys_timer.news_schedule import run_news_scan
+    #    success = run_news_scan()
+    #    await ctx.send(f"✅ News scan: `{'OK' if success else 'FAIL'}`")
+    #except Exception as e:
+    #    await ctx.send(f"❌ News scan error: `{e}`")
+
+    # 2. Scrape de XCom
+    #try:
+    #    from sys_timer.xcom_schedule import run_xcom_scan
+    #    xcom_success = run_xcom_scan()
+    #    await ctx.send(f"✅ XCom scan: `{'OK' if xcom_success else 'FAIL'}`")
+    #except Exception as e:
+    #    await ctx.send(f"❌ XCom scan error: `{e}`")
+
+    # 3. Rebuild cache de news
+    try:
+        news_cog = bot.get_cog("News")
+        if news_cog is not None:
+            news_cog.load_raw()
+            news_cog.build_cache()
+            await ctx.send("✅ Cache rebuild: `OK`")
+        else:
+            await ctx.send("⚠️ Cog News no encontrado")
+    except Exception as e:
+        await ctx.send(f"❌ Cache rebuild error: `{e}`")
+
+    # 4. Publicar todos los feeds
+    try:
+        from sys_timer.feed.feed_game_general import process_feed_game_general
+        from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
+        from sys_timer.feed.feed_game_event import process_feed_game_event
+        from sys_timer.feed.feed_game_service import process_feed_game_service
+        from sys_timer.feed.feed_xcom import process_feed_xcom
+
+        await process_feed_game_general(bot)
+        await process_feed_game_gacha(bot)
+        await process_feed_game_event(bot)
+        await process_feed_game_service(bot)
+        await process_feed_xcom(bot)
+
+        await ctx.send("✅ Feeds publicados")
+    except Exception as e:
+        await ctx.send(f"❌ Feeds error: `{e}`")
+
+    await ctx.send("🏁 Schedule completo terminado.")
 
 
 

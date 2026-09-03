@@ -1,43 +1,37 @@
 # cogs/calendar/base.py
 import discord
 from discord import ui
+from .helpers import has_active_maintenance
+
 
 def add_navigation_buttons(container: ui.Container, current: str, relative: bool = False):
-    """
-    current: "update" | "gacha" | "event" | "soon" | "misc"
-    """
-    mode = "rel" if relative else "abs"
-
-    styles = {
-        "update": discord.ButtonStyle.danger if current == "update" else discord.ButtonStyle.primary,
-        "gacha":  discord.ButtonStyle.success if current == "gacha" else discord.ButtonStyle.primary,
-        "event":  discord.ButtonStyle.success if current == "event" else discord.ButtonStyle.primary,
-        "soon":   discord.ButtonStyle.success if current == "soon" else discord.ButtonStyle.primary,
-        "misc":   discord.ButtonStyle.success if current == "misc" else discord.ButtonStyle.primary,
-    }
-
-    # Forzar danger en UPDATE siempre
-    styles["update"] = discord.ButtonStyle.danger
-
+    show_type = "a" if relative else "b"
+    show_type_switch = "b" if relative else "a"
+    
+    #=======================
+    # ROW 1
+    #=======================
     row = ui.ActionRow()
-    row.add_item(ui.Button(label="UPDATE!", style=styles["update"],
-                           custom_id=f"schedule_update_{mode}", emoji="⚠️"))
-    row.add_item(ui.Button(label="GACHAS", style=styles["gacha"],
-                           custom_id=f"schedule_banner_{mode}", emoji="🎫"))
-    row.add_item(ui.Button(label="EVENTS", style=styles["event"],
-                           custom_id=f"schedule_event_{mode}", emoji="🎪"))
-    row.add_item(ui.Button(label="SOON", style=styles["soon"],
-                           custom_id=f"schedule_maps_{mode}", emoji="🗺️"))
-    row.add_item(ui.Button(label="MISC", style=styles["misc"],
-                           custom_id=f"schedule_misc_{mode}", emoji="🏪"))
+    # GAME SERVICE STATUS
+    show_update = True #has_active_maintenance()
+    if show_update:
+        row.add_item(ui.Button(label="STATUS", style=discord.ButtonStyle.danger, custom_id=f"schedule_status_{show_type}", emoji="⚠️", disabled={current == "status"}))
+    
+    # OTHER VISUAL TABS
+    style = discord.ButtonStyle.success
+    row.add_item(ui.Button(label="GACHAS", style=style, custom_id=f"schedule_gachas_{show_type}", emoji="🎫", disabled={current == "gachas"}))
+    row.add_item(ui.Button(label="EVENTS", style=style, custom_id=f"schedule_events_{show_type}", emoji="🎪", disabled={current == "events"}))
+    row.add_item(ui.Button(label="COMING", style=style, custom_id=f"schedule_coming_{show_type}", emoji="🗺️", disabled={current == "coming"}))
+    row.add_item(ui.Button(label="RESETS", style=style, custom_id=f"schedule_resets_{show_type}", emoji="🏪", disabled={current == "resets"}))
     container.add_item(row)
-
-    # Toggle Absolute / Remain
-    toggle_row = ui.ActionRow()
-    toggle_label = "View Absolute" if relative else "View Remain"
-    toggle_row.add_item(ui.Button(
-        label=toggle_label,
-        style=discord.ButtonStyle.secondary,
-        custom_id=f"schedule_toggle_{current}_{'abs' if relative else 'rel'}"
-    ))
-    container.add_item(toggle_row)
+    
+    #=======================
+    # ROW 2
+    #=======================
+    row = ui.ActionRow()
+    
+    button_txt = "Countdowns: Yes" if relative else "Countdowns: No"
+    button_ico = "⏳" if relative else "🗓️"
+    row.add_item(ui.Button(label=button_txt, emoji=button_ico, style=discord.ButtonStyle.primary, custom_id=f"schedule_{current}_{show_type_switch}"))
+    row.add_item(ui.Button(label="Displayed time is based on your device!", style=discord.ButtonStyle.secondary, custom_id=f"schedule_display_info", disabled=True))
+    container.add_item(row)

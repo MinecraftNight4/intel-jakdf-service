@@ -8,11 +8,11 @@ from discord.ext import commands
 from logger import log
 
 from .helpers import PUBLIC_COOLDOWN, has_active_maintenance
-from .update import build_update_view
-from .gacha import build_gacha_view
-from .event import build_event_view
-from .soon import build_soon_view
-from .misc import build_misc_view
+from .item_status import panelbuilder_status
+from .item_gachas import panelbuilder_gachas
+from .item_events import panelbuilder_events
+from .item_coming import panelbuilder_coming
+from .item_resets import panelbuilder_resets
 
 
 class Calendar(commands.Cog):
@@ -26,25 +26,25 @@ class Calendar(commands.Cog):
     def rebuild_calendar_cache(self):
         log("[CALENDAR]: Rebuilding cache...", "calendar", show=False)
 
-        self.cache["update_abs"] = build_update_view(relative=False)
-        self.cache["update_rel"] = build_update_view(relative=True)
+        self.cache["status_a"] = panelbuilder_status(relative=False)
+        self.cache["status_b"] = panelbuilder_status(relative=True)
 
-        self.cache["gacha_abs"]  = build_gacha_view(relative=False)
-        self.cache["gacha_rel"]  = build_gacha_view(relative=True)
+        self.cache["gachas_a"] = panelbuilder_gachas(relative=False)
+        self.cache["gachas_b"] = panelbuilder_gachas(relative=True)
 
-        self.cache["event_abs"]  = build_event_view(relative=False)
-        self.cache["event_rel"]  = build_event_view(relative=True)
+        self.cache["events_a"] = panelbuilder_events(relative=False)
+        self.cache["events_b"] = panelbuilder_events(relative=True)
 
-        self.cache["soon_abs"]   = build_soon_view(relative=False)
-        self.cache["soon_rel"]   = build_soon_view(relative=True)
+        self.cache["coming_a"] = panelbuilder_coming(relative=False)
+        self.cache["coming_b"] = panelbuilder_coming(relative=True)
 
-        self.cache["misc_abs"]   = build_misc_view(relative=False)
-        self.cache["misc_rel"]   = build_misc_view(relative=True)
+        self.cache["resets_a"] = panelbuilder_resets(relative=False)
+        self.cache["resets_b"] = panelbuilder_resets(relative=True)
 
-        self.default_key = "update_abs" if has_active_maintenance() else "gacha_abs"
+        self.default_key = "status_a" if has_active_maintenance() else "status_a"
         log(f"[CALENDAR]: Cache rebuilt → default: {self.default_key}", "calendar", show=False)
 
-    @app_commands.command(name="calendar", description="Tick-Tack! Don't miss the upcoming schedules...")
+    @app_commands.command(name="calendar", description="Want to stay up to date on events? Check out the calendar!")
     @app_commands.describe(private="Reply privately (default: True)")
     async def calendar(self, interaction: discord.Interaction, private: bool = True):
         if not private:
@@ -87,11 +87,11 @@ class Calendar(commands.Cog):
         mode   = parts[2]
 
         section_map = {
-            "update": "update",
-            "banner": "gacha",
-            "event":  "event",
-            "maps":   "soon",
-            "misc":   "misc",
+            "status": "status",
+            "gachas": "gachas",
+            "events": "events",
+            "coming": "coming",
+            "resets": "resets",
         }
 
         if action == "toggle":

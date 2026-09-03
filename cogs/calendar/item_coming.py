@@ -6,7 +6,7 @@ from .helpers import (
 from .base import add_navigation_buttons
 
 
-def build_soon_view(relative: bool = False) -> ui.LayoutView:
+def panelbuilder_coming(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
     container = ui.Container(accent_colour=0x03fcfc)
 
@@ -31,13 +31,13 @@ def build_soon_view(relative: bool = False) -> ui.LayoutView:
         lines = []
         for ts, text in upcoming:
             fmt = "R" if relative else "f"
-            lines.append(f"<t:{ts}:{fmt}>\n{text}")
-        container.add_item(ui.TextDisplay("\n\n".join(lines)))
+            lines.append(f"<t:{ts}:{fmt}>:\n{text}")
+        container.add_item(ui.TextDisplay("\n".join(lines)))
     else:
         container.add_item(ui.TextDisplay("*No upcoming events found.*"))
 
     container.add_item(ui.Separator())
 
-    add_navigation_buttons(container, current="soon", relative=relative)
+    add_navigation_buttons(container, current="coming", relative=relative)
     view.add_item(container)
     return view

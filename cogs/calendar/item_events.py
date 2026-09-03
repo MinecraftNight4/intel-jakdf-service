@@ -6,7 +6,7 @@ from .helpers import (
 )
 from .base import add_navigation_buttons
 
-def build_event_view(relative: bool = False) -> ui.LayoutView:
+def panelbuilder_events(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
     container = ui.Container(accent_colour=0x43a047)
 
@@ -38,14 +38,14 @@ def build_event_view(relative: bool = False) -> ui.LayoutView:
             if name.startswith("[UPDATED]"):
                 clean = name.replace("[UPDATED] ", "")
                 block = (
-                    f"### PLACEHOLDER_REPLACE_event_kaiju_raid **__{clean}__**\n"
+                    f"### `RAID` **__{clean}__**\n"
                     f"> 📆 [__THREAT DEFEATED!__] The event ends {format_ts(max_ts, relative, 'd')}¹.\n"
                     f"- 📬 Ranking rewards should be sent on {format_ts(u1 + 172800, relative, 'd')}.\n"
                     f"- ⚠️ Unclaimed rewards will not be mailed."
                 )
             else:
                 block = (
-                    f"### PLACEHOLDER_REPLACE_event_kaiju_raid **__{name}__**\n"
+                    f"### `RAID` **__{name}__**\n"
                     f"> ⚠️ [__THREAT IS ALIVE!__]\n"
                     f"- 🔁 You can claim x3 Free Battle Permits {format_ts(night, relative, 't')}.\n"
                     f"- ℹ️ *It's not possible to display the remaining life in real time.*"
@@ -59,7 +59,7 @@ def build_event_view(relative: bool = False) -> ui.LayoutView:
                     rush_parts.append(f"`{i}: ☑️`")
             rush_txt = ", ".join(rush_parts)
             block = (
-                f"### PLACEHOLDER_REPLACE_event_kaiju_rush **__{name}__**\n"
+                f"### `RUSH` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u2, relative, 'd')}¹.\n"
                 f"- 🗓️ Area unlock dates: {rush_txt}"
             )
@@ -72,13 +72,13 @@ def build_event_view(relative: bool = False) -> ui.LayoutView:
                 "- 🔒 The event is no longer playable."
             )
             block = (
-                f"### PLACEHOLDER_REPLACE_event_total_war **__{name}__**\n"
+                f"### `TOTAL WAR` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u3, relative, 'd')}¹.\n"
                 f"{playable}"
             )
         elif "BATTLE AREA (LIMITED)" in name:
             block = (
-                f"### PLACEHOLDER_REPLACE_event_kaiju_arena **__{name}__**\n"
+                f"### `BATTLE ARENA` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u2, relative, 'd')}¹."
             )
         elif "MINI SPECIAL EVENT" in name or "SPECIAL EVENT" in name:
@@ -88,30 +88,30 @@ def build_event_view(relative: bool = False) -> ui.LayoutView:
                 "- 🔒 The event is no longer playable and you can only spend what you've earned."
             )
             block = (
-                f"### PLACEHOLDER_REPLACE_event_special_event **__{name}__**\n"
+                f"### `SPECIAL EVENT` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u3, relative, 'd')}¹.\n"
                 f"{unplayable}"
             )
         elif "MOP-UP" in name:
             block = (
-                f"### PLACEHOLDER_REPLACE_event_kaiju_mobup **__{name}__**\n"
+                f"### `MOBUP` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u1, relative, 'd')}¹.\n"
                 f"- ℹ️ If there are 0 Kaiju remaining, the event will close automatically."
             )
         elif "MAIN STORY CH" in name:
             block = (
-                f"### PLACEHOLDER_REPLACE_event_kaiju_chapter **__{name}__**\n"
+                f"### `STORY EVENT` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u2, relative, 'd')}¹."
             )
         elif "TRAINING:" in name:
             block = (
-                f"### PLACEHOLDER_REPLACE_event_kaiju_training **__{name}__**\n"
+                f"### `TRAINING` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u2, relative, 'd')}².\n"
                 f"- 🔁 This bonus applies to the first 10 clears and it's reset {format_ts(night, relative, 't')}."
             )
         elif "LARGE CONQUEST:" in name:
             block = (
-                f"### PLACEHOLDER_REPLACE_event_kaiju_conquest **__{name}__**\n"
+                f"### `CONQUEST` **__{name}__**\n"
                 f"> 📆 The event ends {format_ts(u2, relative, 'd')}¹.\n"
                 f"- ⚠️ Unclaimed rewards will not be mailed."
             )
@@ -132,7 +132,6 @@ def build_event_view(relative: bool = False) -> ui.LayoutView:
         f"{format_ts(daily, False, 't')}¹ or {format_ts(night, False, 't')}²."
     ))
     container.add_item(ui.Separator())
-
-    add_navigation_buttons(container, current="event", relative=relative)
+    add_navigation_buttons(container, current="events", relative=relative)
     view.add_item(container)
     return view

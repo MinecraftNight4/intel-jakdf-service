@@ -1,9 +1,13 @@
 # cogs/calendar/update.py
 from discord import ui
-from .helpers import load_json, now_unix, format_ts, NEWS_FILE
+from .helpers import (
+    load_json, now_unix, format_ts, NEWS_FILE,
+    has_active_maintenance
+)
 from .base import add_navigation_buttons
 
-def build_update_view(relative: bool = False) -> ui.LayoutView:
+
+def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
     news = load_json(NEWS_FILE, {})
     now = now_unix()
@@ -13,16 +17,21 @@ def build_update_view(relative: bool = False) -> ui.LayoutView:
         t = (art.get("article_type") or "").lower()
         if t not in ("update", "maintenance"):
             continue
+
+        # Nuevo filtro por texto
+        #if not has_active_maintenance(art):
+        #    continue
+
         unixes = art.get("article_unix") or []
         if not unixes:
             continue
-        # Solo consideramos mantenimientos que aún no han terminado
-        if max(unixes) > now:
-            candidate = art
-            break
+        if max(unixes) <= now:
+            continue
+
+        candidate = art
+        break
 
     if candidate is None:
-        # No hay mantenimiento activo → mensaje neutral
         container = ui.Container(accent_colour=0x546e7a)
         container.add_item(ui.TextDisplay(
             "## __NO ACTIVE MAINTENANCE__\nEverything is running normally."
@@ -77,6 +86,11 @@ def build_update_view(relative: bool = False) -> ui.LayoutView:
         container.add_item(ui.TextDisplay(body))
         container.add_item(ui.Separator())
 
-    add_navigation_buttons(container, current="update", relative=relative)
+    # Solo mostramos el botón UPDATE si hay mantenimiento activo
+    add_navigation_buttons(
+        container,
+        current="status",
+        relative=relative          # en esta vista siempre se muestra
+    )
     view.add_item(container)
     return view

@@ -107,13 +107,47 @@ def get_best_roadmap_image() -> Optional[str]:
             return best.get("preview")
     return None
 
+
+def _article_full_text(art: dict) -> str:
+    parts = []
+    items = art.get("article_item") or []
+    if isinstance(items, list):
+        parts.extend(str(x) for x in items)
+    return "".join(parts).lower()
+
+
+def maintenance_was_completed(art: dict) -> bool:
+    """
+    Decide si una noticia de tipo maintenance/update sigue activa.
+    """
+    text = _article_full_text(art)
+    
+    if "__maintenance time__" in text:
+        print("1")
+        return True
+    if "the data update has been successfully completed" in text:
+        print("2")
+        return False
+    if "update is now available." in text:
+        print("3")
+        return False
+    return True
+
+
 def has_active_maintenance() -> bool:
+    """True si existe al menos un mantenimiento/update todavía vigente."""
     news = load_json(NEWS_FILE, {})
     now = now_unix()
+
     for art in news.values():
-        t = (art.get("article_type") or "").lower()
-        if t in ("update", "maintenance"):
-            unixes = art.get("article_unix") or []
-            if unixes and max(unixes) > now:
-                return True
+        # CATEGORY FILTER
+        if (art.get("article_type") or "").lower() not in ("update", "maintenance"):
+            continue
+        
+        # FILTER BY TEXT STATEMENTS
+        if not maintenance_was_completed(art):
+            continue
+        
+        return True
     return False
+

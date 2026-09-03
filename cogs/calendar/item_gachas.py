@@ -6,7 +6,7 @@ from .helpers import (
 )
 from .base import add_navigation_buttons
 
-def build_gacha_view(relative: bool = False) -> ui.LayoutView:
+def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
     container = ui.Container(accent_colour=0x8e24aa)
 
@@ -81,6 +81,6 @@ def build_gacha_view(relative: bool = False) -> ui.LayoutView:
     ))
     container.add_item(ui.Separator())
 
-    add_navigation_buttons(container, current="gacha", relative=relative)
+    add_navigation_buttons(container, current="gachas", relative=relative)
     view.add_item(container)
     return view
