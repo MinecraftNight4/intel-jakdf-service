@@ -134,7 +134,7 @@ def maintenance_was_completed(art: dict) -> bool:
     return True
 
 
-def has_active_maintenance() -> bool:
+def status_show_display() -> bool:
     """True si existe al menos un mantenimiento/update todavía vigente."""
     news = load_json(NEWS_FILE, {})
     now = now_unix()

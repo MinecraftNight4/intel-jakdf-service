@@ -26,20 +26,20 @@ class Calendar(commands.Cog):
     def rebuild_calendar_cache(self):
         log("[CALENDAR]: Rebuilding cache...", "calendar", show=False)
 
-        self.cache["status_a"] = panelbuilder_status(relative=False)
-        self.cache["status_b"] = panelbuilder_status(relative=True)
+        self.cache["status_b"] = panelbuilder_status(relative=False)
+        self.cache["status_a"] = panelbuilder_status(relative=True)
 
-        self.cache["gachas_a"] = panelbuilder_gachas(relative=False)
-        self.cache["gachas_b"] = panelbuilder_gachas(relative=True)
+        self.cache["gachas_b"] = panelbuilder_gachas(relative=False)
+        self.cache["gachas_a"] = panelbuilder_gachas(relative=True)
 
-        self.cache["events_a"] = panelbuilder_events(relative=False)
-        self.cache["events_b"] = panelbuilder_events(relative=True)
+        self.cache["events_b"] = panelbuilder_events(relative=False)
+        self.cache["events_a"] = panelbuilder_events(relative=True)
 
-        self.cache["coming_a"] = panelbuilder_coming(relative=False)
-        self.cache["coming_b"] = panelbuilder_coming(relative=True)
+        self.cache["coming_b"] = panelbuilder_coming(relative=False)
+        self.cache["coming_a"] = panelbuilder_coming(relative=True)
 
-        self.cache["resets_a"] = panelbuilder_resets(relative=False)
-        self.cache["resets_b"] = panelbuilder_resets(relative=True)
+        self.cache["resets_b"] = panelbuilder_resets(relative=False)
+        self.cache["resets_a"] = panelbuilder_resets(relative=True)
 
         self.default_key = "status_a" if has_active_maintenance() else "status_a"
         log(f"[CALENDAR]: Cache rebuilt → default: {self.default_key}", "calendar", show=False)

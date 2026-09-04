@@ -24,14 +24,15 @@ def panelbuilder_coming(relative: bool = False) -> ui.LayoutView:
             "- JAKDF"
         ))
 
-    container.add_item(ui.Separator())
-
     upcoming = get_upcoming_events(3)
     if upcoming:
         lines = []
+        lines.append("### __TRANSCRIPTION OF COMING EVENTS:__")
         for ts, text in upcoming:
-            fmt = "R" if relative else "f"
-            lines.append(f"<t:{ts}:{fmt}>:\n{text}")
+            if relative:
+                lines.append(f"🗓️ __Starts <t:{ts}:R>:__\n{text}")
+            else:
+                lines.append(f"🗓️ __Starts on <t:{ts}:f>:__\n{text}")
         container.add_item(ui.TextDisplay("\n".join(lines)))
     else:
         container.add_item(ui.TextDisplay("*No upcoming events found.*"))
