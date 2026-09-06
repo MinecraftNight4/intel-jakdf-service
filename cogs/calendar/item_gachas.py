@@ -1,8 +1,8 @@
 # cogs/calendar/gacha.py
 from discord import ui
 from .helpers import (
-    load_json, now_unix, format_ts, FlavorTextOnTime,
-    GenerateUnixDay, NEWS_FILE
+    fetchjson, now_as_unix, format_time_view, format_text_view,
+    generate_as_unix_day, NEWS_FILE
 )
 from .base import add_navigation_buttons
 
@@ -13,8 +13,8 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
     container.add_item(ui.TextDisplay("## __CURRENT CALENDAR:__"))
     container.add_item(ui.Separator())
 
-    news = load_json(NEWS_FILE, {})
-    now = now_unix()
+    news = fetchjson(NEWS_FILE, {})
+    now = now_as_unix()
     lines = []
 
     for art in news.values():
@@ -45,16 +45,16 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             left = "PLACEHOLDER_REPLACE_gachatype_pickup_left"
             right = "PLACEHOLDER_REPLACE_gachatype_pickup_right"
 
-        banner_txt = FlavorTextOnTime(
+        banner_txt = format_text_view(
             end_banner,
-            f"This banner leaves {format_ts(end_banner, relative, 'f')}.",
+            f"This banner leaves {format_time_view(end_banner, relative, 'f')}.",
             "The banner is no longer available."
         )
         exchange_txt = "N/A"
         if end_exchange:
-            exchange_txt = FlavorTextOnTime(
+            exchange_txt = format_text_view(
                 end_exchange,
-                f"The character leave the exchange {format_ts(end_exchange, relative, 'f')}.",
+                f"The character leave the exchange {format_time_view(end_exchange, relative, 'f')}.",
                 "N/A"
             )
 
@@ -75,9 +75,9 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
     text = "\n\n".join(lines) if lines else "*No active gachas found.*"
     container.add_item(ui.TextDisplay(text))
 
-    daily = GenerateUnixDay(0)
+    daily = generate_as_unix_day(0)
     container.add_item(ui.TextDisplay(
-        f"ℹ️ The availability of banners and exchanges are updated at {format_ts(daily, False, 't')}."
+        f"ℹ️ The availability of banners and exchanges are updated at {format_time_view(daily, False, 't')}."
     ))
     container.add_item(ui.Separator())
 

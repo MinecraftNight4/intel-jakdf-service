@@ -15,7 +15,6 @@ def add_navigation_buttons(container: ui.Container, current: str, relative: bool
     row1 = ui.ActionRow()
     # GAME SERVICE STATUS
     show_update = status_show_display()
-    print
     if show_update:
         row1.add_item(ui.Button(label="STATUS", style=discord.ButtonStyle.danger, custom_id=f"schedule_status_{show_type}", emoji="⚠️", disabled=(current == "status") ))
     

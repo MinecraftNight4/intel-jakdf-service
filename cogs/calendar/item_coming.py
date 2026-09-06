@@ -1,7 +1,7 @@
 # cogs/calendar/soon.py
 from discord import ui
 from .helpers import (
-    format_ts, get_upcoming_events, get_best_roadmap_image
+    format_time_view, calendar_unix_list, calendar_rmap_view
 )
 from .base import add_navigation_buttons
 
@@ -12,7 +12,7 @@ def panelbuilder_coming(relative: bool = False) -> ui.LayoutView:
 
     container.add_item(ui.TextDisplay("## __UPCOMING CONTENT__"))
 
-    img = get_best_roadmap_image()
+    img = calendar_rmap_view()
     if img:
         gallery = ui.MediaGallery()
         gallery.add_item(media=img)
@@ -24,15 +24,15 @@ def panelbuilder_coming(relative: bool = False) -> ui.LayoutView:
             "- JAKDF"
         ))
 
-    upcoming = get_upcoming_events(3)
+    upcoming = calendar_unix_list(3)
     if upcoming:
         lines = []
         lines.append("### __TRANSCRIPTION OF COMING EVENTS:__")
         for ts, text in upcoming:
             if relative:
-                lines.append(f"🗓️ __Starts <t:{ts}:R>:__\n{text}")
+                lines.append(f"- 🗓️ __Starts <t:{ts}:R>:__\n{text}")
             else:
-                lines.append(f"🗓️ __Starts on <t:{ts}:f>:__\n{text}")
+                lines.append(f"- 🗓️ __Starts on <t:{ts}:f>:__\n{text}")
         container.add_item(ui.TextDisplay("\n".join(lines)))
     else:
         container.add_item(ui.TextDisplay("*No upcoming events found.*"))

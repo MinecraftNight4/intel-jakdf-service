@@ -7,7 +7,7 @@ from discord import app_commands, ui
 from discord.ext import commands
 from logger import log
 
-from .helpers import PUBLIC_COOLDOWN, has_active_maintenance
+from .helpers import PUBLIC_COOLDOWN, status_show_display
 from .item_status import panelbuilder_status
 from .item_gachas import panelbuilder_gachas
 from .item_events import panelbuilder_events
@@ -41,7 +41,7 @@ class Calendar(commands.Cog):
         self.cache["resets_b"] = panelbuilder_resets(relative=False)
         self.cache["resets_a"] = panelbuilder_resets(relative=True)
 
-        self.default_key = "status_a" if has_active_maintenance() else "status_a"
+        self.default_key = "status_a" if status_show_display() else "status_a"
         log(f"[CALENDAR]: Cache rebuilt → default: {self.default_key}", "calendar", show=False)
 
     @app_commands.command(name="calendar", description="Want to stay up to date on events? Check out the calendar!")

@@ -83,7 +83,7 @@ def build_format(listed: list) -> dict:
     grouped = {}
     for item in listed:
         ts = str(item["timestamp"])
-        line = f"- `{item['type']}` {item['event_name']}"
+        line = f"  - `{item['type']}` {item['event_name']}"
         if ts not in grouped:
             grouped[ts] = line
         else:

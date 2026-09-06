@@ -16,59 +16,7 @@ RMAP_FILE = "sys_save/request_rmap.json"
 PUBLIC_COOLDOWN = 60
 
 
-def now_jst() -> datetime:
-    return datetime.now(JST)
-
-def now_unix() -> int:
-    return int(time.time())
-
-def to_unix(dt: datetime) -> int:
-    return int(dt.astimezone(UTC).timestamp())
-
-def GenerateUnixDay(h: int = 0, m: int = 0, s: int = 0) -> int:
-    n = now_jst()
-    target = n.replace(hour=h, minute=m, second=s, microsecond=0)
-    if target <= n:
-        target += timedelta(days=1)
-    return to_unix(target)
-
-def GenerateUnixWeek(weekday: int = 7, h: int = 0, m: int = 0, s: int = 0) -> int:
-    n = now_jst()
-    target_weekday = (weekday - 1) % 7
-    days_ahead = (target_weekday - n.weekday()) % 7
-    target = (n + timedelta(days=days_ahead)).replace(
-        hour=h, minute=m, second=s, microsecond=0
-    )
-    if target <= n:
-        target += timedelta(weeks=1)
-    return to_unix(target)
-
-def GenerateUnixMonth(h: int = 0, m: int = 0, s: int = 0) -> int:
-    n = now_jst()
-    last_day = monthrange(n.year, n.month)[1]
-    target = n.replace(day=last_day, hour=h, minute=m, second=s, microsecond=0)
-
-    if target <= n:
-        if n.month == 12:
-            next_year, next_month = n.year + 1, 1
-        else:
-            next_year, next_month = n.year, n.month + 1
-        last_day = monthrange(next_year, next_month)[1]
-        target = datetime(next_year, next_month, last_day, h, m, s, tzinfo=JST)
-
-    return to_unix(target)
-
-def format_ts(ts: int, relative: bool = False, style: str = "f") -> str:
-    if relative:
-        return f"<t:{ts}:R>"
-    return f"<t:{ts}:{style}>"
-
-def FlavorTextOnTime(ts: int, pass_txt: str, ends_txt: str = "") -> str:
-    now = now_unix()
-    txt = ends_txt if ts < now else pass_txt
-    return txt.replace("{time}", str(ts))
-
-def load_json(path: str, default=None):
+def fetchjson(path: str, default=None):
     if default is None:
         default = {}
     if not os.path.exists(path):
@@ -79,27 +27,90 @@ def load_json(path: str, default=None):
     except Exception:
         return default.copy() if isinstance(default, dict) else default
 
-def get_upcoming_events(limit: int = 3) -> List[Tuple[int, str]]:
-    rmap = load_json(RMAP_FILE, {})
+
+
+def now_as_jst() -> datetime:
+    return datetime.now(JST)
+
+def now_as_unix() -> int:
+    return int(time.time())
+
+def date_2_unix(dt: datetime) -> int:
+    return int(dt.astimezone(UTC).timestamp())
+
+
+
+def generate_as_unix_day(h: int = 0, m: int = 0, s: int = 0) -> int:
+    n = now_as_jst()
+    target = n.replace(hour=h, minute=m, second=s, microsecond=0)
+    if target <= n:
+        target += timedelta(days=1)
+    return date_2_unix(target)
+
+def generate_as_unix_week(weekday: int = 7, h: int = 0, m: int = 0, s: int = 0) -> int:
+    n = now_as_jst()
+    target_weekday = (weekday - 1) % 7
+    days_ahead = (target_weekday - n.weekday()) % 7
+    target = (n + timedelta(days=days_ahead)).replace(hour=h, minute=m, second=s, microsecond=0)
+    if target <= n:
+        target += timedelta(weeks=1)
+    return date_2_unix(target)
+
+def generate_as_unix_month(h: int = 0, m: int = 0, s: int = 0) -> int:
+    n = now_as_jst()
+    last_day = monthrange(n.year, n.month)[1]
+    target = n.replace(day=last_day, hour=h, minute=m, second=s, microsecond=0)
+    if target <= n:
+        if n.month == 12:
+            next_year, next_month = n.year + 1, 1
+        else:
+            next_year, next_month = n.year, n.month + 1
+        last_day = monthrange(next_year, next_month)[1]
+        target = datetime(next_year, next_month, last_day, h, m, s, tzinfo=JST)
+    return date_2_unix(target)
+
+
+
+def format_time_view(ts: int, relative: bool = False, style: str = "f") -> str:
+    if relative:
+        return f"<t:{ts}:R>"
+    return f"<t:{ts}:{style}>"
+
+def format_text_view(ts: int, pass_txt: str, ends_txt: str = "") -> str:
+    now = now_as_unix()
+    txt = ends_txt if ts < now else pass_txt
+    return txt.replace("{time}", str(ts))
+
+def format_full_text(art: dict) -> str:
+    parts = []
+    items = art.get("article_item") or []
+    if isinstance(items, list):
+        parts.extend(str(x) for x in items)
+    return "".join(parts).lower()
+
+
+
+def calendar_unix_list(limit: int = 3) -> List[Tuple[int, str]]:
+    rmap = fetchjson(RMAP_FILE, {})
     candidates = []
     for data in rmap.values():
         formats = data.get("format", {})
         for ts_str, text in formats.items():
             try:
                 ts = int(ts_str)
-                if ts > now_unix():
-                    candidates.append((ts, text.strip()))
+                if ts > now_as_unix():
+                    candidates.append((ts, text))
             except ValueError:
                 continue
     candidates.sort(key=lambda x: x[0])
     return candidates[:limit]
 
-def get_best_roadmap_image() -> Optional[str]:
-    rmap = load_json(RMAP_FILE, {})
+def calendar_rmap_view() -> Optional[str]:
+    rmap = fetchjson(RMAP_FILE, {})
     if rmap:
         best_id = max(rmap.keys(), key=lambda k: rmap[k].get("processed_at", 0))
         return rmap[best_id].get("display")
-    xcom = load_json(XCOM_FILE, {})
+    xcom = fetchjson(XCOM_FILE, {})
     for account in xcom.values():
         roadmaps = account.get("roadmap", {})
         if roadmaps:
@@ -108,46 +119,33 @@ def get_best_roadmap_image() -> Optional[str]:
     return None
 
 
-def _article_full_text(art: dict) -> str:
-    parts = []
-    items = art.get("article_item") or []
-    if isinstance(items, list):
-        parts.extend(str(x) for x in items)
-    return "".join(parts).lower()
 
-
-def maintenance_was_completed(art: dict) -> bool:
-    """
-    Decide si una noticia de tipo maintenance/update sigue activa.
-    """
-    text = _article_full_text(art)
-    
-    if "__maintenance time__" in text:
-        print("1")
+def status_show_warn(art: dict) -> bool:
+    text = format_full_text(art)
+    if "__maintenance time__\n<t:" in text:
         return True
     if "the data update has been successfully completed" in text:
-        print("2")
         return False
     if "update is now available." in text:
-        print("3")
         return False
     return True
 
-
 def status_show_display() -> bool:
-    """True si existe al menos un mantenimiento/update todavía vigente."""
-    news = load_json(NEWS_FILE, {})
-    now = now_unix()
-
+    news = fetchjson(NEWS_FILE, {})
+    candidate_data = None
+    candidate_time = 0
+    
     for art in news.values():
-        # CATEGORY FILTER
-        if (art.get("article_type") or "").lower() not in ("update", "maintenance"):
-            continue
-        
-        # FILTER BY TEXT STATEMENTS
-        if not maintenance_was_completed(art):
-            continue
-        
-        return True
+        if art.get("article_type") in ("update", "maintenance"):
+            art_time = art.get("article_time", 0)
+            if art_time > candidate_time:
+                candidate_time = art_time
+                candidate_data = art
+
+    if candidate_data:
+        if not status_show_warn(candidate_data):
+            return False
+        else:
+            return True
     return False
 
