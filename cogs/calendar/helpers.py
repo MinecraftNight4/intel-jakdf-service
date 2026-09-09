@@ -90,6 +90,19 @@ def format_full_text(art: dict) -> str:
 
 
 
+def event_get_unimaterial(art: dict) -> str:
+    txt = format_full_text(art)
+    ls1 = ["armored", "caudata", "fungal", "wyvern", "wolf", "paraves", "plant", "mole", "lizard", "bovine", "spider", "wyvern", "ant"]
+    ls2 = ["α", "β"]
+    out = []
+    for da1 in ls1:
+        for da2 in ls2:
+            if (f"[{da1}-type unipart {da2}]") in txt:
+                out.append(f"{da1.upper} {da2}")
+    return (", ".join(out).upper())
+
+
+
 def calendar_unix_list(limit: int = 3) -> List[Tuple[int, str]]:
     rmap = fetchjson(RMAP_FILE, {})
     candidates = []

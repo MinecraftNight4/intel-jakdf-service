@@ -1,137 +1,156 @@
-# cogs/calendar/event.py
+# cogs/calendar/item_events.py
+import re
 from discord import ui
+from collections import defaultdict
 from .helpers import (
     fetchjson, now_as_unix, format_time_view, format_text_view,
-    generate_as_unix_day, NEWS_FILE
+    generate_as_unix_day, event_get_unimaterial, NEWS_FILE
 )
 from .base import add_navigation_buttons
 
+def cleartext(text: str) -> str:
+    patterns = [r"\[UPDATED\]\s*", r"\s*NOW AVAILABLE!", r"TRAINING:\s*"]
+    for pattern in patterns:
+        text = re.sub(pattern, "", text, flags=re.IGNORECASE)
+    return text
+
 def panelbuilder_events(relative: bool = False) -> ui.LayoutView:
-    view = ui.LayoutView()
-    container = ui.Container(accent_colour=0x43a047)
-
-    container.add_item(ui.TextDisplay("## __CURRENT CALENDAR:__"))
-    container.add_item(ui.Separator())
-
-    news = fetchjson(NEWS_FILE, {})
-    night = generate_as_unix_day(16)
-    lines = []
-
-    for art in news.values():
+    #===================#
+    #   RETRIEVE DATA   #
+    #===================#
+    data_layout = ui.LayoutView()
+    data_buider = ui.Container(accent_colour=0x43a047)
+    data_temp_news = fetchjson(NEWS_FILE, {})
+    data_temp_list: dict[int, list[str]] = defaultdict(list)
+    data_temp_time = now_as_unix()
+    data_temp_1600 = generate_as_unix_day(16)
+    
+    #====================#
+    #   CALENDAR BUILDER #
+    #====================#
+    for art in data_temp_news.values():
+        # === ARTICLE FILTER ===
         if (art.get("article_type") or "").lower() != "event":
             continue
-        name = (art.get("article_name") or "").upper()
-        unixes = art.get("article_unix") or []
-        if not unixes:
+        if len(art.get("article_unix") or []) == 0:
             continue
-
-        max_ts = max(unixes)
-        # Opcional: saltar eventos completamente expirados
-        if max_ts <= now_as_unix():
+        if max(art.get("article_unix") or []) <= data_temp_time:
             continue
-
-        u1 = unixes[0]
-        u2 = unixes[1] if len(unixes) > 1 else max_ts
-        u3 = unixes[2] if len(unixes) > 2 else max_ts
-
-        if "RAID BATTLE" in name:
-            if name.startswith("[UPDATED]"):
-                clean = name.replace("[UPDATED] ", "")
-                block = (
-                    f"### `RAID` **__{clean}__**\n"
-                    f"> 📆 [__THREAT DEFEATED!__] The event ends {format_time_view(max_ts, relative, 'd')}¹.\n"
-                    f"- 📬 Ranking rewards should be sent on {format_time_view(u1 + 172800, relative, 'd')}.\n"
-                    f"- ⚠️ Unclaimed rewards will not be mailed."
-                )
+        
+        # === ARTICLE STORAGE ===
+        candidate_unix = (art.get("article_unix") or [])
+        candidate_name = (art.get("article_name") or "").upper()
+        hv_1 = candidate_unix[0]
+        hv_2 = candidate_unix[1] if len(candidate_unix) > 1 else max(candidate_unix)
+        hv_3 = candidate_unix[2] if len(candidate_unix) > 2 else max(candidate_unix)
+        
+        # === EVENT TRANSCRIPTION ===
+        if "RAID BATTLE" in candidate_name:
+            if candidate_name.startswith("[UPDATED] "):
+                candidate_name = cleartext(candidate_name)
+                info_unix = max(candidate_unix)
+                info_text = f"  - 🗡️ `🠟 [DEATH] {candidate_name} 🠟` \n    - [`🎁` Rank Rewards] should be sent {'at ' if not relative else ''}{format_time_view((hv_1 + 172800), relative, 'd')}"
+                
             else:
-                block = (
-                    f"### `RAID` **__{name}__**\n"
-                    f"> ⚠️ [__THREAT IS ALIVE!__]\n"
-                    f"- 🔁 You can claim x3 Free Battle Permits {format_time_view(night, relative, 't')}.\n"
-                    f"- ℹ️ *It's not possible to display the remaining life in real time.*"
-                )
-        elif "KAIJU RUSH" in name:
-            rush_parts = []
-            for i, ts in enumerate(unixes[1:5], 1):
-                if ts > now_as_unix():
-                    rush_parts.append(f"`{i}: ❌` {format_time_view(ts, relative, 'd')}")
+                candidate_name = cleartext(candidate_name)
+                info_unix = max(candidate_unix)
+                info_text = f"  - 🗡️ `🠟 [ALIVE] {candidate_name} 🠟` \n    - [`🎫` Free Permits] resets {'at ' if not relative else ''}{format_time_view(data_temp_1600, relative, 'f')}"
+                
+                
+        elif "KAIJU RUSH" in candidate_name:
+            kr_unix = sorted(candidate_unix)
+            kr_path = []
+            kr_uuid = 1
+            
+            for ts in kr_unix:
+                if max(candidate_unix) == ts:
+                    continue
+                elif ts > data_temp_time:
+                    kr_path.append(f"`{kr_uuid}: ❌` {format_time_view(ts, relative, 'd')}")
+                    kr_uuid += 1
                 else:
-                    rush_parts.append(f"`{i}: ☑️`")
-            rush_txt = ", ".join(rush_parts)
-            block = (
-                f"### `RUSH` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u2, relative, 'd')}¹.\n"
-                f"- 🗓️ Area unlock dates: {rush_txt}"
-            )
-        elif "TOTAL WAR" in name:
-            ticket_reset = max(unixes)
-            playable = format_text_view(
-                u2,
-                f"- 🎮 The event will be unplayable {format_time_view(u2, relative, 'd')}.\n"
-                f"- 🔁 The free event ticket resets {format_time_view(ticket_reset, relative, 't')}.",
-                "- 🔒 The event is no longer playable."
-            )
-            block = (
-                f"### `TOTAL WAR` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u3, relative, 'd')}¹.\n"
-                f"{playable}"
-            )
-        elif "BATTLE AREA (LIMITED)" in name:
-            block = (
-                f"### `BATTLE ARENA` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u2, relative, 'd')}¹."
-            )
-        elif "MINI SPECIAL EVENT" in name or "SPECIAL EVENT" in name:
-            unplayable = format_text_view(
-                u2,
-                f"- 🎮 The event will be unplayable {format_time_view(u2, relative, 'd')}.",
-                "- 🔒 The event is no longer playable and you can only spend what you've earned."
-            )
-            block = (
-                f"### `SPECIAL EVENT` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u3, relative, 'd')}¹.\n"
-                f"{unplayable}"
-            )
-        elif "MOP-UP" in name:
-            block = (
-                f"### `MOBUP` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u1, relative, 'd')}¹.\n"
-                f"- ℹ️ If there are 0 Kaiju remaining, the event will close automatically."
-            )
-        elif "MAIN STORY CH" in name:
-            block = (
-                f"### `STORY EVENT` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u2, relative, 'd')}¹."
-            )
-        elif "TRAINING:" in name:
-            block = (
-                f"### `TRAINING` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u2, relative, 'd')}².\n"
-                f"- 🔁 This bonus applies to the first 10 clears and it's reset {format_time_view(night, relative, 't')}."
-            )
-        elif "LARGE CONQUEST:" in name:
-            block = (
-                f"### `CONQUEST` **__{name}__**\n"
-                f"> 📆 The event ends {format_time_view(u2, relative, 'd')}¹.\n"
-                f"- ⚠️ Unclaimed rewards will not be mailed."
-            )
+                    kr_path.append(f"`{kr_uuid}: ☑️`")
+                    kr_uuid += 1
+            kr_path = ", ".join(kr_path)
+            info_unix = hv_2
+            candidate_name = cleartext(candidate_name)
+            info_text = f"  - 🗺️ `🠟 {candidate_name} 🠟` \n    - [`🔓` Unlocks: {kr_path}]"
+        
+
+
+        elif "TOTAL WAR" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_3
+            info_text = f"  - 🪖 `🠟 {candidate_name} 🠟` \n      - [🎮 The event won't be playable {'on ' if not relative else ''}{format_time_view(hv_2, relative, 'd')}]"
+
+
+        elif "MINI SPECIAL EVENT" in candidate_name or "SPECIAL EVENT" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_3
+            info_text = format_text_view(hv_2, f"[🎮 The event won't be playable {'on ' if not relative else ''}{format_time_view(hv_2, relative, 'd')}]", f"[🚧 Claim your pending rewards!]")
+            info_text = f"  - 📖 `🠟 {candidate_name} 🠟` \n      - {info_text}"
+        
+        
+        elif "MOB-UP" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_1
+            info_text = f"  - 🧟 `🠟 {candidate_name} 🠟` \n      - [🧵 Unipart(s): {event_get_unimaterial(art)}]"
+        
+            
+        elif "BATTLE AREA (LIMITED)" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_2
+            info_text = f"  - 🛡️ `{candidate_name}`"
+        
+        
+        elif "MAIN STORY" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_2
+            info_text = f"  - 📖 `{candidate_name}`"
+            
+            
+        elif "TRAINING:" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_2
+            info_text = f"  - ⚒️ `{candidate_name}`"
+            
+            
+        elif "LARGE CONQUEST:" in candidate_name:
+            info_unix = hv_2
+            candidate_name = cleartext(candidate_name)
+            info_text = f"  - 📖 `{candidate_name}`"    
+        
+        elif "DIMENSIONAL SWARM DISASTER" in candidate_name:
+            candidate_name = cleartext(candidate_name)
+            info_unix = max(candidate_unix)
+            info_text = f"  - ⛈️ `{candidate_name}`"
+        
         else:
-            block = (
-                f"### **__{name}__**\n"
-                f"> 📆 Ends {format_time_view(max_ts, relative, 'd')}."
-            )
-        lines.append(block)
-
-    text = "\n\n".join(lines) if lines else "*No active events found.*"
-    container.add_item(ui.TextDisplay(text))
-
-    daily = generate_as_unix_day(0)
-    night = generate_as_unix_day(16)
-    container.add_item(ui.TextDisplay(
-        f"ℹ️ Depending on the type of event, these are updated at "
-        f"{format_time_view(daily, False, 't')}¹ or {format_time_view(night, False, 't')}²."
-    ))
-    container.add_item(ui.Separator())
-    add_navigation_buttons(container, current="events", relative=relative)
-    view.add_item(container)
-    return view
+            candidate_name = cleartext(candidate_name)
+            info_unix = max(candidate_unix)
+            info_text = f"  - 📦 `{candidate_name}`"
+    
+    
+        data_temp_list[info_unix].append(info_text)
+    data_temp_sort = sorted(data_temp_list.keys(), reverse=True)
+    
+    #=================#
+    #   EMBED BUIDER  #
+    #=================#
+    data_buider.add_item(ui.TextDisplay("## __ACTIVE EVENTS IN-GAME:__"))
+    data_buider.add_item(ui.Separator())
+    
+    if not data_temp_sort:
+        data_buider.add_item(ui.TextDisplay("## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"))
+    else:
+        text_display_all = []
+        for ts in data_temp_sort:
+            display_of_date = f"- **__Departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__**"
+            display_of_data = "\n".join(data_temp_list[ts])
+            text_display_all.append(f"{display_of_date}\n{display_of_data}")
+        data_buider.add_item(ui.TextDisplay( "\n\n".join(text_display_all)) )
+    
+    data_buider.add_item(ui.Separator())
+    add_navigation_buttons(data_buider, current="events", relative=relative)
+    data_layout.add_item(data_buider)
+    return data_layout
