@@ -187,7 +187,7 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
     process_sent = set(storage_sent)
     process_news = [
         art for art in storage_news.values()
-        if (art.get("article_type") or "").lower() in ("update", "maintenance")
+        if (art.get("article_type") or "").lower() == "gacha"
         and art.get("article_hash")
     ]
 
