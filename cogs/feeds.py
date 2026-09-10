@@ -9,10 +9,10 @@ from logger import info, warn, crit, log
 
 FEEDS_FILE = "sys_save/feed_system_setup.json"
 FEED_TYPES = {
-    "feed_game_all": "Game news | All the news",
+    "feed_game_general": "Game news | All the news",
     "feed_game_gacha": "Game news | Only Gachas",
     "feed_game_event": "Game news | Only Events",
-    "feed_game_update": "Game news | Only Updates",
+    "feed_game_service": "Game news | Only Updates",
     "xcom-kaijuno8_o_en": "x.com | (EN) @kaijuno8_o_en",
     "xcom-kaijuno8_o": "x.com | (JP) @kaijuno8_o",
     "xcom-kj8_thegame_en": "x.com | (EN) @kj8_thegame_en",

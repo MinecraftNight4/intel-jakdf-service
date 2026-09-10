@@ -79,6 +79,13 @@ def _news_loop():
                 except:
                     log(f"STATUS: EMBED READER [FAILURE]", "timer", level="CRIT")
                 
+                try:
+                    if _calendar_cache_callback:
+                        _calendar_cache_callback()
+                    log(f"STATUS: CALENDAR CACHE [SUCCESS]", "timer")
+                except Exception as e:
+                    log(f"STATUS: CALENDAR CACHE [FAILURE] | {e}", "timer", level="CRIT")
+                
                 # 5. Publicar feeds (news + xcom)
                 try:
                     if _feed_callback:

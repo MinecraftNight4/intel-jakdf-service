@@ -180,11 +180,13 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
     ]
     index_article_hash = set()
     index_article_data = {}
-    #
+
     for item in process_news:
-        hash = item.get("article_hash")
-        index_article_hash.add(hash)
-        index_article_data[hash] = item
+        h = item.get("article_hash")
+        if h:
+            index_article_hash.add(h)
+            index_article_data[h] = item
+    
     process_list = index_article_hash - process_sent
     process_post = [index_article_data[h] for h in process_list]
     #
@@ -275,10 +277,16 @@ async def process_feed_game_event(bot: commands.Bot) -> int:
             except Exception as e:
                 log(f"    ⤷ [(!) FAILURE] #ERROR_FLAG_0003 | DUMP: {e} ", "feed", level="CRIT", show=False)
                 continue
-
     
-    storage_data[NAMESPACE] = list(index_article_hash)
+    
+    new_sent = list(process_sent | index_article_hash)
+    max_keep = len(storage_news)
+    if len(new_sent) > max_keep: 
+        new_sent = list(dict.fromkeys(new_sent))[-max_keep:]
+    storage_data[NAMESPACE] = new_sent
     save_json(DATA_FILE, storage_data)
+    
+    
     log(f"[FEED - EVENT]: [SENT: {debug_post_sent}]", "feed", show=False)
     log(f"[FEED - EVENT]: THREAD CLOSED.", "feed", show=False)
     log(f" ", "feed", show=False)

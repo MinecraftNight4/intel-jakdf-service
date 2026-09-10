@@ -27,13 +27,6 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
                 candidate_time = art_time
                 candidate_data = art
     
-    #================#
-    # CALENDAR EMPTY #
-    #================#
-    if not candidate_data:
-        rgbs = 0x546e7a
-        text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
-
     #==================#
     # CALENDAR BUILDER #
     #==================#
@@ -51,10 +44,10 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
             # MAINTENANCE
             if i + 1 < len(candidate_unix):
                 temp_unix_next = candidate_unix[i + 1]
-                (f"<t:{unix}> - <t:{temp_unix_next}>") in candidate_text
-                display_unix_open = unix
-                display_unix_ends = temp_unix_next
-                break
+                if (f"<t:{unix}> - <t:{temp_unix_next}>") in candidate_text:
+                    display_unix_open = unix
+                    display_unix_ends = temp_unix_next
+                    break
             # DATA UPDATE
             if (f"a data update is scheduled for the following time:\n<t:{unix}>") in candidate_text:
                 display_unix_ends = unix
@@ -63,23 +56,30 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
         #                   
         #   DATA DISPLAY
         #                   
-        if "DATA UPDATE" in candidate_data.get("article_name"):
+        if "DATA UPDATE" in (candidate_data.get("article_name") or "").upper():
             rgbs = 0x11d6d0
-            text = f"## 📥__{candidate_name}__ 📥 \n## > 📨 __DATA UPDATE!__ 📨 \n- Everyone will be forced to update {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}"
-
-        elif display_unix_open != 0:
-            rgbs = 0xfcd703
-            text = f"## ⚠️ __{candidate_name}__ ⚠️ \n## > ℹ️ __MAINTENANCE SCHEDULE!__ ℹ️ \n- The maintenance operations will start {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n- Service should be restored {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
-
-        elif display_unix_open <= now:
-            rgbs = 0xfc2803
-            text = f"## 🚧 __{candidate_name}__ 🚧 \n## > 🔴 __SERVERS OFFLINE!__ 🔴 \n- The maintenance operations started {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')} \n \n## > 🟢 __ETA OF THE MAINTENANCE__ 🟢\n- Service is expected to be restored {'on ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}"
+            text = f"## 📥__{candidate_name}__ 📥 \n## > 📨 __DATA UPDATE!__ 📨 \n- Everyone will be forced to update {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
         
+        elif display_unix_open and display_unix_ends:
+            
+            if display_unix_open > now:
+                rgbs = 0xfcd703
+                text = f"## ⚠️ __{candidate_name}__ ⚠️ \n## > ℹ️ __MAINTENANCE SCHEDULE!__ ℹ️ \n- The maintenance operations will start {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n- Service should be restored {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
+
+            else:
+                rgbs = 0xfc2803
+                text = f"## 🚧 __{candidate_name}__ 🚧 \n## > 🔴 __SERVERS OFFLINE!__ 🔴 \n- The maintenance operations started {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n \n## > 🟢 __ETA OF THE MAINTENANCE__ 🟢\n- Service is expected to be restored {'on ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
+            
+        else:
+            rgbs = 0x546e7a
+            text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
+
+
     #                   
     #   EMBED BUILDER
     #                   
     container = ui.Container(accent_colour=rgbs)
-    if candidate_data.get("article_logo"):
+    if candidate_data and candidate_data.get("article_logo"):
         gallery = ui.MediaGallery()
         gallery.add_item(media=candidate_data["article_logo"])
         container.add_item(gallery)

@@ -41,7 +41,7 @@ class Calendar(commands.Cog):
         self.cache["resets_b"] = panelbuilder_resets(relative=False)
         self.cache["resets_a"] = panelbuilder_resets(relative=True)
 
-        self.default_key = "status_a" if status_show_display() else "status_a"
+        self.default_key = "status_a" if status_show_display() else "gachas_a"
         log(f"[CALENDAR]: Cache rebuilt → default: {self.default_key}", "calendar", show=False)
 
     @app_commands.command(name="calendar", description="Want to stay up to date on events? Check out the calendar!")

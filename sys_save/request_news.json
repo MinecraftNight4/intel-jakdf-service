@@ -592,47 +592,13 @@
             1791946799
         ]
     },
-    "1003710": {
-        "article_name": "DATA UPDATE & EVENT PREVIEW",
-        "article_type": "update",
-        "article_uuid": "1003710",
-        "article_time": 1789009200,
-        "article_rgbs": "1e88e5",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003710/bccfc5d435778789a6d694a6aef6cf8d.jpg?Expires=1789146020&Signature=aMgLAo2aFBkQZ7UKFbPHMAyxuDHhqyDbmxvl~qlScTT693mjZ3nL2kvqs0KSiFIh3ft4Tq4be1qzKOTGCbGospossXTuL8On5DgalnUIia73dBBQWgrKwo9dQfDaQbofUrQjkOsT~8L4E-bpk0ayvAXqIHUSGOe~1Wyc-febbrfKwhLqMhG-JJBvup3955ybfy1XEddEyzLfa4mW9~IuPYGJ6Bq~q~rjxldWpxEi5SxtSsdf7pEkHlYGX3CMgQ18uuMVdnAf2rxo-v4miLvxqqj~KIo~mnMHHOjM5xoVeySt3twCJTvV50RBqROca2yzdwnJyBI~Je6g8Ajq8fveGQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
-        "article_hash": "1003710_044e8dffa590b923e152ba74c5ab6e509b39d64342c00aa552741bd1da06e313",
-        "article_node": [
-            "txt",
-            "txt",
-            "txt",
-            "txt",
-            "txt"
-        ],
-        "article_raws": [
-            "⤷Thank you for playing KAIJU NO. 8 THE GAME.⤷⤷A data update is scheduled for the following time:⤷2026-09-12T03:00:00Z⤷⤷",
-            "This data update includes the following content:⤷⤷",
-            "Event Overview⤷■ New Gachas⤷Scheduled to start: 2026-09-12T03:00:00Z⤷For more details, please check our official X (@kj8_TheGame_EN) and future announcements.⤷⤷■ Large Conquest⤷",
-            "Scheduled to start: 2026-09-14T03:00:00Z⤷Large Conquest will be available.⤷For more details, please check the upcoming announcement.⤷⤷",
-            "Important⤷The date and time of the data update are subject to change. We appreciate your understanding.⤷⤷Thank you for your continued support of KAIJU NO. 8 THE GAME.⤷"
-        ],
-        "article_item": [
-            "Thank you for playing KAIJU NO. 8 THE GAME.\n\nA data update is scheduled for the following time:\n<t:1789182000>",
-            "This data update includes the following content:",
-            "## __EVENT OVERVIEW__\n■ New Gachas\nScheduled to start: <t:1789182000>\nFor more details, please check our official X ([@kj8_TheGame_EN](https://x.com/Kj8_TheGame_EN)) and future announcements.\n\n■ Large Conquest",
-            "Scheduled to start: <t:1789354800>\nLarge Conquest will be available.\nFor more details, please check the upcoming announcement.",
-            "## __IMPORTANT__\nThe date and time of the data update are subject to change. We appreciate your understanding.\n\nThank you for your continued support of KAIJU NO. 8 THE GAME."
-        ],
-        "article_unix": [
-            1789182000,
-            1789354800
-        ]
-    },
     "1003690": {
         "article_name": "[LIMITED] WANG MEIXING PICKUP GACHA RERUN NOW AVAILABLE!",
         "article_type": "gacha",
         "article_uuid": "1003690",
         "article_time": 1789009200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003690/e6e283032d167c595b9772e6c10995a3.jpg?Expires=1789146020&Signature=e6qHkTdRL7eNdsZC2~NfD4Y454oovT5rruZf-dQYkj0xbZ7j~P3Be44AwYl2n4cmgvLlD8l1Xe8KNcXmCtwKUbwbT5IajsJSbos7YuvH9JDpTqfLaIZ-MKj1mF4R2knnomZ9Rgl6IWC-f~-iVIIv~AuCxmCihFlLG6v6TihoJhSY6lQCqByOx8yArasUQ6xhuVUvAvjqtxy3ukwFgO7Mmf~SAovf-VIf1A0XUmYIzyvO7v02eRCfhe5SyEtYivoo0d72x93qKqq1uIybqI6Eg-kNRtQ0lrOLN3ZYaBahXN2I8JGDIBdcLGnDy6Aui7iuV3pkF2a5QSiAGbNSa5icQg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003690/e6e283032d167c595b9772e6c10995a3.jpg?Expires=1789158612&Signature=IGnzcmL15RgmLkkVma7QLjYQjwgI1EzlG1YDuHD6G3Q~niUxWkmgOhPZzxoIRIa90QUZokZb8gbjOeDF1EC0PDKAQiLOgpxxiuzDJrb4d3ckT~ieT0nbmsrODEoAb37IKbN0DodRkRJkMSLXcY1Veswk9tulLxk-1AXpsVU~upInU3g6qMSzgmDEddhhyUR2IOFKLp0ags2sCWGDI9lesZ2wAbPUyu1J9bXan8LoKWTx9mn3lKkTFb7vE8Vaxlyaxa1RyvLE99m1J7hsF4fstYIejbRdDZ5rlmZ2Y3hUQ1MoCwI2F2SCzDEb2sj42rutvFmSBV4d9bx~F9MXudRBcg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003690_f63adebc1a37c1128d6ae9da010db0d02e6094f75ec77fd4e467be26500eb330",
         "article_node": [
             "txt",
@@ -712,7 +678,7 @@
         "article_uuid": "1003680",
         "article_time": 1788836400,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003680/35d8e3ba7399e4694cc063cc002ac158.jpg?Expires=1789146020&Signature=lHKDSpv~dSXLNfMBaGlpnWWOo6RgLXqzsTHBBya9OOrZyAn5qhAQQyp6apCR7TY~l~~qrxgtsVOvex-6w~ztKYpQ7Dymf0EKB2OT4Ol667uwXFMAIiBEoskHKaBH2sEHX-85A00IFXdIksd7Q3-ed5qBPrjdEQUA2A1Pygl6-PLyEeySi8LHeBx2QzfkcsHpdgSFm0lB31idtkudPe9N4MAFkfj-9vdcYofcu-cjeCTDS94fMTvxE~0O6Nx44Z67LljoNLjvS4cGjyDkAR-xTrm-gIxQHZTfnqc8nlE0fkEFGDQ-X9iYTnEUNux8IYg5I6GQWhQ~WnVwb48-4~9oQw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003680/35d8e3ba7399e4694cc063cc002ac158.jpg?Expires=1789158612&Signature=cpRVMPqgtVXWzQBMXmRTMXlFmOTPIrU0pLHdZUHTpb0nBqTQVieGSs8JhNFdNriSTGBhlQKFGhrdvvvlWjhHiV5GHgEh7mPcCsGVL7x9V~MbVosgQjxb9f5XT0tepDIEcAMy45fzNeb5htPNznUvAFDpO5XKP5K0TVP5z5T5tprZfSsAoRRDiaO~2m0dELt6qKEd2qe~-pxlDCIL7u9tllSsltapjRZXVrMKtuDc3QIYRSuuROedBknb-hDExM2yyny2lPzT8wFpNI2zA4XuzMvTKC4f6kdrgpCO3c3lZ8-0OkqkkRnEzE37QrrPoGr-oBWhyC4GNSyzhYj27OGNqw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003680_429c5c159476d1bde73ecbf7054dddf04006facfdded1b7b72a443210db9cd4b",
         "article_node": [
             "txt",
@@ -770,7 +736,7 @@
         "article_uuid": "1003660",
         "article_time": 1788577200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003660/0c5be2918b313156fc9609cd42ce8fa9.jpg?Expires=1789146022&Signature=c8Ze6CxB~gW33HMc1zU2rkhShBcC-ZFvMsVHFzt2IRXPYKeqQGyj6XzNe3xTm4HEIIvKDEFywMmSgD1gOAgY86-1zgsIz4tw2ABT0ZkNYZZJq8Qqo6xX9ppgxqEuDFxP2NB8ABGgXc-HqhxLf7XCnfVuJHDLKbvC~CBLdFtBXUvf070vZtgvMbimUF-hbhZUYrc4gWuiUxVzYrXc9-Y8WpnSLLcXoW-p5eg13FjQjGaMk2PV-IIRJMVhgG0f6Pl8rErcFDyxHRMOvuPnGJk-HR8nkWvOOmdjZ6aq0ZkWWBjVlX-8yhwcxwrORp4rHDqEbW8Myr0aVFIsI9L~mdgj7Q__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003660/0c5be2918b313156fc9609cd42ce8fa9.jpg?Expires=1789158613&Signature=V6xgmTDPThWUFMGmY4WTRchAkFzaZdS3erK4gDeKWNT3EsPIrMB2Xu9wmaFVzFrUYvNVSt57P2OToXYik6LuUrGNkUGH6DuizcwTg32-fkeagUubYxaJ6YdxptKB5BI45tPP6TY7Ntw0SRQ79rfvtVgT40EsGkBwx7l9-XXoFpcjGMVQ1JwB9O0R2NQFvA4Z-egzUwjO42xtIdvsmn85Ew5LquPgGbQh9LbMnjgDF6ynSRjZAU6ow4Q7d0HBjg7PXIr833Xt3Fhs-9oj7-N5Ftm4PaqZk4rLVlj9rL7RKuUERPdaj6puInUExb9QqjVkW3ckRTcLf7TzInmTJEjWvg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003660_bb6cc2ba25e18186e354016611d19cf940d694e85f476a636efd972bd836ee0f",
         "article_node": [
             "txt",
@@ -850,7 +816,7 @@
         "article_uuid": "1003650",
         "article_time": 1788577200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003650/1566f93960de52fe5bd50f5949f61f78.jpg?Expires=1789146022&Signature=G73Cx6UFI98BWrgrT--2~l~mXn7YJLkXLoahJyCois-wcaGrTXERWOm3zSq70BCSYsBgAlyDiWNoqoDfVPGUkFmkH8QfkOCwgccbVvTZ~~cEzio27y0Z7PWnxVjjAznKkg9NO9wBOWGp3CiTDJWi4QZcAp1znXuqY0iaRuSgmyu5bWi49girV6jvsVTQGiDNBGNRrmnfpMCJlEnP5MiIAAyFZ1y4pSah1Y4PebxzKZKkC4R9bM4tnuvbwhb0qZJ-HlUQTjhpn8DIyjRv9LP5XoK15SuND2OD7-zrWYDrLFoyBNyzzcNgVSR~UaoPNBASHMKyKdu5l7cr2pmHlyvdGQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003650/1566f93960de52fe5bd50f5949f61f78.jpg?Expires=1789158613&Signature=HERk2xHGAyzMNM-uCiRg-05s3j6eeuRihC3X2hShK7ZOye20rgOY-mvXUbhXa-5nVk32GoeQw9o-uUgp97OoquhWCSPmf9-v3WAhqsx3LDij9Db06GcTPHymOyrdhOwasHT7DE4GpDRFApBqrgps1t2qCQdM3Bo80TLCGVH-AdXw7Fk3fie9jBD~UXcngy0C4uJJtXrOppbwapjlt5ZgsJLqrGcjeMMiZaYLRhOzP8SmsUarAhmqeZKKmQLQoVMNZKl4ron7ws3qRLcu1cUMomQEMZWY59KCMFZ2AiaXtXJ9gGZn3y33n-q5yQnBNk0wRTWvBH1Ty6UzKXyDtBjmdg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003650_2f9dbf167e4f83f5143d35c9c870fa8c264866e2730e4f4df1d10460889bea71",
         "article_node": [
             "txt",
@@ -930,7 +896,7 @@
         "article_uuid": "1003640",
         "article_time": 1788577200,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003640/3ec556216afbf8b1556e33ace1a5b6ff.jpg?Expires=1789146022&Signature=XR5hm~edCYpYDtxX0KAC~qZdVKTAO49rJLi~~UXui0AHqP1-dXqEy1Un8jlGtTZFjJE~aAPltPLNamGeOy~J1cVLVJn9Fe7jCcbb6zSUwfGv6oPZBASpKCodXqLQBWxKak721m1kpYvOfVWyguEIo2zq0NMcEmT0-YGjq9BNs9XtFlnhEQs~P-w3dm5hJdvJzGtBmGxQearDP2wF-aTN3a2Mehz7QCsWpQ9pJPx0EBfZdtd~vSQyC~4M115dFtjIqmQgLYXwCrJI9PMyngjZKwPpf45InyvmHi60WM6Z6QHMre~UusWokouMQZd9rPHRqRe2LrAY1sQlqmkfBJ4m5Q__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003640/3ec556216afbf8b1556e33ace1a5b6ff.jpg?Expires=1789158613&Signature=TNIqLI11L37V6soyPYzm1KSmLlzUKWWs2o2RYECfiSqCJglp~FrVe9Y8rF5-jBhEH2~vhY90i~B~JXhZTJ-dyq4II4s8iAwnWqro7yGdQx-2k5iXCHcBU55HKL7GoT4je9Siua6gEnHrGMdb1BnMsB5ePnQ0QwSPhgaHdrGIKX2jAZi3QUA77lN100KCR1dfSgIjo95sM79506NIrOXEWvq6gFTyGshhJ5opaB9sZaNRZ3i4tvtnTsCoj1JocWPlXflQ3pkfK9ymP7WRO-Rij5HkG8T5Zn94bwTQHYDMhr4v3Ao87QupyVq9QtPWmybKPf0cEbXZq0a3PU8qQ3OmOw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003640_26249e85a54e7a7e5dafeb200160699aa6353dfb034ed34ff5cb2a99d9e38a16",
         "article_node": [
             "txt",
@@ -993,7 +959,7 @@
         "article_uuid": "1003630",
         "article_time": 1788490800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003630/41902813716042ff779b4b5d8cf770c7.jpg?Expires=1789146024&Signature=Nw9tUbYKzRh8lzS8DZzwOfGaq-arFJxDKf2Dgcfu7-gZ16ANrq-2V8eoZk2OcWRARehfEtZtZi6z9OMm7PVWza0aFIluE2J9g6ro96inFO4x3IIZtI77dKgB5WGRBtFbN3-hA1ArY6MySYbN1wXCjN5FzmtJ1LbuFI75dl0JV2D0LnY9Vf49V42YeumZH3S~WkVRlWbdW7OVH7cqESWTvijQlXVkLlr4fSUmcDD6eW48aAd9tev2Fk1oPQozDdK8vkvfmYTZQQYPXhXCsA5sCl6gk00sVBcc9G0GhaiQ5A0rAGa6Uk07bRHzOU0hDCmWSbd~B3NGdW3GLCOwjSpsXQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003630/41902813716042ff779b4b5d8cf770c7.jpg?Expires=1789158615&Signature=UiKzIyIWb2T5y~~13Zx~JcDEY5NvVpVIFW0pvVB90rqwBIR~5r8EoFXnvP5nvR9N1sqqb0Rh0A~MwWBXlNC2vd7u-wFe5VsVe8as5XZh0JX43wui~z4fTwHymFbjIZfrQ0qy0H8ZODk0uU3Z70ENB-Dl-DRfoooTLHb8ug-rZXyrHAjM8GqR4nc2Nja73Pl1KGVNa0YD1LdGP~njsS2ZS34JI4-wm3JIM~0lLt0m0gHP5jNXUnOcxc~x~la6JIJSeBcwEhuucf06YA-vV4I93AZniMSxnmoVbOEQEc40Lw9lbTcXOwsJxrnS1PigRgFaoDJT7D4mlZMscIkjlzxTEQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003630_126cdfdfc651beac80566786fe48963bd1e212eed4b12e4491ec88977b0d127a",
         "article_node": [
             "txt",
@@ -1042,7 +1008,7 @@
         "article_uuid": "1003620",
         "article_time": 1788231600,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003620/f1a4869683ef18abc86dfe4b6b08dd64.jpg?Expires=1789146024&Signature=VsbZ5aXgDMHjLGnYvrckhvp6utdcUzFs93v5nbUejrqQMiR4JfP1N~naHcL35ztqx3D6sNFj4vtdKNbrAgGzFgR~mXTNTdXryLB8q-VzzCaSnxf5MxLn2gvfCfL1IHYj70jiYAE0dEtC3ldSkW37CCDELBdoeB2ony-N1hcMGkr~xmBJb1F8~2UvTR4MOqpAznyo8cvnvhYnwlmoxHqhGcwm331xlsyzGvQAlnMfeWOZcx8HGnuvv4HTnM4nx9niPYPxwah62TCYFYZSWbtJnm-Jp3dfS7fVFrxFSaTpTnITho95k2rT1mGBMBIa5d7ylb1uKVgrkj0kOUK~DW7hGw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003620/f1a4869683ef18abc86dfe4b6b08dd64.jpg?Expires=1789158615&Signature=UNnw~4RVxSnlTIk5vXdZk1dQCkDeXj1AaTevX4k23Qv3cb31iPAuSl-Oi7ntCo6qXyG-J39hWkI~R7oaSyvlZ0ocwyCdesqmDhjH7mEyFWEbQpOm7ZfQrmx-6FCTTYtdR1FwL5VJ49MLbYZRMTPre1y48xko-dV740gPwEp9ilMpi7R5BfJpDdL3IM47t0OjRdjEdMDO0kM9YaE6LBMqv6HPSGs6PVNnesvKC2N~QtOIHv7B8JPcdytnLCCzv9F5XvYNbd9B2dL2VicVH3ukNqUlyw2KyvLGGVwehnrgd5Eum6~RTDAKQ1ZnZWPWNzgHo2cXXBhWy7CNFEjQTL1scw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003620_cabc49f63bda63a7a85ceeafa9d54b2c604778c83634fd36ec46e0bde76153a4",
         "article_node": [
             "txt",
@@ -1125,7 +1091,7 @@
         "article_uuid": "1003610",
         "article_time": 1788231600,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003610/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789146024&Signature=K7KMmGf43uGkGJizL-IxROB86iyFUhHu-p0Tjjmr~LO04pU0~~KEJl1dkBeZoeHtpAXi3LbHTD~sLmqwDRy3QRBOhLjDn1QK3K-W8VYkwmDzFv7T3eT4nH7Xy7NPaeYLoACZ7FHhiFOYPjZ5BT2sFZyiXyCPozvAO02K2m75m5tWWufWeXIeNSENrcnFfNNkr4KH8OmhY2k7Bqt-KZ~Mnmz-Vuaxfth-FJiEvOeR4VBhWW1deIg-tZSm-ktZQeec0ArvbEuFIg7Tbs~4EQ~y3YhSsazCEk-rIbMY6BZ8aU2rAJg3fg2yS8mgLo34Rca3~nkDazfpv0gkH7x~3IJULQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003610/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789158615&Signature=Ex-OBHmVOuyQMrcR5PoLQvenSiZ4GeHHDDjVBEWtYWgKj82pM~5CUdCyqWKm72kIPvbjXGDWImi2JWWymCGnPBfFmPh9xc0x8MnS2MVVMJepLsCoFnvJBtGt3IbkXdmW92dPWXnY-Y2a8gs7-u9OtbMessC7Vg7SHKC7mL0weksxEMuCKSk~TzIdklLHJDNpsBDbyY-stkhb7oddsbyqLc9CsGMtGZGbCuodVod6FWnfOzXLK6dL~MX5lbpdKYHE7Rp2KatYDdiRzK8NL3Lsr25Sln43~hARGi3n~R5~bY4EgflvvGgvQ-x52l1izKnj~LkfnFDTFS1Tr9zuzhN0ng__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003610_d100b767ef251bc3cfe09bd729ef5353904eae4fcd3c737e30c5b484ca539dbf",
         "article_node": [
             "txt",
@@ -1179,7 +1145,7 @@
         "article_uuid": "1003600",
         "article_time": 1788231600,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003600/fe502cf6edb299d2ee85bbb07c62a979.jpg?Expires=1789146025&Signature=nC2cgBbeU01DdNMgWT4SGUiCzuk871UoenctL7nAmhNlfv8-NJAwbpES9HutnRyAS3OM5B~gHWCkSe5wsWunJF6Bf1Tjkz9Oj0sIFjmFK9zUQLlyEjqWEME0zG96PUUz8aTHsjKRpKQUuYuqpWQdJZvow9iACh90UVrQoigtJlY~Svs1vGJvynqtUP3WBqEFvyBSe4r8g2d1xIGImA~K-mv-dNDl535hDpaeNPu2hWA1WTLPKxDBqT5GGa0Zk2tM4n1PhJ9B1fuTt5uQSz7na3EHOzsnCJbqSbaeWH-AiYFqnW45Hoeo0Mt7BaY6M81AnecRsjkyhYKG3aYfWnHhHA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003600/fe502cf6edb299d2ee85bbb07c62a979.jpg?Expires=1789158616&Signature=GBuDKNajPXq6Rl5off3AGExhpQ6P6XjdnGb-COc0qiNoAXPeLoC0l0fqiF6IqVryq2gZnSa0l9FjGowNZhWeft4u20W12rCeMOwuDgHpVkoEQAz7Keb8qYouaXuRvE3rcZzbp8HylfPYjP9mTB1m~ez6HKBwn~s6-IDdWO2eZxDUlvif2JA7B7OFoSTfHTBhNbTw1QP9fIXA~aIK2EHy3afvQYnpmvczWUXbgcPbS6sKH35kxitK2XGRsUSkFbucZTGNmt-CkQEY6QH9SwMa0Djy5TqzPyfW8GF6813bMZhEJyuay0asO6FjQvRQHx9IZRs0e75OVmkeODJzJbRcAw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003600_587c21e715942a2ff1b4fbfe7d323c0ebc3aefa4c723a94f8a473cf7082298a5",
         "article_node": [
             "txt",
@@ -1221,7 +1187,7 @@
         "article_uuid": "1003590",
         "article_time": 1788231600,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003590/3342851aea4bc26eeb09caa3abbca18c.jpg?Expires=1789146025&Signature=CJ6U3aDmcGBcaJw~oYtgnWQncgxvdna0dTeUHDUfnuHf6ckt9mS8h~oEa6S1iXN58RS6ha5gXy6JXl~F-eznvMN3S9EtCFT7LmM5BJ-4mVALVRVqLjeUuy4AnTIVOpd9vTIoz2HI6DF~XdbJWGp3~oqkq7zTW0BZJIFznlqIAMlTjRpIINPQXUJgPM3UL68D44wnWpTQJEHwip3CanwCpthMvZesztsPdTZTXpJ5WbysGlA4RzB5jF~0n6lwR2MF5OFOmPqVE89TiGPvyVtUzc6gO8lhYQMOKomOFEhM-l9tloz0usCxTlsTfb9mINr4X8gPAuZ1q3BVEVkLk~OO2A__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003590/3342851aea4bc26eeb09caa3abbca18c.jpg?Expires=1789158617&Signature=Nbr95~DFoyohgu-46JkZAB8iKvCLLHMF7ILGZvuUvyiOo9GCRrsnqERtzGfyDzD1ZBT07qj~hLkSHgTxyGHHS2z05Wqowcsn857w75Q0LDsGcTIo~NjPVg3ePPhBS2krzmAJXN8AFvIqJaTkKjXklZfnq0D7oDs88~2ITR5KGoocgb9jdMbhj0fSmUqgvXEQ~ISNKWSuLyw30WpyU9sdFw5XMKX84sfjOnQOfhR~wRx~ODlx7TDUe1BiPcOwub3ya~uCUjt5wByoN8hYkvAinq2y0fejClzsbHgIiEOrr5u6nyNEwIpAu3DW6tmL5iOXf513nU0XyE2l8ZJJXc359A__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003590_f988f8104724649ad89c4452a4376edee78dd75888ef49db40e57b537f1f9934",
         "article_node": [
             "txt",
@@ -1274,7 +1240,7 @@
         "article_uuid": "1003580",
         "article_time": 1788202800,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003580/ce8ba5604c67058a054238c8ac023002.jpg?Expires=1789146025&Signature=MYrlZwO8m9BBqrQPvP8Je4ePPqqULeHFPxrtSpwYRG7Xgk8eTLl632TEJNhk9yPO8HQFVSUG0XeK3NzriUDLVM4xRPOo~znj6x3m~hI8dkKjndGEfy-~5OqsWIQ0bD799uwKhPxiSUKPpTCij~TVr5lQ1sQCzovC9m1yDgpJwPbQT1Ja3xwwtmDslLs6qe45QtaKwYArzSpdWZZ~xaQI64w47qD-kEj94NcCDRAl8a6YOwcNgw9Y7ko4gnSqsbauzTbnpTmwB5cmqk0pIZG5PKRveoIjYals9zQhomxxtTCadnlIgzHvj5GkocjpYx2DXwGQIwUoy5Tc4rOEyJSS5w__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003580/ce8ba5604c67058a054238c8ac023002.jpg?Expires=1789158616&Signature=QcaODRvLymGGKoVjQzzjeTRfyNhp~VhKdbdGvb4blCT98ybN4WE43JA2YkCkTsBcoAjrI235Ax5y51nK-PxogXQcNlXJA1lcy-7H4ofkr7PSIZEEvWtZj0ci~NvAPcq-WkYTQPFQ4NG2zTi14z~RS4xx98Jg26N3wytEFL6tSJaoaP51MuQP4LVdymyJApSWI5cb3wQzJ5IgDgU0ZmFA~OAbH94ybcm37u7RGaZU~zXt~zfWaPP1RMyzlj7JFdFkIeGIBoU4YkxjBAreknftMw62WdlV7mPNHKuy1SwZDccdNcc0d~YzbI-AIeYG7~t9GSkU0m1DZ~HgXABAfXz5oQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003580_d721786482f38dc3ff0500e63480b310aebaa43f7b209382777e239d418d83a1",
         "article_node": [
             "txt",
@@ -1770,7 +1736,7 @@
         "article_uuid": "1003560",
         "article_time": 1788202800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003560/36f68704a03818e13750b21fe14f8ab5.jpg?Expires=1789146027&Signature=ONmVjTw20ssOwy0tlM8c1FGj88reomZld7qDHibYs9eU2A3DRbofxYwgwqgHxw-z9ZzeKFP3PnEHhtYq-Jbz1-iR~RTW5w3sbCsM9z1~cXcmwbwEG~6k0odtHmowujGwlVLjlXHhXqvOq-aQCFk2Gpy-W-JUne5YKD4hLLXlssOcEPmxfP~tU1rSYQGKCFNKiRg-UxJHU4gDihuI5jYu-UDaFAuYOqQo2cC9Bd5-63RljVWdS7mn-v5RiLm74KpRTL8DIJUJUFSgNspYoqrxSNX1~CxbE386nHyesqGqLRH0m6XPdwh42GniRob36sCl~435cNgl4kCBz3fVfrm9qw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003560/36f68704a03818e13750b21fe14f8ab5.jpg?Expires=1789158618&Signature=YD4LQkZUnwsig7KPp5P88ux1C8EgLKUH9zo2y367cHKKKThVd7DfzIOVkdem2Yy6eUXGtX3gFs1P7iUHcKZC7cyI0xi8HMH7VQXOb37m5FxKV12YEdnretB5Y3syUhti9eYlOwS7j0HeWAuFY9KMfeZ8SiZ~KPujzWmDmyKxM02G5wGg2-f1x4T19-dmjR~cPYJBYDIqs3AbEOxCQY6rknLTeYpijbox7e6k0Lv3smBxw3behWlOopKadoZdFyCW012R6Z3SDHlVrCDoze-JquOS~uHH6L2fjrvQE5Mpm2eazeLMxpcyQK4WQ8ZNNJGTwMbcGt~mQOx0B8RcZpS8lA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003560_519b9749326e77df78daba035c6ac89a3820448c5a7bf12093f096f56f47574d",
         "article_node": [
             "txt",
@@ -1801,7 +1767,7 @@
         "article_uuid": "1003550",
         "article_time": 1788202800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003550/d182aca1dea0bd814fa73d3c2cd56eae.jpg?Expires=1789146027&Signature=UxFkhi~2NTjYpOFV7nusnNB45h56pfKnSmr03Nw3tG8MCtaIoK~BNNjKGN6g-ezvCz0Sfos8H0rq~8mRZylkTJ7TPBm9b~rtAQ19OLE7pNhmfr55LfJnfuQVg4ID0~iLXwz~y96mxGNQD9ys-WVWCVI7hPEwINzGymP~D4qWgwJeXnFda0kVMiEGJr0YRdCn24jVUoULvbcyOib1WtMqUapuIfEaQqo0Y72yCYhiXdD-O924U5VWmklBKKV1pAvJEQRhudL2c9GRAgnRtyVl1rouAhZRJ59H2Gm9M-TL7TjJz8eUpLThXKqE3Crv1Zxs6wjiLlyjePOfG--0DM1Muw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003550/d182aca1dea0bd814fa73d3c2cd56eae.jpg?Expires=1789158618&Signature=D9JySYDypw0qmJpQenO8UterWgdfSkFN8tVyQtBhDkkmN6byWMOMeR5mWm1xLO5l4bj8ZQIT44hDT9e8leee7EzZ0RoXlIg5gTIVY-1XCwcd7fWxPxJvsqYtxot16OBSTMFwI9q3g2cvmtdz2MyWVWG6~fsns1dzrA6KzCJeBmCKQh6sxDqcLC1QahsaWx3qOUE4GQ3aiv-RBIYPH2LwP1Os5UBS26fElrPHdkpSwPL4zeNJb7qvVdQ9-8GPbgxBDGj1olv1YMkNRA9ZTtR02D0HIOiDL00UvMaIVL8ma4ZXU7iijVXpZjCb0PdWW4Ir4YJkePj3yXWQM4xk2sL-JQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003550_6718f99bdaa769f34ed857de9a5222ddc81a8af72c637e3723f14a98f0aa0581",
         "article_node": [
             "txt",
@@ -1832,7 +1798,7 @@
         "article_uuid": "1003545",
         "article_time": 1788319800,
         "article_rgbs": "1e88e5",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003545/6f41140cdbd519344c7d83a691478758.jpg?Expires=1789146028&Signature=SqsoOdw8YmBOD~comUotAipAWIJwLtmoYWsdMyX1TEuAUqqTCgRSdTGQ0OQ6xO0weQ2mc7lQYoyn1UIXJ~lR86jSEs6-xMa4CVFUckR1Ja~419pJ0WbZ8OinEiirJ81WqPcFyULmjCemtGDXJXv17f3Iqo75Mx3pKHIG1T1jq2ys-QEXsXCTRTBngpXXtCiJdzLl4MSLdDf46ySkNW1qAKDdmqWRLvk72AZrDQwfgXtOfidXKDZK0KMwjArDUOAYeBhmQAme3HsbjnudQhGqSnBR2ZVfxPoj0FAhQHebgBRsMAB8SgQon7LemCd-JS76iO-NivjvFAgGVK537~69cw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003545/6f41140cdbd519344c7d83a691478758.jpg?Expires=1789158620&Signature=O7pUc-YGeq9Jc1XBHeSTb9niDu46heAbQQ4d0NpEAl0ti9YOWd8hCQlYmhU99wX38CUNvHtVYGkIyJPgSKP2E83gL9hLLUs7cw1SfgPgAQymXn4WUpgJCuffyTbysQZW3BCHz2UCl4YDvdnOivMxbwKC-mtSlx-jlnTuMAOou9tR5gbmHY1iwU6Ec6VZd~wKobJhG7L9T-IkioEngDeLIFnEBI1lJxvvY88WXFHaRJ~PCIBXvjKedb-Qld5HCCk-lcgatzr-8mdTHd-qqL4uWBTPAvcMkqTcmR5xTDvq4ZoBQPkNVQf0iHDq8AffTD1Ld6NsLLQmGZ2vheVO44f4XQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003545_3af90c16bedaeee833cc7cc8b52fbc909e7d9fecea77974d5b4850ae71e671ca",
         "article_node": [
             "txt",
@@ -1854,7 +1820,7 @@
         "article_uuid": "1003540",
         "article_time": 1788163200,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003540/06937205c743f4324e05bd75284f9816.jpg?Expires=1789146028&Signature=k24e5FhQiqDfCvX97qn3G-DBgz100Ae~MmN6e2hzQrwEI8CEvh1eotj~R2bzW~D2tR~hgFTvRN8-WtKx~i66CKX7jJ13faBVW74i5ctLEHHznIZ7i5iZRhEe6JbOuo2yZYe8wm6V5LkKAd00sxfKN7DiQF6H1yG~pSIYhgL4ya4v3xjZ1CokR21EkyTSc-XTrre6KmMdJ9xy1J3YcAzm9zESrD37VaB-cq-8VxDuKoKgkK0oEXZKc9uXRKlzdQGJ5VQIuK0DceHRF2Q7Q9vTsqepsTeSpAwj4oOktAFUpcQ0HNlrarNhzRNG1iYPEnF0S~psS5as2~uJaWyHTNUsUg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003540/06937205c743f4324e05bd75284f9816.jpg?Expires=1789158620&Signature=hu7MdirL2vxblZNCExJLBMOYT5glWwiZOSjF~rZyNskWG2884BMFT8HMJE1ET7QYFCW0dJZkojDW8k1eB~5bI7UmT2kOnuPT9PxmUKilR1gPeynrN9K4fLY4HIf8MeL7RgeJ4KXhRQhaFRDxjI5hfU0OLPGbsNESonK0-WKZBDrNWpyvaKFGgDR-9JZDP3nVvP7LkcTxOTucNZWft11D6GWrZlL0FrbCr9Smlge0pYYqRcKoLdgdZvrWwfSadB6d1JP9TaIDdyKG3jJRhBm1xPDd-8O5FofjNr6ri03EaEHBD~TMzA7VrXnOnhTlcekAm4IbYqj-dytqa3xqJWfeAA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003540_799ef28ad70b3047836b1a4aee2723052802318ed01f1408005fdbc1e631bd0a",
         "article_node": [
             "txt",
@@ -1957,7 +1923,7 @@
         "article_uuid": "1003530",
         "article_time": 1788163200,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003530/e0cec6dd836d209ed0f78dea529262ef.jpg?Expires=1789146028&Signature=hidGEy4JIU0YA0xKeXTDdpQc2W~2yIJp~yh56g~zlxzhivLzP5Vi0uhut38zLlfNO82ckkGHeJGe8lbMzp3qVGD8RGRBGN8NUbC7fI9C-dEEiQjdEvgdpz6CCyS0pKEpdOIAItluP5VrMEFutjkeMwpy3VKLxRpuJvQz6lPTS1r~Lun1~OxS~MO~SDHY-I-j~ET71Mju8yLuGHupx3rcojrM8lxoDQHydlRrUrQi6RoWQZ854lwf2BnFi9g1y-Fw5c834ImU6o5~tVFl4zhH8bW1tmkD6ProOQxptNrdq5G8K2S2mskTd03~BfL2yC5KCLc0kbPUTpJlqlPGjd-JaA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003530/e0cec6dd836d209ed0f78dea529262ef.jpg?Expires=1789158620&Signature=LmUyPSdwrpSK4-3zLl2PV-N61v8xhCUVRkDP2EIttrkoPbC2-V4WvAi3t1jowGXGEn8VQnPuIjHxdRg9CrkFiJFbE6KwHn0woJSQfwvE-mFxEfPDMtYytffjzWzs4KN5T-R5zK7tSabF5zzLb5NsjHZC1L0wHAj3STfovLxu5aoD~K9CV5DDLpAmZTOHHpVgVQr3TjOSxJv9f-S5zuIjudSN6Qo7YvUMbdQIaJIeE5iUQHNiDRHypmHf3OvLB2dSj2ock04dy1KEebhGGlDxoc10OU-M2gVHTcpaTYZlV8UeYFOo~pQY7PnYzoge-2tBggOhszxymnzTIBSlBBSFGA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003530_f4a3852ef5bf581821d978a619af1d63c5d6d6d420d8a9e42076051603db92a3",
         "article_node": [
             "txt",
@@ -2016,7 +1982,7 @@
         "article_uuid": "1003520",
         "article_time": 1788163200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003520/09352aa32a90626e842d1d95b619678d.jpg?Expires=1789146030&Signature=KWKJ9e4QejuA3fqE9Ubm0bFMLMZxn~wu5UAETm9nl7e8DXK0sMdxF86m9W0TBTDf8WFco-Zfwh1nlOqGuCJqNZbVrEGFtBdoPLKuFEvBtCfdKl5V57IJhEyAQwletYyLgdwC3YTPI9RN-ec0n9IhY9UiXvPl8dQBR0Fu~sZA~U-sCocdS5fOtVIby52Xp~zamPNsHmcFHSyElDDGaYqounOApLRQxCTh4J7OZK3pi79vJZvi4HpPq1wZrff8ZlqUUTOBiFri5xKJGemg-hhBSdO8I2ZgNIrzH7ElHDohvZ5sDqYeH6APTOHYheIfWRYS~rUVxgP15KFlg1QpUXlxXQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003520/09352aa32a90626e842d1d95b619678d.jpg?Expires=1789158622&Signature=SOI~tcb5PD92e6sl7RODJwpqLweAkYUMQ9t-cN60SfG1ILmtLsPeldojiTL3VSNvbJIy0LMks7TJchhfC0B0UL65zxrCWRqXIMKSZYF~-ix9iNHCButICmuk-8rWLbT8SjJZSo~xe0XthpHEHNQG-NE5vAHyj3u-zhrbxHQukOWaGGneTaanYgFwXSnGeqlMKLhAhyiwmLs4trOYVkLJlT6YAGIPp4KV0wmaSteXcPimcG6674olvVycxZ~rgR36sewAea92bjHzLToeB3Bgw2qzsENo-j9oz0SD20OcBCUDl8963kVUfosn59E4fDXNYMcYJXKZdm3lAqO7nPe7NQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003520_c849332dae2fb58589429ab29fec57ec94e172c859bd84b5fdb69106ac36b2cd",
         "article_node": [
             "txt",
@@ -2096,7 +2062,7 @@
         "article_uuid": "1003510",
         "article_time": 1788163200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003510/f1b6c848edf748bd4429b1749f5cd62d.jpg?Expires=1789146030&Signature=ctEDfQAQEJeM3pjcqzPQ~GZraLVj9gKSysMuPkDUa~1j5HrcFPAluBEnNxs-T80WrRrelvnZgHmLtIuNOl1Ic6K9ZCghrQf7~Xsxsw682dx~cSqzDHVc2V7Z7Vc0-c6-7iPQAfEhikQW-RooHHyOiZ4MGTdH-QMSrTIZm9q6Pyb3G84p8wtp67~2WIUVz9~c5-N~36bu1huf-wiED9izXHbEGcwCka6gFw5Db39INsdPRXLTXTstLvj~Kxpi92PXKODWaBq3C3w7hkCXH24qCSEBCCeLjlKhhV7CajIBvHQKoQGT0yuS9Z4TmKbmL37YLHpAPGJXISr0eQxUZ7ZJ~Q__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003510/f1b6c848edf748bd4429b1749f5cd62d.jpg?Expires=1789158622&Signature=X70g7FVfrwPdIww3kNScneRK1ksEMMSEmE1lM2DDiLS9Qaq2c2TMIzJaLYpJYLRYfyEfkeRLIiLQw4C68M0ynJQZaOMVg73UDl2opvzvqC~4HqEuBeXVcWvKJ-JX~t-G0oRmrx1z~69-8bDEQXElzhHIQOrQE2FzhMfI6~8T8rUghvI1N64ZgbMyw0EupvHTT8Sa6wpdpcE21Xb04T-RApfKzuXOqJR~BmBO7-4pMsuq-yFJsOTtD1qXygsjgzqWak4XoG17m5cMjLI2n7vwbtpYM~OnjtYTS0RRmR-80J6o4VJSuLvU7sxnoqv4yKV5Sj8iffIyx--K87PWCuWK4g__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003510_f1ae31dd540a63bf1a7ac0c6e2d30cb3da7dac05b21524a255d635081842cbfb",
         "article_node": [
             "txt",
@@ -2175,7 +2141,7 @@
         "article_uuid": "1003500",
         "article_time": 1788163200,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003500/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789146030&Signature=l1K-5RF6ri~JmEFwI5jUM-pt2o9WH05q4zDbose8vov6z65qj3~v1P~ztX9h~WsPigGpj-VOMHoDIRO5Zyqh9iQx1hUqYNvmG8-njFT11wai8NIwcZUm0vYF51kAiXszClZf82Wmj-oJWDgv4SHl9SlfwbJuDNSO9EbmPeJZLreu4pv9b3RCGGRBA5qrSwWzdVMnpbaB0PPRlg5hOGSiOSZF9YQfrI2A57EZ2OvbZ6sfwegGKeXnqZPNUehN1tUK3h~w8FXzVFHUMcA-sjAAv-dJ7uY-Ucj39MFjQgkKZbrgOS84F4J-pFAzi~8joxED7bqYXky8knFPTj1ZDBv8DA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003500/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789158622&Signature=J986dB13VBhFLRXAiyxSWtYNzXp9OJk0I5Lx4mEl2~lvFQcy4tOfSQpYxTRgPEzlmUt~Y47Qb4CLwA43pZnaDALqZXLXV1lybN8BL~mUrWJ0uHPzfeLwyPjm8ocMPyLsFarHH~oEAdRlLpsfHhsAxxnlQmWkRvZRwL0p9UC~mDJlP9fRWjHJdz45TgkJRi0axf9LNgp1CR5yzIT~bOTXBgKwduAqcXZjEgjz5CNKiKaRMQxW5CkkjbeH7CM4MWsHY8g~4VZ6XPXgLblmaBrKoNcIfik7DT6UZ1BEMMR0Lf69zETp22XwAGXmLEGP6IdbmAQFAjFNtFhfmfCmaGzLQQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003500_0718db7aefa350d0a2aeba8054b8bf3c8cd950422474a091bfe97b9937649622",
         "article_node": [
             "txt",
@@ -2296,7 +2262,7 @@
         "article_uuid": "1003470",
         "article_time": 1788163200,
         "article_rgbs": "455a64",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003480/6f41140cdbd519344c7d83a691478758.jpg?Expires=1789146032&Signature=F0BFltiTAz2~W5NdATSLUuyZDqrS42EN4kVJyjGalTXXBCtnXJHjs0xoZsfJNd4eVzDI25qlSa4jbXAzMHoTyX9ra2HbCy4thyZavYDcIsW7~fRXd82-voNi7HltSmjLTmBcDOlAWPSkq8xxR7hKjJQrvtv-9hVPtfPJRX8ihD-XHs2QMMn~X2DKpkV3jN60VOon-UpyvW~maNrLwXhwRGnbJRHN2uq6cGkLfyc8vxM2WkvnGmgfUUx4f~62QOlzsyx~WMkmDI5BYCqUJFj7~iUC1bulZNThZeUGvFCgOq7ZAmA2XDB6WFrBZw28AGxQ2LFRno4LYrLDgCxXzIbrvA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003480/6f41140cdbd519344c7d83a691478758.jpg?Expires=1789158624&Signature=VDP28qHK3LXDzNFncX7P7LiNTX8EnTAxpXSmtCnGprk8CqFFBNSHpsyCZkFR6GK7ji0qFFjgxbgC2VzZvA-LtDSdlq0J4ztai~FlNR-G5JERZUQRmGb24PuztFpSzYdEMoHNsB58RVxHx-hXdenkCLmePisJuh2w2oTxCPKgDlszE98lGl4reejfk6AQ8M3tFJ0yi5JqnbUSV7I9UMBvCc3uxd2asRlOkzipozuEh3uoP-JHDVgaZRk9UnrBa53mnpNAPtrQCoPQCjpznHi6a4BzT2Bk1bwjvzYs4lkz~Vu-vC5BUQt4alUG496h-HNJ9K2HgWjgZrZxwsBfejlc8A__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003470_6a632159ddced38ac2e4a9296e73304204773f15b17eba470f293e46e30a1c0b",
         "article_node": [
             "txt",
@@ -2356,7 +2322,7 @@
         "article_uuid": "1003430",
         "article_time": 1787886000,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003430/4ddfc809df2b9b4a6716e90f57006ead.jpg?Expires=1789146032&Signature=BMbzqLTxNkdsOzH6A2gOV70JhHP2QzN8z3EqiRYsBliexpM7vuoGMxQChV2ZgDcBAlnrS0iG~TTS6F~eyvN25j~iQLH~yAyosdQRajN1AuE2SoZjR9kbiZZbE2xjx6Lzrkee1TRhRaBx1yOO0sbmmEZqg4nbWphIPIOUpq0sP1REaDpoXCKmCUvNqfqHX75Ar7517XoWkdiUXEbzL6p3AJKnW7IgCr9S31IL3ygwy7W7P7BUPK5OS4UEBJV-G0ydepThtRzABI-wqtLwXgAJvMwwRjSklIHSOLrPaEnfphTscfRAj3pwVvtG0vpbGV9~DUhePa76lDIZX4hwTdKHaQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003430/4ddfc809df2b9b4a6716e90f57006ead.jpg?Expires=1789158624&Signature=cP~8wnB5-SlKS-BMyK8n2qvdZBewolat1~sL06jCA9w-gluWhJn9kcuY93aC4943eugMbEgB3Wg2shmoOMW7rUOyVDZ1Hg~8hoD7F4snmcnuynQbrI-Da1SU2KljX46HgFpPpZl1wUKFO5PT4qYwcGB1dVlm~xOFnKUuxn2~4ZfQOYx-8rPc9WmT5S3DTNFTkgrVRoERctzPaC1Ovb5vRSMzNFPNx1ffMZXvJHf2jDXATmTHtNr6AIXz0Yp8C68LdbplPQdW-7~FvQNbJ8mXdOu8pUG7IGFwA9~nBqSOZWSKBkVVCmBh7Ov14HT-1tqW3ZB8AHDXQRpNLrnix~~84Q__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003430_11467c6dce4a094d7689153ef3cb3f41b13b9843ed6e80f645d30943474dab31",
         "article_node": [
             "txt",
@@ -2439,7 +2405,7 @@
         "article_uuid": "1003420",
         "article_time": 1787886000,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003420/fe16a5a586fbeeaf14d1b5ae1f4202bc.jpg?Expires=1789146033&Signature=W9qzd2xbHnUmcRp-SJI5aS4-H9EJQjo7cUsw~uAwzs8gyZOYnmbyNdy1ban3aKAaR3d~Jp6OW1E7SLqcZ12PUFOOH6UPCNbC3XbTf6HtxQAwBTGpxkKJ1L6zlN13TqnydKisfUq9u5AoWO4moJjWznJenmuGu-D~jb3PBYuSESreX48vZdH5HyRvSXDowiouSuxaMl5C8uaWdvYoDXff7~EplVRG39d7gFLfONyvkdnXu26AqvywucQ10As7mXxCVhAactZX-eSrbMVMUfqI5DCQEBGVZ18zKXFDpYLysYDlu-tiCLS13KcKA5pm8uDyxMIpgNv8K7Ef0WHtzuazJw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003420/fe16a5a586fbeeaf14d1b5ae1f4202bc.jpg?Expires=1789158625&Signature=Z0AdaSA7CVevhdQDfWLU2pXTdWADAb26g5i~bFEGwc92dcLaR8VXneapzbMKyNJmOHzjuqmcUQthXHp-yL6KAnB6zJQM79DmvX4pezFO8ae7GgM4sPy6sUn8-xAzfLNIQNMmMy-wDJ9BvS2n8hgztjJL~cFPp8U3vQykyi3vHgQPHcWqDnWWJMTjOiMO20jLnlv5MZ028UMa-JOFPlXEEUaB55icfLhKdtj8~eoiqzYoa4yWN7xFiAZkB5me-SjLpvYoFJ~PKxTQit5NW4lKk16g-vYhlZiC6FhO0ndFEqiHM5-OVxzEVdauuYVH101WTZpx2XZOpPC0JlQsCFOapQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003420_57878fc3d8eec3539e3cc6bd1d8d999aaf6efa90d106b90b023160816e06f875",
         "article_node": [
             "txt",
@@ -2519,7 +2485,7 @@
         "article_uuid": "1003410",
         "article_time": 1788163200,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003415/0919c1b2761244207f54b42174535f20.jpg?Expires=1789146033&Signature=lmssbYhEpg99QiB3avxtA4puBqll6BVrjpPyighXXzwQ3UartUBVK1jcUI-JaTlDHTag~uOAl8MYh0SHYeSrrzC483bQ028Iwfk-eVhQURdcdHPnUa3HvluePTpoYRJKC1DqSlFctD6qov~132xYxH8sBH3SQdVB1r5p4Bvc9YlsTBzZFqoLiRBOtb2GcQ7qrb9GzXZY17ZvmtAz-9WRIMVYV57oGzwmFxc-qUx5-Ib9Y3qp7HTmnn5ZKPD3JdueK4coqP~4XmAR~bWLtqQvGIqD~2DckC-oCRkUQ8EigUWlFusiq-cyulGyxvjaPcY27blrlL1WlQ7iVlNm0hn2dA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003415/0919c1b2761244207f54b42174535f20.jpg?Expires=1789158625&Signature=a870umEVepAbQrB7BjS7udxoVl6HEoN7EC8s8X0y5E5mTxWuaIHQlupTFhizyfDmcn0fqiSC3sPegcmhlYyUDdAkSwVtyiNoTA18TuRoeXFCC7kjfrNwSnvmvZBAckOthG6TtLrkyFD~bESR7pEFqZ6258sqwylaypTEzZORNeSKPk5OzSRD69NOmPvnCNgr0LW2MoIQvVCBUtLhfci~nlo1pNUXiYbk1YM0ko2W-ozHgLe-GVbb2W8rJQ-NUU51ZhZ9F1vTzGHMkGA0MW7gxrS2Kr3rMlTM4mHKCEIVNUyfAzs7JZZ9-Ubg7RMxvycx9P04nTlorTzG9dZS85Sw-A__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003410_91820a6d0307c21c057425b1da2f5ea4eeedcbfaf7d3be258b7f4717c83ebfdd",
         "article_node": [
             "txt",
@@ -2562,7 +2528,7 @@
         "article_uuid": "1003390",
         "article_time": 1787799600,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003390/c935f13aba22cb927b9a3ec935627ebe.jpg?Expires=1789146033&Signature=HCC-Fc4oHIcRaMVFRe8faz2kegM0QOnANsQ47ej-MM4K7~HTp7eSsmG9ZIyA7pSutFNio6RRqWXAsGZ0z2v9M1yNilYHvkXHzehAzhEOsfiFbX-hjRslxJZMfVPqIAfn4gfInhKhcRhq6slw0K9NNxhCmrbaY9LGMgkZE6HBrQHEWjbmUq-oIiQdqEPlKXSa2itX3T6KfYvPxXCtwVsH~N1qhu5hM8SNCs8n1LVW88lHw3Le-o2AmW2Z0FWFBuApHw~-oTP9UgscI2PaOEpmOHGsHKiyprvaw9XmIHHFu~Rn-HeLfAkscqrLLPnqrjoSKwD5nD7kclxAPxCw7fTRYQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003390/c935f13aba22cb927b9a3ec935627ebe.jpg?Expires=1789158625&Signature=YXCxzsyCgF9H1QtM6bWDB032pr8zYMkZ3lMHLftu3i-ccmpW7upItQ8zJPtxXRDoTd0gEg5N5KHibmL0N4KJERhS-2SK8guTvZp9SjttsB9n0r8EDucUP6fq0EoQkVQY2e~0R1iV~Zih-QtwL2MAsVcVrIot64u~HYbviB3621ofn0SkwCrMKjpbGb~d9GrQ2dHJChmLIOjRJGF8UYkc2c8Fj6uBhuDbu8OyAwqUGCbx~XxjMBOUWFlAhxUnuu0UoE-JS3Anq7pvRq-Jtpn2Of7~rmuMb6U-21LeQjuYIGVindCzSNnX70mp7nfJqmbqbPSbyMNcpftcFOqqwkspPA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003390_61de485edd0e1a52eb73b7caf93365cfaf7b09bd3ba40c617c4379fad91cd6f0",
         "article_node": [
             "txt",
@@ -2599,7 +2565,7 @@
         "article_uuid": "1003400",
         "article_time": 1787194800,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003400/5b23d4e865b2e84cb1960011d295d0d3.jpg?Expires=1789146035&Signature=D3re~HrW6xPiPjY9U39vArPHWQkEX71yNBB5LqCBFq9sx2DntYbU7DT57cCNZTKs8qfsI0Cl6V-quNvfEqueFn7uR~kLVfNGbmELYLqZaxxvq2umS2TiGohQKd60AFbR5-nHHjLi3u8VgAogPtRM2dTGA8cjjUUtDvxDk~WsQU~Bcjw8-dh9apqVgVScDgoXIkEbBqbT1ew1r9eqcyBZYH7Guq9VyimIBPOAgfTp7pIeif5-Uul7MVwa-tOkvaFdC4mjFYqL7v0P9yadP4p1APl8U2oJ9At6K~IHIRNvqS1TiWSbCsquGmVmox7Js70sCDCIJ2ehw4yTY0rBpnjbzw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003400/5b23d4e865b2e84cb1960011d295d0d3.jpg?Expires=1789158627&Signature=WokwzJQ0dkI9homEZq2X1lO8nqOe90CiRhXPTOtRS6vWqdmnbfMIBEjjbQTcgzd7VdbJhCxbn6liJiikTaidBS~aobF9vvKrJU5tLRX2dt0h2KAaYj-cO6LvgmS9Fo5CMJ-FnQ6KXCEkX9tuJn0P-9yqaGWrYKLm3VZQkNj2sURLJLa5B2UXKuBUDPA1Ebj~zj8UyWnQOYQ5krotnqXeVqeTcAnGVt-54O8HUh7JjG27QQDl7VFuYCalRJ3TSwRtxRbYppmzv5owuGSfuDctBXsRIXKrCXuW5G-ybKvGjifcnNnH0WhGF~sqU2u~gIhj5vPid5ZunM68WG-RNMSdow__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003400_84c005acd207fb02ee24dd58ccc1f0ef747989ecfcdbaafdbbf5ef44862700fb",
         "article_node": [
             "txt",
@@ -2682,7 +2648,7 @@
         "article_uuid": "1003300",
         "article_time": 1787194800,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003300/9c6d38a7dcec5ddc5b5d4bb12d5a8a89.jpg?Expires=1789146035&Signature=LL9WN2p3CPLjwSaFyQ1K3Lo4ckM9EpbSeUlfKBvdzuZo4NIkSDJxVVy~FxAKftyshzkPzA90Yao9HNivqJXQY5O2FQ85SBW2tQbYKmSFpEfeZcQIRkfg7~NBUIuXlG6n5so3MAqsRT2o9xJ0nCE18k5LSlg6UsUTu7w2DV5g1ONVu7ig57CsG3URY-vbFC1NKcUy8mu7SWGsXDmamKTiQu2Whh~iwxDBy9mvLcMEDKzNAEFT8UYgmJb3vuRrMC9VaC1PqlN4Hatm3yZkLXlIiFfAqJmqBKU8gKhvqozjQoiclPVNezuVP3nIO93tDwL-YEnJWziwEaB0SzXp6QO1HA__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003300/9c6d38a7dcec5ddc5b5d4bb12d5a8a89.jpg?Expires=1789158627&Signature=YQUuZ6hZpf-8R093mrrqfit1Advbhe-mKw~icROac8APHeJSSE37EaVYs9uNVvVewKdUTVRO2L~oYDZOFUN9frvi0H2Jl55xJdI3MimEgiLNsz1Ej8QQpyNDowXudbpRSsF9R4hx4rbM9fBxTgdHZnn4ETPtvN8NbpRhXo3y9fTDY6LmOQaTmMtN-pu-3laTcrfRVnq96v-CxI~NUa-j1hTkAweHuLaM-~HEnfhxtsvB3zM7wsqxPLcSU0Z0KnAvYglCM6HR~1fWj2IwmHpiiRHQoogR-5jPQjwLsfb06oyenJBfTrB2Pyb5TOVMZEAvXtIP-ZUfbEhLWv1xQ0T6jg__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003300_97a0be6c13567fc6f4dee94f452c10a555a15c21f10d1cc66238416b636bed01",
         "article_node": [
             "txt",
@@ -2755,7 +2721,7 @@
         "article_uuid": "1003240",
         "article_time": 1786849200,
         "article_rgbs": "43a047",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003240/3e3d102bdfe2479014d5f6df6d284648.jpg?Expires=1789146035&Signature=VOUSw8LV5jErwnzHyPijCRjgn8nzaRdbjjT0NhGSN-Q3X8x~uQ2WWKFBhncgXAgGDcy499bjym6kZeawcKbuiKdCGsf2ytnq-TA1qxJXPksmHPALnEwdGEaw81QHkjkDEBLcw4rX9~XAqdXLry4LPpzaamsFhUK~YyCmf6afr30Aj~P5OFRRa24bC0ULnA-3rdt2ob5WMrzm865WL7H0KNOxGu2xxSacTvvj3unKTq81uOdvFsjQiDwRSCjfE6GKhMA6qTgOcTzjcvNBEShtLfJEsGwwk89yqjE~qL7E8PB8DAs~5TGG7YrsXDexnukcxJeBj8Zt~hQjGiF7EuhCXQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003240/3e3d102bdfe2479014d5f6df6d284648.jpg?Expires=1789158627&Signature=TCiQ~4fOWpuE0U1ATknxXWdtXn~L-HFGDmw07ctk9eEyIbxze9sBIHuvIoOgYCL5uWyKCRrvMApiNm2xTSPoZUp-Qb28fWo5vk5gDzdQofYhfqk0oIIEdu4w-x3ooj4jsMe2NkSso6iUXJKjCyWnaAs3jvfqhaLW8Y13e0LNGsj3szuCBGvuQG-FTSVe4~70hT0DtayWkuXBxfmFw~nIL0oQrN~UibK1448kUz2n3MBNucTeNzg0wb~zOZF91XAYpgiYZvt-ZufdPbm0eaeWGB0ENzwgzj4y3fSb0IuYhrMrXAGYySPbHee6xEAkP3M2ly9JdN2QsTZqoZsAa~M5iw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003240_740191904d2f8771cbe099e5962062e8365b27aa2ce4a1cc820a9ab9794ff871",
         "article_node": [
             "txt",
@@ -2801,7 +2767,7 @@
         "article_uuid": "1003140",
         "article_time": 1786071600,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003140/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789146037&Signature=fecHyuTYo8Wxf5BcL3lOtu0lhLYbMKfT14cCNPWQKMG9eFTDxczIUm1CGbTOPg2NamYYiG0RMwOnmzrle2H6QyyB18Bn9tncj4YgIbiZB9fkL~rcK6ZwqlC9zNHiuU04fA0V8yfU4Ua75-bt5-lFuAITk5FiR-eWZz2yrI27i8wtJLT~Z0KQDkNJNO9ZyoRfnhRjslKiwfPJ4b2rb-hPWO0zO6Y4ENU8dN8B0-5p0sVpeZLcR3ilSwU5--tnu6QrEScHAZysQaZ5D4lJ8AndjP1xvNNVWalz1B19-2G55Unf9LNXrNTRG1M82FUy5DPHkFH0xcvlSoN-CKg4ApKZgw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003140/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789158628&Signature=QFbhJcpntOLPY-QNQYn3w30-S6fygVrwj7pBheQ-Npn3-7~u8UH4gDWtRsqCB8TCIh9K~1KRcGt3Tc9JpWpoGi9V2-aKbSxIoCW29I~Mrj~vt4zkieNbmN91gcF-GLXx20-CMjCISuSdGbRKSSG8kvIkgQg70Nt7SaGZWxfP1BocWxAX35ttK-3IHbX94OVEoxuwWupXdjzdOlnLQoBJIcbznCPBtqUxk3ObPYIKNZb384iZYFFkxuyj705zZPytOIq75fZZmlHejSQhVbAgDdAY6O67TeehZwXmdVDx919v8zKpOt6dbwxGvxlcnrvsoKUqdb4WprEHmAAqpmfg6A__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003140_5eecddcabf6d2d3d476f3877029937e9514d1da1e7fa1bd8b1ef646cff43ddb3",
         "article_node": [
             "txt",
@@ -2861,7 +2827,7 @@
         "article_uuid": "1003070",
         "article_time": 1785553200,
         "article_rgbs": "8e24aa",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003070/918257efe490ffd1a8e61938aec6980b.jpg?Expires=1789146037&Signature=BvR6kwxm6W2obxc3b~EpwddfLWXTAeBBlNGp7Dh~taSCPqH4XUvKZ516iVjK6LkUCO5WZgmXXzNzlA-12RVAKmQ~QBhRCfcgkvMYWVRaGNNae4Oi6~CBRGCEylBaHBWuaUwun86WBjY-CJG2vFVQLAe3YkMJLVxmzlpZf7Fv~2E~8~6zBQngoEkAlaqcdrtBLtJo-3dnxiStAslXP11lG1PpeetKCrlVczYe5xfwKaJWkQfvjTS-3CkhaYED9NZlSvFeGTWsxFKaRm~q-cMc10tP7IlgpqWYqD5UrodcpI5SteJZhzUuNowF56Cybb9e23MXrxoYveSetQyFQG97ug__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1003070/918257efe490ffd1a8e61938aec6980b.jpg?Expires=1789158628&Signature=d3DMek2uY6rorPsHDQQqoStRzPS2uGkU~xfDyKC5KAqb84FJTBGfEYwTjD6A8l~b9xRUq2KQ~EQX68CAFxw98ycj3~i~b1SPQlKgV8GKM3jTH1eWJxjXBtYX4lNmJyjCB8JcbNhius63hQOeQ4tUYVrspcELx6C648fV8sbtyHcEFNykcshVe9iyNkD1cZY5dp08y5aaQizYMnofPrto6YtZXrD7RTLaqsFXg9jCNjyy8bR9GGnBByAKSXCxkX1QDtUQYYg~T4xi3L4nVuNJYyBb4POUU2823v3vsVK22W0lSGvPWOwRXqSMN4XHDWJDfOUU8kXp0X-MlSASHIKhMA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1003070_7ce4301817ff73ce742b5fe36954c48152e4cbe357afe3b0517adb44d1fe47ae",
         "article_node": [
             "txt",
@@ -2972,7 +2938,7 @@
         "article_uuid": "1002770",
         "article_time": 1784286000,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002771/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789146038&Signature=bL9LSGV1YbAHZT~PYL30xYTHV3a-GKPC~VQ8uzbRyrfLUwY2qyifr8O9XwM6z6GqIYuRu6YaobI-Ac98VvFSdEpyvusMkHs6BSETfFIzODc0TcjWSzyOPP47nOJIdmFCqEBGdSgmqdWwxaJgZvX8aSCoj6cutfqUnvejDJzph8VSZmWp~TqEtDzwdNSwd5wbai8VawJDu92xQWHexAo~~zPh~6YQbySfQwPEqyNoLD7Br4lgjzAFbbWQMXJkj4hPHSK7q74XPNrNqi4e6TW3rIUSUXcjJq9xqCZJZ6aztjGmhPdo26mCtDX4pdw~-KapmytIILKyeYxmqjSddtARow__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1002771/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789158630&Signature=Mas4idCSuxWW49lC2r6GNL92VPqLdNMnZmcuXmRkyghRUIX63ZrFjm4-mRqKuRksgbP3xKY5kAZmpNvL14j0D9SYcE2JV6rJJl-kgbUWyM4GB5PA98upgyDgUD5lSrBfGr5LHYJnxdt0JG8uZXfSljdmiQ9Axj9mkpKwoQnq-ay~U7mdtsI9gPLR1HcZP05qds0ts6rYDf94cCaOSidH2DH8idTtctHlhxg-WBb4lZElw8AS-0l0LUzFLOSD1F38ro4k7wvRr4voNW7uEmt7g4jh~srgC5lVAUCAnLlpXSW7-S4k64ZyxLik~aP9FLkhDQ0iNqMysqp2DfpGHK8HiA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1002770_fa0cf1a18a248aa4b7e48d132d457b8ad52ea313b86647784f7e2fc49121fdd3",
         "article_node": [
             "txt",
@@ -3581,7 +3547,7 @@
         "article_uuid": "1000030",
         "article_time": 1756807200,
         "article_rgbs": "e53935",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1789146038&Signature=i-3QQ8xm0ctjXqNN9Yb6qmHRR3zUphoDZ0RdrCyPbZoDvgA1BtqV3oskzGB3537svM6eDcreH2jn1KkDAWFn8diuBg664sLZmWWQ3x8WNclnz7xuvA9YF0YnVoUCqsWszc7CCtzl2jOGA8cmVExysocrFOcAUPk~gec4zM8aPQF3HTl1oKKlSeTVt8wgcXd-C8x9YWSzE08ZXLb4JVVn2dcYgkuTqSPt25B1nj3Q~5zVaGjDYBdI4Rvk6FkX3sbk5FZwdtrP~~g2R7~4ftavnTrJBYIZEaqqXVV1ygs5ces50ljHKhYmYRHQHOHl37RP1gYdZPQJXLRb7KyL64-aDQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000030/7a856bed615c32832427ed5fa95a89be.jpg?Expires=1789158630&Signature=Z35S8oU05AZvEL71nOFzORjWzcBJfA0PyFBjYoP10nXEn~4Ql~LR0jTBpozvT53jo4FAjxS6iNjNZA4ymf1k3wIqVfqPFMCTvWkKHG-4UPDHFZoNNmjVkd984f1aGk~7bpHlZNFZYG2v7Anet0I~-NJDvX9UcDPy6IWOGJ7CMN~NIYaE3M4tdI41LErDaxTH1OnzquwEC9riD29QzPgn6dfmtHoUOgbzb4kU12gtA0UIVuB2lYKN7hwsrRb9JA8lszQQYsb8DaVNePi6g7ep~7I--svpulx4nyO4X7NnUvivXwRDt1lP-eXzmj4W1P4TRBP1KMCGgnFWviovJNgXcw__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000030_1ae8dfe6baa3148e076199a40e7dba92d3bf45d3564a94a12ffb2adf516e44cd",
         "article_node": [
             "txt",
@@ -3610,7 +3576,7 @@
             "## __ACCOUNT LINKING__\nBy linking your account, you can easily restore and transfer your game data even if you accidentally delete the app.\nAdditionally, if your current device malfunctions or if you wish to change devices, you can transfer your player data to the new device.",
             "## __HOW TO LINK YOUR ACCOUNT__\nYou can link your account to your Apple Account or Google Account.\nSteps to Link Account:\n1. Select the global menu from the top right of the Home screen.\n2. From the Menu (≡) on the top left of the screen, select Account Linking.\n*Account Linking is not possible via \"Data Transfer\" on the title screen.*",
             "3. On the Confirm Link screen, you can choose to \"Sign in with Apple\" or \"Sign in with Google.\"\n4. Sign in with your selected account.",
-            "https://asset.kj8-thegame.com/info/production/content/1000030/24c168d8edfd5660c027eb7977e576f9.png?Expires=1789146038&Signature=RNTG~NI0-sHgFzevSwwCmFHqfx4mJ1WW1OAC~3et0f8fysGIzI8-oyROt5mvqA3PTiPtDdJDHo2UbGiAj5FXOOU0Wzo6NPc284Kd-ddNt0KVjm4-2Pk8D~tDAupeXdesPX2wbethS-V-u6oq4oKbWVUftkb2JHK5q11TRjKKbv3JGns3LK0rm2Zk4rfmylgiDiga~~0lFoBX3xRieYki4gVuT~JvNUEeWdHuJm-c8ciKEKMuh0qMZJ6A8ZbuO1Z63q95gygHtP9q6jsaRX7yen~PkkdwVGwwlr6LzvXRy5G3lF6l5tMVZXBSfh6VB1-MZNvXebdb~7nBOg34WhXJTQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
+            "https://asset.kj8-thegame.com/info/production/content/1000030/24c168d8edfd5660c027eb7977e576f9.png?Expires=1789158630&Signature=hXNvZdXHKi6WLK95-KAK3w4g7HnLv10508f0cfFr87bcfNsgK0JOa1pOxBSqUB6ivAtB437vNsWdvXvrYyuCDsyBN2cF4RLl7-i~IKv9tODnbD~zSCtIwepY-p5A~4idqc0QMd2gfqh9iV-CCstvRPB99r86MgWc3uzDG0txmPqcLeM3fE-S38wUsipUZimVoNUxzJgS~RzwR3yr9qHwABV0rR~-vAXKEg2S-qHN~l0yoml50aH4YUwztvX4C3oYvyXIzVBO5pljVOUcOnXQWBUpe2u55EIj3POpWaS7cFjGjDptPaSxE0QuRZkcVYtCllroI474DsDlkUHTz7R4jQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
             "After signing in, the message \"Account linking complete\" will appear upon successful linking.\n*Please keep your linked account information secure and avoid sharing it with others.*\n*After account linking is complete, a confirmation email will be automatically sent to the email address associated with the linked account.*",
             "## __FAQ: REGARDING ACCOUNT LINKING__\nQ1: How do I restore my data or transfer my account?\nA1: Access Title Menu (≡) on the title screen, select Data Transfer and follow the on-screen instructions.\n\nQ2: After transferring account, will I be able to pick up my game progress from when I linked my account?\nA2: You can proceed with the game from when you were last online. For example, if you link your account when a mission is ongoing and transfer your account after clearing the mission, the game will proceed from the time when the mission is cleared.",
             "Q3: After transferring my account to a different device, can I still play on the original device?\nA3: Yes, you can play on both devices. However, you cannot log in to the same account on both devices simultaneously. If a new login is detected on a device, you will be returned to the title screen on the previous device.\n\nQ4: Will my linked account be unlinked if I delete my player data?\nA4: No, deleting your player data will not unlink your account. To unlink an account, go to Menu (≡) > Account Linking.",
@@ -3624,7 +3590,7 @@
         "article_uuid": "1000575",
         "article_time": 1762844400,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000575/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789146040&Signature=MyACJjD9dTiJibXeGchCgCe5BaUTBQTMRUSl4q9u39ZS-2LYMPUjSyS5E48S~b8rFM8ac8LSxgPj45qqmd81Wy10GXGZkcxehWhFk8YvyzPhdm3wcGOaUOe~yZDNDRDD-NdfOKk1r5aJfrbPe8l-b6tZS0JPVIkOcAvDwtYxnIrbRub~UPiNC9C0OcZRwxh4YAAuTKhtskPUChgjXF5SnuXkU0BKsJcTKo7mCWwWiZD-x2nWO5NYRVIEPq9X8Xv0swZ87mpvgdkdn4cEqGeQ0BE2NVmqLjYJVTYm9zPKQTuZ--jVvjJgko8fSkxGtklo52vCv0CRxrV1L5Y4F8C0Sg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000575/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789158632&Signature=Mrz3A-cwDU1iNlcR9iG47br3kJedwSmfz0h0LB5BMgzh5OrpNqV2q-goO5gXxzIC-c7qCCyJSTEaAqLqlLftO90qaXkulla6V-LbjP3rozmOT-zk1zdj6v5286m-BwS7CikNd470tvJRybAJANmLhJMO0igVzDyZU2t6kNUVzouiC5fEyLaey4M7TpON2zUm7WhY9FNkSr7AYk7jTioot1eF6SOHIvHWmKKrdAeTsLqyBu3w7Wpw1WJiziZPdjfSwH~jnlPC~ov0iuYELvLuSV5c-27Lqwpof5OyTHPG4YuhHhO~N8s4ZgmjOBg28d66CiE6eaUNEfubUYT7Xfe~tA__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000575_915682479c668894945863ffd9beaf4c19c3940e7db29ab5ed8bef4ec431caff",
         "article_node": [
             "txt",
@@ -3682,7 +3648,7 @@
         "article_uuid": "1000020",
         "article_time": 1785931200,
         "article_rgbs": "e53935",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000021/56a6eb53d114ea75bb72b5e58e2fe2be.jpg?Expires=1789146040&Signature=DBj-ZTHXSdAPMLAC~G6C3tilojddUUClDw7CVvaUAAiD7ddanzpogG3~YNmxQn3-qZT6q5mXd-OGN8QHSdD6PJGKiBmc04Jkoi00jD-xN9Er9DALI84WATuWiMxUKLe7ERMmyKBW8zJzQz8rkjiJb1uxek-rdSPxVfpRTqpk9mLs-6NfsgeFCk6XbYunek~c0JsnXAJFo40LB956xbYk0KiQfRpgqOOc3EKoR67o-oqzgwPW31hGEz-dFuvPFLU-lH-mMEzHUM03CrIO8HWwmYPgnPScRBeMhoY2cUvEqR~A03baor-JbSQqU9Bxwl7OHcILGVFioUX3JY9w009NJw__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000021/56a6eb53d114ea75bb72b5e58e2fe2be.jpg?Expires=1789158632&Signature=CS2SOz7IIILmZWrvKvxeiORxls-egaH3NG3Q5n4cilaJi1uLqyn4m4-wJBMyPfRWZcMF5TCDnZpl6A54zsZAOWaM~KCgS3Kn~QmKBcUNa4FdXcTi6A9SDbbu5ntWkYl1dIGH2erkAyj24d67m~dZckW4N6~eLqgpVhcWVv1-0m~cQwwJWdMkfmoEr6949oUOtPTHd6wEPaFtY6wox6zy5yHYEjytX0dUkWBrpB994tC9ZtijWE6lnhX94pdW-bua8LpxQFPcj56hkzvUEummVzDmM7JZz0bGQMuyQru4-YkIMQWfXtIJebCxZhRuCTqa2HZIT7WcUp0Eqo8cyrZiQQ__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000020_4658e7d266b27a83af3f22626864bf31a4d5cbcab75bc0bb6490a213233d5787",
         "article_node": [
             "txt",
@@ -3724,7 +3690,7 @@
         "article_uuid": "1000100",
         "article_time": 1756602000,
         "article_rgbs": "546e7a",
-        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000100/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789146041&Signature=d8jSbLwXXpKxTVwMo26Q7CFcPf1ssyrPPdxCLSknuXyVekz66Bj6h0Hp5sbScsMDbrQjnn3mtJERFqed8WpGc5pHR7j9vflYmnoJmFK8R6Ij16CdvSMv9uc8~ghHohfBeVHyBRXAQOLwH0F~ERbrKMjrzPHmYpezVik6wzCxAOvVjxyBpC8KJxZ9C7dodsaEwUc1fDi39rSwjZB0ScW-TLWJzCxzG~4rav5iA6tkhtg5k93Ds~bOAGhIH061K6~6JbOBsMqI2JclaRtTLdC-AU5X6drhMZOYxTPEEJJdxGfm4sGsnR6Ws-tr1JZ1gr4kQvbYQVEc8llXmzfWU8hDpg__&Key-Pair-Id=K22LOBLWI3HWJQ",
+        "article_logo": "https://asset.kj8-thegame.com/info/production/content/1000100/53190a2d454512b7e20955aa2199714b.jpg?Expires=1789158634&Signature=Nje1pEckFwfYzoxMlUIssBzyBQEWJFt4kEei0YghICyBZPDh~IruiiQ3cEIKd-rR12Bi70~1ER1CHuAXqX80NZrCl-~OX2NEtHJ8gEGlX~vau5p3XmTxfEvtyc6meeEDb8wbQk0UJ67L1wePV1mO0P0jitFlSYFMZOGwTJhyQmnxTsfLfYfjhe3YEbEwMQHrIRra95UNBe5CRf39qD9nm6WJrwX7ikxjHvj4eYtl~MmU7L0neWBXoP8xwlKidxdBvD3j5kNR9Ei3bZSDouUH-uVA~DynzdXUXDW-AQbABDyWM~krAWiFMGJrDE0yYXbFAL9-GQcDug8XbV41VROq0w__&Key-Pair-Id=K22LOBLWI3HWJQ",
         "article_hash": "1000100_152b68285e6ef2c131695a30fef6cb865ff321d8d799acd8c329dfeef10df139",
         "article_node": [
             "txt",

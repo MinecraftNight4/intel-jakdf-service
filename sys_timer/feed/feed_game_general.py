@@ -21,6 +21,7 @@ ACCENT_COLOR = 0xFFFFFF
 NEWS_FILE   = "sys_save/request_news.json"
 SETUP_FILE  = "sys_save/feed_system_setup.json"
 DATA_FILE   = "sys_save/feed_system_data.json"
+NAMESPACE   = "feed_game_general"
 
 
 # -------------------------------------------------
@@ -161,8 +162,8 @@ class FeedNewsPageView(ui.LayoutView):
 # -------------------------------------------------
 async def process_feed_game_general(bot: commands.Bot) -> int:
     storage_data = load_json(DATA_FILE, {})
-    storage_sent = load_json(DATA_FILE, {}).get("feed_game_all", []) or []
-    storage_feed = load_json(SETUP_FILE, {}).get("feed_game_all", {}) or []
+    storage_sent = load_json(DATA_FILE, {}).get(NAMESPACE, []) or []
+    storage_feed = load_json(SETUP_FILE, {}).get(NAMESPACE, {}) or []
     storage_news: Dict[str, Any] = load_json(NEWS_FILE, {})
 
 
@@ -172,8 +173,7 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
     process_sent = set(storage_sent)
     process_news = [
         art for art in storage_news.values()
-        if (art.get("article_type") or "").lower() in ("update", "maintenance")
-        and art.get("article_hash")
+        if art.get("article_hash")
     ]
 
     index_article_hash = set()
@@ -184,7 +184,7 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
         if h:
             index_article_hash.add(h)
             index_article_data[h] = item
-
+    
     process_list = index_article_hash - process_sent
     process_post = [index_article_data[h] for h in process_list]
     #
@@ -198,7 +198,7 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
     # CLOSE THREAD #
     #==============#
     if (len(storage_feed) == 0) or (not process_list):
-        storage_data["feed_game_all"] = list(index_article_hash)
+        storage_data["feed_game_general"] = list(index_article_hash)
         save_json(DATA_FILE, storage_data)        
         log(f"[FEED - GENERAL]: THREAD CLOSED.", "feed", show=False)
         log(f"", "feed", show=False)
@@ -269,10 +269,16 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
             except Exception as e:
                 log(f"    ⤷ [(!) FAILURE] #ERROR_FLAG_0003 | DUMP: {e} ", "feed", level="CRIT", show=False)
                 continue
-
-
-    storage_data["feed_game_all"] = list(index_article_hash)
+    
+    
+    new_sent = list(process_sent | index_article_hash)
+    max_keep = len(storage_news)
+    if len(new_sent) > max_keep: 
+        new_sent = list(dict.fromkeys(new_sent))[-max_keep:]
+    storage_data[NAMESPACE] = new_sent
     save_json(DATA_FILE, storage_data)
+    
+    
     log(f"[FEED - GENERAL]: [SENT: {debug_post_sent}]", "feed", show=False)
     log(f"[FEED - GENERAL]: THREAD CLOSED.", "feed", show=False)
     log(f" ", "feed", show=False)
