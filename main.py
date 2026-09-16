@@ -149,9 +149,7 @@ async def on_ready():
     if calendar_cog is not None:
         def rebuild_calendar():
             calendar_cog.rebuild_calendar_cache()
-        # Puedes reutilizar el mismo set_rebuild_callback o crear uno nuevo
-        # Opción limpia: crear set_calendar_rebuild_callback en el scheduler
-        set_rebuild_calendar_callback(rebuild_calendar)   # ← necesitas añadir esta función
+        set_rebuild_calendar_callback(rebuild_calendar)
     log(f"[TIMER DEPLOY]: CALENDAR - DEPLOYED!", "cache", show=False)
 
     log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
