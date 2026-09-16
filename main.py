@@ -156,14 +156,11 @@ async def on_ready():
 
     log(f"[TIMER DEPLOY]: FEED - LOADING...", "cache", show=False)
     async def process_all_feeds():
-        tasks = [
-            process_feed_game_general(bot),
-            process_feed_game_service(bot),
-            process_feed_game_gacha(bot),
-            process_feed_game_event(bot),
-            process_feed_xcom(bot),
-        ]
-        await asyncio.gather(*tasks, return_exceptions=True)
+        await process_feed_game_general(bot)
+        await process_feed_game_service(bot)
+        await process_feed_game_gacha(bot)
+        await process_feed_game_event(bot)
+        await process_feed_xcom(bot)
     
     
     def feed_callback():

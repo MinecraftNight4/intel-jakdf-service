@@ -203,6 +203,33 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
     process_list = index_article_hash - process_sent
     process_post = [index_article_data[h] for h in process_list]
     
+    
+    process_list = index_article_hash - process_sent          # nuevas
+    already_sent = index_article_hash & process_sent          # ya existían / ya enviadas
+    to_remove    = process_sent - index_article_hash          # se van a eliminar del registro de enviadas
+    to_write     = process_sent | index_article_hash          # las que se van a escribir como enviadas
+    
+    log(f"[FEED - GACHA][DEBUG] Total actuales (index): {len(index_article_hash)}", "feed", show=False)
+    log(f"[FEED - GACHA][DEBUG] Ya enviadas (storage): {len(process_sent)}", "feed", show=False)
+    log(f"[FEED - GACHA][DEBUG] NUEVAS a enviar: {len(process_list)} → {sorted(process_list)}", "feed", show=False)
+    log(f"[FEED - GACHA][DEBUG] Ya existían (intersección): {len(already_sent)} → {sorted(already_sent)}", "feed", show=False)
+    log(f"[FEED - GACHA][DEBUG] Se eliminarán del registro: {len(to_remove)} → {sorted(to_remove)}", "feed", show=False)
+    log(f"[FEED - GACHA][DEBUG] Se escribirán como enviadas: {len(to_write)} → {sorted(list(to_write)[:20])}{' ...' if len(to_write)>20 else ''}", "feed", show=False)
+
+    # Si quieres aún más detalle por nombre:
+    for h in sorted(process_list):
+        art = index_article_data.get(h, {})
+        log(f"  → NUEVA: {h} | {art.get('article_name')} | type={art.get('article_type')}", "feed", show=False)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     debug_all_feed = len(storage_feed)
     debug_can_post = len(process_list)
     debug_all_post = len(storage_news)
@@ -304,7 +331,6 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
         new_sent = list(dict.fromkeys(new_sent))[-max_keep:]
     storage_data[NAMESPACE] = new_sent
     save_json(DATA_FILE, storage_data)
-    
     
     log(f"[FEED - GACHA]: [SENT: {debug_post_sent}]", "feed", show=False)
     log(f"[FEED - GACHA]: THREAD CLOSED.", "feed", show=False)
