@@ -77,7 +77,12 @@ def panelbuilder_events(relative: bool = False) -> ui.LayoutView:
             info_text = f"  - 🗺️ `🠟 {candidate_name} 🠟` \n    - [`🔓` Unlocks: {kr_path}]"
         
 
-
+        elif "DEFENSE FRONTLINE" in candidate_name:
+                    candidate_name = cleartext(candidate_name)
+                    info_unix = hv_2
+                    info_text = f"  - 🪖 `{candidate_name}`"
+        
+        
         elif "TOTAL WAR" in candidate_name:
             candidate_name = cleartext(candidate_name)
             info_unix = hv_3

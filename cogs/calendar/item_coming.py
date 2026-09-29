@@ -19,9 +19,7 @@ def panelbuilder_coming(relative: bool = False) -> ui.LayoutView:
         container.add_item(gallery)
     else:
         container.add_item(ui.TextDisplay(
-            "## __PEACE HAS RETURNED, THANKS TO EVERYONE!__\n"
-            "Remember to keep up with your training and check the holiday schedule for your assigned division.\n"
-            "- JAKDF"
+            "## [The latest roadmap has expired!]"
         ))
 
     upcoming = calendar_unix_list(3)
@@ -35,7 +33,7 @@ def panelbuilder_coming(relative: bool = False) -> ui.LayoutView:
                 lines.append(f"- 🗓️ __Starts on <t:{ts}:f>:__\n{text}")
         container.add_item(ui.TextDisplay("\n".join(lines)))
     else:
-        container.add_item(ui.TextDisplay("*No upcoming events found.*"))
+        container.add_item(ui.TextDisplay("*The latest calendar doesn't list more events for now. A new one should be released soon!*"))
 
     container.add_item(ui.Separator())
 

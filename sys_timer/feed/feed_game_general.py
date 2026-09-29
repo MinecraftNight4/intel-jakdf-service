@@ -198,8 +198,8 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
     # CLOSE THREAD #
     #==============#
     if (len(storage_feed) == 0) or (not process_list):
-        storage_data["feed_game_general"] = list(index_article_hash)
-        save_json(DATA_FILE, storage_data)        
+        storage_data[NAMESPACE] = list(index_article_hash)
+        save_json(DATA_FILE, storage_data)
         log(f"[FEED - GENERAL]: THREAD CLOSED.", "feed", show=False)
         log(f"", "feed", show=False)
         return 0
@@ -271,11 +271,7 @@ async def process_feed_game_general(bot: commands.Bot) -> int:
                 continue
     
     
-    new_sent = list(process_sent | index_article_hash)
-    max_keep = len(storage_news)
-    if len(new_sent) > max_keep: 
-        new_sent = list(dict.fromkeys(new_sent))[-max_keep:]
-    storage_data[NAMESPACE] = new_sent
+    storage_data[NAMESPACE] = list(index_article_hash)
     save_json(DATA_FILE, storage_data)
     
     

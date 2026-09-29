@@ -40,7 +40,7 @@ Return ONLY a valid JSON array. No markdown, no explanations, no extra text.
 
 Each object must have exactly these fields:
 - "event_name": string (full clean name of the event)
-- "type": string (one of: GACHA, STORY EVENT, EVENT, CAMPAIGN, LOGIN BONUS, MAINTENANCE, CHARACTER, WEAPON, or similar short uppercase category)
+- "type": string (one of: GACHA, STORY EVENT, EVENT, CAMPAIGN, LOGIN BONUS (RENAME THEM AS CAMPAIGN), MAINTENANCE, CHARACTER, WEAPON, or similar short uppercase category)
 - "date_jst": string in format "YYYY-MM-DD HH:MM JST" (if only date is shown, use 12:00)
 - "timestamp": integer (Unix timestamp in seconds for that JST time)
 

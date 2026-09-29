@@ -19,10 +19,14 @@ COLORS = {
 _lock = Lock()
 
 def _get_log_file(prefix: str = "main") -> str:
-    os.makedirs(LOG_DIR, exist_ok=True)
     today = datetime.now().strftime("%Y-%m-%d")
+    day_dir = os.path.join(LOG_DIR, today)
+    os.makedirs(day_dir, exist_ok=True)
+
+    # Sanitizar el prefix
     prefix = "".join(c for c in prefix if c.isalnum() or c in ("_", "-")).strip() or "main"
-    return os.path.join(LOG_DIR, f"{prefix}_{today}.log")
+    
+    return os.path.join(day_dir, f"{prefix}.log")
 
 
 def log(message: str, prefix: str = "main", level: str = "INFO", show: bool = True):
