@@ -174,9 +174,9 @@ def get_active_gacha_info(art: dict, now: int) -> List[Dict[str, Any]]:
     else:  # LIMITED / STANDARD
         still_active = end_gacha > now or (end_exchange is not None and end_exchange > now)
 
-    # Si ya terminó TODO → se incluye igual con DISABLED! (según pedido del usuario)
+    # Si ya terminó TODO → se incluye igual con OFFLINE! (según pedido del usuario)
     # Si prefieres ocultarlos del todo, cambia a: if not still_active: return []
-    # Por ahora: se muestran aunque estén DISABLED! para que el usuario los vea.
+    # Por ahora: se muestran aunque estén OFFLINE! para que el usuario los vea.
     # Si quieres solo activos, descomenta la siguiente línea:
     # if not still_active:
     #     return []
@@ -277,7 +277,7 @@ def _item_lines(draw: ImageDraw.ImageDraw, items: List[str], font: ImageFont.Ima
     return out
 
 # ============================================================
-# GENERACIÓN DE IMAGEN
+# GENERACIÓN DE IMAGEN (tarjetas más anchas horizontalmente)
 # ============================================================
 
 def _content_bbox(img: Image.Image, threshold: int = 28) -> Tuple[int, int, int, int]:
@@ -464,7 +464,7 @@ def _draw_timer_chip(
 ) -> Tuple[int, int]:
     """
     Chip de contador. Texto completo siempre visible (sin ellipsis).
-    Solo DISABLED! va en rojo.
+    Solo OFFLINE! va en rojo.
     """
     pad_y = 6
     radius = 6
@@ -528,8 +528,9 @@ def _draw_item_chip(
         prefix, name = _parse_char_parts(text)
         if prefix:
             accent = _color_from_key(prefix)
-            prefix_s = _fit_single_line(draw, prefix, font_small, max_text_w)
-            name_s = _fit_single_line(draw, name, font, max_text_w)
+            # Texto completo (el ancho de tarjeta/columna ya se dimensionó para esto)
+            prefix_s = prefix if _text_width(draw, prefix, font_small) <= max_text_w else _fit_single_line(draw, prefix, font_small, max_text_w)
+            name_s = name if _text_width(draw, name, font) <= max_text_w else _fit_single_line(draw, name, font, max_text_w)
             line_h = 14
             chip_h = pad_y * 2 + line_h * 2 + gap_inner
 
@@ -588,8 +589,8 @@ def _chip_content_width(
     font_small: ImageFont.ImageFont,
     kind: str,
 ) -> int:
-    """Ancho natural del contenido del chip (sin forzar estirado)."""
-    pad = 16
+    """Ancho natural del contenido del chip (padding incluido)."""
+    pad = 20  # borde + padding interno
     if kind == "character":
         prefix, name = _parse_char_parts(text)
         if prefix:
@@ -597,7 +598,7 @@ def _chip_content_width(
                 _text_width(measure, prefix, font_small),
                 _text_width(measure, name, font),
             ) + pad
-        return _text_width(measure, name, font) + pad
+        return _text_width(measure, name or text, font) + pad
     return _text_width(measure, text, font) + pad
 
 
@@ -607,7 +608,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
 
     COLS = 3
     MIN_CARD_W = 400
-    MAX_CARD_W = 600
+    MAX_CARD_W = 900  # techo de seguridad; el ancho real lo define el contenido
     PADDING = 12
     GAP = 10
     HEADER_H = 48
@@ -663,7 +664,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
         worst_time = "99d 99h 99m"
         for sample in (
             f"Banner: {worst_time}",
-            f"Exchange: {worst_time}",
+            f"EXCHANGE: {worst_time}",
             f"Event: {worst_time}",
             f"Gacha: {worst_time}",
         ):
@@ -673,14 +674,18 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
         _text_width(measure, "FEATURED WEAPONS", font_section),
         _text_width(measure, "FEATURED CHARACTERS", font_section),
     )
+    # Cada columna debe caber el chip/timer más ancho → tarjeta crece sin límite práctico
     col_need = max(max_chip_w, max_timer_w, sec_w + 4, 110)
-    need_cols = INNER * 2 + col_need * 3 + 12
+    need_cols = INNER * 2 + col_need * 3 + 16
     need_title = 90 + 10 + max_title_w + INNER * 2
-    CARD_W = max(MIN_CARD_W, min(MAX_CARD_W, max(need_cols, need_title)))
+    CARD_W = max(MIN_CARD_W, max(need_cols, need_title))
+    if CARD_W > MAX_CARD_W:
+        CARD_W = MAX_CARD_W  # solo en casos extremos
 
     usable = CARD_W - INNER * 2 - COL_GAP
     col_w = usable // 2
-    name_w = CARD_W - 100 - INNER  # espacio título al lado del badge
+    # Título centrado: casi todo el ancho de tarjeta menos badge
+    name_w = CARD_W - 110 - INNER
 
     def _est_chip_h(item: str, kind: str) -> int:
         if kind == "character":
@@ -691,7 +696,12 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     layouts: List[Dict[str, Any]] = []
     for banner in active_banners:
         # Título en UNA línea; si no cabe se recorta, pero name_w es generoso
-        title_one = _fit_single_line(measure, banner["name"], font_name, name_w)
+        # Título completo; solo ellipsis si superó el techo de seguridad
+        raw_title = (banner["name"] or "").replace("\n", " ").strip()
+        if _text_width(measure, raw_title, font_name) <= name_w:
+            title_one = raw_title
+        else:
+            title_one = _fit_single_line(measure, raw_title, font_name, name_w)
         weapons = banner.get("weapons") or []
         chars = banner.get("chars") or []
 
@@ -748,7 +758,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     img = Image.new("RGB", (width, height), color=(22, 22, 30))
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, width, HEADER_H], fill=(142, 36, 170))
-    draw.text((PADDING, 12), "KAIJU NO. 8  •  ACTIVE GACHAS", fill="white", font=font_title)
+    draw.text((PADDING, 12), f"KAIJU NO. 8 THE GAME • WEAPON AND CHARACTER GACHAS", fill="white", font=font_title)
 
     y_row = HEADER_H + PADDING
     for r in range(rows):
@@ -890,7 +900,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
                 timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
             else:
                 timers.append(("Banner", remaining_label(banner["banner_end"], now), (170, 210, 255)))
-                timers.append(("Exchange", remaining_label(banner.get("exchange_end"), now), (255, 190, 130)))
+                timers.append(("EXCHANGE", remaining_label(banner.get("exchange_end"), now), (255, 190, 130)))
 
             timer_bottom = y_info
             if len(timers) == 1:
@@ -972,12 +982,12 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
     container = ui.Container(accent_colour=0x8E24AA)
 
     now = now_as_unix()
-    container.add_item(ui.TextDisplay(f"## __AVAILABLE GACHAS__\n-# ℹ️ *Attachment generated <t:{now}:R>!*"))
+    container.add_item(ui.TextDisplay(f"## __AVAILABLE GACHAS__\n-# ℹ️ *The data was updated <t:{now}:R>.*"))
 
     active_banners = collect_active_banners()
 
     if not active_banners:
-        container.add_item(ui.TextDisplay("*This should be impossible, but currently the are no banners!?*"))
+        container.add_item(ui.TextDisplay("*This should be a mistake, but there are no gachas available!?*"))
     else:
         gallery = ui.MediaGallery()
         gallery.add_item(media=f"attachment://{GACHA_IMAGE_NAME}")
@@ -985,6 +995,7 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
 
         container.add_item(ui.Separator())
 
+        # Próximos a expirar (solo fechas relevantes según tipo)
         future_gacha = [b for b in active_banners if b["banner_end"] > now]
         future_ex = [
             b for b in active_banners
@@ -1001,6 +1012,13 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
 
         lines: List[str] = []
 
+        type_tag = {
+            "PAID-ONLY": "PAID-ONLY",
+            "LIMITED": "LIMITED",
+            "STANDARD": "NO-LIMITED",
+            "EVENT": "EVENT",
+        }
+
         if future_event:
             closest_day = min(unix_jst_day(b["event_end"]) for b in future_event)
             same_day = [b for b in future_event if unix_jst_day(b["event_end"]) == closest_day]
@@ -1010,7 +1028,8 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             for b in same_day:
                 if b["name"] not in seen:
                     seen.add(b["name"])
-                    lines.append(f"- `{b['name']}`")
+                    tag = type_tag.get(b.get("type", ""), b.get("type", ""))
+                    lines.append(f"* `[{tag}] {b['name']}`")
 
         if future_gacha:
             closest_day = min(unix_jst_day(b["banner_end"]) for b in future_gacha)
@@ -1021,7 +1040,8 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             for b in same_day:
                 if b["name"] not in seen:
                     seen.add(b["name"])
-                    lines.append(f"* `{b['name']}`")
+                    tag = type_tag.get(b.get("type", ""), b.get("type", ""))
+                    lines.append(f"* `[{tag}] {b['name']}`")
 
         if future_ex:
             closest_day = min(unix_jst_day(b["exchange_end"]) for b in future_ex)
@@ -1038,9 +1058,9 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
                     if w not in weapons:
                         weapons.append(w)
             for c in chars:
-                lines.append(f"- `{c}`")
+                lines.append(f"* `{c}`")
             for w in weapons:
-                lines.append(f"- `{w}`")
+                lines.append(f"* `{w}`")
 
         if lines:
             container.add_item(ui.TextDisplay("\n".join(lines).strip()))
