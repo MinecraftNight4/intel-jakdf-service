@@ -42,7 +42,7 @@ Each object must have exactly these fields:
 - "event_name": string (full clean name of the event)
 - "type": string (one of: GACHA, STORY EVENT, EVENT, CAMPAIGN, LOGIN BONUS (RENAME THEM AS CAMPAIGN), MAINTENANCE, CHARACTER, WEAPON, or similar short uppercase category)
 - "date_jst": string in format "YYYY-MM-DD HH:MM JST" (if only date is shown, use 12:00)
-- "timestamp": integer (Unix timestamp in seconds for that JST time)
+- "timestamp": integer (Generate the unix timestamp by the displayed date and hour at [date_jst] which has the format of time as "YYYY-MM-DD HH:MM JST")
 
 Rules:
 - Convert all times correctly from JST (UTC+9) to Unix timestamp.

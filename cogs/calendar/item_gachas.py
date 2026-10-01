@@ -1,10 +1,11 @@
 # cogs/calendar/item_gachas.py
+import hashlib
 import io
 import os
 import re
 import requests
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from zoneinfo import ZoneInfo
 
 from PIL import Image, ImageDraw, ImageFont
@@ -77,9 +78,12 @@ def remaining_label(end: Optional[int], now: int) -> str:
     if end is None:
         return "N/A"
     if end <= now:
-        return "DISABLED!"
+        return "OFFLINE!"
     sec = end - now
-    return f"{sec // 86400}d {(sec % 86400) // 3600}h"
+    d = sec // 86400
+    h = (sec % 86400) // 3600
+    m = (sec % 3600) // 60
+    return f"{d}d {h}h {m}m"
 
 # ============================================================
 # FILTRO DE PLANTILLAS (igual que feed_game_gacha.build_gacha_info_text)
@@ -276,70 +280,456 @@ def _item_lines(draw: ImageDraw.ImageDraw, items: List[str], font: ImageFont.Ima
 # GENERACIÓN DE IMAGEN (tarjetas más anchas horizontalmente)
 # ============================================================
 
+def _content_bbox(img: Image.Image, threshold: int = 28) -> Tuple[int, int, int, int]:
+    """Bounding box del contenido no-negro (recorta barras negras del arte)."""
+    rgb = img.convert("RGB")
+    w, h = rgb.size
+    pixels = rgb.load()
+    min_x, min_y, max_x, max_y = w, h, -1, -1
+    # Muestreo por filas/columnas para velocidad
+    for y in range(h):
+        for x in range(w):
+            r, g, b = pixels[x, y]
+            if r > threshold or g > threshold or b > threshold:
+                if x < min_x:
+                    min_x = x
+                if y < min_y:
+                    min_y = y
+                if x > max_x:
+                    max_x = x
+                if y > max_y:
+                    max_y = y
+    if max_x < 0:
+        return (0, 0, w, h)
+    # pequeño margen
+    pad = 2
+    return (
+        max(0, min_x - pad),
+        max(0, min_y - pad),
+        min(w, max_x + 1 + pad),
+        min(h, max_y + 1 + pad),
+    )
+
+
+def _get_dominant_color(img: Image.Image) -> Tuple[int, int, int]:
+    """
+    Color dominante del banner promocional (ignora negros/blancos).
+    Prioriza tonos saturados para rellenar laterales en lugar de negro.
+    """
+    try:
+        small = img.convert("RGB").resize((80, 80), Image.Resampling.LANCZOS)
+        pixels = list(small.getdata())
+        buckets: Dict[Tuple[int, int, int], float] = {}
+        for r, g, b in pixels:
+            mx, mn = max(r, g, b), min(r, g, b)
+            if mx < 40 or mn > 235:
+                continue
+            sat = (mx - mn) / (mx + 1e-6)
+            lum = (r + g + b) / 3.0
+            if sat < 0.08 and lum < 50:
+                continue
+            # quantize ligeramente para agrupar
+            key = (r // 12 * 12, g // 12 * 12, b // 12 * 12)
+            # peso: saturación + luminosidad media
+            weight = 1.0 + sat * 3.0 + (0.5 if 50 < lum < 180 else 0.0)
+            buckets[key] = buckets.get(key, 0.0) + weight
+        if not buckets:
+            n = len(pixels) or 1
+            return (
+                max(45, sum(p[0] for p in pixels) // n),
+                max(45, sum(p[1] for p in pixels) // n),
+                max(45, sum(p[2] for p in pixels) // n),
+            )
+        best = max(buckets.items(), key=lambda kv: kv[1])[0]
+        # suavizar un poco hacia el promedio de los top
+        top_keys = sorted(buckets.items(), key=lambda kv: -kv[1])[:3]
+        total_w = sum(w for _, w in top_keys) or 1.0
+        r = int(sum(k[0] * w for k, w in top_keys) / total_w)
+        g = int(sum(k[1] * w for k, w in top_keys) / total_w)
+        b = int(sum(k[2] * w for k, w in top_keys) / total_w)
+        return (max(r, 40), max(g, 40), max(b, 40))
+    except Exception:
+        return (55, 50, 75)
+
+
+def _color_from_key(key: str) -> Tuple[int, int, int]:
+    """
+    Color determinista a partir de un string (p.ej. prefijo entre corchetes).
+    Mismo texto → mismo color, sin necesidad de almacenarlo.
+    Genera tonos saturados y legibles sobre fondo oscuro.
+    """
+    digest = hashlib.md5(key.strip().lower().encode("utf-8")).hexdigest()
+    # Usar HSL-like: tono del hash, saturación alta, luminosidad media-alta
+    hue = int(digest[0:4], 16) % 360
+    sat = 0.55 + (int(digest[4:6], 16) % 30) / 100.0  # 0.55–0.84
+    light = 0.42 + (int(digest[6:8], 16) % 18) / 100.0  # 0.42–0.59
+
+    def hsl_to_rgb(h: float, s: float, l: float) -> Tuple[int, int, int]:
+        c = (1 - abs(2 * l - 1)) * s
+        x = c * (1 - abs((h / 60) % 2 - 1))
+        m = l - c / 2
+        if h < 60:
+            rp, gp, bp = c, x, 0.0
+        elif h < 120:
+            rp, gp, bp = x, c, 0.0
+        elif h < 180:
+            rp, gp, bp = 0.0, c, x
+        elif h < 240:
+            rp, gp, bp = 0.0, x, c
+        elif h < 300:
+            rp, gp, bp = x, 0.0, c
+        else:
+            rp, gp, bp = c, 0.0, x
+        return (
+            int((rp + m) * 255),
+            int((gp + m) * 255),
+            int((bp + m) * 255),
+        )
+
+    return hsl_to_rgb(float(hue), sat, light)
+
+
+def _luminance(rgb: Tuple[int, int, int]) -> float:
+    r, g, b = [c / 255.0 for c in rgb]
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+
+def _contrast_border(fill: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    """Borde que contraste con el relleno del chip."""
+    if _luminance(fill) > 0.45:
+        return (30, 30, 40)
+    return (220, 220, 235)
+
+
+def _text_on_fill(fill: Tuple[int, int, int]) -> Tuple[int, int, int]:
+    """Color de texto legible sobre el relleno."""
+    return (20, 20, 28) if _luminance(fill) > 0.50 else (255, 255, 255)
+
+
+def _parse_char_parts(raw: str) -> Tuple[Optional[str], str]:
+    """Separa '[Prefijo] Nombre' → (prefijo_con_corchetes o None, nombre)."""
+    m = re.match(r"^(\[[^\]]+\])\s*(.*)$", (raw or "").strip())
+    if m:
+        prefix = m.group(1).strip()
+        name = (m.group(2) or "").strip() or prefix
+        return prefix, name
+    return None, (raw or "").strip()
+
+
+def _rounded_mask(w: int, h: int, radius: int) -> Image.Image:
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, w - 1, h - 1], radius=radius, fill=255)
+    return mask
+
+
+def _fit_single_line(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    font: ImageFont.ImageFont,
+    max_width: int,
+) -> str:
+    """Una sola línea; si no cabe, recorta con ellipsis (nunca NEWLINE)."""
+    text = (text or "").replace("\n", " ").strip()
+    if not text:
+        return ""
+    if _text_width(draw, text, font) <= max_width:
+        return text
+    ell = "…"
+    while text and _text_width(draw, text + ell, font) > max_width:
+        text = text[:-1]
+    return (text + ell) if text else ell
+
+
+def _measure_timer_chip(
+    draw: ImageDraw.ImageDraw,
+    label: str,
+    value: str,
+    font: ImageFont.ImageFont,
+) -> Tuple[int, int]:
+    pad_x, pad_y = 10, 6
+    text = f"{label}: {value}"
+    tw = _text_width(draw, text, font)
+    return tw + pad_x * 2, 14 + pad_y * 2
+
+
+def _draw_timer_chip(
+    draw: ImageDraw.ImageDraw,
+    x: int,
+    y: int,
+    label: str,
+    value: str,
+    label_color: Tuple[int, int, int],
+    font: ImageFont.ImageFont,
+    max_width: Optional[int] = None,
+) -> Tuple[int, int]:
+    """
+    Chip de contador. Texto completo siempre visible (sin ellipsis).
+    Solo DISABLED! va en rojo.
+    """
+    pad_y = 6
+    radius = 6
+    label_part = f"{label}: "
+    text_full = label_part + value
+    # padding horizontal adaptable para que quepa el texto entero
+    pad_x = 10
+    natural_w = _text_width(draw, text_full, font) + pad_x * 2
+    chip_w = natural_w
+    if max_width is not None and chip_w > max_width:
+        # reducir padding al mínimo antes de tocar el texto
+        pad_x = 4
+        chip_w = _text_width(draw, text_full, font) + pad_x * 2
+        if chip_w > max_width:
+            chip_w = max_width  # último recurso: el texto igual se dibuja completo
+    chip_h = 14 + pad_y * 2
+
+    fill = (48, 50, 68)
+    border = (110, 115, 150)
+    draw.rounded_rectangle(
+        [x, y, x + chip_w, y + chip_h],
+        radius=radius,
+        fill=fill,
+        outline=border,
+        width=2,
+    )
+    lw = _text_width(draw, label_part, font)
+    draw.text((x + pad_x, y + pad_y), label_part, fill=label_color, font=font)
+    val_color = (255, 55, 55) if value == "OFFLINE!" else label_color
+    draw.text((x + pad_x + lw, y + pad_y), value, fill=val_color, font=font)
+    return chip_w, chip_h
+
+
+def _draw_item_chip(
+    draw: ImageDraw.ImageDraw,
+    x: int,
+    y: int,
+    w: int,
+    text: str,
+    font: ImageFont.ImageFont,
+    font_small: ImageFont.ImageFont,
+    kind: str = "weapon",
+) -> int:
+    """
+    Chip a ancho fijo `w`, texto centrado.
+    Personajes (estilo invertido):
+      - fondo gris oscuro uniforme
+      - borde + letras con el color del prefijo
+    Armas:
+      - fondo gris, texto claro, borde neutro
+    """
+    pad_x, pad_y = 8, 5
+    radius = 6
+    gap_inner = 2
+    max_text_w = max(20, w - pad_x * 2)
+
+    gray_fill = (48, 50, 64)
+    neutral_border = (110, 115, 140)
+
+    if kind == "character":
+        prefix, name = _parse_char_parts(text)
+        if prefix:
+            accent = _color_from_key(prefix)
+            prefix_s = _fit_single_line(draw, prefix, font_small, max_text_w)
+            name_s = _fit_single_line(draw, name, font, max_text_w)
+            line_h = 14
+            chip_h = pad_y * 2 + line_h * 2 + gap_inner
+
+            draw.rounded_rectangle(
+                [x, y, x + w, y + chip_h],
+                radius=radius,
+                fill=gray_fill,
+                outline=accent,
+                width=2,
+            )
+            pw = _text_width(draw, prefix_s, font_small)
+            nw = _text_width(draw, name_s, font)
+            draw.text((x + (w - pw) // 2, y + pad_y), prefix_s, fill=accent, font=font_small)
+            draw.text(
+                (x + (w - nw) // 2, y + pad_y + line_h + gap_inner),
+                name_s,
+                fill=accent,
+                font=font,
+            )
+            return chip_h
+        else:
+            text = name
+            accent = _color_from_key(text)
+            text_s = _fit_single_line(draw, text, font, max_text_w)
+            chip_h = pad_y * 2 + 16
+            draw.rounded_rectangle(
+                [x, y, x + w, y + chip_h],
+                radius=radius,
+                fill=gray_fill,
+                outline=accent,
+                width=2,
+            )
+            tw = _text_width(draw, text_s, font)
+            draw.text((x + (w - tw) // 2, y + pad_y), text_s, fill=accent, font=font)
+            return chip_h
+
+    # Weapon
+    text_s = _fit_single_line(draw, text, font, max_text_w)
+    chip_h = pad_y * 2 + 16
+    draw.rounded_rectangle(
+        [x, y, x + w, y + chip_h],
+        radius=radius,
+        fill=gray_fill,
+        outline=neutral_border,
+        width=2,
+    )
+    tw = _text_width(draw, text_s, font)
+    draw.text((x + (w - tw) // 2, y + pad_y), text_s, fill=(210, 215, 230), font=font)
+    return chip_h
+
+
+def _chip_content_width(
+    measure: ImageDraw.ImageDraw,
+    text: str,
+    font: ImageFont.ImageFont,
+    font_small: ImageFont.ImageFont,
+    kind: str,
+) -> int:
+    """Ancho natural del contenido del chip (sin forzar estirado)."""
+    pad = 16
+    if kind == "character":
+        prefix, name = _parse_char_parts(text)
+        if prefix:
+            return max(
+                _text_width(measure, prefix, font_small),
+                _text_width(measure, name, font),
+            ) + pad
+        return _text_width(measure, name, font) + pad
+    return _text_width(measure, text, font) + pad
+
+
 def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bool = False) -> Optional[str]:
     if not active_banners:
         return None
 
-    # Más ancho horizontal, menos columnas → tarjetas más estiradas a la derecha
-    COLS = 2
-    CARD_W = 560
-    PADDING = 16
-    GAP = 16
-    HEADER_H = 52
-    BANNER_AREA_H = 130
-    INNER = 14
+    COLS = 3
+    MIN_CARD_W = 400
+    MAX_CARD_W = 600
+    PADDING = 12
+    GAP = 10
+    HEADER_H = 48
+    BANNER_AREA_H = 118
+    BANNER_RADIUS = 10
+    INNER = 12
     LINE_H = 18
+    CHIP_GAP = 5
+    COL_GAP = 14
+    TIMER_GAP = 10
     TYPE_COLORS = {
         "PAID-ONLY": (220, 50, 50),
         "LIMITED": (255, 150, 30),
         "STANDARD": (50, 150, 220),
         "EVENT": (80, 200, 120),
     }
+    TYPE_LABELS = {
+        "PAID-ONLY": "PAID-ONLY",
+        "LIMITED": "LIMITED",
+        "STANDARD": "NO-LIMITED",
+        "EVENT": "EVENT",
+    }
 
-    font_title = _load_font(22)
-    font_small = _load_font(14)
+    font_title = _load_font(20)
+    font_name = _load_font(14)
+    font_small = _load_font(12)
     font_badge = _load_font(12)
+    font_chip = _load_font(11)
+    font_chip_sm = _load_font(10)
+    font_section = _load_font(11)
 
     measure = ImageDraw.Draw(Image.new("RGB", (10, 10)))
     now = now_as_unix()
 
-    col_w = (CARD_W - INNER * 2 - 14) // 2
-    name_w = CARD_W - 130 - INNER
+    # Ancho de tarjeta: que quepa título, timers y chips SIN recortar texto
+    max_title_w = 0
+    max_chip_w = 0
+    max_timer_w = 0
+    for banner in active_banners:
+        max_title_w = max(max_title_w, _text_width(measure, banner["name"], font_name))
+        for wpn in (banner.get("weapons") or []):
+            max_chip_w = max(
+                max_chip_w,
+                _chip_content_width(measure, wpn, font_chip, font_chip_sm, "weapon"),
+            )
+        for ch in (banner.get("chars") or []):
+            max_chip_w = max(
+                max_chip_w,
+                _chip_content_width(measure, ch, font_chip, font_chip_sm, "character"),
+            )
+        # timers típicos
+        # peor caso de etiqueta + tiempo para dimensionar columnas
+        worst_time = "99d 99h 99m"
+        for sample in (
+            f"Banner: {worst_time}",
+            f"Exch.: {worst_time}",
+            f"Event: {worst_time}",
+            f"Gacha: {worst_time}",
+        ):
+            max_timer_w = max(max_timer_w, _text_width(measure, sample, font_small) + 24)
+
+    sec_w = max(
+        _text_width(measure, "FEATURED WEAPONS", font_section),
+        _text_width(measure, "FEATURED CHARACTERS", font_section),
+    )
+    col_need = max(max_chip_w, max_timer_w, sec_w + 4, 110)
+    need_cols = INNER * 2 + col_need * 3 + 12
+    need_title = 90 + 10 + max_title_w + INNER * 2
+    CARD_W = max(MIN_CARD_W, min(MAX_CARD_W, max(need_cols, need_title)))
+
+    usable = CARD_W - INNER * 2 - COL_GAP
+    col_w = usable // 2
+    name_w = CARD_W - 100 - INNER  # espacio título al lado del badge
+
+    def _est_chip_h(item: str, kind: str) -> int:
+        if kind == "character":
+            prefix, _ = _parse_char_parts(item)
+            return 38 if prefix else 26
+        return 26
 
     layouts: List[Dict[str, Any]] = []
     for banner in active_banners:
-        name_lines = _wrap_text(measure, banner["name"], font_small, name_w) or [banner["name"]]
-        weapon_lines = _item_lines(measure, banner.get("weapons") or [], font_small, col_w)
-        char_lines = _item_lines(measure, banner.get("chars") or [], font_small, col_w)
-        list_rows = max(len(weapon_lines), len(char_lines), 1)
-        name_h = max(22, len(name_lines) * LINE_H + 4)
+        # Título en UNA línea; si no cabe se recorta, pero name_w es generoso
+        title_one = _fit_single_line(measure, banner["name"], font_name, name_w)
+        weapons = banner.get("weapons") or []
+        chars = banner.get("chars") or []
 
-        # Líneas de tiempo según tipo
-        # PAID → solo Banner
-        # LIMITED/STANDARD → Banner + Exchange
-        # EVENT → Event + Banner
-        time_rows = 1
-        if banner["type"] in ("LIMITED", "STANDARD") and banner.get("exchange_end"):
-            time_rows = 2
-        elif banner["type"] == "EVENT" and banner.get("event_end"):
-            time_rows = 2
+        # Ancho de chips = max(contenido de la columna, mínimo legible), sin pasarse de col_w
+        wpn_natural = max(
+            (_chip_content_width(measure, w, font_chip, font_chip_sm, "weapon") for w in weapons),
+            default=80,
+        )
+        char_natural = max(
+            (_chip_content_width(measure, ch, font_chip, font_chip_sm, "character") for ch in chars),
+            default=80,
+        )
+        wpn_chip_w = min(col_w, max(wpn_natural, 90))
+        char_chip_w = min(col_w, max(char_natural, 90))
+
+        w_h = sum(_est_chip_h(w, "weapon") + CHIP_GAP for w in weapons) if weapons else 14
+        c_h = sum(_est_chip_h(ch, "character") + CHIP_GAP for ch in chars) if chars else 14
+        list_h = max(w_h, c_h, 14)
 
         body_h = (
             BANNER_AREA_H
+            + 10
+            + 22          # badge + title
             + 8
-            + name_h
-            + 8
-            + time_rows * (LINE_H + 4)
-            + 22
-            + list_rows * LINE_H
+            + 30          # timers
+            + 6
+            + 16          # section labels
+            + 4
+            + list_h
             + INNER
         )
         layouts.append({
             "banner": banner,
-            "name_lines": name_lines,
-            "weapon_lines": weapon_lines,
-            "char_lines": char_lines,
-            "name_h": name_h,
+            "title": title_one,
+            "weapons": weapons,
+            "chars": chars,
+            "wpn_chip_w": wpn_chip_w,
+            "char_chip_w": char_chip_w,
             "height": body_h,
         })
 
@@ -358,7 +748,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     img = Image.new("RGB", (width, height), color=(22, 22, 30))
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, width, HEADER_H], fill=(142, 36, 170))
-    draw.text((PADDING, 13), "KAIJU NO. 8  •  ACTIVE GACHAS", fill="white", font=font_title)
+    draw.text((PADDING, 12), "KAIJU NO. 8  •  ACTIVE GACHAS", fill="white", font=font_title)
 
     y_row = HEADER_H + PADDING
     for r in range(rows):
@@ -373,72 +763,200 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
             y = y_row
             card_h = row_h
 
-            draw.rounded_rectangle([x, y, x + CARD_W, y + card_h], radius=10, fill=(38, 38, 52))
+            draw.rounded_rectangle([x, y, x + CARD_W, y + card_h], radius=12, fill=(38, 38, 52))
 
-            # Logo / banner image
+            # --- Banner: 1) color dominante  2) rellenar área  3) poner logo encima ---
+            area_x0, area_y0 = x + 6, y + 6
+            area_w, area_h = CARD_W - 12, BANNER_AREA_H - 8
             logo_url = banner.get("logo")
+            drew_image = False
+
             if logo_url:
                 try:
                     resp = requests.get(logo_url, timeout=5)
                     if resp.status_code == 200:
                         logo = Image.open(io.BytesIO(resp.content)).convert("RGBA")
-                        logo = logo.resize((CARD_W - 12, BANNER_AREA_H - 8), Image.Resampling.LANCZOS)
-                        img.paste(logo, (x + 6, y + 6), logo)
-                    else:
-                        raise ValueError("bad status")
+                        # Recortar barras negras del archivo promocional si existen
+                        bbox = _content_bbox(logo, threshold=25)
+                        if bbox[2] - bbox[0] > 10 and bbox[3] - bbox[1] > 10:
+                            logo = logo.crop(bbox)
+
+                        # 1) Color dominante de la imagen
+                        dom = _get_dominant_color(logo)
+
+                        # 2) Rellenar TODO el área con ese color (nunca negro residual)
+                        bg = Image.new("RGBA", (area_w, area_h), (0, 0, 0, 0))
+                        bg_draw = ImageDraw.Draw(bg)
+                        bg_draw.rounded_rectangle(
+                            [0, 0, area_w - 1, area_h - 1],
+                            radius=BANNER_RADIUS,
+                            fill=(dom[0], dom[1], dom[2], 255),
+                        )
+
+                        # 3) Imagen centrada ENCIMA (sin estirar), con alpha correcto
+                        lw, lh = logo.size
+                        if lw > 0 and lh > 0:
+                            scale = min(area_w / lw, area_h / lh)
+                            new_w = max(1, int(lw * scale))
+                            new_h = max(1, int(lh * scale))
+                            logo_r = logo.resize((new_w, new_h), Image.Resampling.LANCZOS)
+                            px = (area_w - new_w) // 2
+                            py = (area_h - new_h) // 2
+
+                            # Componer sobre el fondo de color dominante (evita negro por alpha)
+                            composed = bg.copy()
+                            composed.paste(logo_r, (px, py), logo_r)
+                            # Recortar a esquinas redondeadas
+                            mask = _rounded_mask(area_w, area_h, BANNER_RADIUS)
+                            composed.putalpha(mask)
+                            img.paste(composed, (area_x0, area_y0), composed)
+                            drew_image = True
+                        else:
+                            img.paste(bg, (area_x0, area_y0), bg)
+                            drew_image = True
                 except Exception:
-                    draw.rectangle([x + 6, y + 6, x + CARD_W - 6, y + BANNER_AREA_H - 2], fill=(50, 50, 70))
-                    draw.text((x + CARD_W // 2 - 40, y + 50), "NO IMAGE", fill=(120, 120, 140), font=font_small)
-            else:
-                draw.rectangle([x + 6, y + 6, x + CARD_W - 6, y + BANNER_AREA_H - 2], fill=(50, 50, 70))
-                draw.text((x + CARD_W // 2 - 40, y + 50), "NO IMAGE", fill=(120, 120, 140), font=font_small)
+                    pass
+
+            if not drew_image:
+                ph = Image.new("RGBA", (area_w, area_h), (0, 0, 0, 0))
+                ph_draw = ImageDraw.Draw(ph)
+                ph_draw.rounded_rectangle(
+                    [0, 0, area_w - 1, area_h - 1],
+                    radius=BANNER_RADIUS,
+                    fill=(55, 50, 75, 255),
+                )
+                img.paste(ph, (area_x0, area_y0), ph)
+                draw.text(
+                    (x + CARD_W // 2 - 36, y + BANNER_AREA_H // 2 - 6),
+                    "NO IMAGE",
+                    fill=(120, 120, 140),
+                    font=font_small,
+                )
 
             gtype = banner["type"]
+            display_label = TYPE_LABELS.get(gtype, gtype)
             badge_color = TYPE_COLORS.get(gtype, (100, 100, 100))
-            badge_y = y + BANNER_AREA_H + 6
-            badge_w = 118 if gtype != "PAID-ONLY" else 108
-            draw.rounded_rectangle([x + 8, badge_y, x + badge_w, badge_y + 20], radius=4, fill=badge_color)
-            draw.text((x + 14, badge_y + 3), gtype, fill="white", font=font_badge)
-            for i, line in enumerate(layout["name_lines"]):
-                draw.text((x + badge_w + 10, badge_y + i * LINE_H), line, fill=(255, 200, 255), font=font_small)
 
-            y_info = badge_y + layout["name_h"] + 4
+            # === 3 columnas iguales del área de contenido ===
+            content_left = x + INNER
+            content_w = CARD_W - INNER * 2
+            third = content_w // 3
+            col1_x = content_left
+            col2_x = content_left + third
+            col3_x = content_left + third * 2
+            col_w1 = third - 4
+            col_w2 = third - 4
+            col_w3 = third - 4
 
-            # --- Fechas según reglas del usuario ---
+            # --- Fila central: badge + título centrados en columna 2 ---
+            badge_y = y + BANNER_AREA_H + 8
+            label_w = _text_width(draw, display_label, font_badge)
+            badge_w = max(label_w + 14, 70)
+            badge_h = 18
+            title = layout["title"]
+            title_w = _text_width(draw, title, font_name)
+            pair_w = badge_w + 6 + title_w
+            pair_x = col2_x + (col_w2 - pair_w) // 2
+            # Si el par no cabe en col2, centrar respecto a toda la tarjeta
+            if pair_w > col_w2:
+                pair_x = x + (CARD_W - pair_w) // 2
+
+            draw.rounded_rectangle(
+                [pair_x, badge_y, pair_x + badge_w, badge_y + badge_h],
+                radius=5,
+                fill=badge_color,
+            )
+            draw.text(
+                (pair_x + (badge_w - label_w) // 2, badge_y + 2),
+                display_label,
+                fill="white",
+                font=font_badge,
+            )
+            draw.text(
+                (pair_x + badge_w + 6, badge_y + 1),
+                title,
+                fill=(255, 200, 255),
+                font=font_name,
+            )
+
+            y_info = badge_y + badge_h + 8
+
+            # --- Timers: col1 = izquierdo, col3 = derecho; si solo 1 → centrado en col2 ---
+            timers: List[Tuple[str, str, Tuple[int, int, int]]] = []
             if gtype == "PAID-ONLY":
-                b_txt = remaining_label(banner["banner_end"], now)
-                draw.text((x + 10, y_info), f"Gacha: {b_txt}", fill=(170, 210, 255), font=font_small)
+                timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
             elif gtype == "EVENT":
-                e_txt = remaining_label(banner.get("event_end"), now)
-                b_txt = remaining_label(banner["banner_end"], now)
-                draw.text((x + 10, y_info), f"Event: {e_txt}", fill=(150, 255, 180), font=font_small)
-                draw.text((x + 10, y_info + LINE_H + 2), f"Gacha: {b_txt}", fill=(170, 210, 255), font=font_small)
-            else:  # LIMITED / STANDARD
-                b_txt = remaining_label(banner["banner_end"], now)
-                ex_txt = remaining_label(banner.get("exchange_end"), now)
-                draw.text((x + 10, y_info), f"Banner: {b_txt}", fill=(170, 210, 255), font=font_small)
-                draw.text((x + 10 + col_w + 12, y_info), f"Exchange: {ex_txt}", fill=(255, 190, 130), font=font_small)
+                timers.append(("Event", remaining_label(banner.get("event_end"), now), (150, 255, 180)))
+                timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
+            else:
+                timers.append(("Banner", remaining_label(banner["banner_end"], now), (170, 210, 255)))
+                timers.append(("Exch.", remaining_label(banner.get("exchange_end"), now), (255, 190, 130)))
 
-            # Listas weapons / characters
-            time_offset = (LINE_H + 4) if gtype in ("EVENT",) else 0
-            if gtype in ("LIMITED", "STANDARD"):
-                time_offset = 0  # ya están en la misma fila
+            timer_bottom = y_info
+            if len(timers) == 1:
+                lb, val, col = timers[0]
+                cw, ch = _measure_timer_chip(draw, lb, val, font_small)
+                cw = min(cw, col_w2)
+                tx = col2_x + (col_w2 - cw) // 2
+                _draw_timer_chip(draw, tx, y_info, lb, val, col, font_small, max_width=col_w2)
+                timer_bottom = y_info + ch
+            else:
+                (lb1, val1, col1), (lb2, val2, col2c) = timers[0], timers[1]
+                cw1, ch1 = _measure_timer_chip(draw, lb1, val1, font_small)
+                cw2, ch2 = _measure_timer_chip(draw, lb2, val2, font_small)
+                cw1 = min(cw1, col_w1)
+                cw2 = min(cw2, col_w3)
+                tx1 = col1_x + (col_w1 - cw1) // 2
+                tx2 = col3_x + (col_w3 - cw2) // 2
+                _draw_timer_chip(draw, tx1, y_info, lb1, val1, col1, font_small, max_width=col_w1)
+                _draw_timer_chip(draw, tx2, y_info, lb2, val2, col2c, font_small, max_width=col_w3)
+                timer_bottom = y_info + max(ch1, ch2)
 
-            y_list = y_info + 24 + (LINE_H + 4 if gtype == "EVENT" else 0)
-            left_x = x + 10
-            right_x = x + 10 + col_w + 12
-            draw.text((left_x, y_list), "Weapons:", fill=(150, 255, 180), font=font_small)
-            draw.text((right_x, y_list), "Characters:", fill=(255, 220, 130), font=font_small)
-            for i, line in enumerate(layout["weapon_lines"]):
-                draw.text((left_x, y_list + 18 + i * LINE_H), line, fill=(200, 200, 200), font=font_small)
-            for i, line in enumerate(layout["char_lines"]):
-                draw.text((right_x, y_list + 18 + i * LINE_H), line, fill=(200, 200, 200), font=font_small)
+            # --- FEATURED WEAPONS (col1) / FEATURED CHARACTERS (col3) ---
+            y_list = timer_bottom + 8
+            wpn_label = "FEATURED WEAPONS"
+            char_label = "FEATURED CHARACTERS"
+            ww = _text_width(draw, wpn_label, font_section)
+            cw = _text_width(draw, char_label, font_section)
+            draw.text(
+                (col1_x + (col_w1 - ww) // 2, y_list),
+                wpn_label,
+                fill=(150, 255, 180),
+                font=font_section,
+            )
+            draw.text(
+                (col3_x + (col_w3 - cw) // 2, y_list),
+                char_label,
+                fill=(255, 220, 130),
+                font=font_section,
+            )
+
+            # Chips a ancho de columna (texto completo; ellipsis solo si no cabe ni así)
+            wpn_chip_w = col_w1
+            char_chip_w = col_w3
+
+            cy = y_list + 16
+            for wpn in layout["weapons"]:
+                chip_x = col1_x + (col_w1 - wpn_chip_w) // 2
+                used = _draw_item_chip(
+                    draw, chip_x, cy, wpn_chip_w, wpn, font_chip, font_chip_sm, kind="weapon"
+                )
+                cy += used + CHIP_GAP
+
+            cy = y_list + 16
+            for ch in layout["chars"]:
+                chip_x = col3_x + (col_w3 - char_chip_w) // 2
+                used = _draw_item_chip(
+                    draw, chip_x, cy, char_chip_w, ch, font_chip, font_chip_sm, kind="character"
+                )
+                cy += used + CHIP_GAP
 
         y_row += row_h + GAP
 
     os.makedirs(os.path.dirname(GACHA_IMAGE_PATH), exist_ok=True)
     img.save(GACHA_IMAGE_PATH, format="PNG", optimize=True)
     return GACHA_IMAGE_PATH
+
 
 def get_gacha_attachment() -> Optional[File]:
     if os.path.exists(GACHA_IMAGE_PATH):
