@@ -78,16 +78,17 @@ def panelbuilder_events(relative: bool = False) -> ui.LayoutView:
         
 
         elif "DEFENSE FRONTLINE" in candidate_name:
-                    candidate_name = cleartext(candidate_name)
-                    info_unix = hv_2
-                    info_text = f"  - 🪖 `{candidate_name}`"
+            candidate_name = cleartext(candidate_name)
+            info_unix = hv_2
+            info_text = f"  - 🪖 `{candidate_name}`"
         
         
         elif "TOTAL WAR" in candidate_name:
             candidate_name = cleartext(candidate_name)
             info_unix = hv_3
-            info_text = f"  - 🪖 `🠟 {candidate_name} 🠟` \n      - [🎮 The event won't be playable {'on ' if not relative else ''}{format_time_view(hv_2, relative, 'd')}]"
-
+            info_text = format_text_view(hv_2, f"[🎮 The event won't be playable {'on ' if not relative else ''}{format_time_view(hv_2, relative, 'd')}]", f"[🚧 Claim your pending rewards!]")
+            info_text = f"  - 📖 `🠟 {candidate_name} 🠟` \n      - {info_text}"
+            
 
         elif "MINI SPECIAL EVENT" in candidate_name or "SPECIAL EVENT" in candidate_name:
             candidate_name = cleartext(candidate_name)

@@ -1023,31 +1023,31 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             closest_day = min(unix_jst_day(b["event_end"]) for b in future_event)
             same_day = [b for b in future_event if unix_jst_day(b["event_end"]) == closest_day]
             ts = min(b["event_end"] for b in same_day)
-            lines.append(f"## __Events departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
+            lines.append(f"- 🎪 __Events departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
             seen = set()
             for b in same_day:
                 if b["name"] not in seen:
                     seen.add(b["name"])
                     tag = type_tag.get(b.get("type", ""), b.get("type", ""))
-                    lines.append(f"* `[{tag}] {b['name']}`")
+                    lines.append(f"  - `[{tag}] {b['name']}`")
 
         if future_gacha:
             closest_day = min(unix_jst_day(b["banner_end"]) for b in future_gacha)
             same_day = [b for b in future_gacha if unix_jst_day(b["banner_end"]) == closest_day]
             ts = min(b["banner_end"] for b in same_day)
-            lines.append(f"## __Gachas departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
+            lines.append(f"- 🎫 __Gachas departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
             seen = set()
             for b in same_day:
                 if b["name"] not in seen:
                     seen.add(b["name"])
                     tag = type_tag.get(b.get("type", ""), b.get("type", ""))
-                    lines.append(f"* `[{tag}] {b['name']}`")
+                    lines.append(f"  - `[{tag}] {b['name']}`")
 
         if future_ex:
             closest_day = min(unix_jst_day(b["exchange_end"]) for b in future_ex)
             same_day = [b for b in future_ex if unix_jst_day(b["exchange_end"]) == closest_day]
             ts = min(b["exchange_end"] for b in same_day)
-            lines.append(f"## __Exchange departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
+            lines.append(f"- 🔄️ __Exchange departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
             chars: List[str] = []
             weapons: List[str] = []
             for b in same_day:
@@ -1058,9 +1058,9 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
                     if w not in weapons:
                         weapons.append(w)
             for c in chars:
-                lines.append(f"* `{c}`")
+                lines.append(f"  - `{c}`")
             for w in weapons:
-                lines.append(f"* `{w}`")
+                lines.append(f"  - `{w}`")
 
         if lines:
             container.add_item(ui.TextDisplay("\n".join(lines).strip()))
