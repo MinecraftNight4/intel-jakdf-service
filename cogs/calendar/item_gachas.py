@@ -86,7 +86,7 @@ def remaining_label(end: Optional[int], now: int) -> str:
     return f"{d}d {h}h {m}m"
 
 # ============================================================
-# FILTRO DE PLANTILLAS
+# FILTRO DE PLANTILLAS (igual que feed_game_gacha.build_gacha_info_text)
 # ============================================================
 
 def classify_article(art: dict) -> Optional[Dict[str, Any]]:
@@ -174,9 +174,9 @@ def get_active_gacha_info(art: dict, now: int) -> List[Dict[str, Any]]:
     else:  # LIMITED / STANDARD
         still_active = end_gacha > now or (end_exchange is not None and end_exchange > now)
 
-    # Si ya terminó TODO → se incluye igual con OFFLINE! (según pedido del usuario)
+    # Si ya terminó TODO → se incluye igual con DISABLED! (según pedido del usuario)
     # Si prefieres ocultarlos del todo, cambia a: if not still_active: return []
-    # Por ahora: se muestran aunque estén OFFLINE! para que el usuario los vea.
+    # Por ahora: se muestran aunque estén DISABLED! para que el usuario los vea.
     # Si quieres solo activos, descomenta la siguiente línea:
     # if not still_active:
     #     return []
@@ -464,7 +464,7 @@ def _draw_timer_chip(
 ) -> Tuple[int, int]:
     """
     Chip de contador. Texto completo siempre visible (sin ellipsis).
-    Solo OFFLINE! va en rojo.
+    Solo OFFLINE!/DISABLED! va en rojo.
     """
     pad_y = 6
     radius = 6
@@ -493,7 +493,7 @@ def _draw_timer_chip(
     )
     lw = _text_width(draw, label_part, font)
     draw.text((x + pad_x, y + pad_y), label_part, fill=label_color, font=font)
-    val_color = (255, 55, 55) if value == "OFFLINE!" else label_color
+    val_color = (255, 55, 55) if value in ("DISABLED!", "OFFLINE!") else label_color
     draw.text((x + pad_x + lw, y + pad_y), value, fill=val_color, font=font)
     return chip_w, chip_h
 
@@ -607,11 +607,12 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
         return None
 
     COLS = 3
-    MIN_CARD_W = 400
-    MAX_CARD_W = 900  # techo de seguridad; el ancho real lo define el contenido
+    MIN_CARD_W = 340  # solo piso de legibilidad; el ancho lo marca el contenido
+    MAX_CARD_W = 900
     PADDING = 12
     GAP = 10
     HEADER_H = 48
+    FOOTER_H = 36
     BANNER_AREA_H = 118
     BANNER_RADIUS = 10
     INNER = 12
@@ -619,6 +620,10 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     CHIP_GAP = 5
     COL_GAP = 14
     TIMER_GAP = 10
+    DISCLAIMER = (
+        "[Akatsuki Games Inc], [Akatsuki], [Production I.G], and [Tōhō] "
+        "are not affiliated with this project and are the owners of the attached elements."
+    )
     TYPE_COLORS = {
         "PAID-ONLY": (220, 50, 50),
         "LIMITED": (255, 150, 30),
@@ -664,7 +669,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
         worst_time = "99d 99h 99m"
         for sample in (
             f"Banner: {worst_time}",
-            f"EXCHANGE: {worst_time}",
+            f"Exchange: {worst_time}",
             f"Event: {worst_time}",
             f"Gacha: {worst_time}",
         ):
@@ -674,13 +679,30 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
         _text_width(measure, "FEATURED WEAPONS", font_section),
         _text_width(measure, "FEATURED CHARACTERS", font_section),
     )
-    # Cada columna debe caber el chip/timer más ancho → tarjeta crece sin límite práctico
-    col_need = max(max_chip_w, max_timer_w, sec_w + 4, 110)
-    need_cols = INNER * 2 + col_need * 3 + 16
+    # Cada columna debe caber: chip, label de sección Y timer (el más ancho manda)
+    max_wpn_w = 0
+    max_char_w = 0
+    for banner in active_banners:
+        for wpn in (banner.get("weapons") or []):
+            max_wpn_w = max(
+                max_wpn_w,
+                _chip_content_width(measure, wpn, font_chip, font_chip_sm, "weapon"),
+            )
+        for ch in (banner.get("chars") or []):
+            max_char_w = max(
+                max_char_w,
+                _chip_content_width(measure, ch, font_chip, font_chip_sm, "character"),
+            )
+    # "FEATURED WEAPONS" / "FEATURED CHARACTERS" y timers típicos
+    col_left_need = max(max_wpn_w, sec_w + 4, max_timer_w, 90)
+    col_right_need = max(max_char_w, sec_w + 4, max_timer_w, 90)
+
+    list_gap = 16
+    need_cols = INNER * 2 + col_left_need + col_right_need + list_gap
     need_title = 90 + 10 + max_title_w + INNER * 2
-    CARD_W = max(MIN_CARD_W, max(need_cols, need_title))
+    CARD_W = max(MIN_CARD_W, need_cols, need_title)
     if CARD_W > MAX_CARD_W:
-        CARD_W = MAX_CARD_W  # solo en casos extremos
+        CARD_W = MAX_CARD_W
 
     usable = CARD_W - INNER * 2 - COL_GAP
     col_w = usable // 2
@@ -714,8 +736,9 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
             (_chip_content_width(measure, ch, font_chip, font_chip_sm, "character") for ch in chars),
             default=80,
         )
-        wpn_chip_w = min(col_w, max(wpn_natural, 90))
-        char_chip_w = min(col_w, max(char_natural, 90))
+        # Ancho natural del texto (+ padding); mínimo legible ~70px
+        wpn_chip_w = max(wpn_natural, 70)
+        char_chip_w = max(char_natural, 70)
 
         w_h = sum(_est_chip_h(w, "weapon") + CHIP_GAP for w in weapons) if weapons else 14
         c_h = sum(_est_chip_h(ch, "character") + CHIP_GAP for ch in chars) if chars else 14
@@ -753,12 +776,20 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
         row_heights.append(row_h)
 
     width = PADDING * 2 + COLS * CARD_W + (COLS - 1) * GAP
-    height = HEADER_H + PADDING + sum(row_heights) + max(0, rows - 1) * GAP + PADDING
+    height = (
+        HEADER_H
+        + PADDING
+        + sum(row_heights)
+        + max(0, rows - 1) * GAP
+        + PADDING
+        + FOOTER_H
+    )
 
     img = Image.new("RGB", (width, height), color=(22, 22, 30))
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, width, HEADER_H], fill=(142, 36, 170))
-    draw.text((PADDING, 12), f"KAIJU NO. 8 THE GAME • WEAPON AND CHARACTER GACHAS", fill="white", font=font_title)
+    draw.text((PADDING, 12), "KAIJU NO. 8  •  ACTIVE GACHAS", fill="white", font=font_title)
+    font_disclaimer = _load_font(10)
 
     y_row = HEADER_H + PADDING
     for r in range(rows):
@@ -891,7 +922,22 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
 
             y_info = badge_y + badge_h + 8
 
-            # --- Timers: col1 = izquierdo, col3 = derecho; si solo 1 → centrado en col2 ---
+            weapons_list = layout["weapons"]
+            chars_list = layout["chars"]
+
+            # Ancho natural de chips (solo texto)
+            wpn_chip_w = max(
+                (_chip_content_width(draw, w, font_chip, font_chip_sm, "weapon") for w in weapons_list),
+                default=70,
+            )
+            char_chip_w = max(
+                (_chip_content_width(draw, c, font_chip, font_chip_sm, "character") for c in chars_list),
+                default=70,
+            )
+            wpn_chip_w = max(wpn_chip_w, 70)
+            char_chip_w = max(char_chip_w, 70)
+
+            # Timers de esta tarjeta (para dimensionar columnas)
             timers: List[Tuple[str, str, Tuple[int, int, int]]] = []
             if gtype == "PAID-ONLY":
                 timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
@@ -900,68 +946,120 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
                 timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
             else:
                 timers.append(("Banner", remaining_label(banner["banner_end"], now), (170, 210, 255)))
-                timers.append(("EXCHANGE", remaining_label(banner.get("exchange_end"), now), (255, 190, 130)))
+                timers.append(("Exchange", remaining_label(banner.get("exchange_end"), now), (255, 190, 130)))
 
+            tw_left = 0
+            tw_right = 0
+            if len(timers) == 1:
+                tw_left = _measure_timer_chip(draw, timers[0][0], timers[0][1], font_small)[0]
+            else:
+                tw_left = _measure_timer_chip(draw, timers[0][0], timers[0][1], font_small)[0]
+                tw_right = _measure_timer_chip(draw, timers[1][0], timers[1][1], font_small)[0]
+
+            wpn_label = "FEATURED WEAPONS"
+            char_label = "FEATURED CHARACTERS"
+            sec_left_w = _text_width(draw, wpn_label, font_section)
+            sec_right_w = _text_width(draw, char_label, font_section)
+
+            # Columna = max(chip, timer, label de sección) — NADA se sale
+            col_left_w = max(wpn_chip_w, tw_left, sec_left_w, 70)
+            col_right_w = max(char_chip_w, tw_right, sec_right_w, 70)
+
+            list_gap = 16
+            pair_w = col_left_w + list_gap + col_right_w
+            if pair_w <= content_w:
+                pair_x = content_left + (content_w - pair_w) // 2
+                col_left_x = pair_x
+                col_right_x = pair_x + col_left_w + list_gap
+            else:
+                # Ajuste de emergencia si el contenido no cabe (no debería pasar)
+                scale = content_w / pair_w
+                col_left_w = max(70, int(col_left_w * scale))
+                col_right_w = content_w - list_gap - col_left_w
+                col_left_x = content_left
+                col_right_x = content_left + col_left_w + list_gap
+                wpn_chip_w = min(wpn_chip_w, col_left_w)
+                char_chip_w = min(char_chip_w, col_right_w)
+
+            # --- Timers ---
             timer_bottom = y_info
             if len(timers) == 1:
                 lb, val, col = timers[0]
                 cw, ch = _measure_timer_chip(draw, lb, val, font_small)
-                cw = min(cw, col_w2)
-                tx = col2_x + (col_w2 - cw) // 2
-                _draw_timer_chip(draw, tx, y_info, lb, val, col, font_small, max_width=col_w2)
+                cw = min(cw, content_w)
+                tx = content_left + (content_w - cw) // 2
+                _draw_timer_chip(draw, tx, y_info, lb, val, col, font_small, max_width=content_w)
                 timer_bottom = y_info + ch
             else:
                 (lb1, val1, col1), (lb2, val2, col2c) = timers[0], timers[1]
                 cw1, ch1 = _measure_timer_chip(draw, lb1, val1, font_small)
                 cw2, ch2 = _measure_timer_chip(draw, lb2, val2, font_small)
-                cw1 = min(cw1, col_w1)
-                cw2 = min(cw2, col_w3)
-                tx1 = col1_x + (col_w1 - cw1) // 2
-                tx2 = col3_x + (col_w3 - cw2) // 2
-                _draw_timer_chip(draw, tx1, y_info, lb1, val1, col1, font_small, max_width=col_w1)
-                _draw_timer_chip(draw, tx2, y_info, lb2, val2, col2c, font_small, max_width=col_w3)
+                cw1 = min(cw1, col_left_w)
+                cw2 = min(cw2, col_right_w)
+                tx1 = col_left_x + (col_left_w - cw1) // 2
+                tx2 = col_right_x + (col_right_w - cw2) // 2
+                _draw_timer_chip(draw, tx1, y_info, lb1, val1, col1, font_small, max_width=col_left_w)
+                _draw_timer_chip(draw, tx2, y_info, lb2, val2, col2c, font_small, max_width=col_right_w)
                 timer_bottom = y_info + max(ch1, ch2)
 
-            # --- FEATURED WEAPONS (col1) / FEATURED CHARACTERS (col3) ---
+            # --- FEATURED labels ---
             y_list = timer_bottom + 8
-            wpn_label = "FEATURED WEAPONS"
-            char_label = "FEATURED CHARACTERS"
-            ww = _text_width(draw, wpn_label, font_section)
-            cw = _text_width(draw, char_label, font_section)
+            ww = sec_left_w
+            cw = sec_right_w
             draw.text(
-                (col1_x + (col_w1 - ww) // 2, y_list),
+                (col_left_x + (col_left_w - ww) // 2, y_list),
                 wpn_label,
                 fill=(150, 255, 180),
                 font=font_section,
             )
             draw.text(
-                (col3_x + (col_w3 - cw) // 2, y_list),
+                (col_right_x + (col_right_w - cw) // 2, y_list),
                 char_label,
                 fill=(255, 220, 130),
                 font=font_section,
             )
 
-            # Chips a ancho de columna (texto completo; ellipsis solo si no cabe ni así)
-            wpn_chip_w = col_w1
-            char_chip_w = col_w3
+            # Chips: ancho del texto, centrados en su columna
+            wpn_chip_w = min(wpn_chip_w, col_left_w)
+            char_chip_w = min(char_chip_w, col_right_w)
 
             cy = y_list + 16
-            for wpn in layout["weapons"]:
-                chip_x = col1_x + (col_w1 - wpn_chip_w) // 2
+            for wpn in weapons_list:
+                chip_x = col_left_x + (col_left_w - wpn_chip_w) // 2
                 used = _draw_item_chip(
                     draw, chip_x, cy, wpn_chip_w, wpn, font_chip, font_chip_sm, kind="weapon"
                 )
                 cy += used + CHIP_GAP
 
             cy = y_list + 16
-            for ch in layout["chars"]:
-                chip_x = col3_x + (col_w3 - char_chip_w) // 2
+            for ch in chars_list:
+                chip_x = col_right_x + (col_right_w - char_chip_w) // 2
                 used = _draw_item_chip(
                     draw, chip_x, cy, char_chip_w, ch, font_chip, font_chip_sm, kind="character"
                 )
                 cy += used + CHIP_GAP
 
         y_row += row_h + GAP
+
+    # --- Disclaimer legal (pie de imagen) ---
+    footer_y = height - FOOTER_H
+    draw.rectangle([0, footer_y, width, height], fill=(18, 18, 24))
+    # Centrar el texto; si es muy largo, partir en 2 líneas
+    disc_w = _text_width(draw, DISCLAIMER, font_disclaimer)
+    max_disc_w = width - PADDING * 2
+    if disc_w <= max_disc_w:
+        dx = (width - disc_w) // 2
+        draw.text((dx, footer_y + 12), DISCLAIMER, fill=(140, 140, 155), font=font_disclaimer)
+    else:
+        # Partir aproximadamente a la mitad por espacio
+        words = DISCLAIMER.split(" ")
+        mid = len(words) // 2
+        line1 = " ".join(words[:mid])
+        line2 = " ".join(words[mid:])
+        w1 = _text_width(draw, line1, font_disclaimer)
+        w2 = _text_width(draw, line2, font_disclaimer)
+        draw.text(((width - w1) // 2, footer_y + 6), line1, fill=(140, 140, 155), font=font_disclaimer)
+        draw.text(((width - w2) // 2, footer_y + 18), line2, fill=(140, 140, 155), font=font_disclaimer)
 
     os.makedirs(os.path.dirname(GACHA_IMAGE_PATH), exist_ok=True)
     img.save(GACHA_IMAGE_PATH, format="PNG", optimize=True)
@@ -981,13 +1079,13 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
     container = ui.Container(accent_colour=0x8E24AA)
 
-    now = now_as_unix()
-    container.add_item(ui.TextDisplay(f"## __AVAILABLE GACHAS__\n-# ℹ️ *The data was updated <t:{now}:R>.*"))
+    container.add_item(ui.TextDisplay("## __AVAILABLE GACHAS__"))
 
     active_banners = collect_active_banners()
+    now = now_as_unix()
 
     if not active_banners:
-        container.add_item(ui.TextDisplay("*This should be a mistake, but there are no gachas available!?*"))
+        container.add_item(ui.TextDisplay("*No active gacha banners found right now.*"))
     else:
         gallery = ui.MediaGallery()
         gallery.add_item(media=f"attachment://{GACHA_IMAGE_NAME}")
@@ -1023,31 +1121,33 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             closest_day = min(unix_jst_day(b["event_end"]) for b in future_event)
             same_day = [b for b in future_event if unix_jst_day(b["event_end"]) == closest_day]
             ts = min(b["event_end"] for b in same_day)
-            lines.append(f"- 🎪 __Events departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
+            lines.append(f"## __Events ending {format_time_view(ts, relative, 'f')}__")
             seen = set()
             for b in same_day:
                 if b["name"] not in seen:
                     seen.add(b["name"])
                     tag = type_tag.get(b.get("type", ""), b.get("type", ""))
-                    lines.append(f"  - `[{tag}] {b['name']}`")
+                    lines.append(f"* `[{tag}] {b['name']}`")
+            lines.append("")
 
         if future_gacha:
             closest_day = min(unix_jst_day(b["banner_end"]) for b in future_gacha)
             same_day = [b for b in future_gacha if unix_jst_day(b["banner_end"]) == closest_day]
             ts = min(b["banner_end"] for b in same_day)
-            lines.append(f"- 🎫 __Gachas departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
+            lines.append(f"## __Gachas leaving {format_time_view(ts, relative, 'f')}__")
             seen = set()
             for b in same_day:
                 if b["name"] not in seen:
                     seen.add(b["name"])
                     tag = type_tag.get(b.get("type", ""), b.get("type", ""))
-                    lines.append(f"  - `[{tag}] {b['name']}`")
+                    lines.append(f"* `[{tag}] {b['name']}`")
+            lines.append("")
 
         if future_ex:
             closest_day = min(unix_jst_day(b["exchange_end"]) for b in future_ex)
             same_day = [b for b in future_ex if unix_jst_day(b["exchange_end"]) == closest_day]
             ts = min(b["exchange_end"] for b in same_day)
-            lines.append(f"- 🔄️ __Exchange departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}:__")
+            lines.append(f"## __Exchange leaving {format_time_view(ts, relative, 'f')}__")
             chars: List[str] = []
             weapons: List[str] = []
             for b in same_day:
@@ -1058,9 +1158,10 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
                     if w not in weapons:
                         weapons.append(w)
             for c in chars:
-                lines.append(f"  - `{c}`")
+                lines.append(f"* `{c}`")
             for w in weapons:
-                lines.append(f"  - `{w}`")
+                lines.append(f"* `{w}`")
+            lines.append("")
 
         if lines:
             container.add_item(ui.TextDisplay("\n".join(lines).strip()))
