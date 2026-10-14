@@ -24,11 +24,29 @@ GACHA_IMAGE_PATH = "sys_save/calendar/gacha.png"
 GACHA_IMAGE_NAME = "gacha.png"
 FONT_PATH = "sys_save/calendar/bungee-regular.ttf"
 
-# ============================================================
-# EXTRACTORES
-# ============================================================
 
-def extract_5star_chars(text: str) -> List[str]:
+# ============================================================
+# CLOCKS AND COUNTDOWNS
+# ============================================================
+def timesystem_timezone(ts: int) -> str:
+    return datetime.fromtimestamp(ts, tz=JST).strftime("%Y-%m-%d")
+
+def timesystem_countdown(end: Optional[int], now: int) -> str:
+    if end is None:
+        return "??????"
+    if end <= now:
+        return "OFFLINE!"
+    s = end - now
+    d = s // 86400
+    h = (s % 86400) // 3600
+    m = (s % 3600) // 60
+    return f"{d}d {h}h {m}m"
+
+
+# ============================================================
+# TEXT FILTERS (TYPE, WEAPON, CHARACTERS, CLEAR TAGS)
+# ============================================================
+def textfetch_listed_unit(text: str) -> List[str]:
     found: List[str] = []
     pattern = r"(\[[^\]]+\]\s*[A-Za-z0-9\s\-']+?)(?:\s*\(Optimal|\s*$|\n)"
     for m in re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE):
@@ -37,63 +55,38 @@ def extract_5star_chars(text: str) -> List[str]:
             found.append(name)
     return found[:8]
 
-def extract_5star_weapons(text: str) -> List[str]:
+def textfetch_listed_weapon(text: str) -> List[str]:
     found: List[str] = []
-    pattern = r"((?:HM|SH|AR|GS|Lc|SW|Ax|RF|AW|GG|SB|Fs|T|S)-[A-Za-z0-9\-]+)"
+    pattern = r"((?:HM|SH|AR|GS|Lc|SW|Ax|RF|AW|GG|SB|Fs|T|S|PS|HG|SG)[-‐][A-Za-z0-9\- ]+?)(?=\s*[\|\(\[]|$|\n)"
     for m in re.finditer(pattern, text):
         name = m.group(1).strip()
         if name not in found:
             found.append(name)
     return found[:8]
 
-def detect_gacha_type(name: str, kind: str) -> str:
-    """kind viene del filtro de plantilla: gacha | event | special."""
-    name_up = name.upper()
-    if kind == "event":
-        return "EVENT"
-    if kind == "special" or "PAID-ONLY" in name_up or "PAID ONLY" in name_up:
-        return "PAID-ONLY"
-    if "[LIMITED]" in name_up or "LIMITED" in name_up:
-        return "LIMITED"
-    return "STANDARD"
+def textfetch_listed_gacha(name: str, type: str) -> str:
+    name = name.upper()
+    text = "STANDARD"
+    if type == "event":
+        text = "EVENT"
+    else:
+        if (type == "special") or ("PAID-ONLY" in name) or ("PAID ONLY" in name):
+            text = "PAID-ONLY"
+        elif ("[LIMITED]" in name) or ("LIMITED" in name):
+            text = "LIMITED"
+    return text
 
-def clean_gacha_name(name: str) -> str:
-    return (
-        name.replace("PAID-ONLY ★5 ", "")
-        .replace("PAID-ONLY ", "")
-        .replace("[LIMITED] ", "")
-        .replace(" PICKUP", "")
-        .replace(" GACHA", "")
-        .replace(" RERUN", "")
-        .replace(" NOW AVAILABLE!", "")
-        .replace("ANNIVERSARY ", "")
-        .replace(" EVENT", "")
-        .strip()
-    )
-
-def unix_jst_day(ts: int) -> str:
-    return datetime.fromtimestamp(ts, tz=JST).strftime("%Y-%m-%d")
-
-def remaining_label(end: Optional[int], now: int) -> str:
-    if end is None:
-        return "N/A"
-    if end <= now:
-        return "OFFLINE!"
-    sec = end - now
-    d = sec // 86400
-    h = (sec % 86400) // 3600
-    m = (sec % 3600) // 60
-    return f"{d}d {h}h {m}m"
+def textfetch_clear_name(name: str) -> str:
+    removals = ["PAID-ONLY ★5 ","PAID-ONLY ","[LIMITED] "," PICKUP"," GACHA"," RERUN"," NOW AVAILABLE!","ANNIVERSARY "," EVENT"]
+    for r in removals:
+        name = name.replace(r, "")
+    return name.strip()
 
 # ============================================================
-# FILTRO DE PLANTILLAS (igual que feed_game_gacha.build_gacha_info_text)
+# ARTICLE FILTERS
 # ============================================================
 
-def classify_article(art: dict) -> Optional[Dict[str, Any]]:
-    """
-    Solo acepta noticias que encajan en las plantillas reales de gacha.
-    Devuelve None si es un informe / coming soon / no válido.
-    """
+def article_template(art: dict) -> Optional[Dict[str, Any]]:
     article_item = art.get("article_item") or []
     article_unix = art.get("article_unix") or []
     article_text = "\n".join(str(i) for i in article_item).lower()
@@ -106,37 +99,37 @@ def classify_article(art: dict) -> Optional[Dict[str, Any]]:
     rule_pull = "__availability period__" in article_text
     rule_shop = "exchange period" in article_text
 
-    # 1) Gacha normal / limited / paid con exchange → 3 unix + pull + shop
+    # NORMAL GACHA or LIMITED GACHA
     if rule_pull and rule_shop and len(rule_unix) == 3:
         release, end_gacha, end_exchange = rule_unix
         return {
-            "kind": "gacha",
-            "release": release,
-            "end_gacha": end_gacha,
-            "end_exchange": end_exchange,
-            "end_event": None,
+            "type": "gacha",
+            "time_launch": release,
+            "time_gacha": end_gacha,
+            "time_event": None,
+            "time_shops": end_exchange
         }
 
-    # 2) Evento con gacha → 3 unix + pull + !shop
+    # TICKET ONLY with EVENT ACTIVE.
     if rule_pull and not rule_shop and len(rule_unix) == 3:
         release, end_event, end_gacha = rule_unix
         return {
-            "kind": "event",
-            "release": release,
-            "end_gacha": end_gacha,
-            "end_exchange": None,
-            "end_event": end_event,
+            "type": "event",
+            "time_launch": release,
+            "time_gacha": end_gacha,
+            "time_event": end_event,
+            "time_shops": None
         }
 
-    # 3) Especial / paid-only corto → 2 unix + pull + !shop
+    # SPECIAL without EXCHANGE or PULL.
     if rule_pull and not rule_shop and len(rule_unix) == 2:
         release, end_gacha = rule_unix
         return {
-            "kind": "special",
-            "release": release,
-            "end_gacha": end_gacha,
-            "end_exchange": None,
-            "end_event": None,
+            "type": "special",
+            "time_launch": release,
+            "time_gacha": end_gacha,
+            "time_event": None,
+            "time_shops": None
         }
 
     return None
@@ -146,21 +139,22 @@ def classify_article(art: dict) -> Optional[Dict[str, Any]]:
 # ============================================================
 
 def get_active_gacha_info(art: dict, now: int) -> List[Dict[str, Any]]:
-    info = classify_article(art)
+    info = article_template(art)
     if info is None:
         return []
 
-    raw_name = (art.get("article_name") or "")
-    full_text = "\n".join(str(x) for x in (art.get("article_item") or []))
-    logo = art.get("article_logo")
-    chars = extract_5star_chars(full_text)
-    weapons = extract_5star_weapons(full_text)
-    gacha_type = detect_gacha_type(raw_name, info["kind"])
-    clean_name = clean_gacha_name(raw_name.upper())
+    raw_name =                      (art.get("article_name") or "")
+    full_text =                     "\n".join(str(x) for x in (art.get("article_item") or []))
+    logo =                          art.get("article_logo")
+    chars =                         textfetch_listed_unit(full_text)
+    weapons =                       textfetch_listed_weapon(full_text)
+    gacha_type =                    textfetch_listed_gacha(raw_name, info["type"])
+    clean_name =                    textfetch_clear_name(raw_name.upper())
 
-    end_gacha = info["end_gacha"]
-    end_exchange = info["end_exchange"]
-    end_event = info["end_event"]
+    end_event =                     info["time_event"]
+    end_gacha =                     info["time_gacha"]
+    end_exchange =                  info["time_shops"]
+    
 
     # ¿Sigue siendo relevante?
     # PAID / SPECIAL → solo gacha
@@ -940,13 +934,13 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
             # Timers de esta tarjeta (para dimensionar columnas)
             timers: List[Tuple[str, str, Tuple[int, int, int]]] = []
             if gtype == "PAID-ONLY":
-                timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
+                timers.append(("Gacha", timesystem_countdown(banner["banner_end"], now), (170, 210, 255)))
             elif gtype == "EVENT":
-                timers.append(("Event", remaining_label(banner.get("event_end"), now), (150, 255, 180)))
-                timers.append(("Gacha", remaining_label(banner["banner_end"], now), (170, 210, 255)))
+                timers.append(("Event", timesystem_countdown(banner.get("event_end"), now), (150, 255, 180)))
+                timers.append(("Gacha", timesystem_countdown(banner["banner_end"], now), (170, 210, 255)))
             else:
-                timers.append(("Banner", remaining_label(banner["banner_end"], now), (170, 210, 255)))
-                timers.append(("Exchange", remaining_label(banner.get("exchange_end"), now), (255, 190, 130)))
+                timers.append(("Banner", timesystem_countdown(banner["banner_end"], now), (170, 210, 255)))
+                timers.append(("Exchange", timesystem_countdown(banner.get("exchange_end"), now), (255, 190, 130)))
 
             tw_left = 0
             tw_right = 0
@@ -1118,8 +1112,8 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
         }
 
         if future_event:
-            closest_day = min(unix_jst_day(b["event_end"]) for b in future_event)
-            same_day = [b for b in future_event if unix_jst_day(b["event_end"]) == closest_day]
+            closest_day = min(timesystem_timezone(b["event_end"]) for b in future_event)
+            same_day = [b for b in future_event if timesystem_timezone(b["event_end"]) == closest_day]
             ts = min(b["event_end"] for b in same_day)
             lines.append(f"## __Events ending {format_time_view(ts, relative, 'f')}__")
             seen = set()
@@ -1131,8 +1125,8 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             lines.append("")
 
         if future_gacha:
-            closest_day = min(unix_jst_day(b["banner_end"]) for b in future_gacha)
-            same_day = [b for b in future_gacha if unix_jst_day(b["banner_end"]) == closest_day]
+            closest_day = min(timesystem_timezone(b["banner_end"]) for b in future_gacha)
+            same_day = [b for b in future_gacha if timesystem_timezone(b["banner_end"]) == closest_day]
             ts = min(b["banner_end"] for b in same_day)
             lines.append(f"## __Gachas leaving {format_time_view(ts, relative, 'f')}__")
             seen = set()
@@ -1144,8 +1138,8 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             lines.append("")
 
         if future_ex:
-            closest_day = min(unix_jst_day(b["exchange_end"]) for b in future_ex)
-            same_day = [b for b in future_ex if unix_jst_day(b["exchange_end"]) == closest_day]
+            closest_day = min(timesystem_timezone(b["exchange_end"]) for b in future_ex)
+            same_day = [b for b in future_ex if timesystem_timezone(b["exchange_end"]) == closest_day]
             ts = min(b["exchange_end"] for b in same_day)
             lines.append(f"## __Exchange leaving {format_time_view(ts, relative, 'f')}__")
             chars: List[str] = []

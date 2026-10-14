@@ -51,6 +51,8 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
             # DATA UPDATE
             if (f"a data update is scheduled for the following time:\n<t:{unix}>") in candidate_text:
                 display_unix_ends = unix
+                break
+                
         
         
         #                   
