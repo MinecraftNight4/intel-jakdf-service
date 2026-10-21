@@ -13,7 +13,7 @@ from .helpers import PUBLIC_COOLDOWN, status_show_display
 from .item_coming import panelbuilder_coming
 from .item_events import panelbuilder_events
 from .item_gachas import (
-    collect_active_banners,
+    bannerfetch_list,
     create_gacha_banner_image,
     get_gacha_attachment,
     panelbuilder_gachas,
@@ -35,7 +35,7 @@ class Calendar(commands.Cog):
 
         # Imagen UNA vez al reconstruir el calendario
         try:
-            banners = collect_active_banners()
+            banners = bannerfetch_list()
             if banners:
                 create_gacha_banner_image(banners)
                 log("[CALENDAR]: Gacha image generated", "calendar", show=False)

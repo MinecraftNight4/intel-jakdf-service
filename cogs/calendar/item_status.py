@@ -44,7 +44,13 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
             # MAINTENANCE
             if i + 1 < len(candidate_unix):
                 temp_unix_next = candidate_unix[i + 1]
+                # ENGLISH TRANSLATION
                 if (f"<t:{unix}> - <t:{temp_unix_next}>") in candidate_text:
+                    display_unix_open = unix
+                    display_unix_ends = temp_unix_next
+                    break
+                # NO TRANSLATION
+                if (f"<t:{unix}> 〜 <t:{temp_unix_next}>") in candidate_text:
                     display_unix_open = unix
                     display_unix_ends = temp_unix_next
                     break
@@ -74,7 +80,7 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
             
         else:
             rgbs = 0x546e7a
-            text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
+            text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__\n- In case [STATUS] button still visible and you're reading this message, could mean there is a maintenance scheduled without the translation available..."
 
 
     #                   

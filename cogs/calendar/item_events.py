@@ -97,7 +97,7 @@ def panelbuilder_events(relative: bool = False) -> ui.LayoutView:
             info_text = f"  - 📖 `🠟 {candidate_name} 🠟` \n      - {info_text}"
         
         
-        elif "MOB-UP" in candidate_name:
+        elif "MOP-UP" in candidate_name:
             candidate_name = cleartext(candidate_name)
             info_unix = hv_1
             info_text = f"  - 🧟 `🠟 {candidate_name} 🠟` \n      - [🧵 Unipart(s): {event_get_unimaterial(art)}]"

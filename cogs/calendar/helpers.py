@@ -97,9 +97,9 @@ def event_get_unimaterial(art: dict) -> str:
     out = []
     for da1 in ls1:
         for da2 in ls2:
-            if (f"[{da1}-type unipart {da2}]") in txt:
-                out.append(f"{da1.upper} {da2}")
-    return (", ".join(out).upper())
+            if ((f"[{da1}-type unipart {da2}]") in txt) or ((f"[{da1}-type kaiju {da2}]") in txt):
+                out.append(f"`{da1.upper()} {da2}`")
+    return (", ".join(dict.fromkeys(x for x in out)))
 
 
 
