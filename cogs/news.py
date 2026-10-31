@@ -427,7 +427,7 @@ class News(commands.Cog):
                     page = int(parts[-1])
                     uuid = "_".join(parts[1:-2])
                 except ValueError:
-                    await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+                    await self._respond(interaction, self.error_view or NewsErrorView(), force_private=is_private_request)
                     return
 
                 article = None
@@ -435,17 +435,17 @@ class News(commands.Cog):
                     if art.get("article_uuid") == uuid:
                         article = art
                         break
-            
+
                 if article is None:
-                    await interaction.response.edit_message(view=self.error_view or NewsErrorView())
+                    await self._respond(interaction, self.error_view or NewsErrorView(), force_private=is_private_request)
                     return
-            
+
                 total_items = len(article.get("article_node", []))
                 total_pages = math.ceil(total_items / ITEMS_PER_PAGE) if total_items > 0 else 1
-            
-            view = NewsPageIndexView(article, page, total_pages)
-            await self._respond(interaction, view, force_private=is_private_request)
-            return
+
+                view = NewsPageIndexView(article, page, total_pages)
+                await self._respond(interaction, view, force_private=is_private_request)
+                return
         
         # ---------- Dropdown de páginas (redirect) ----------
         if "_redirect_" in custom_id:
@@ -462,14 +462,38 @@ class News(commands.Cog):
         view = self.cache.get(custom_id) or self.error_view or NewsErrorView()
         await self._respond(interaction, view, force_private=is_private_request)
 
-    async def _respond(self, interaction, view, *, force_private: bool = False):
-        if force_private:
-            if interaction.response.is_done():
-                await interaction.followup.send(view=view, ephemeral=True)
+    async def _respond(self, interaction: discord.Interaction, view, *, force_private: bool = False):
+        try:
+            if force_private:
+                # Mensajes de la feed → NUNCA editar, siempre responder
+                if interaction.response.is_done():
+                    await interaction.followup.send(view=view, ephemeral=True)
+                else:
+                    await interaction.response.send_message(view=view, ephemeral=True)
             else:
-                await interaction.response.send_message(view=view, ephemeral=True)
-        else:
-            await interaction.response.edit_message(view=view)
+                # Comando /news normal → intentar editar
+                if interaction.response.is_done():
+                    await interaction.followup.send(view=view, ephemeral=True)
+                else:
+                    await interaction.response.edit_message(view=view)
+
+        except discord.errors.InteractionResponded:
+            # Ya se respondió por algún motivo → usar followup como fallback
+            try:
+                await interaction.followup.send(view=view, ephemeral=True)
+            except Exception:
+                pass
+        except Exception as e:
+            # Cualquier otro error (mensaje muy viejo, etc.)
+            try:
+                if not interaction.response.is_done():
+                    await interaction.response.send_message(view=view, ephemeral=True)
+                else:
+                    await interaction.followup.send(view=view, ephemeral=True)
+            except Exception:
+                log(f"[NEWS] _respond failed completely: {e}", "news", level="CRIT", show=False)
+        
+        
     
     async def _send(self, interaction: discord.Interaction, key: str, edit: bool = False):
         view = self.cache.get(key)

@@ -563,6 +563,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     if not active_banners:
         return None
 
+    now = now_as_unix()
     COLS = 3
     MIN_CARD_W = 340  # solo piso de legibilidad; el ancho lo marca el contenido
     MAX_CARD_W = 900
@@ -577,7 +578,7 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     CHIP_GAP = 5
     COL_GAP = 14
     TIMER_GAP = 10
-    DISCLAIMER = "[Akatsuki Games Inc], [Akatsuki], [Production I.G], and [Tōhō] are not affiliated with this project and are the owners of the attached elements."
+    DISCLAIMER = f"[Akatsuki Games Inc], [Akatsuki], [Production I.G], and [Tōhō] are not affiliated with this project and are the owners of the attached elements. #{now}"
     TYPE_COLORS = {
         "PAID-ONLY": (220, 50, 50),
         "LIMITED": (255, 150, 30),
@@ -600,7 +601,6 @@ def create_gacha_banner_image(active_banners: List[Dict[str, Any]], relative: bo
     font_section = __pencil__font(11)
 
     measure = ImageDraw.Draw(Image.new("RGB", (10, 10)))
-    now = now_as_unix()
 
     # Ancho de tarjeta: que quepa título, timers y chips SIN recortar texto
     max_title_w = 0
@@ -1033,11 +1033,10 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
     container = ui.Container(accent_colour=0x8E24AA)
 
-    container.add_item(ui.TextDisplay("## __AVAILABLE GACHAS__"))
-
-    active_banners = bannerfetch_list()
     now = now_as_unix()
-
+    active_banners = bannerfetch_list()
+    container.add_item(ui.TextDisplay(f"## __AVAILABLE GACHAS__\n-# 🖼️ If the image doesn't have the same hash at the bottom, it means it's not updated: `#{now}`"))
+    
     if not active_banners:
         container.add_item(ui.TextDisplay("*No active gacha banners found right now.*"))
     else:
@@ -1075,33 +1074,33 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
             closest_day = min(timesystem_timezone(b["play_ends"]) for b in future_event)
             same_day = [b for b in future_event if timesystem_timezone(b["play_ends"]) == closest_day]
             ts = min(b["play_ends"] for b in same_day)
-            lines.append(f"## __Events ending {format_time_view(ts, relative, 'f')}__")
+            lines.append(f"- 🎪 __Events departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}__")
             seen = set()
             for b in same_day:
                 if b["banner_name"] not in seen:
                     seen.add(b["banner_name"])
                     tag = type_tag.get(b.get("banner_type", ""), b.get("banner_type", ""))
-                    lines.append(f"* `[{tag}] {b['banner_name']}`")
+                    lines.append(f"  - `[{tag}] {b['banner_name']}`")
             lines.append("")
 
         if future_gacha:
             closest_day = min(timesystem_timezone(b["pull_ends"]) for b in future_gacha)
             same_day = [b for b in future_gacha if timesystem_timezone(b["pull_ends"]) == closest_day]
             ts = min(b["pull_ends"] for b in same_day)
-            lines.append(f"## __Gachas leaving {format_time_view(ts, relative, 'f')}__")
+            lines.append(f"- 🎫 __Gachas departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}__")
             seen = set()
             for b in same_day:
                 if b["banner_name"] not in seen:
                     seen.add(b["banner_name"])
                     tag = type_tag.get(b.get("banner_type", ""), b.get("banner_type", ""))
-                    lines.append(f"* `[{tag}] {b['banner_name']}`")
+                    lines.append(f"  - `[{tag}] {b['banner_name']}`")
             lines.append("")
 
         if future_ex:
             closest_day = min(timesystem_timezone(b["sell_ends"]) for b in future_ex)
             same_day = [b for b in future_ex if timesystem_timezone(b["sell_ends"]) == closest_day]
             ts = min(b["sell_ends"] for b in same_day)
-            lines.append(f"## __Exchange leaving {format_time_view(ts, relative, 'f')}__")
+            lines.append(f"- 🏪 __Exchange departing {'on ' if not relative else ''}{format_time_view(ts, relative, 'f')}__")
             chars: List[str] = []
             weapons: List[str] = []
             for b in same_day:
@@ -1112,9 +1111,9 @@ def panelbuilder_gachas(relative: bool = False) -> ui.LayoutView:
                     if w not in weapons:
                         weapons.append(w)
             for c in chars:
-                lines.append(f"* `{c}`")
+                lines.append(f"  - `🪪 {c}`")
             for w in weapons:
-                lines.append(f"* `{w}`")
+                lines.append(f"  - `🔫 {w}`")
             lines.append("")
 
         if lines:
