@@ -44,7 +44,7 @@ def _news_loop():
         now = datetime.now()
         current_minute = now.minute
 
-        if current_minute in (0, 30, 35) and current_minute != last_run_minute:
+        if current_minute in (0, 30, 41) and current_minute != last_run_minute:
             last_run_minute = current_minute
             run_full_cycle()
 
