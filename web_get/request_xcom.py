@@ -170,12 +170,17 @@ class KaijuReadXCom:
     # --------------------------------------------------
     # Main
     # --------------------------------------------------
-    def run(self) -> None:
+    def run(self, progress=None, progress_key: str = "xcom") -> None:
         log("XCOM: Starting fetch...", "xcom", show=False)
 
         # Cargar datos existentes para preservar roadmap
         existing = self.load_existing()
         self.xcom_storage = existing
+        
+        total = len(self.accounts)
+        if progress and progress_key:
+            progress.update_progress(progress_key, 0, total)
+        
 
         for i, account in enumerate(self.accounts):
             # Preservar roadmap anterior de esta cuenta
@@ -193,6 +198,9 @@ class KaijuReadXCom:
             # old + new (new tiene prioridad si mismo uuid)
             merged = {**old_roadmap, **current_roadmap}
             self.xcom_storage[account.lower()]["roadmap"] = merged
+            
+            if progress and progress_key:
+                progress.update_progress(progress_key, i + 1, total)
 
             if i < len(self.accounts) - 1:
                 time.sleep(5)

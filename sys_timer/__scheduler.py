@@ -44,7 +44,7 @@ def _news_loop():
         now = datetime.now()
         current_minute = now.minute
 
-        if current_minute in (0, 30) and current_minute != last_run_minute:
+        if current_minute in (0, 30, 53) and current_minute != last_run_minute:
             last_run_minute = current_minute
             run_full_cycle()
 
@@ -79,7 +79,7 @@ def run_full_cycle():
     progress.start_task("xcom")
     xcom_ok = False
     try:
-        xcom_ok = bool(run_xcom_scan())
+        xcom_ok = bool(run_xcom_scan(progress=progress, progress_key="xcom"))
         progress.success("xcom") if xcom_ok else progress.failure("xcom")
     except Exception:
         progress.failure("xcom")

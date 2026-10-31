@@ -27,8 +27,20 @@ class ProgressDisplay:
         self._stop.set()
         if self._thread:
             self._thread.join(timeout=1.5)
+
+        # --- Limpieza agresiva ---
+        # Subimos muchas líneas y borramos todo lo que haya hacia abajo
+        clear_lines = max(self._last_lines + 40, 60)
+        sys.stdout.write(f"\033[{clear_lines}A")
+        sys.stdout.write("\033[J")          # borra desde el cursor hasta el final
+        sys.stdout.flush()
+
+        # Ahora imprimimos UNA sola vez el panel final limpio
+        self._last_lines = 0               # para que no intente subir de nuevo
         self._render(final=True)
-        print("\n" * 3)  # Espaciado extra entre ciclos
+
+        # Espaciado final
+        print("\n")
 
     def set_phase(self, phase: int):
         with self.lock:
@@ -174,7 +186,7 @@ class ProgressDisplay:
         lines = self._build_output()
         output = "\n".join(lines)
 
-        if self._last_lines > 0:
+        if not final and self._last_lines > 0:
             sys.stdout.write(f"\033[{self._last_lines}A\033[J")
 
         sys.stdout.write(output + ("\n" if not final else ""))
