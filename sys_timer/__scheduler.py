@@ -44,7 +44,7 @@ def _news_loop():
         now = datetime.now()
         current_minute = now.minute
 
-        if current_minute in (0, 30) and current_minute != last_run_minute:
+        if current_minute in (0, 30, 35) and current_minute != last_run_minute:
             last_run_minute = current_minute
             run_full_cycle()
 
@@ -63,7 +63,8 @@ def run_full_cycle():
     # --------------------------------------------------------
     progress.set_phase(1)
     progress.add_task("news", "Fetching Game News", eta_seconds=40)
-    progress.add_task("xcom", "Fetching VX API", eta_seconds=20)
+    progress.add_task("xcom", "Fetching FX API", eta_seconds=20)
+    progress.add_task("rmap", "Fetching RMAP", eta_seconds=60)
 
     # News
     progress.start_task("news")
@@ -84,6 +85,17 @@ def run_full_cycle():
     except Exception:
         progress.failure("xcom")
         xcom_ok = False
+
+    # Roadmaps (Gemini)
+    progress.start_task("rmap")
+    rmap_ok = False
+    try:
+        rmap_ok = bool(run_rmap_scan())
+        progress.success("rmap") if rmap_ok else progress.failure("rmap")
+    except Exception:
+        progress.failure("rmap")
+        rmap_ok = False
+
 
     # Si Phase 1 falló completamente → abortar
     if not (news_ok or xcom_ok):
