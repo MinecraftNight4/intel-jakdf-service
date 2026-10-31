@@ -74,13 +74,17 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
                 rgbs = 0xfcd703
                 text = f"## ⚠️ __{candidate_name}__ ⚠️ \n## > ℹ️ __MAINTENANCE SCHEDULE!__ ℹ️ \n- The maintenance operations will start {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n- Service should be restored {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
 
-            else:
+            elif display_unix_ends > now:
                 rgbs = 0xfc2803
                 text = f"## 🚧 __{candidate_name}__ 🚧 \n## > 🔴 __SERVERS OFFLINE!__ 🔴 \n- The maintenance operations started {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n \n## > 🟢 __ETA OF THE MAINTENANCE__ 🟢\n- Service is expected to be restored {'on ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
             
+            else:
+                rgbs = 0x546e7a
+                text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
+            
         else:
             rgbs = 0x546e7a
-            text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__\n- In case [STATUS] button still visible and you're reading this message, could mean there is a maintenance scheduled without the translation available..."
+            text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
 
 
     #                   

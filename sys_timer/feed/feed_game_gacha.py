@@ -174,7 +174,7 @@ class FeedGachaPageView(ui.LayoutView):
 # -------------------------------------------------
 # Lógica principal de feeds – solo gacha
 # -------------------------------------------------
-async def process_feed_game_gacha(bot: commands.Bot) -> int:
+async def process_feed_game_gacha(bot: commands.Bot, progress=None, progress_key: str = None) -> int:
     storage_data = load_json(DATA_FILE, {})
     storage_sent = load_json(DATA_FILE, {}).get(NAMESPACE, []) or []
     storage_feed = load_json(SETUP_FILE, {}).get(NAMESPACE, {}) or []
@@ -203,32 +203,10 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
     process_list = index_article_hash - process_sent
     process_post = [index_article_data[h] for h in process_list]
     
-    
-    process_list = index_article_hash - process_sent          # nuevas
-    already_sent = index_article_hash & process_sent          # ya existían / ya enviadas
-    to_remove    = process_sent - index_article_hash          # se van a eliminar del registro de enviadas
-    to_write     = process_sent | index_article_hash          # las que se van a escribir como enviadas
-    
-    log(f"[FEED - GACHA][DEBUG] Total actuales (index): {len(index_article_hash)}", "feed", show=False)
-    log(f"[FEED - GACHA][DEBUG] Ya enviadas (storage): {len(process_sent)}", "feed", show=False)
-    log(f"[FEED - GACHA][DEBUG] NUEVAS a enviar: {len(process_list)} → {sorted(process_list)}", "feed", show=False)
-    log(f"[FEED - GACHA][DEBUG] Ya existían (intersección): {len(already_sent)} → {sorted(already_sent)}", "feed", show=False)
-    log(f"[FEED - GACHA][DEBUG] Se eliminarán del registro: {len(to_remove)} → {sorted(to_remove)}", "feed", show=False)
-    log(f"[FEED - GACHA][DEBUG] Se escribirán como enviadas: {len(to_write)} → {sorted(list(to_write)[:20])}{' ...' if len(to_write)>20 else ''}", "feed", show=False)
-
-    # Si quieres aún más detalle por nombre:
-    for h in sorted(process_list):
-        art = index_article_data.get(h, {})
-        log(f"  → NUEVA: {h} | {art.get('article_name')} | type={art.get('article_type')}", "feed", show=False)
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    eta_work_total = len(process_post) * max(len(storage_feed), 1)
+    eta_work_write = 0
+    if progress and progress_key and eta_work_total > 0:
+        progress.update_progress(progress_key, 0, eta_work_total)
     
     debug_all_feed = len(storage_feed)
     debug_can_post = len(process_list)
@@ -312,6 +290,10 @@ async def process_feed_game_gacha(bot: commands.Bot) -> int:
                 log(f"  - [(!) FAILURE] #ERROR_FLAG_0003 | #{item.get('article_hash')}] - {item.get('article_name')} | DUMP: {e}", "feed", level="CRIT", show=False)
                 continue
             debug_post_sent += 1
+            
+            eta_work_write += 1
+            if progress and progress_key:
+                progress.update_progress(progress_key, eta_work_write, eta_work_total)
 
 
         feed_ping_text = guild_data.get("text")

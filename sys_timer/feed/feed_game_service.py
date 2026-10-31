@@ -161,7 +161,7 @@ class FeedNewsPageView(ui.LayoutView):
 # -------------------------------------------------
 # Lógica principal – solo events
 # -------------------------------------------------
-async def process_feed_game_service(bot: commands.Bot) -> int:
+async def process_feed_game_service(bot: commands.Bot, progress=None, progress_key: str = None) -> int:
     storage_data = load_json(DATA_FILE, {})
     storage_sent = storage_data.get(NAMESPACE, []) or []
     storage_feed = load_json(SETUP_FILE, {}).get(NAMESPACE) or {}
@@ -189,6 +189,13 @@ async def process_feed_game_service(bot: commands.Bot) -> int:
     
     process_list = index_article_hash - process_sent
     process_post = [index_article_data[h] for h in process_list]
+    
+    
+    eta_work_total = len(process_post) * max(len(storage_feed), 1)
+    eta_work_write = 0
+    if progress and progress_key and eta_work_total > 0:
+        progress.update_progress(progress_key, 0, eta_work_total)
+    
     #
     debug_all_feed = len(storage_feed)
     debug_can_post = len(process_list)
@@ -260,6 +267,10 @@ async def process_feed_game_service(bot: commands.Bot) -> int:
                 log(f"  - [(!) FAILURE] #ERROR_FLAG_0002 | #{item.get('article_hash')}] - {item.get('article_name')} | DUMP: {e}", "feed", level="CRIT", show=False)
                 continue
             debug_post_sent += 1
+            
+            eta_work_write += 1
+            if progress and progress_key:
+                progress.update_progress(progress_key, eta_work_write, eta_work_total)
 
 
         feed_ping_text = guild_data.get("text")

@@ -9,7 +9,7 @@
       "text": "Solo sobre eventos"
     }
   },
-  "feed_game_system": {
+  "feed_game_service": {
     "1332085001013039194": {
       "channel": 1541499997768654858,
       "publish": false,
@@ -51,7 +51,7 @@
       "text": "Twitter Anime"
     }
   },
-  "xcom-kaijuno8": {
+  "xcom-kaijuno8_o": {
     "1332085001013039194": {
       "channel": 1547672154328535173,
       "publish": false,

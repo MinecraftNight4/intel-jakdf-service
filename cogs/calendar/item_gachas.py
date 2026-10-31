@@ -207,18 +207,6 @@ def bannerfetch_index(art: dict, now: int) -> List[Dict[str, Any]]:
         "sell_ends": banner_sell,
         "play_ends": banner_play
     }]
-    
-    
-    # [{
-    #    "name": featured_name,
-    #    "type": featured_type,
-    #    "pull_ends": banner_pull,
-    #    "sell_ends": banner_sell,
-    #    "play_ends": banner_play,
-    #    "chars": featured_unit,
-    #    "weapons": featured_gear,
-    #    "logo": logo,
-    #}]
 
 def bannerfetch_list() -> List[Dict[str, Any]]:
     articles = fetchjson(NEWS_FILE, {})
@@ -256,33 +244,27 @@ def __pencil__width(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.ImageF
 # ============================================================
 
 def _content_bbox(img: Image.Image, threshold: int = 28) -> Tuple[int, int, int, int]:
-    """Bounding box del contenido no-negro (recorta barras negras del arte)."""
-    rgb = img.convert("RGB")
-    w, h = rgb.size
-    pixels = rgb.load()
-    min_x, min_y, max_x, max_y = w, h, -1, -1
-    # Muestreo por filas/columnas para velocidad
-    for y in range(h):
-        for x in range(w):
-            r, g, b = pixels[x, y]
-            if r > threshold or g > threshold or b > threshold:
-                if x < min_x:
-                    min_x = x
-                if y < min_y:
-                    min_y = y
-                if x > max_x:
-                    max_x = x
-                if y > max_y:
-                    max_y = y
-    if max_x < 0:
+    import numpy as np
+    
+    arr = np.asarray(img.convert("RGB"))
+    content = (arr > threshold).any(axis=2)
+    rows = np.any(content, axis=1)
+    cols = np.any(content, axis=0)
+
+    if not rows.any():
+        w, h = img.size
         return (0, 0, w, h)
-    # pequeño margen
+
+    y_min, y_max = np.where(rows)[0][[0, -1]]
+    x_min, x_max = np.where(cols)[0][[0, -1]]
+
     pad = 2
+    h, w = arr.shape[:2]
     return (
-        max(0, min_x - pad),
-        max(0, min_y - pad),
-        min(w, max_x + 1 + pad),
-        min(h, max_y + 1 + pad),
+        max(0, int(x_min) - pad),
+        max(0, int(y_min) - pad),
+        min(w, int(x_max) + 1 + pad),
+        min(h, int(y_max) + 1 + pad),
     )
 
 

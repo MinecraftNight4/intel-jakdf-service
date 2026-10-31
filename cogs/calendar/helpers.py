@@ -135,12 +135,23 @@ def calendar_rmap_view() -> Optional[str]:
 
 def status_show_warn(art: dict) -> bool:
     text = format_full_text(art)
-    if "__maintenance time__\n<t:" in text:
-        return True
     if "the data update has been successfully completed" in text:
         return False
     if "update is now available." in text:
         return False
+    if "maintenance has been completed." in text:
+        return False
+    
+    unix_list = art.get("article_unix") or []
+    if len(unix_list) >= 2:
+        ends = unix_list[1]
+        if ends < now_as_unix():
+            return False
+    
+    if len(unix_list) == 1 and "data update" in text:
+        if unix_list[0] < now_as_unix():
+            return False
+    
     return True
 
 def status_show_display() -> bool:
