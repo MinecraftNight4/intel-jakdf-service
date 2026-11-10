@@ -23,7 +23,7 @@ def add_navigation_buttons(container: ui.Container, current: str, relative: bool
     row1.add_item(ui.Button(label="GACHAS", style=style, custom_id=f"schedule_gachas_{show_type}", emoji="🎫", disabled=(current == "gachas") ))
     row1.add_item(ui.Button(label="EVENTS", style=style, custom_id=f"schedule_events_{show_type}", emoji="🎪", disabled=(current == "events") ))
     row1.add_item(ui.Button(label="COMING", style=style, custom_id=f"schedule_coming_{show_type}", emoji="🗺️", disabled=(current == "coming") ))
-    row1.add_item(ui.Button(label="RESETS", style=style, custom_id=f"schedule_resets_{show_type}", emoji="🏪", disabled=(current == "resets") ))
+    #row1.add_item(ui.Button(label="RESETS", style=style, custom_id=f"schedule_resets_{show_type}", emoji="🏪", disabled=(current == "resets") ))
     container.add_item(row1)
     
     #=======================
