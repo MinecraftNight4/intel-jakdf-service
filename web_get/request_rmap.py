@@ -55,7 +55,7 @@ Rules:
 
 
 # ============================================================
-# UTILIDADES
+# UTILITIES
 # ============================================================
 def load_json(path: str) -> dict:
     if not os.path.exists(path):
@@ -92,7 +92,7 @@ def build_format(listed: list) -> dict:
 
 
 # ============================================================
-# LIMPIEZA DE ROADMAPS EXPIRADOS
+# EXPIRED ROADMAPS CLEAN-UP
 # ============================================================
 def cleanup_expired_roadmaps(xcom: dict, rmap: dict) -> tuple[dict, dict]:
     now = int(time.time())
@@ -143,7 +143,7 @@ def cleanup_expired_roadmaps(xcom: dict, rmap: dict) -> tuple[dict, dict]:
 
 
 # ============================================================
-# LLAMADA A GEMINI CON REINTENTOS + FALLBACK
+# GEMINI SERVICE REQUEST
 # ============================================================
 def ask_gemini(image_bytes: bytes, handshake: str) -> list | None:
     log(f"ROADMAP SCAN FOR: {handshake}", "gemini-api", show=False)
@@ -195,7 +195,7 @@ def ask_gemini(image_bytes: bytes, handshake: str) -> list | None:
 
 
 # ============================================================
-# PROCESO PRINCIPAL
+# DEFINE MAIN THREAD
 # ============================================================
 def process_roadmaps():
     xcom = load_json(XCOM_FILE)
@@ -279,7 +279,3 @@ def run_rmap_scan() -> bool:
     except Exception as e:
         log(f"FAILURE | {e}", "rmap", show=False)
         return False
-
-
-if __name__ == "__main__":
-    run_rmap_scan()

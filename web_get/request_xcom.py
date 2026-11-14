@@ -135,12 +135,8 @@ class KaijuReadXCom:
         log(f"[ACCOUNT @{account}]: [REQUEST] {url}", "xcom", show=False)
 
         try:
-            response = requests.get(url, headers=self.headers, timeout=30)
-            log(
-                f"[ACCOUNT @{account.upper()}]: [STATUS {response.status_code}] [TIME {response.elapsed}]",
-                "xcom",
-                show=False,
-            )
+            response = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING X UPDATES - @mnight4)"})
+            log(f"[ACCOUNT @{account.upper()}]: [STATUS {response.status_code}] [TIME {response.elapsed}]", "xcom", show=False)
             response.raise_for_status()
             
             data = response.json()

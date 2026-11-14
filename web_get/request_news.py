@@ -258,7 +258,7 @@ class KaijuReadNews:
         try:
             url = f"https://info.kj8-thegame.com/news/{news_id}?language=en"
             log(f"[ARTICLE {news_id}]: [WRITE: 🔁] [STATUS: 🔁] [TIME: 🔁] [URL: {url}]", "news", show=False)
-            response = requests.get(url, timeout=60)
+            response = requests.get(url, timeout=60, headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING UPDATES - @mnight4)"})
             log(f"[ARTICLE {news_id}]: [WRITE: 🔁] [STATUS: {response.status_code}] [TIME: {response.elapsed}] [URL: {url}]", "news", show=False)
             response.raise_for_status()
             self.scan_news(news_id, response.text)
@@ -271,7 +271,7 @@ class KaijuReadNews:
     def scan_index(self, batch_size: int = 3):
         log(f"NEWS UUID INDEX: [Reading...]", "news", show=False)
         try:
-            response = requests.get('https://info.kj8-thegame.com/news?language=en', timeout=60)
+            response = requests.get('https://info.kj8-thegame.com/news?language=en', timeout=60, headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING UPDATES - @mnight4)"})
             response.raise_for_status()
         except Exception as e:
             log(f"NEWS UUID INDEX: [Failure] {e}", "news", level="CRIT", show=False)
@@ -324,38 +324,3 @@ class KaijuReadNews:
                     news_id, success = future.result()
 
         log(f"NEWS UUID READ: [CLOSED] [x{len(self.news_storage)} ITEMS]", "news", show=False)
-
-    
-# ====================== EJECUCIÓN ======================
-
-if __name__ == "__main__":
-    processor = KaijuReadNews()
-    
-    # ==================== EJECUTAR EL SCRAPER ====================
-    processor.scan_index(batch_size=4)   # Cambia a False si quieres procesar todas las noticias
-    
-    # ==================== MOSTRAR RESULTADOS ====================
-    print("\n" + "="*60)
-    print("DATOS ALMACENADOS EN MEMORIA")
-    print("="*60)
-    
-    for news_id, data in processor.news_storage.items():
-        print(f"\n📰 NOTICIA: {news_id}")
-        print(f"Título: {data.get('article_name', 'N/A')}")
-        print(f"Tipo: {data.get('article_type', 'N/A')}")
-        print(f"Hora: {data.get('article_time', 'N/A')}")
-        print(f"Logo: {data.get('article_logo', 'N/A')}")
-        print(f"Bloques guardados: {len(data.get('article_item', []))}")
-        
-        items = data.get('article_item', [])
-        types = data.get('article_node', [])
-        
-        print("\nPrimeros bloques:")
-        for i in range(len(items)):
-            tipo = types[i] if i < len(types) else "?"
-            content = items[i]
-            
-            print(f"\n[{tipo.upper()}]: {content}")
-        
-        print("-" * 50)
-    processor.storage_data_news()
