@@ -4,6 +4,7 @@ from datetime import datetime
 
 from .news_schedule import run_news_scan
 from .xcom_schedule import run_xcom_scan
+from .sale_schedule import run_sale_scan_wrapper
 from web_get.request_rmap import run_rmap_scan
 from logger import log
 from .progress import ProgressDisplay
@@ -65,6 +66,7 @@ def run_full_cycle():
     progress.add_task("news", "Fetching Game News", eta_seconds=40)
     progress.add_task("xcom", "Fetching FX API", eta_seconds=20)
     progress.add_task("rmap", "Fetching RMAP", eta_seconds=60)
+    progress.add_task("sale", "Fetching SALE", eta_seconds=25)
 
     # News
     progress.start_task("news")
@@ -86,6 +88,16 @@ def run_full_cycle():
         progress.failure("xcom")
         xcom_ok = False
 
+    # Sale
+    progress.start_task("sale")
+    sale_ok = False
+    try:
+        sale_ok = bool(run_sale_scan_wrapper())
+        progress.success("sale") if sale_ok else progress.failure("sale")
+    except Exception:
+        progress.failure("sale")
+        sale_ok = False
+    
     # Roadmaps (Gemini)
     progress.start_task("rmap")
     rmap_ok = False
