@@ -53,9 +53,16 @@
   },
   "xcom-kaijuno8_o": {
     "1332085001013039194": {
-      "channel": 1547672154328535173,
+      "channel": 1547672187283054673,
       "publish": false,
-      "text": "Twitter Anime JP"
+      "text": "Anime JP"
+    }
+  },
+  "feed_game_store": {
+    "1332085001013039194": {
+      "channel": 1571611353658171442,
+      "publish": false,
+      "text": "Store!"
     }
   }
 }

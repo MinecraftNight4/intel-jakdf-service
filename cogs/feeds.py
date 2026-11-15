@@ -13,10 +13,11 @@ FEED_TYPES = {
     "feed_game_gacha": "Game news | Only Gachas",
     "feed_game_event": "Game news | Only Events",
     "feed_game_service": "Game news | Only Updates",
+    "feed_game_store": "Webstore | Shop items",
     "xcom-kaijuno8_o_en": "x.com | (EN) @kaijuno8_o_en",
     "xcom-kaijuno8_o": "x.com | (JP) @kaijuno8_o",
     "xcom-kj8_thegame_en": "x.com | (EN) @kj8_thegame_en",
-    "xcom-kj8_thegame": "x.com | (JP) @kj8_thegame"
+    "xcom-kj8_thegame": "x.com | (JP) @kj8_thegame",
 }
 
 

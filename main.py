@@ -138,6 +138,7 @@ async def on_ready():
         from sys_timer.feed.feed_game_service import process_feed_game_service
         from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
         from sys_timer.feed.feed_game_event import process_feed_game_event
+        from sys_timer.feed.feed_game_store import process_feed_game_store
         from sys_timer.feed.feed_xcom import process_feed_xcom
 
         # Game feeds con progreso dinámico
@@ -146,6 +147,7 @@ async def on_ready():
             ("service", process_feed_game_service),
             ("gacha",   process_feed_game_gacha),
             ("event",   process_feed_game_event),
+            ("store",   process_feed_game_store),
         ]
 
         for key, func in mapping:

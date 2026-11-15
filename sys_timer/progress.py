@@ -166,7 +166,7 @@ class ProgressDisplay:
             lines.append("")
             lines.append("* PHASE 3:")
             for key in [
-                "general", "service", "gacha", "event",
+                "general", "service", "gacha", "event", "store",
                 "xcom-kj8_thegame_en",
                 "xcom-kaijuno8_o_en",
                 "xcom-kj8_thegame",

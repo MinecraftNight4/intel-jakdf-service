@@ -45,7 +45,7 @@ def _news_loop():
         now = datetime.now()
         current_minute = now.minute
 
-        if current_minute in (0, 30, 41) and current_minute != last_run_minute:
+        if current_minute in (0, 20, 47) and current_minute != last_run_minute:
             last_run_minute = current_minute
             run_full_cycle()
 
@@ -63,11 +63,23 @@ def run_full_cycle():
     # PHASE 1 – Fetching
     # --------------------------------------------------------
     progress.set_phase(1)
-    progress.add_task("news", "Fetching Game News", eta_seconds=40)
-    progress.add_task("xcom", "Fetching FX API", eta_seconds=20)
+    
+    
+    progress.add_task("news", "Fetching NEWS", eta_seconds=60)
+    progress.add_task("xcom", "Fetching xAPI", eta_seconds=20)
     progress.add_task("rmap", "Fetching RMAP", eta_seconds=60)
-    progress.add_task("sale", "Fetching SALE", eta_seconds=25)
+    progress.add_task("sale", "Fetching SALE", eta_seconds=40)
 
+    # Sale
+    progress.start_task("sale")
+    sale_ok = False
+    try:
+        sale_ok = bool(run_sale_scan_wrapper())
+        progress.success("sale") if sale_ok else progress.failure("sale")
+    except Exception:
+        progress.failure("sale")
+        sale_ok = False
+    
     # News
     progress.start_task("news")
     news_ok = False
@@ -87,16 +99,6 @@ def run_full_cycle():
     except Exception:
         progress.failure("xcom")
         xcom_ok = False
-
-    # Sale
-    progress.start_task("sale")
-    sale_ok = False
-    try:
-        sale_ok = bool(run_sale_scan_wrapper())
-        progress.success("sale") if sale_ok else progress.failure("sale")
-    except Exception:
-        progress.failure("sale")
-        sale_ok = False
     
     # Roadmaps (Gemini)
     progress.start_task("rmap")
@@ -110,7 +112,7 @@ def run_full_cycle():
 
 
     # Si Phase 1 falló completamente → abortar
-    if not (news_ok or xcom_ok):
+    if not (news_ok or xcom_ok or sale_ok):
         progress.stop()
         log("========[SCHEDULER ABORTED - Phase 1 failed]========", "timer")
         return
@@ -155,6 +157,7 @@ def run_full_cycle():
         ("service",                 "Posting `game_service`",            50),
         ("gacha",                   "Posting `game_gacha`",              35),
         ("event",                   "Posting `game_event`",              35),
+        ("store",                   "Posting `game_store`",              40),
         ("xcom-kj8_thegame_en",     "Posting `X - @kj8_thegame_en`",     25),
         ("xcom-kaijuno8_o_en",      "Posting `X - @kaijuno8_o_en`",      25),
         ("xcom-kj8_thegame",        "Posting `X - @kj8_thegame`",        25),
