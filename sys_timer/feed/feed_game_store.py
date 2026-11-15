@@ -20,6 +20,7 @@ STORE_URL = "https://webstore.kj8-thegame.com/?language=en"
 
 SALE_FILE  = "sys_save/request_sale.json"
 SETUP_FILE = "sys_save/feed_system_setup.json"
+DATA_FILE  = "sys_save/feed_system_data.json"
 
 NAMESPACE = "feed_game_store"
 
@@ -88,11 +89,12 @@ def commit_hashes(previous: list, current: list, catalog_size: int, replace: boo
 
 
 def write_notification(hashes: list) -> None:
-    data = load_json(SALE_FILE, {})
+    """Persiste los hashes de notificación en feed_system_data.json (NAMESPACE)."""
+    data = load_json(DATA_FILE, {})
     if not isinstance(data, dict):
         data = {}
-    data["hash_notification"] = hashes
-    save_json(SALE_FILE, data)
+    data[NAMESPACE] = hashes
+    save_json(DATA_FILE, data)
 
 
 # -------------------------------------------------
@@ -180,7 +182,11 @@ async def process_feed_game_store(bot: commands.Bot, progress=None, progress_key
     if not isinstance(item_data, dict):
         item_data = {}
 
-    notified = sale.get("hash_notification") or []
+    # Hashes de notificación ahora viven en feed_system_data.json
+    storage_data = load_json(DATA_FILE, {})
+    if not isinstance(storage_data, dict):
+        storage_data = {}
+    notified = storage_data.get(NAMESPACE) or []
     if not isinstance(notified, list):
         notified = []
 

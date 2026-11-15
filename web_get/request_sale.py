@@ -143,20 +143,18 @@ def tool_buildtext(name: str, price: str, limit: int | None, ends_at: int | None
     lines = [f"### `US${price}` {name}"]
 
     meta = []
+    if on_sale:
+        meta.append(f"📉 SALE!")
     if limit is not None:
-        meta.append(f"📦 Limit: x{limit}")
+        meta.append(f"📦 x{limit} left")
     if ends_at is not None:
-        meta.append(f"⌛ <t:{ends_at}:s> (<t:{ends_at}:R>)")
+        meta.append(f"⌛ Leaves on <t:{ends_at}:s>(<t:{ends_at}:R>).")
     if meta:
         lines.append("-# " + ", ".join(meta))
 
-    lines.append(f"-# 🛃 Listed <t:{indexed_at}:R>.")
-
-    if on_sale:
-        lines.append("-# 📉 **SALE!**")
-
+    lines.append(f"-# 🛃 Listed by bot <t:{indexed_at}:R>.")
     lines.append("```")
-    lines.append(lore or "")
+    lines.append(lore or "This is weird but... Where is the text!?!")
     lines.append("```")
 
     return "\n".join(lines)
