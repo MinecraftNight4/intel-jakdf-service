@@ -18,6 +18,7 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
     #===================#
     candidate_data = None
     candidate_time = 0
+    candidate_name = None          # ← también conviene inicializarla
 
     for art in news.values():
         if art.get("article_type") in ("update", "maintenance"):
@@ -30,6 +31,11 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
     #==================#
     # CALENDAR BUILDER #
     #==================#
+    
+    # Valores por defecto (cuando no hay mantenimiento/update)
+    rgbs = 0x546e7a
+    text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
+
     if candidate_data:
         #                   
         #   CONTENT FILTER
@@ -38,7 +44,6 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
         display_unix_ends = 0
         candidate_text = format_full_text(candidate_data)
         candidate_unix = candidate_data.get("article_unix") or []
-        
         
         for i, unix in enumerate(candidate_unix):
             # MAINTENANCE
@@ -59,7 +64,6 @@ def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
                 display_unix_ends = unix
                 break
                 
-        
         
         #                   
         #   DATA DISPLAY

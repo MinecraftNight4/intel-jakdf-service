@@ -121,31 +121,37 @@ def run_full_cycle():
     # PHASE 2 – Building
     # --------------------------------------------------------
     progress.set_phase(2)
-    progress.add_task("embed", "Building News Embed", eta_seconds=10)
-    progress.add_task("calendar", "Building Calendar", eta_seconds=15)
+    progress.add_task("embed_news", "Building News Embed", eta_seconds=10)
+    progress.add_task("embed_calendar", "Building Calendar", eta_seconds=15)
+    progress.add_task("embed_sale", "Building Store", eta_seconds=5)
     progress.add_task("feeds_build", "Building Feeds", eta_seconds=5)
+    
 
-    # News Embed / Cache
-    progress.start_task("embed")
-    try:
-        if _rebuild_cache_callback:
-            _rebuild_cache_callback()
-        progress.success("embed")
-    except Exception:
-        progress.failure("embed")
-
-    # Calendar
-    progress.start_task("calendar")
-    try:
-        if _calendar_cache_callback:
-            _calendar_cache_callback()
-        progress.success("calendar")
-    except Exception:
-        progress.failure("calendar")
-
+    # Feeds build (marcado como listo)
+    progress.start_task("embed_sale")
+    progress.success("embed_sale")
+    
     # Feeds build (marcado como listo)
     progress.start_task("feeds_build")
     progress.success("feeds_build")
+
+    # News Embed / Cache
+    progress.start_task("embed_news")
+    try:
+        if _rebuild_cache_callback:
+            _rebuild_cache_callback()
+        progress.success("embed_news")
+    except Exception:
+        progress.failure("embed_news")
+
+    # Calendar
+    progress.start_task("embed_calendar")
+    try:
+        if _calendar_cache_callback:
+            _calendar_cache_callback()
+        progress.success("embed_calendar")
+    except Exception:
+        progress.failure("embed_calendar")
 
     # --------------------------------------------------------
     # PHASE 3 – Posting

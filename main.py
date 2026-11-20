@@ -76,6 +76,7 @@ async def on_ready():
     log("Cargando cogs...", "main")
     extensions = [
         "cogs.news",
+        "cogs.sale",
         "cogs.feeds",
         "cogs.follow",
         "cogs.calendar",

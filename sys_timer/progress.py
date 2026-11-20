@@ -157,7 +157,7 @@ class ProgressDisplay:
         if self.phase >= 2:
             lines.append("")
             lines.append("* PHASE 2:")
-            for key in ["embed", "calendar", "feeds_build"]:
+            for key in ["embed_news", "embed_calendar", "embed_sale", "feeds_build"]:
                 if key in self.tasks:
                     t = self.tasks[key]
                     lines.append(f"{t['label']}: {self._get_icon(t['status'])}{self._get_extra(t)}")
