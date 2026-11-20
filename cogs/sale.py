@@ -6,6 +6,7 @@ from typing import Any, Dict, List, Optional
 
 import discord
 from logger import log
+from .common import respond_with_view
 from discord import app_commands, ui
 from discord.ext import commands
 
@@ -404,6 +405,11 @@ class StoreErrorView(ui.LayoutView):
 
 
 class Store(commands.Cog):
+    # Datos para el scheduler (ver main.py → _register_refreshers)
+    REFRESH_KEY = "embed_sale"
+    REFRESH_LABEL = "Building Store"
+    REFRESH_ETA = 5
+
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.raw: Dict[str, Any] = {}
@@ -412,6 +418,11 @@ class Store(commands.Cog):
         self.menu_view: Optional[StoreMenuView] = None
         self.error_view: Optional[StoreErrorView] = None
         self._public_cooldowns: Dict[int, float] = {}
+        self.load_raw()
+        self.build_cache()
+
+    def refresh_cache(self):
+        """Llamado por el scheduler tras cada fetch: relee el JSON y reconstruye las vistas."""
         self.load_raw()
         self.build_cache()
 
@@ -494,7 +505,7 @@ class Store(commands.Cog):
         self.menu_view = StoreMenuView(self.raw, sections)
         self.error_view = StoreErrorView()
         log(
-            f"ITEMS CACHED AT [cogs/store.py]: SECTIONS x{len(sections)}, "
+            f"ITEMS CACHED AT [cogs/sale.py]: SECTIONS x{len(sections)}, "
             f"PAGES x{page_total}, JUMPS x{index_total}",
             "cache",
             show=False,
@@ -563,24 +574,7 @@ class Store(commands.Cog):
         await self._respond(interaction, self.error_view or StoreErrorView())
 
     async def _respond(self, interaction: discord.Interaction, view: ui.LayoutView):
-        try:
-            if interaction.response.is_done():
-                await interaction.followup.send(view=view, ephemeral=True)
-            else:
-                await interaction.response.edit_message(view=view)
-        except discord.errors.InteractionResponded:
-            try:
-                await interaction.followup.send(view=view, ephemeral=True)
-            except Exception:
-                pass
-        except Exception as exc:
-            try:
-                if not interaction.response.is_done():
-                    await interaction.response.send_message(view=view, ephemeral=True)
-                else:
-                    await interaction.followup.send(view=view, ephemeral=True)
-            except Exception:
-                log(f"[STORE] _respond failed completely: {exc}", "store", level="CRIT", show=False)
+        await respond_with_view(interaction, view, tag="STORE")
 
 
 async def setup(bot: commands.Bot):

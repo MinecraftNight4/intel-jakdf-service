@@ -1,6 +1,12 @@
 {
   "kj8_thegame_en": {
     "status": {
+      "2123627401410212251": {
+        "link": "https://x.com/kj8_TheGame_EN/status/2123627401410212251",
+        "uuid": "2123627401410212251",
+        "text": "◤　 #KaijuNo8THEGAME　　     　\n　　   Training: Kaijumite     　\n　　 2x Rewards Campaign　◢\n\nThe 2x Rewards Campaign for Training: Kaijumite has come online.\nDuring the campaign, receive 2x rewards when completing eligible Training!\n\n*There is a daily limit to the number of times rewards can be doubled.\n\n▼ Details\nhttps://info.kj8-thegame.com/news/1004370?language=en\n\n#K8Game #KaijuNo8",
+        "hash": "2123627401410212251_578b1adff568d9e5d55e159c4ca369b18f8c76de6f8a629f633e918c40e2ddd9"
+      },
       "2122895071104369126": {
         "link": "https://x.com/kj8_TheGame_EN/status/2122895071104369126",
         "uuid": "2122895071104369126",
@@ -114,12 +120,6 @@
         "uuid": "2117542299798573078",
         "text": "◤  #K8Game Character Voice Clip　　　      　\n  #RenoIchikawa (VA: #WataruKatoh)  ◢\n\nSo this is No. 8's power...\n\n#KaijuNo8 #KaijuNo8THEGAME",
         "hash": "2117542299798573078_71ec646410f839da78b608ccc6ccbe2d843ef5ef933098dd9535292b2f5f48b4"
-      },
-      "2117104412753809540": {
-        "link": "https://x.com/kj8_TheGame_EN/status/2117104412753809540",
-        "uuid": "2117104412753809540",
-        "text": "◤    #KaijuNo8THEGAME\n   　Pickup Gacha Now Up!     ◢\n\nThis Pickup Gacha features the following character!\n\n■ ★5 Character\n[The Cerulean Frost Kaiju No. 8] Reno Ichikawa \n\n▼ Details\nhttps://info.kj8-thegame.com/news/1004240?language=en\n\n#K8Game #KaijuNo8",
-        "hash": "2117104412753809540_e0a59e6033351112580c7a0814c7b0f8073220ffe51256854503d1f56e6746d7"
       }
     },
     "roadmap": {
@@ -252,6 +252,12 @@
   },
   "kj8_thegame": {
     "status": {
+      "2123627396817383510": {
+        "link": "https://x.com/Kj8_TheGame/status/2123627396817383510",
+        "uuid": "2123627396817383510",
+        "text": "◤ 　　　　#怪獣8号 THE GAME\n　演習「怪獣鉱」報酬2倍キャンペーン◢\n\n演習：「怪獣鉱」」報酬2倍キャンペーンを開催します。\n期間中、対象となる演習をクリアすると「怪獣鉱」の報酬が2倍！\n\n※報酬が2倍になる回数は、1日ごとに制限があります。\n\n▼詳細\nhttps://info.kj8-thegame.com/news/1004370?language=ja\n\n#怪獣8G",
+        "hash": "2123627396817383510_529337ff87b808f685390e2f1d0cea23c3b572d757d4b04039019e9a544b29c9"
+      },
       "2123340515110494470": {
         "link": "https://x.com/Kj8_TheGame/status/2123340515110494470",
         "uuid": "2123340515110494470",
@@ -365,18 +371,6 @@
         "uuid": "2118908802955124986",
         "text": "◤ 　　#怪獣8号 THE GAME\n　激戦エリア 定常［属性］追加！◢\n\n斬属性と火属性を攻略する激戦エリアを追加！\n属性に対応した編成で挑みましょう⚡️\n\n※激戦エリア 定常［属性］は、激戦エリア 定常［立川］40をクリアすることで解放されます。\n\n▼詳細\nhttps://info.kj8-thegame.com/news/1004260?language=ja\n\n#怪獣8G",
         "hash": "2118908802955124986_bf9961332c34d8cb52854babf6619b8e166cbd799da2d0c5449f6c919aa61abf"
-      },
-      "2118267082538471705": {
-        "link": "https://x.com/Kj8_TheGame/status/2118267082538471705",
-        "uuid": "2118267082538471705",
-        "text": "◤ 　　#怪獣8号 THE GAME\n　サイン色紙プレゼントキャンペーン ◢\n\n抽選で1名様に #市川レノ 役 #加藤渉 さんのサイン色紙をプレゼント！\n\n▼参加方法\n①@Kj8_TheGame と @KaijuNo8_O をフォロー\n②本投稿をリポスト\n〆：2026年11月11日(水) 23:59\n\n#怪獣8G",
-        "hash": "2118267082538471705_0eb9ab27500116eb5ea18f73aaefe85351c7e372cbb7f757661d95115b5efef5"
-      },
-      "2118267357965725765": {
-        "link": "https://x.com/Kj8_TheGame/status/2118267357965725765",
-        "uuid": "2118267357965725765",
-        "text": "以下の応募規約に同意の上ご参加ください。\nhttps://kj8-thegame.com/terms/",
-        "hash": "2118267357965725765_7b8d3818e64589af2638b5ce5d0f6fe2cde34bdc78af30e50319e91a6a895f0f"
       }
     },
     "roadmap": {}

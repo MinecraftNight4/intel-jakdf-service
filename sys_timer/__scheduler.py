@@ -14,6 +14,7 @@ from .progress import ProgressDisplay
 # ============================================================
 _calendar_cache_callback = None
 _rebuild_cache_callback = None
+_store_cache_callback = None
 _feed_callback = None
 
 
@@ -27,6 +28,12 @@ def set_rebuild_calendar_callback(callback):
     global _calendar_cache_callback
     _calendar_cache_callback = callback
     log("TIMER: [REGISTER: cogs.calendar]", "timer", show=False)
+
+
+def set_rebuild_store_callback(callback):
+    global _store_cache_callback
+    _store_cache_callback = callback
+    log("TIMER: [REGISTER: cogs.sale]", "timer", show=False)
 
 
 def set_feed_callback(callback):
@@ -127,9 +134,15 @@ def run_full_cycle():
     progress.add_task("feeds_build", "Building Feeds", eta_seconds=5)
     
 
-    # Feeds build (marcado como listo)
+    # Store Embed / Cache
     progress.start_task("embed_sale")
-    progress.success("embed_sale")
+    try:
+        if _store_cache_callback:
+            _store_cache_callback()
+        progress.success("embed_sale")
+    except Exception as e:
+        progress.failure("embed_sale")
+        log(f"STORE REBUILD ERROR: {e}", "timer", level="CRIT", show=False)
     
     # Feeds build (marcado como listo)
     progress.start_task("feeds_build")

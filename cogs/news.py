@@ -6,6 +6,7 @@ from typing import Dict, Any, List
 
 import discord
 from logger import info, warn, crit, log
+from .common import respond_with_view
 from discord import app_commands, ui
 from discord.ext import commands
 
@@ -308,6 +309,11 @@ class NewsErrorView(ui.LayoutView):
         self.add_item(container)
 
 class News(commands.Cog):
+    # Datos para el scheduler (ver main.py → _register_refreshers)
+    REFRESH_KEY = "embed_news"
+    REFRESH_LABEL = "Building News Embed"
+    REFRESH_ETA = 10
+
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.raw_news: Dict[str, Any] = {}
@@ -317,6 +323,11 @@ class News(commands.Cog):
         self.error_view: NewsErrorView | None = None
         self._public_cooldowns: Dict[int, float] = {}
 
+        self.load_raw()
+        self.build_cache()
+
+    def refresh_cache(self):
+        """Llamado por el scheduler tras cada fetch: relee el JSON y reconstruye las vistas."""
         self.load_raw()
         self.build_cache()
 
@@ -334,25 +345,28 @@ class News(commands.Cog):
             self.raw_news = {}
 
     def build_cache(self):
-        self.cache.clear()
-        self.sorted_articles = []
-
+        # Se arma todo en variables locales y se intercambia al final, así
+        # una interacción que llegue a mitad del rebuild nunca ve la caché vacía.
         articles = list(self.raw_news.values())
         articles.sort(key=lambda a: int(a.get("article_time", 0)), reverse=True)
-        self.sorted_articles = articles
 
+        cache: Dict[str, NewsPageView] = {}
         for article in articles:
             total_items = len(article.get("article_node", []))
             total_pages = math.ceil(total_items / ITEMS_PER_PAGE) if total_items > 0 else 1
 
             for page in range(1, total_pages + 1):
                 key = f"gamenews_{article['article_uuid']}_{page}"
-                self.cache[key] = NewsPageView(article, page, total_pages)
+                cache[key] = NewsPageView(article, page, total_pages)
 
-        # Menú siempre fresco
-        self.menu_view = NewsMenuView(self.sorted_articles)
-        self.error_view = NewsErrorView()
-        log(f"ITEMS CACHED AT [cogs/news.py]: NEWS x{len(self.sorted_articles)}, PAGES x{len(self.cache)}", "cache", show=False)
+        menu_view = NewsMenuView(articles)
+        error_view = NewsErrorView()
+
+        self.cache = cache
+        self.sorted_articles = articles
+        self.menu_view = menu_view
+        self.error_view = error_view
+        log(f"ITEMS CACHED AT [cogs/news.py]: NEWS x{len(articles)}, PAGES x{len(cache)}", "cache", show=False)
 
     # ------------------------------------------------------------------
     # /news [private]
@@ -463,38 +477,8 @@ class News(commands.Cog):
         await self._respond(interaction, view, force_private=is_private_request)
 
     async def _respond(self, interaction: discord.Interaction, view, *, force_private: bool = False):
-        try:
-            if force_private:
-                # Mensajes de la feed → NUNCA editar, siempre responder
-                if interaction.response.is_done():
-                    await interaction.followup.send(view=view, ephemeral=True)
-                else:
-                    await interaction.response.send_message(view=view, ephemeral=True)
-            else:
-                # Comando /news normal → intentar editar
-                if interaction.response.is_done():
-                    await interaction.followup.send(view=view, ephemeral=True)
-                else:
-                    await interaction.response.edit_message(view=view)
+        await respond_with_view(interaction, view, force_private=force_private, tag="NEWS")
 
-        except discord.errors.InteractionResponded:
-            # Ya se respondió por algún motivo → usar followup como fallback
-            try:
-                await interaction.followup.send(view=view, ephemeral=True)
-            except Exception:
-                pass
-        except Exception as e:
-            # Cualquier otro error (mensaje muy viejo, etc.)
-            try:
-                if not interaction.response.is_done():
-                    await interaction.response.send_message(view=view, ephemeral=True)
-                else:
-                    await interaction.followup.send(view=view, ephemeral=True)
-            except Exception:
-                log(f"[NEWS] _respond failed completely: {e}", "news", level="CRIT", show=False)
-        
-        
-    
     async def _send(self, interaction: discord.Interaction, key: str, edit: bool = False):
         view = self.cache.get(key)
         if view is None:

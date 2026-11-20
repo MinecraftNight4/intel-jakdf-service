@@ -23,11 +23,20 @@ from .item_status import panelbuilder_status
 
 
 class Calendar(commands.Cog):
+    # Datos para el scheduler (ver main.py → _register_refreshers)
+    REFRESH_KEY = "embed_calendar"
+    REFRESH_LABEL = "Building Calendar"
+    REFRESH_ETA = 15
+
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.cache: Dict[str, ui.LayoutView] = {}
         self.default_key = "gachas_a"
         self._public_cooldowns: Dict[int, float] = {}
+        self.rebuild_calendar_cache()
+
+    def refresh_cache(self):
+        """Llamado por el scheduler tras cada fetch."""
         self.rebuild_calendar_cache()
 
     def rebuild_calendar_cache(self):
@@ -42,21 +51,25 @@ class Calendar(commands.Cog):
         except Exception as e:
             log(f"[CALENDAR] Failed to generate gacha image: {e}", "calendar", level="CRIT", show=False)
 
-        self.cache["status_b"] = panelbuilder_status(relative=False)
-        self.cache["status_a"] = panelbuilder_status(relative=True)
+        # Se arma en un dict local y se intercambia al final (sin estados a medias).
+        cache: Dict[str, ui.LayoutView] = {}
 
-        self.cache["gachas_b"] = panelbuilder_gachas(relative=False)
-        self.cache["gachas_a"] = panelbuilder_gachas(relative=True)
+        cache["status_b"] = panelbuilder_status(relative=False)
+        cache["status_a"] = panelbuilder_status(relative=True)
 
-        self.cache["events_b"] = panelbuilder_events(relative=False)
-        self.cache["events_a"] = panelbuilder_events(relative=True)
+        cache["gachas_b"] = panelbuilder_gachas(relative=False)
+        cache["gachas_a"] = panelbuilder_gachas(relative=True)
 
-        self.cache["coming_b"] = panelbuilder_coming(relative=False)
-        self.cache["coming_a"] = panelbuilder_coming(relative=True)
+        cache["events_b"] = panelbuilder_events(relative=False)
+        cache["events_a"] = panelbuilder_events(relative=True)
 
-        self.cache["resets_b"] = panelbuilder_resets(relative=False)
-        self.cache["resets_a"] = panelbuilder_resets(relative=True)
+        cache["coming_b"] = panelbuilder_coming(relative=False)
+        cache["coming_a"] = panelbuilder_coming(relative=True)
 
+        cache["resets_b"] = panelbuilder_resets(relative=False)
+        cache["resets_a"] = panelbuilder_resets(relative=True)
+
+        self.cache = cache
         self.default_key = "status_a" if status_show_display() else "gachas_a"
         log(f"[CALENDAR]: Cache rebuilt → default: {self.default_key}", "calendar", show=False)
 
