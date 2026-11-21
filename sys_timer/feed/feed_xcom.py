@@ -1,10 +1,8 @@
 from typing import Any, Dict, List
-
 from discord.ext import commands
-
-import feed_store
 from logger import log
 
+from . import __setup as feed_setup
 from .__feed import (
     Message,
     as_int,
@@ -39,10 +37,10 @@ async def process_feed_xcom(bot: commands.Bot, progress=None) -> int:
     log(f"[FEED - XCOM]: Creating {len(accounts)} instances...", "feed", show=False)
 
     for account in accounts:
-        namespace = f"xcom-{account.lower()}"      # ← clave real (feed_store / progreso)
+        namespace = f"xcom-{account.lower()}"      # ← clave real (__setup / progreso)
         tag = f"XCOM @{account.upper()}"
 
-        targets = feed_store.targets(namespace)
+        targets = feed_setup.targets(namespace)
         previous = load_history(namespace)
         already_sent = set(previous)
         posts: Dict[str, Any] = (storage_news.get(account) or {}).get("status") or {}

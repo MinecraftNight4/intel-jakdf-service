@@ -4,7 +4,7 @@ Infraestructura compartida por TODOS los feeds (noticias, tienda y x.com).
 Cada feed solo se encarga de decidir *qué* mandar (filtrar, ordenar, armar el
 mensaje). Esta capa se encarga de *cómo* mandarlo:
 
-    destinos  → feed_store.targets(namespace)       (varios canales por guild)
+    destinos  → __setup.targets(namespace)         (varios canales por guild)
     historial → load_history / commit_history       (hashes ya enviados)
     envío     → deliver()                           (canales en paralelo,
                                                      mensajes en orden dentro

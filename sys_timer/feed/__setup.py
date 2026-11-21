@@ -1,8 +1,8 @@
 """
 Almacenamiento de la configuración de feeds (sys_save/feed_system_setup.json).
 
-Estructura (schema 2)
----------------------
+Estructura
+----------
 {
   "schema": 2,
   "allow_feed_commands": [123456789012345678],      # guilds con /feed habilitado
@@ -18,8 +18,6 @@ Estructura (schema 2)
 - Un "feed" es la combinación (type, channel): el mismo tipo puede ir a varios
   canales del mismo guild, pero no dos veces al mismo canal.
 - El límite se cuenta por guild, sumando feeds de cualquier tipo.
-- El formato anterior (schema 1: {feed_type: {guild_id: {...}}}) se migra solo
-  la primera vez que se carga, dejando un respaldo en <archivo>.v1.bak.
 """
 import json
 import os
@@ -32,41 +30,12 @@ FEEDS_FILE = "sys_save/feed_system_setup.json"
 SCHEMA_VERSION = 2
 MAX_FEEDS_PER_GUILD = 15
 
-_RESERVED_KEYS = {"schema", "allow_feed_commands", "guilds"}
-
 
 # ============================================================
 # Carga / guardado
 # ============================================================
 def _empty() -> dict:
     return {"schema": SCHEMA_VERSION, "allow_feed_commands": [], "guilds": {}}
-
-
-def _migrate_v1(old: dict) -> dict:
-    """{feed_type: {guild_id: {channel, publish, text}}} → schema 2."""
-    new = _empty()
-    allowed = old.get("allow_feed_commands")
-    new["allow_feed_commands"] = allowed if isinstance(allowed, list) else []
-
-    moved = 0
-    for feed_type, by_guild in old.items():
-        if feed_type in _RESERVED_KEYS or not isinstance(by_guild, dict):
-            continue
-        for guild_id, entry in by_guild.items():
-            if not isinstance(entry, dict) or not entry.get("channel"):
-                continue
-            item = {
-                "type": feed_type,
-                "channel": int(entry["channel"]),
-                "publish": bool(entry.get("publish", False)),
-            }
-            if entry.get("text"):
-                item["text"] = str(entry["text"])
-            new["guilds"].setdefault(str(guild_id), []).append(item)
-            moved += 1
-
-    log(f"[FEED STORE]: Migrated schema 1 → 2 ({moved} feed(s))", "feed", show=False)
-    return new
 
 
 def _normalize(data: dict) -> dict:
@@ -87,7 +56,7 @@ def load() -> dict:
         with open(FEEDS_FILE, "r", encoding="utf-8") as f:
             raw = json.load(f)
     except Exception as e:
-        log(f"[FEED STORE]: LOAD FAILURE | {e}", "feed", level="CRIT", show=False)
+        log(f"[FEED SETUP]: LOAD FAILURE | {e}", "feed", level="CRIT", show=False)
         # Evita que el próximo guardado pise (y pierda) un archivo dañado.
         try:
             shutil.copyfile(FEEDS_FILE, FEEDS_FILE + ".corrupt.bak")
@@ -97,20 +66,7 @@ def load() -> dict:
 
     if not isinstance(raw, dict):
         return _empty()
-
-    if raw.get("schema") == SCHEMA_VERSION:
-        return _normalize(raw)
-
-    # Schema 1 → migrar, respaldar el original y guardar.
-    migrated = _migrate_v1(raw)
-    try:
-        backup = FEEDS_FILE + ".v1.bak"
-        if not os.path.exists(backup):
-            shutil.copyfile(FEEDS_FILE, backup)
-    except Exception as e:
-        log(f"[FEED STORE]: BACKUP FAILURE | {e}", "feed", level="WARN", show=False)
-    save(migrated)
-    return migrated
+    return _normalize(raw)
 
 
 def save(data: dict) -> None:

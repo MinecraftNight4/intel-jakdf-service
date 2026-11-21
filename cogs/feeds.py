@@ -5,9 +5,9 @@ from discord.ext import commands
 from discord import app_commands, ui
 from logger import log
 
-import feed_store
-from feed_store import MAX_FEEDS_PER_GUILD
-from feed_store import load as load_feeds  # main.py lo importa para leer allow_feed_commands
+from sys_timer.feed import __setup as feed_setup
+from sys_timer.feed.__setup import MAX_FEEDS_PER_GUILD
+from sys_timer.feed.__setup import load as load_feeds  # main.py lo importa para leer allow_feed_commands
 
 FEED_TYPES = {
     "feed_game_general": "Game news | All the news",
@@ -80,7 +80,7 @@ class Feeds(commands.GroupCog, name="feed"):
         guild_id = interaction.guild.id
 
         # Límite por servidor (se revisa ANTES de enviar el mensaje de prueba)
-        if feed_store.would_exceed_limit(guild_id, feed_id, channel.id):
+        if feed_setup.would_exceed_limit(guild_id, feed_id, channel.id):
             await interaction.response.send_message(
                 f"## 📢 __FEED LIMIT!__ ⚠️\nThis server already uses **{MAX_FEEDS_PER_GUILD}/{MAX_FEEDS_PER_GUILD}** feeds.\n"
                 "> Remove one with `/feed clear` before adding a new one.",
@@ -101,7 +101,7 @@ class Feeds(commands.GroupCog, name="feed"):
             )
             return
 
-        result, total = feed_store.add_or_update(guild_id, feed_id, channel.id, publish, text)
+        result, total = feed_setup.add_or_update(guild_id, feed_id, channel.id, publish, text)
 
         if result == "limit":
             # Carrera poco probable: otro admin llenó el cupo entre la revisión y el guardado.
@@ -134,7 +134,7 @@ class Feeds(commands.GroupCog, name="feed"):
             )
             return
 
-        removed = feed_store.remove(guild.id, feed_id, int(channel_raw))
+        removed = feed_setup.remove(guild.id, feed_id, int(channel_raw))
         if not removed:
             await interaction.response.send_message(
                 "❌ That feed is not active in this server (maybe it was already removed).",
@@ -143,7 +143,7 @@ class Feeds(commands.GroupCog, name="feed"):
             return
 
         feed_string = FEED_TYPES.get(feed_id, feed_id)
-        remaining = len(feed_store.guild_entries(guild.id))
+        remaining = len(feed_setup.guild_entries(guild.id))
         await interaction.response.send_message(
             f"## 📢 __FEED DISABLED!__ 🚫\n- `{feed_string}` will no longer post in {_channel_label(guild, int(channel_raw))}.\n"
             f"-# Feeds in use: {remaining}/{MAX_FEEDS_PER_GUILD}",
@@ -160,7 +160,7 @@ class Feeds(commands.GroupCog, name="feed"):
 
         current = current.lower()
         choices: list[app_commands.Choice[str]] = []
-        for entry in feed_store.guild_entries(guild.id):
+        for entry in feed_setup.guild_entries(guild.id):
             feed_id = entry.get("type", "")
             channel_id = entry.get("channel")
             label = f"{FEED_TYPES.get(feed_id, feed_id)} → {_channel_label(guild, channel_id)}"
@@ -176,7 +176,7 @@ class Feeds(commands.GroupCog, name="feed"):
     @app_commands.default_permissions(administrator=True)
     async def view(self, interaction: discord.Interaction):
         guild = interaction.guild
-        entries = feed_store.guild_entries(guild.id)
+        entries = feed_setup.guild_entries(guild.id)
 
         lines = [f"**Feeds in use:** {len(entries)}/{MAX_FEEDS_PER_GUILD}"]
 

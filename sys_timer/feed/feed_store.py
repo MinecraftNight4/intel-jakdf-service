@@ -1,14 +1,12 @@
 import io
 import hashlib
 import discord
-
 from typing import Dict, Any, List, Optional
 from discord.ext import commands
 from discord import ui
-
-import feed_store
 from logger import log
 
+from . import __setup as feed_setup
 from .__feed import (
     Image,
     Message,
@@ -120,7 +118,7 @@ async def process_feed_game_store(bot: commands.Bot, progress=None, progress_key
     if not isinstance(banner_url, str):
         banner_url = None
 
-    targets = feed_store.targets(NAMESPACE)
+    targets = feed_setup.targets(NAMESPACE)
     previous = load_history(NAMESPACE)
     already_sent = set(previous)
 

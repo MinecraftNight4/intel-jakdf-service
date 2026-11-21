@@ -1,22 +1,14 @@
-"""
-Feeds de noticias del juego: general, service, event y gacha.
-
-Los cuatro eran el mismo código con un filtro distinto; ahora son una sola
-función (`process_news_feed`) y una descripción (`NewsFeedSpec`) por feed.
-"""
 import asyncio
 import io
 import math
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional
-
 import discord
 from discord import ui
 from discord.ext import commands
-
-import feed_store
 from logger import log
 
+from . import __setup as feed_setup
 from .__feed import (
     MAX_PARALLEL_DOWNLOADS,
     Image,
@@ -270,7 +262,7 @@ def _make_gacha_message(article: dict, image: Optional[Image], colour: Optional[
 
 @dataclass(frozen=True)
 class NewsFeedSpec:
-    namespace: str                          # clave en feed_store y en feed_system_data.json
+    namespace: str                          # clave en __setup y en feed_system_data.json
     tag: str                                # etiqueta para los logs
     accepts: Callable[[dict], bool]         # ¿este artículo pertenece al feed?
     dominant_colour: bool = False           # usar el color dominante del logo
@@ -324,7 +316,7 @@ async def process_news_feed(
     progress_key: str | None = None,
 ) -> int:
     storage_news: Dict[str, Any] = load_json(NEWS_FILE, {})
-    targets = feed_store.targets(spec.namespace)
+    targets = feed_setup.targets(spec.namespace)
     previous = load_history(spec.namespace)
     already_sent = set(previous)
 
