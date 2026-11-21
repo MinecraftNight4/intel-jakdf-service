@@ -1,28 +1,43 @@
 """
-Orquestador de todos los feeds. El scheduler lo llama (vía main.py) en la
-fase 3 de cada ciclo.
+Orquestador de todos los feeds (fase 3 de cada ciclo del scheduler).
 
-Orden y claves de progreso: deben coincidir con `feed_tasks` de
-sys_timer/scheduler.py.
+Aquí está la ÚNICA lista de feeds para el panel de progreso:
+    progress_tasks()  → lo que el scheduler muestra en la fase 3
+    run_all_feeds()   → lo que realmente se ejecuta
+
+Para sumar un feed de noticias basta con agregarlo a NEWS_FEEDS (feed_news.py).
 """
+from typing import List, Tuple
+
 from logger import log
+from web_get.request_xcom import KaijuReadXCom
 
 from .feed_news import NEWS_FEEDS, process_news_feed
-from .feed_game_store import process_feed_game_store
+from .feed_store import process_feed_game_store
 from .feed_xcom import process_feed_xcom
 
-XCOM_PROGRESS_KEYS = [
-    "xcom-kj8_thegame_en",
-    "xcom-kaijuno8_o_en",
-    "xcom-kj8_thegame",
-    "xcom-kaijuno8_o",
-]
+STORE_KEY = "store"
+STORE_ETA = 40
+XCOM_ETA = 25
+
+
+def _xcom_keys() -> List[str]:
+    # Misma clave que usa feed_xcom: "xcom-<cuenta en minúsculas>"
+    return [f"xcom-{account.lower()}" for account in KaijuReadXCom().accounts]
+
+
+def progress_tasks() -> List[Tuple[str, str, int]]:
+    """[(key, label, eta)] en el orden en que se muestran en el panel."""
+    tasks = [(key, f"Posting `game_{key}`", spec.eta) for key, spec in NEWS_FEEDS.items()]
+    tasks.append((STORE_KEY, f"Posting `game_{STORE_KEY}`", STORE_ETA))
+    for key in _xcom_keys():
+        tasks.append((key, f"Posting `X - @{key.removeprefix('xcom-')}`", XCOM_ETA))
+    return tasks
 
 
 async def run_all_feeds(bot, progress) -> None:
-    # Noticias del juego (general, service, gacha, event) + tienda, con progreso dinámico
-    jobs = [(key, spec) for key, spec in NEWS_FEEDS.items()]
-    jobs.append(("store", None))
+    # Noticias del juego + tienda, con progreso dinámico
+    jobs = list(NEWS_FEEDS.items()) + [(STORE_KEY, None)]
 
     for key, spec in jobs:
         progress.start_task(key)
@@ -40,6 +55,6 @@ async def run_all_feeds(bot, progress) -> None:
     try:
         await process_feed_xcom(bot, progress=progress)
     except Exception as e:
-        for key in XCOM_PROGRESS_KEYS:
+        for key in _xcom_keys():
             progress.failure(key)
         log(f"Feed XCom error: {e}", "feed", level="CRIT", show=False)

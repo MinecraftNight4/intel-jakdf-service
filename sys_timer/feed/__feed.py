@@ -34,6 +34,7 @@ CROSSPOST_DELAY = 2.0       # s antes de publicar (crosspost) un mensaje
 SEND_TIMEOUT = 20.0         # s máximo por envío
 CROSSPOST_TIMEOUT = 5.0
 MAX_PARALLEL_TARGETS = 5    # canales procesándose a la vez (cada canal va en orden)
+MAX_PARALLEL_DOWNLOADS = 5  # imágenes descargándose a la vez al preparar mensajes
 
 
 # ============================================================

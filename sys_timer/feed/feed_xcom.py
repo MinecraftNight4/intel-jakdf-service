@@ -5,7 +5,7 @@ from discord.ext import commands
 import feed_store
 from logger import log
 
-from .feed_common import (
+from .__feed import (
     Message,
     as_int,
     commit_history,

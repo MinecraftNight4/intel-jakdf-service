@@ -97,46 +97,21 @@ class KaijuBot(commands.Bot):
             log(f"  ✓ {name} cache callback", "main")
 
     def _register_feed_callback(self):
+        # Se importa ya (no recién en el primer ciclo): si algún módulo de feeds
+        # está roto, el error se ve al arrancar y no como "Waiting..." eterno.
+        try:
+            from sys_timer.feed.__base import progress_tasks, run_all_feeds
+        except Exception as e:
+            log(f"  ✗ Feeds NO disponibles (import falló): {type(e).__name__}: {e}", "main", level="CRIT")
+            return
+
         def feed_callback(progress):
-            future = asyncio.run_coroutine_threadsafe(self._process_all_feeds(progress), self.loop)
+            # El scheduler corre en otro hilo: los feeds se ejecutan en el loop del bot.
+            future = asyncio.run_coroutine_threadsafe(run_all_feeds(self, progress), self.loop)
             future.result()
 
-        set_feed_callback(feed_callback)
+        set_feed_callback(feed_callback, progress_tasks())
         log("  ✓ Feeds callback", "main")
-
-    async def _process_all_feeds(self, progress):
-        from sys_timer.feed.feed_game_general import process_feed_game_general
-        from sys_timer.feed.feed_game_service import process_feed_game_service
-        from sys_timer.feed.feed_game_gacha import process_feed_game_gacha
-        from sys_timer.feed.feed_game_event import process_feed_game_event
-        from sys_timer.feed.feed_game_store import process_feed_game_store
-        from sys_timer.feed.feed_xcom import process_feed_xcom
-
-        # Game feeds con progreso dinámico
-        mapping = [
-            ("general", process_feed_game_general),
-            ("service", process_feed_game_service),
-            ("gacha",   process_feed_game_gacha),
-            ("event",   process_feed_game_event),
-            ("store",   process_feed_game_store),
-        ]
-
-        for key, func in mapping:
-            progress.start_task(key)
-            try:
-                await func(self, progress=progress, progress_key=key)
-                progress.success(key)
-            except Exception as e:
-                progress.failure(key)
-                log(f"Feed {key} error: {e}", "feed", level="CRIT", show=False)
-
-        # XCom (todavía sin progreso dinámico por ahora)
-        try:
-            await process_feed_xcom(self, progress=progress)
-        except Exception as e:
-            for key in ["xcom-kj8_thegame_en", "xcom-kaijuno8_o_en", "xcom-kj8_thegame", "xcom-kaijuno8_o"]:
-                progress.failure(key)
-            log(f"Feed XCom error: {e}", "feed", level="CRIT", show=False)
 
     # --------------------------------------------------------
     # on_ready: solo logs + arranque (único) del timer.
@@ -190,8 +165,11 @@ async def run_schedule(ctx: commands.Context):
     try:
         # Ejecutamos en un hilo para no bloquear el bot
         loop = asyncio.get_running_loop()
-        await loop.run_in_executor(None, run_full_cycle)
-        await ctx.send("✅ Schedule terminado.")
+        ran = await loop.run_in_executor(None, run_full_cycle)
+        if ran:
+            await ctx.send("✅ Schedule terminado.")
+        else:
+            await ctx.send("⚠️ Ya hay un ciclo en ejecución; no inicié otro para no publicar todo dos veces.")
     except Exception as e:
         await ctx.send(f"❌ Error en schedule: `{e}`")
         log(f"runschedule error: {e}", "main", level="CRIT")

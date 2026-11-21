@@ -1,1 +1,0 @@
-from .scheduler import start_all_timers

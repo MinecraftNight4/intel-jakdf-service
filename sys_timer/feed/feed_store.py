@@ -9,7 +9,7 @@ from discord import ui
 import feed_store
 from logger import log
 
-from .feed_common import (
+from .__feed import (
     Image,
     Message,
     commit_history,

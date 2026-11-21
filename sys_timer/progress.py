@@ -47,9 +47,11 @@ class ProgressDisplay:
             self.phase = phase
             self._render()
 
-    def add_task(self, key: str, label: str, eta_seconds: int = 0):
+    def add_task(self, key: str, label: str, eta_seconds: int = 0, phase: Optional[int] = None):
+        """Agrega una tarea al panel. Sin `phase`, va en la fase actual."""
         with self.lock:
             self.tasks[key] = {
+                "phase": self.phase if phase is None else phase,
                 "label": label,
                 "status": "waiting",
                 "eta_seconds": eta_seconds,      # estimado inicial
@@ -145,36 +147,18 @@ class ProgressDisplay:
         return f" || ETA: {t['remaining']}s"
 
     def _build_output(self) -> list[str]:
+        """Una sección por fase, con las tareas en el orden en que se agregaron."""
         lines = ["-----------------------"]
 
-        if self.phase >= 1:
-            lines.append("* PHASE 1:")
-            for key in ["news", "xcom", "rmap", "sale"]:
-                if key in self.tasks:
-                    t = self.tasks[key]
-                    lines.append(f"{t['label']}: {self._get_icon(t['status'])}{self._get_extra(t)}")
-
-        if self.phase >= 2:
-            lines.append("")
-            lines.append("* PHASE 2:")
-            for key in ["embed_news", "embed_calendar", "embed_sale", "feeds_build"]:
-                if key in self.tasks:
-                    t = self.tasks[key]
-                    lines.append(f"{t['label']}: {self._get_icon(t['status'])}{self._get_extra(t)}")
-
-        if self.phase >= 3:
-            lines.append("")
-            lines.append("* PHASE 3:")
-            for key in [
-                "general", "service", "gacha", "event", "store",
-                "xcom-kj8_thegame_en",
-                "xcom-kaijuno8_o_en",
-                "xcom-kj8_thegame",
-                "xcom-kaijuno8_o"
-                ]:
-                if key in self.tasks:
-                    t = self.tasks[key]
-                    lines.append(f"{t['label']}: {self._get_icon(t['status'])}{self._get_extra(t)}")
+        for phase in range(1, self.phase + 1):
+            tasks = [t for t in self.tasks.values() if t["phase"] == phase]
+            if not tasks:
+                continue
+            if phase > 1:
+                lines.append("")
+            lines.append(f"* PHASE {phase}:")
+            for t in tasks:
+                lines.append(f"{t['label']}: {self._get_icon(t['status'])}{self._get_extra(t)}")
 
         lines.append("-----------------------")
         return lines

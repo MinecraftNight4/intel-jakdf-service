@@ -4,6 +4,7 @@ Feeds de noticias del juego: general, service, event y gacha.
 Los cuatro eran el mismo código con un filtro distinto; ahora son una sola
 función (`process_news_feed`) y una descripción (`NewsFeedSpec`) por feed.
 """
+import asyncio
 import io
 import math
 from dataclasses import dataclass
@@ -16,7 +17,8 @@ from discord.ext import commands
 import feed_store
 from logger import log
 
-from .feed_common import (
+from .__feed import (
+    MAX_PARALLEL_DOWNLOADS,
     Image,
     Message,
     as_int,
@@ -273,6 +275,7 @@ class NewsFeedSpec:
     accepts: Callable[[dict], bool]         # ¿este artículo pertenece al feed?
     dominant_colour: bool = False           # usar el color dominante del logo
     gacha_layout: bool = False              # layout de gacha (fechas + READ MORE)
+    eta: int = 40                           # segundos estimados (panel de progreso)
 
 
 def _of_type(*types: str) -> Callable[[dict], bool]:
@@ -281,10 +284,10 @@ def _of_type(*types: str) -> Callable[[dict], bool]:
 
 
 NEWS_FEEDS: Dict[str, NewsFeedSpec] = {
-    "general": NewsFeedSpec("feed_game_general", "GENERAL", accepts=lambda a: True),
-    "service": NewsFeedSpec("feed_game_service", "SERVICE", accepts=_of_type("update", "maintenance")),
-    "gacha":   NewsFeedSpec("feed_game_gacha",   "GACHA",   accepts=_of_type("gacha"), dominant_colour=True, gacha_layout=True),
-    "event":   NewsFeedSpec("feed_game_event",   "EVENT",   accepts=_of_type("event"), dominant_colour=True),
+    "general": NewsFeedSpec("feed_game_general", "GENERAL", accepts=lambda a: True, eta=50),
+    "service": NewsFeedSpec("feed_game_service", "SERVICE", accepts=_of_type("update", "maintenance"), eta=50),
+    "gacha":   NewsFeedSpec("feed_game_gacha",   "GACHA",   accepts=_of_type("gacha"), dominant_colour=True, gacha_layout=True, eta=35),
+    "event":   NewsFeedSpec("feed_game_event",   "EVENT",   accepts=_of_type("event"), dominant_colour=True, eta=35),
 }
 
 
@@ -304,7 +307,10 @@ async def _prepare(article: dict, spec: NewsFeedSpec) -> Optional[Message]:
             return None
 
     image = await fetch_image(article.get("article_logo"))
-    colour = dominant_colour(image) if spec.dominant_colour else None
+    colour = None
+    if spec.dominant_colour and image is not None:
+        # ColorThief es CPU puro: en un hilo para no congelar al bot mientras calcula.
+        colour = await asyncio.get_running_loop().run_in_executor(None, dominant_colour, image)
 
     if spec.gacha_layout:
         return _make_gacha_message(article, image, colour, gacha_text)
@@ -343,11 +349,15 @@ async def process_news_feed(
         log("", "feed", show=False)
         return 0
 
-    messages: List[Message] = []
-    for article in fresh:
-        msg = await _prepare(article, spec)
-        if msg is not None:
-            messages.append(msg)
+    # Las descargas de imágenes van en paralelo (acotado); gather conserva el orden.
+    gate = asyncio.Semaphore(MAX_PARALLEL_DOWNLOADS)
+
+    async def prepare(article: dict) -> Optional[Message]:
+        async with gate:
+            return await _prepare(article, spec)
+
+    prepared = await asyncio.gather(*(prepare(a) for a in fresh))
+    messages: List[Message] = [m for m in prepared if m is not None]
 
     sent = await deliver(bot, spec.tag, targets, messages, progress=progress, progress_key=progress_key)
 
