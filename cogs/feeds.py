@@ -1,13 +1,14 @@
-import json
-import os
 import discord
 
 from typing import Optional
 from discord.ext import commands
 from discord import app_commands, ui
-from logger import info, warn, crit, log
+from logger import log
 
-FEEDS_FILE = "sys_save/feed_system_setup.json"
+import feed_store
+from feed_store import MAX_FEEDS_PER_GUILD
+from feed_store import load as load_feeds  # main.py lo importa para leer allow_feed_commands
+
 FEED_TYPES = {
     "feed_game_general": "Game news | All the news",
     "feed_game_gacha": "Game news | Only Gachas",
@@ -20,24 +21,8 @@ FEED_TYPES = {
     "xcom-kj8_thegame": "x.com | (JP) @kj8_thegame",
 }
 
-
-def load_feeds() -> dict:
-    if not os.path.exists(FEEDS_FILE):
-        return {"allow_feed_commands": []}
-    try:
-        with open(FEEDS_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        if "allow_feed_commands" not in data:
-            data["allow_feed_commands"] = []
-        return data
-    except Exception:
-        return {"allow_feed_commands": []}
-
-
-def save_feeds(data: dict):
-    os.makedirs(os.path.dirname(FEEDS_FILE), exist_ok=True)
-    with open(FEEDS_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+VIEW_TEXT_LIMIT = 3800   # Discord permite 4000 caracteres de texto por mensaje
+PREVIEW_CHARS = 80
 
 
 class FeedViewLayout(ui.LayoutView):
@@ -50,17 +35,27 @@ class FeedViewLayout(ui.LayoutView):
         self.add_item(container)
 
 
+def _channel_label(guild: discord.Guild, channel_id: int) -> str:
+    channel = guild.get_channel(int(channel_id))
+    return f"#{channel.name}" if channel else f"deleted channel ({channel_id})"
+
+
+def _preview(text: str) -> str:
+    flat = " ".join(text.split())
+    return flat if len(flat) <= PREVIEW_CHARS else flat[:PREVIEW_CHARS - 1] + "…"
+
+
 class Feeds(commands.GroupCog, name="feed"):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         super().__init__()
 
-# ============================================================
-# Dentro de la clase Feeds → comando setup
-# ============================================================
+    # ============================================================
+    # /feed setup
+    # ============================================================
     @app_commands.command(name="setup", description="Once the bot detects new content, will send it!")
     @app_commands.describe(
-        feed_type="Select the type of feed. (Only 1 type of feed is allowed per server)",
+        feed_type=f"Select the type of feed. (Up to {MAX_FEEDS_PER_GUILD} feeds per server, repeating types is allowed)",
         channel="Select the channel to send updates. (Requires: Send Message, Attach Files & Link Embed)",
         publish="Setup if the bot can cross-post in a newschannel (Requires: Manage Message)",
         text="Set a custom ping message. (use \\n for new lines, max 1000 chars)",
@@ -82,12 +77,20 @@ class Feeds(commands.GroupCog, name="feed"):
     ):
         feed_id = feed_type.value
         feed_string = feed_type.name
-        guild_id = str(interaction.guild.id)
+        guild_id = interaction.guild.id
+
+        # Límite por servidor (se revisa ANTES de enviar el mensaje de prueba)
+        if feed_store.would_exceed_limit(guild_id, feed_id, channel.id):
+            await interaction.response.send_message(
+                f"## 📢 __FEED LIMIT!__ ⚠️\nThis server already uses **{MAX_FEEDS_PER_GUILD}/{MAX_FEEDS_PER_GUILD}** feeds.\n"
+                "> Remove one with `/feed clear` before adding a new one.",
+                ephemeral=True,
+            )
+            return
 
         # Mensaje de prueba
         test_embed = discord.Embed(
             description=f"## 📢 __FEED SETUP!__ ℹ️\nThis channel now will post content related to **{feed_string}**",
-            
         )
         try:
             await channel.send(embed=test_embed)
@@ -97,110 +100,118 @@ class Feeds(commands.GroupCog, name="feed"):
                 ephemeral=True,
             )
             return
-        
-        # ---------- GUARDAR EN FORMATO ANIDADO ----------
-        data = load_feeds()
 
-        if feed_id not in data:
-            data[feed_id] = {}
-        entry = {
-            "channel": channel.id,
-            "publish": bool(publish),
-        }
-        if text and text.strip():
-            entry["text"] = text.replace("\\n", "\n")[:1000]
-        else:
-            entry.pop("text", None)
+        result, total = feed_store.add_or_update(guild_id, feed_id, channel.id, publish, text)
 
-        data[feed_id][guild_id] = entry
-        save_feeds(data)
+        if result == "limit":
+            # Carrera poco probable: otro admin llenó el cupo entre la revisión y el guardado.
+            await interaction.response.send_message(
+                f"## 📢 __FEED LIMIT!__ ⚠️\nThis server already uses **{MAX_FEEDS_PER_GUILD}/{MAX_FEEDS_PER_GUILD}** feeds.",
+                ephemeral=True,
+            )
+            return
+
+        title = "FEED ENABLED!" if result == "added" else "FEED UPDATED!"
         await interaction.response.send_message(
-            f"## 📢 __FEED ENABLED!__ ✅\n- {channel.mention} will post about **`{feed_string}`**.",
+            f"## 📢 __{title}__ ✅\n- {channel.mention} will post about **`{feed_string}`**.\n"
+            f"-# Feeds in use: {total}/{MAX_FEEDS_PER_GUILD}",
             ephemeral=True,
         )
 
     # ============================================================
-    # Comando clear
+    # /feed clear
     # ============================================================
-    @app_commands.command(name="clear", description="Delist a feed category from the server!")
-    @app_commands.describe(
-        feed_type="Type of feed to disable",
-    )
-    @app_commands.choices(
-        feed_type=[
-            app_commands.Choice(name=name, value=value)
-            for value, name in FEED_TYPES.items()
-        ]
-    )
+    @app_commands.command(name="clear", description="Remove one of this server's feeds.")
+    @app_commands.describe(feed="The feed to remove (pick one from the list)")
     @app_commands.default_permissions(administrator=True)
-    async def clear(
-        self,
-        interaction: discord.Interaction,
-        feed_type: app_commands.Choice[str]
-    ):
-        feed_id = feed_type.value
-        feed_string = feed_type.name
-        guild_id = str(interaction.guild.id)
+    async def clear(self, interaction: discord.Interaction, feed: str):
+        guild = interaction.guild
 
-        data = load_feeds()
+        feed_id, _, channel_raw = feed.rpartition(":")
+        if not feed_id or not channel_raw.isdigit():
+            await interaction.response.send_message(
+                "❌ Please pick a feed from the list.", ephemeral=True
+            )
+            return
 
-        if feed_id in data and guild_id in data[feed_id]:
-            del data[feed_id][guild_id]
+        removed = feed_store.remove(guild.id, feed_id, int(channel_raw))
+        if not removed:
+            await interaction.response.send_message(
+                "❌ That feed is not active in this server (maybe it was already removed).",
+                ephemeral=True,
+            )
+            return
 
-            if not data[feed_id]:
-                del data[feed_id]
-
-            save_feeds(data)
-
+        feed_string = FEED_TYPES.get(feed_id, feed_id)
+        remaining = len(feed_store.guild_entries(guild.id))
         await interaction.response.send_message(
-            f"## 📢 __FEED DISABLED!__ 🚫\n- `{feed_string}` is not longer active in this server.",
+            f"## 📢 __FEED DISABLED!__ 🚫\n- `{feed_string}` will no longer post in {_channel_label(guild, int(channel_raw))}.\n"
+            f"-# Feeds in use: {remaining}/{MAX_FEEDS_PER_GUILD}",
             ephemeral=True,
         )
 
+    @clear.autocomplete("feed")
+    async def clear_autocomplete(
+        self, interaction: discord.Interaction, current: str
+    ) -> list[app_commands.Choice[str]]:
+        guild = interaction.guild
+        if guild is None:
+            return []
+
+        current = current.lower()
+        choices: list[app_commands.Choice[str]] = []
+        for entry in feed_store.guild_entries(guild.id):
+            feed_id = entry.get("type", "")
+            channel_id = entry.get("channel")
+            label = f"{FEED_TYPES.get(feed_id, feed_id)} → {_channel_label(guild, channel_id)}"
+            if current and current not in label.lower():
+                continue
+            choices.append(app_commands.Choice(name=label[:100], value=f"{feed_id}:{channel_id}"))
+        return choices[:25]
+
     # ============================================================
-    # Comando view
+    # /feed view
     # ============================================================
     @app_commands.command(name="view", description="Displays a panel with the current feed settings.")
     @app_commands.default_permissions(administrator=True)
     async def view(self, interaction: discord.Interaction):
-        guild_id = str(interaction.guild.id)
-        data = load_feeds()
+        guild = interaction.guild
+        entries = feed_store.guild_entries(guild.id)
 
-        lines = []
+        lines = [f"**Feeds in use:** {len(entries)}/{MAX_FEEDS_PER_GUILD}"]
+
+        if not entries:
+            lines.append("-# No feeds configured. Use `/feed setup` to add one.")
+
+        # Agrupado por tipo, en el orden de FEED_TYPES
         for feed_id, feed_string in FEED_TYPES.items():
-            entry = data.get(feed_id, {}).get(guild_id)
-
-            if not entry:
-                lines.append(f"**{feed_string}**\n- Not configured")
+            group = [e for e in entries if e.get("type") == feed_id]
+            if not group:
                 continue
 
-            channel_id = entry.get("channel")
-            can_publish = entry.get("publish", False)
-            text = entry.get("text")
+            block = [f"**{feed_string}**"]
+            for entry in group:
+                channel_id = entry.get("channel")
+                mention = f"<#{channel_id}>" if channel_id else "`Unknown`"
+                publish_str = "Yes" if entry.get("publish") else "No"
+                line = f"- {mention} | Can publish: {publish_str}"
+                if entry.get("text"):
+                    line += f"\n  -# Ping: {_preview(entry['text'])}"
+                block.append(line)
+            lines.append("\n".join(block))
 
-            channel_mention = f"<#{channel_id}>" if channel_id else "`Unknown`"
-            publish_str = "Yes" if can_publish else "No"
+        content = "\n\n".join(lines)
+        if len(content) > VIEW_TEXT_LIMIT:
+            content = content[:VIEW_TEXT_LIMIT - 1].rstrip() + "…"
 
-            block = (
-                f"**{feed_string}**\n"
-                f"- Channel: {channel_mention} | Can publish: {publish_str}"
-            )
-            if text is not None:
-                block += f"\n- Ping message:\n{text}"
-
-            lines.append(block)
-
-        content = "\n\n".join(lines) if lines else "No feed types available."
-        view = FeedViewLayout(content)
-        await interaction.response.send_message(view=view, ephemeral=True)
+        await interaction.response.send_message(view=FeedViewLayout(content), ephemeral=True)
 
 
 async def setup(bot: commands.Bot):
     log(f"[COMMAND BUILDER]: /FEED", "slash", show=False)
     allowed = []
-    data_guilds = load_feeds()
-    data_guilds = data_guilds.get("allow_feed_commands", [])
-    
+    data_guilds = load_feeds().get("allow_feed_commands", [])
+
     for guild_uuid in data_guilds:
         try:
             guild = discord.Object(id=int(guild_uuid))
@@ -209,7 +220,7 @@ async def setup(bot: commands.Bot):
         except (ValueError, TypeError):
             log(f"- [{guild_uuid}] ❌", "slash", level="WARN", show=False)
     log(f"[COMMAND BUILDER]: /FEED | [x{len(data_guilds)} GUILD(S) LISTED] [x{len(allowed)} GUILD(S) ALLOWED]", "slash", show=False)
-    
+
     await bot.add_cog(Feeds(bot), guilds=allowed)
     log(f"[COMMAND BUILDER]: /FEED (Thread closed!)", "slash", show=False)
     log(f" ", "slash", show=False)

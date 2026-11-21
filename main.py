@@ -8,9 +8,7 @@ from discord.ext import commands
 from sys_timer.scheduler import (
     start_all_timers,
     register_refresher,
-    set_feed_callback,
-    run_full_cycle,
-)
+    set_feed_callback, run_full_cycle)
 from logger import log
 
 load_dotenv()

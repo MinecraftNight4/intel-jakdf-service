@@ -199,7 +199,7 @@ class KaijuReadXCom:
                 progress.update_progress(progress_key, i + 1, total)
 
             if i < len(self.accounts) - 1:
-                time.sleep(5)
+                time.sleep(10)
 
         self.storage_data_xcom()
         log("XCOM: Finished.", "xcom", show=False)

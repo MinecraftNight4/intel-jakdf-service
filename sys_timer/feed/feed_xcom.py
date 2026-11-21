@@ -1,161 +1,89 @@
-import json
-import os
-import asyncio
-from typing import Dict, Any
+from typing import Any, Dict, List
 
-import discord
 from discord.ext import commands
+
+import feed_store
 from logger import log
+
+from .feed_common import (
+    Message,
+    as_int,
+    commit_history,
+    deliver,
+    load_history,
+    load_json,
+)
 
 # -------------------------------------------------
 # CONFIGURACIÓN
 # -------------------------------------------------
-XCOM_FILE  = "sys_save/request_xcom.json"
-SETUP_FILE = "sys_save/feed_system_setup.json"
-DATA_FILE  = "sys_save/feed_system_data.json"
+XCOM_FILE = "sys_save/request_xcom.json"
 
 
-def load_json(path: str, default=None):
-    if default is None:
-        default = {}
-    if not os.path.exists(path):
-        return default.copy() if isinstance(default, dict) else default
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return default.copy() if isinstance(default, dict) else default
-
-
-def save_json(path: str, data):
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+def _make_post_message(post: dict) -> Message:
+    post_uuid = post.get("uuid") or ""
+    post_link = post.get("link") or ""
+    content = f"[`🔗`](https://fxtwitter.com/i/status/{post_uuid}) <{post_link}>"
+    return Message(
+        uid=f"#{post.get('hash') or ''}",
+        label=post_link,
+        make=lambda: {"content": content},
+    )
 
 
 async def process_feed_xcom(bot: commands.Bot, progress=None) -> int:
-    storage_data = load_json(DATA_FILE, {})
-    storage_feed = load_json(SETUP_FILE, {})
     storage_news: Dict[str, Any] = load_json(XCOM_FILE, {})
-    storage_sent = 0
+    total_sent = 0
 
-    process_user_list = list(storage_news.keys())
-    log(f"[FEED - XCOM]: Creating {len(process_user_list)} instances...", "feed", show=False)
+    accounts = list(storage_news.keys())
+    log(f"[FEED - XCOM]: Creating {len(accounts)} instances...", "feed", show=False)
 
-    for account_read in process_user_list:
-        account_info_name = f"xcom-{account_read.lower()}"          # ← key real
-        account_info_post_hash = set(storage_data.get(account_info_name, []))
-        account_info_post_save = (storage_news.get(account_read) or {}).get("status") or {}
-        account_info_post_feed = storage_feed.get(account_info_name) or {}
+    for account in accounts:
+        namespace = f"xcom-{account.lower()}"      # ← clave real (feed_store / progreso)
+        tag = f"XCOM @{account.upper()}"
 
-        # Indexar posts
-        account_tool_hash = set()
-        account_tool_data = {}
-        for post_data in account_info_post_save.values():
-            post_hash = post_data.get("hash")
-            if post_hash:
-                account_tool_hash.add(post_hash)
-                account_tool_data[post_hash] = post_data
+        targets = feed_store.targets(namespace)
+        previous = load_history(namespace)
+        already_sent = set(previous)
+        posts: Dict[str, Any] = (storage_news.get(account) or {}).get("status") or {}
 
-        account_data_hash = account_tool_hash - account_info_post_hash
-        account_data_list = [account_tool_data[h] for h in account_data_hash]
+        # Indexar posts (sin hashes repetidos)
+        catalog: Dict[str, dict] = {}
+        for post in posts.values():
+            h = post.get("hash")
+            if h:
+                catalog[h] = post
+        current = list(catalog)
 
-        debug_all_feed = len(account_info_post_feed)
-        debug_all_post = len(account_info_post_save)
-        debug_can_post = len(account_data_list)
+        # Lo nuevo, del más viejo al más nuevo (los id de x.com crecen con el tiempo)
+        fresh: List[dict] = [catalog[h] for h in current if h not in already_sent]
+        fresh.sort(key=lambda p: as_int(p.get("uuid")))
 
-        log(f"[FEED - XCOM]: [TARGET: @{account_read.upper()}] [CHANNELS: {debug_all_feed}] [ARTICLES: {debug_can_post}/{debug_all_post}]", "feed", show=False)
+        log(f"[FEED - XCOM]: [TARGET: @{account.upper()}] [CHANNELS: {len(targets)}] [ARTICLES: {len(fresh)}/{len(posts)}]", "feed", show=False)
 
         # Si no hay nada que publicar → saltar
-        if not account_data_hash or debug_all_feed == 0:
-            storage_data[account_info_name] = list(account_tool_hash)
+        if not fresh or not targets:
+            commit_history(namespace, previous, current, keep=len(posts), replace=True)
             if progress:
-                progress.start_task(account_info_name)
-                progress.success(account_info_name)
-            log(f"[FEED - XCOM]: [TARGET: @{account_read.upper()}] SECTION SKIPPED...", "feed", show=False)
+                progress.start_task(namespace)
+                progress.success(namespace)
+            log(f"[FEED - XCOM]: [TARGET: @{account.upper()}] SECTION SKIPPED...", "feed", show=False)
             continue
 
-        # ========== PROGRESO ==========
-        progress_key = account_info_name
-        total_work = len(account_data_list) * max(len(account_info_post_feed), 1)
-        current_work = 0
+        if progress:
+            progress.start_task(namespace)
 
-        if progress and total_work > 0:
-            progress.start_task(progress_key)
-            progress.update_progress(progress_key, 0, total_work)
-
-        log(f"[FEED - XCOM]: [TARGET: @{account_read.upper()}] SENDING ARTICLES...", "feed", show=False)
-        debug_post_sent = 0
-
-        for guild_data in account_info_post_feed.values():
-            channel_id = guild_data.get("channel")
-            feed_data_hold = bot.get_channel(int(channel_id)) if channel_id else None
-
-            if feed_data_hold is None:
-                try:
-                    feed_data_hold = await bot.fetch_channel(int(channel_id))
-                except Exception:
-                    log(f"- [(!) FAILURE] #ERROR_FLAG_0001 | #{channel_id}", "feed", level="CRIT", show=False)
-                    continue
-
-            feed_data_post = getattr(feed_data_hold, "is_news", lambda: False)()
-            feed_data_rule = bool(guild_data.get("publish", False))
-            log(f"- [ID: {channel_id}] | [IS_NEWS: {feed_data_post}] | [PUBLISH: {feed_data_rule}]", "feed", show=False)
-
-            for post in account_data_list:
-                post_uuid = post.get("uuid") or ""
-                post_link = post.get("link") or ""
-                post_hash = post.get("hash") or ""
-                post_item = f"[`🔗`](https://fxtwitter.com/i/status/{post_uuid}) <{post_link}>"
-
-                await asyncio.sleep(2)
-                try:
-                    message_sent = await asyncio.wait_for(
-                        feed_data_hold.send(content=post_item),
-                        timeout=10.0
-                    )
-                    log(f"  - [SEND: SUCCESS] | #{post_hash} - {post_link}", "feed", show=False)
-
-                    if feed_data_post and feed_data_rule:
-                        try:
-                            await asyncio.wait_for(message_sent.publish(), timeout=5.0)
-                            log(f"      ⤷ CROSSPOST: SUCCESS", "feed", show=False)
-                        except Exception as e:
-                            log(f"      ⤷ [(!) FAILURE] #ERROR_FLAG_0002 | {e}", "feed", level="WARN", show=False)
-
-                except Exception as e:
-                    log(f"  - [(!) FAILURE] #ERROR_FLAG_0003 | #{post_hash} - {post_link} | DUMP: {e}", "feed", level="CRIT", show=False)
-
-                # Actualizar progreso
-                current_work += 1
-                if progress:
-                    progress.update_progress(progress_key, current_work, total_work)
-
-                debug_post_sent += 1
-
-            # Ping de texto (si existe)
-            feed_ping_text = guild_data.get("text")
-            if feed_ping_text and str(feed_ping_text).strip():
-                await asyncio.sleep(2)
-                try:
-                    await asyncio.wait_for(
-                        feed_data_hold.send(content=str(feed_ping_text).strip()),
-                        timeout=5.0
-                    )
-                    log(f"    ⤷ PING: SUCCESS", "feed", show=False)
-                except Exception as e:
-                    log(f"    ⤷ [(!) FAILURE] #ERROR_FLAG_0003 | DUMP: {e}", "feed", level="CRIT", show=False)
-
-            storage_sent += debug_post_sent
+        messages = [_make_post_message(p) for p in fresh]
+        sent = await deliver(bot, tag, targets, messages, progress=progress, progress_key=namespace)
+        total_sent += sent
 
         # Marcar esta cuenta como terminada
         if progress:
-            progress.success(progress_key)
+            progress.success(namespace)
 
-        storage_data[account_info_name] = list(account_tool_hash)
-        log(f"[FEED - XCOM]: [TARGET: @{account_read.upper()}] [SENT x{debug_post_sent}]", "feed", show=False)
+        commit_history(namespace, previous, current, keep=len(posts), replace=False)
+        log(f"[FEED - XCOM]: [TARGET: @{account.upper()}] [SENT x{sent}]", "feed", show=False)
 
-    save_json(DATA_FILE, storage_data)
-    log(f"[FEED - XCOM]: [SENT: {storage_sent}]", "feed", show=False)
-    log(f"[FEED - XCOM]: THREAD CLOSED.", "feed", show=False)
-    return storage_sent
+    log(f"[FEED - XCOM]: [SENT: {total_sent}]", "feed", show=False)
+    log("[FEED - XCOM]: THREAD CLOSED.", "feed", show=False)
+    return total_sent
