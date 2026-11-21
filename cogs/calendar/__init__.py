@@ -33,23 +33,23 @@ class Calendar(commands.Cog):
         self.cache: Dict[str, ui.LayoutView] = {}
         self.default_key = "gachas_a"
         self._public_cooldowns: Dict[int, float] = {}
-        self.rebuild_calendar_cache()
+        # Al arrancar NO se genera la imagen: se usa la ultima en disco (si existe).
+        self.rebuild_calendar_cache(generate_image=False)
 
     def refresh_cache(self):
-        """Llamado por el scheduler tras cada fetch."""
-        self.rebuild_calendar_cache()
+        """Llamado por el scheduler tras cada fetch: aqui si se genera la imagen."""
+        self.rebuild_calendar_cache(generate_image=True)
 
-    def rebuild_calendar_cache(self):
+    def rebuild_calendar_cache(self, generate_image: bool = True):
         log("[CALENDAR]: Rebuilding cache...", "calendar", show=False)
 
-        # Imagen UNA vez al reconstruir el calendario
-        try:
-            banners = bannerfetch_list()
-            if banners:
+        banners = bannerfetch_list()
+        if generate_image and banners:
+            try:
                 create_gacha_banner_image(banners)
                 log("[CALENDAR]: Gacha image generated", "calendar", show=False)
-        except Exception as e:
-            log(f"[CALENDAR] Failed to generate gacha image: {e}", "calendar", level="CRIT", show=False)
+            except Exception as e:
+                log(f"[CALENDAR] Failed to generate gacha image: {e}", "calendar", level="CRIT", show=False)
 
         # Se arma en un dict local y se intercambia al final (sin estados a medias).
         cache: Dict[str, ui.LayoutView] = {}
@@ -57,8 +57,8 @@ class Calendar(commands.Cog):
         cache["status_b"] = panelbuilder_status(relative=False)
         cache["status_a"] = panelbuilder_status(relative=True)
 
-        cache["gachas_b"] = panelbuilder_gachas(relative=False)
-        cache["gachas_a"] = panelbuilder_gachas(relative=True)
+        cache["gachas_b"] = panelbuilder_gachas(relative=False, banners=banners)
+        cache["gachas_a"] = panelbuilder_gachas(relative=True, banners=banners)
 
         cache["events_b"] = panelbuilder_events(relative=False)
         cache["events_a"] = panelbuilder_events(relative=True)
@@ -154,4 +154,4 @@ class Calendar(commands.Cog):
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(Calendar(bot))
-    log("[COMMAND BUILDER]: /calendar", "slash", show=False)
+    log("[COMMAND BUILDER]: /calendar", "slash", show=False)
