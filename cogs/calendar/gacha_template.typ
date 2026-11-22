@@ -42,8 +42,8 @@
     block(width: 100%, height: 100pt, radius: 8pt, clip: true, fill: rgb("#373246"), logo)
     v(8pt)
     align(center, {
-      box(fill: rgb(b.badge), radius: 5pt, inset: (x: 7pt, y: 3pt), text(size: 9pt)[#b.kind])
-      h(8pt)
+      box(fill: rgb(b.badge), radius: 7pt, inset: (x: 10pt, y: 4pt), text(size: 13pt)[#b.kind])
+      h(10pt)
       text(size: 16pt, fill: rgb("#ffc8ff"))[#b.name]
     })
     v(8pt)

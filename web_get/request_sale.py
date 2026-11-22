@@ -40,21 +40,34 @@ def tool_hashupdate(sku: str, text_entry: str) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+_TIME_UNITS = {"d": 86400, "h": 3600, "m": 60, "s": 1}
+
+
+def tool_timeleft(raw: str) -> int | None:
+    """Segundos de un texto como ``8d left``, ``21h left``, ``1d 5h``, ``45m left``."""
+    parts = re.findall(r"(\d+)\s*([dhms])\b", str(raw or ""), re.I)
+    if not parts:
+        return None
+    return sum(int(n) * _TIME_UNITS[u.lower()] for n, u in parts)
+
+
 def tool_timeparse(raw: str, reference: datetime | None = None) -> int | None:
-    if not raw or not (cleaned := str(raw).strip()):
-        return None
+    """Fecha de fin estimada a partir del tiempo restante que muestra la tienda.
 
-    cleaned = re.sub(r"(?i)\s*d\s*left\s*", " ", cleaned).strip()
-    if not (match := re.search(r"\d+", cleaned)):
+    La tienda redondea hacia abajo (``8d`` = entre 8 y 9 dias) y todo termina a la hora de
+    reinicio, asi que el fin es el primer reinicio a partir de ``ahora + restante``. Da el
+    mismo resultado en cada ciclo mientras el texto mostrado sea coherente, sea en dias,
+    horas o minutos, y no cambia cuando el texto pasa de ``1d`` a ``23h``.
+    """
+    if (left := tool_timeleft(raw)) is None:
         return None
-
-    days = int(match.group(0))
     current = (reference or datetime.now(UTC)).astimezone(UTC)
+    earliest = current + timedelta(seconds=left)
 
-    today_reset = current.replace(hour=RESET_HOUR_UTC, minute=0, second=0, microsecond=0)
-    base = today_reset + timedelta(days=1) if current >= today_reset else today_reset
-
-    return int((base + timedelta(days=days)).timestamp())
+    reset = earliest.replace(hour=RESET_HOUR_UTC, minute=0, second=0, microsecond=0)
+    if reset < earliest:
+        reset += timedelta(days=1)
+    return int(reset.timestamp())
 
 
 def tool_textlore(node: Tag | None) -> str:
@@ -134,7 +147,7 @@ def tool_timelabel(button: Tag) -> str:
         if not node:
             continue
         text = node.get_text(" ", strip=True)
-        if re.search(r"\d+\s*d", text, re.I):
+        if tool_timeleft(text) is not None:
             return text
     return ""
 
@@ -393,4 +406,4 @@ class SaleScanner:
 # ─────────────────────────────────────────────────────────────
 
 def run_sale_scan(storage_file: str = "sys_save/request_sale.json") -> bool:
-    return SaleScanner(storage_file).scan()
+    return SaleScanner(storage_file).scan()

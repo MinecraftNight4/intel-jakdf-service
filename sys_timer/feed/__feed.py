@@ -105,15 +105,20 @@ def commit_history(
                   en el catálogo, para que las ofertas/artículos que
                   desaparecen no se acumulen para siempre. Además evita que un
                   canal recién configurado reciba todo el pasado.
-    replace=False (tras enviar): unión de lo anterior con lo actual, en ORDEN
-                  (lo actual va al final) y recortada a `keep` entradas, de
-                  modo que el recorte nunca olvida algo que sigue vigente.
+    replace=False (tras enviar): primero lo anterior que ya no está en el
+                  catálogo y al final lo actual, recortado por el principio a
+                  `keep` entradas. Así el recorte solo descarta lo obsoleto y
+                  nunca algo que sigue vigente (si lo vigente quedara delante,
+                  cada cambio de hash haría "caducar" un hash vigente y se
+                  reenviaría uno por ciclo).
     """
     current_clean = _dedupe(current)
     if replace:
         merged = current_clean
     else:
-        merged = _dedupe(list(previous) + current_clean)
+        alive = set(current_clean)
+        stale = [h for h in _dedupe(previous) if h not in alive]
+        merged = stale + current_clean
         if keep >= 0 and len(merged) > keep:
             merged = merged[-keep:] if keep > 0 else []
 
