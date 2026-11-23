@@ -15,8 +15,8 @@ import time
 from contextlib import closing
 from typing import Dict, List, Optional, Tuple
 
-ROSTER_FILE = "sys_save/profile_roster.json"
-DB_FILE = "sys_save/profile.db"
+ROSTER_FILE = "sys_save/profile/roster.json"
+DB_FILE = "sys_save/profile/profile.db"
 
 MAX_DUPES = 6
 LOCKED = -1                 # "estado" para quitar el personaje (bloqueado)
