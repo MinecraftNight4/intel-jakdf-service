@@ -1,7 +1,7 @@
 # cogs/profile/store.py
 """Datos de /profile. Sin dependencias de discord, para poder probarlo solo.
 
-- Roster (lista de personajes): ``sys_save/profile_roster.json``, se edita a mano.
+- Roster (lista de personajes): ``sys_save/profile/roster.json``, se edita a mano.
   ``[{"name": "[Titulo] Nombre", "icon": "🔥", "uuid": 1}, ...]``
   El ``uuid`` es lo que se guarda por usuario: se puede renombrar un personaje o cambiar su
   icono sin perder datos. Los cambios al archivo se detectan solos (sin reiniciar el bot).
@@ -58,11 +58,13 @@ class Roster:
     ``name`` (``[Titulo] Nombre``), ``icon`` y ``uuid``. Tambien se aceptan los nombres
     ``real_name``/``pref_name``, y basta con ``name`` para que se completen los demas.
 
-    Al cargar el bot el archivo se reescribe con dos listas derivadas, que siempre se
+    Al cargar el bot el archivo se reescribe con tres listas derivadas, que siempre se
     recalculan a partir de los personajes (editarlas a mano no sirve de nada):
-      ``pages``  uuid de los personajes de cada pestana del panel, ``PER_PAGE`` por pestana
-      ``names``  nombres base (sin prefijo ni repetir) de los personajes de cada pestana,
-                 en el mismo orden que ``pages``: el indice del panel solo los une con comas
+      ``page_list``        uuid de los personajes de cada pestana del panel, ``PER_PAGE`` por pestana
+      ``name_list``        nombres base (sin prefijo ni repetir) de cada pestana, en el mismo
+                           orden que ``page_list``: el indice del panel solo los une con comas
+      ``squad_name_list``  nombre base de CADA personaje (repetido si tiene varias versiones),
+                           en el mismo orden que ``page_list`` aplanada (para /squad)
     """
 
     def __init__(self, path: str = ROSTER_FILE):
@@ -71,8 +73,9 @@ class Roster:
         self.raw: List[dict] = []                # en el orden del archivo
         self.items: List[dict] = []              # ordenados por personaje y luego por alias
         self.by_uuid: Dict[int, dict] = {}
-        self.names: List[List[str]] = []
-        self.pages: List[List[int]] = []
+        self.names: List[List[str]] = []         # = name_list
+        self.pages: List[List[int]] = []         # = page_list
+        self.squad_names: List[str] = []         # = squad_name_list
         self.reload_if_changed()
 
     def reload_if_changed(self) -> None:
@@ -100,6 +103,7 @@ class Roster:
         self.by_uuid = {c["uuid"]: c for c in self.items}
         self.pages = [[c["uuid"] for c in self.items[i:i + PER_PAGE]] for i in range(0, len(self.items), PER_PAGE)]
         self.names = [list(dict.fromkeys(self.by_uuid[u]["full_name"] for u in page)) for page in self.pages]
+        self.squad_names = [c["full_name"] for c in self.items]
 
     @staticmethod
     def _normalize(entry) -> Optional[dict]:
@@ -120,7 +124,7 @@ class Roster:
         return {**{k: char[k] for k in order}, **{k: v for k, v in char.items() if k not in order}}
 
     def rewrite(self) -> bool:
-        """Escribe el archivo con ``characters`` + ``names`` + ``pages``. True si cambio algo."""
+        """Escribe el archivo con ``characters`` + las listas derivadas. True si cambio algo."""
         if self._mtime is None:                   # no hay archivo legible: no se inventa uno
             return False
         indent = lambda text: text.replace("\n", "\n\t")
@@ -129,8 +133,9 @@ class Roster:
 
         parts = [
             '"characters": ' + indent(json.dumps(self.raw, ensure_ascii=False, indent="\t")),
-            '"pages": ' + rows(self.pages),
-            '"names": ' + rows(self.names),
+            '"page_list": ' + rows(self.pages),
+            '"name_list": ' + rows(self.names),
+            '"squad_name_list": ' + rows([self.squad_names[i:i + PER_PAGE] for i in range(0, len(self.squad_names), PER_PAGE)]),
         ]
         text = "{\n\t" + ",\n\t".join(parts) + "\n}\n"
         try:

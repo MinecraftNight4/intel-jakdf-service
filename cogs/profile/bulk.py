@@ -10,6 +10,25 @@ MAX_INDEX = 25        # opciones maximas de un menu desplegable
 ACCENT = 0x43D7D7
 
 
+def _window(current: int, total: int):
+    """Paginas (1..total) que muestra el menu de salto, como maximo MAX_INDEX opciones.
+
+    Si hay mas de MAX_INDEX paginas, la primera opcion pasa a ser "saltar a la pagina 1"
+    (solo si la ventana no empieza en 1) y la ultima "saltar a la ultima" (solo si no la incluye).
+    Devuelve (numeros de pagina, hay salto al inicio, hay salto al final).
+    """
+    if total <= MAX_INDEX:
+        return list(range(1, total + 1)), False, False
+    size = MAX_INDEX - 2                              # 23 paginas + 2 saltos
+    start = max(1, min(current - size // 2, total - size + 1))
+    end = start + size - 1
+    if start == 1:                                    # sin salto al inicio sobra un hueco
+        end += 1
+    elif end == total:                                # sin salto al final sobra un hueco
+        start -= 1
+    return list(range(start, end + 1)), start > 1, end < total
+
+
 class BulkView(ui.LayoutView):
     def __init__(self, store: ProfileStore, user_id: int, page: int = 0):
         super().__init__(timeout=900)
@@ -66,12 +85,7 @@ class BulkView(ui.LayoutView):
     def _index_row(self) -> ui.ActionRow:
         """Menu de salto bajo los botones: 'Page N' + nombres base de sus personajes."""
         roster = self.store.roster
-        if self.pages <= MAX_INDEX:
-            shown, first, last = list(range(1, self.pages + 1)), False, False
-        else:                                      # ventana de 23 paginas alrededor de la actual
-            end = min(self.pages, max(1, self.page + 1 - 11) + 22 - 1)
-            start = max(1, end - 22 + 1)
-            shown, first, last = list(range(start, end + 1)), start > 1, end < self.pages
+        shown, first, last = _window(self.page + 1, self.pages)
 
         options = []
         if first:
@@ -81,6 +95,7 @@ class BulkView(ui.LayoutView):
             options.append(discord.SelectOption(
                 label=f"Page {number}", value=str(number - 1),
                 emoji="📍" if number - 1 == self.page else "⏩",
+                default=number - 1 == self.page,          # la pagina actual viene seleccionada
                 description=", ".join(names)[:100] or None))
         if last:
             options.append(discord.SelectOption(label=f"JUMP TO PAGE {self.pages}", value=str(self.pages - 1), emoji="🚪"))

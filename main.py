@@ -22,6 +22,7 @@ EXTENSIONS = [
     "cogs.news",
     "cogs.sale",
     "cogs.feeds",
+    "cogs.squad",
     "cogs.follow",
     "cogs.profile",
     "cogs.calendar",
