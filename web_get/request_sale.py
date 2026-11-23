@@ -405,5 +405,5 @@ class SaleScanner:
 # API pública
 # ─────────────────────────────────────────────────────────────
 
-def run_sale_scan(storage_file: str = "sys_save/request/sale.json") -> bool:
+def run_sale_scan(storage_file: str = "sys_save/http/sale.json") -> bool:
     return SaleScanner(storage_file).scan()
