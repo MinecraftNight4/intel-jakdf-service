@@ -1,4 +1,4 @@
-# cogs/calendar/gacha_typst.py
+# cogs/calendar/gacha_helpers.py
 """Imagen de gachas con Typst: Python manda datos, ``gacha.typ`` decide como se ve.
 
 Requiere ``pip install typst`` (Typst 0.13 o superior) y la fuente en ``sys_save/calendar``.

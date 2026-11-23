@@ -10,9 +10,9 @@ from typing import Dict, Any, List, Optional, Tuple
 JST = ZoneInfo("Asia/Tokyo")
 UTC = timezone.utc
 
-NEWS_FILE = "sys_save/request_news.json"
-XCOM_FILE = "sys_save/request_xcom.json"
-RMAP_FILE = "sys_save/request_rmap.json"
+NEWS_FILE = "sys_save/http/news.json"
+XCOM_FILE = "sys_save/http/xcom.json"
+RMAP_FILE = "sys_save/http/rmap.json"
 PUBLIC_COOLDOWN = 60
 
 

@@ -1,7 +1,7 @@
 # cogs/calendar/item_gachas.py
 """Banners de gacha activos: filtrado de noticias y panel de Discord.
 
-La imagen la genera ``gacha_typst.py`` en ``sys_save/calendar/gacha.png``; el panel la adjunta.
+La imagen la genera ``gacha_helpers.py`` en ``sys_save/calendar/gacha.png``; el panel la adjunta.
 """
 import os
 import re

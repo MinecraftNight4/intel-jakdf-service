@@ -23,7 +23,7 @@ from .__feed import (
 ACCENT_FALLBACK = 0x5865F2
 STORE_URL = "https://webstore.kj8-thegame.com/?language=en"
 
-SALE_FILE = "sys_save/http/request_sale.json"
+SALE_FILE = "sys_save/http/sale.json"
 
 NAMESPACE = "feed_game_store"
 TAG = "STORE"
