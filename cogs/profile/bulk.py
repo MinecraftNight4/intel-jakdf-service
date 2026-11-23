@@ -38,7 +38,7 @@ class BulkView(ui.LayoutView):
             select.callback = self._on_status(select, char["uuid"])
             row = ui.ActionRow()
             row.add_item(select)
-            box.add_item(ui.TextDisplay(f"## {char['icon']} {char['full_name']} {char['prev_name']}"))
+            box.add_item(ui.TextDisplay(f"# {char['icon']} {char['full_name']} {char['prev_name']}"))
             box.add_item(row)
 
         if not roster.items:
