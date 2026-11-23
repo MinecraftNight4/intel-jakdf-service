@@ -25,6 +25,7 @@ class BulkView(ui.LayoutView):
             "## ✏️ __EDIT PROFILE__\n"
             f"-# Page {self.page + 1}/{self.pages} · Pick a state for each character, changes are saved instantly"
         ))
+        box.add_item(ui.Separator())
 
         page_uuids = roster.pages[self.page] if roster.pages else []
         for char in (roster.by_uuid[u] for u in page_uuids):
@@ -37,7 +38,7 @@ class BulkView(ui.LayoutView):
             select.callback = self._on_status(select, char["uuid"])
             row = ui.ActionRow()
             row.add_item(select)
-            box.add_item(ui.TextDisplay(f"# {char['icon']} {char['full_name']}\n{char['prev_name']}"))
+            box.add_item(ui.TextDisplay(f"## {char['icon']} {char['full_name']} {char['prev_name']}"))
             box.add_item(row)
 
         if not roster.items:

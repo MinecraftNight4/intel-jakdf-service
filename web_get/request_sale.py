@@ -178,7 +178,7 @@ def tool_buildtext(name: str, price: str, limit: int | None, ends_at: int | None
 # ─────────────────────────────────────────────────────────────
 
 class SaleScanner:
-    def __init__(self, storage_file: str = "sys_save/http/request_sale.json"):
+    def __init__(self, storage_file: str = "sys_save/http/sale.json"):
         self.storage_file = storage_file
         self.storage: dict[str, Any] = self._empty()
 

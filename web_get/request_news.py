@@ -11,7 +11,7 @@ import re
 
 
 class KaijuReadNews:
-    def __init__(self, storage_file="sys_save/http/request_news.json"):
+    def __init__(self, storage_file="sys_save/http/news.json"):
         self.storage_file = storage_file
         self.news_storage = {}
 

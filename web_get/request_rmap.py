@@ -12,8 +12,8 @@ load_dotenv()
 # ============================================================
 # CONFIGURACIÓN
 # ============================================================
-XCOM_FILE = "sys_save/http/request_xcom.json"
-RMAP_FILE = "sys_save/http/request_rmap.json"
+XCOM_FILE = "sys_save/http/xcom.json"
+RMAP_FILE = "sys_save/http/rmap.json"
 
 MODELS = [
     "gemini-3.6-flash",
