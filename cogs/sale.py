@@ -24,7 +24,7 @@ from discord.ext import commands
 #   store_jump_pick_*                category dropdown; values are store_page_*_1
 # ============================================================
 
-SALE_FILE = "sys_save/request_sale.json"
+SALE_FILE = "sys_save/http/sale.json"
 STORE_URL = "https://webstore.kj8-thegame.com/?language=en"
 FALLBACK_BANNER = "https://asset.kj8-thegame.com/static/production/images/en/webstore_kv-c686d07bdb76271fe016dbfe3a61063e.jpg"
 

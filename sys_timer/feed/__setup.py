@@ -1,5 +1,5 @@
 """
-Almacenamiento de la configuración de feeds (sys_save/feed_system_setup.json).
+Almacenamiento de la configuración de feeds (sys_save/feed/system_setup.json).
 
 Estructura
 ----------
@@ -26,7 +26,7 @@ from typing import Dict, List, Optional, Tuple
 
 from logger import log
 
-FEEDS_FILE = "sys_save/feed_system_setup.json"
+FEEDS_FILE = "sys_save/feed/system_setup.json"
 SCHEMA_VERSION = 2
 MAX_FEEDS_PER_GUILD = 15
 

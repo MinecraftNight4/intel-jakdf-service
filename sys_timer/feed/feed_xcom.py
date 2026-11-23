@@ -15,7 +15,7 @@ from .__feed import (
 # -------------------------------------------------
 # CONFIGURACIÓN
 # -------------------------------------------------
-XCOM_FILE = "sys_save/request_xcom.json"
+XCOM_FILE = "sys_save/http/request_xcom.json"
 
 
 def _make_post_message(post: dict) -> Message:

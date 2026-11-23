@@ -5,7 +5,7 @@ from discord import app_commands
 from discord.ext import commands
 from logger import log
 
-FOLLOW_FILE = "sys_save/feed_system_follow.json"
+FOLLOW_FILE = "sys_save/feed/system_follow.json"
 
 
 def load_follow_sources() -> dict:

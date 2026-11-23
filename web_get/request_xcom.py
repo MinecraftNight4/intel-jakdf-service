@@ -8,7 +8,7 @@ import re
 
 
 class KaijuReadXCom:
-    def __init__(self, storage_file: str = "sys_save/request_xcom.json"):
+    def __init__(self, storage_file: str = "sys_save/http/request_xcom.json"):
         self.storage_file = storage_file
         self.xcom_storage: dict = {}
 

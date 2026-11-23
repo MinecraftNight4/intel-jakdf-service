@@ -6,7 +6,7 @@ from threading import Lock
 # ============================================================
 # CONFIGURACIÓN
 # ============================================================
-LOG_DIR = "sys_save/logs"
+LOG_DIR = "auditory"
 
 # Colores para consola
 COLORS = {

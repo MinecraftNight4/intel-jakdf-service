@@ -26,7 +26,7 @@ from .__feed import (
 # CONFIGURACIÓN
 # -------------------------------------------------
 FEED_ITEMS_PER_PAGE = 4
-NEWS_FILE = "sys_save/request_news.json"
+NEWS_FILE = "sys_save/http/request_news.json"
 
 _NEWS_LINK = "https://info.kj8-thegame.com/news/{uuid}?language=en&platform=%22JAKDF%20INTEL%22%20-%20discord.gg%2Fkaijuno8"
 

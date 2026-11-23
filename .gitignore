@@ -1,6 +1,8 @@
 .env
 *.pyc
 test.py
+auditory/*
+/auditory/*
 /cogs/__pycache__
 /sys_save/*
 sys_save/feed_system_data.json

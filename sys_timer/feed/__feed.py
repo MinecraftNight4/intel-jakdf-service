@@ -27,7 +27,7 @@ from logger import log
 # y discord.py ya espera/reintenta cuando recibe un 429. Estas pausas son
 # solo cortesía para no saturar un canal.
 # ============================================================
-DATA_FILE = "sys_save/feed_system_data.json"
+DATA_FILE = "sys_save/feed/system_data.json"
 
 SEND_DELAY = 1.0            # s entre mensajes dentro de un mismo canal
 CROSSPOST_DELAY = 2.0       # s antes de publicar (crosspost) un mensaje
