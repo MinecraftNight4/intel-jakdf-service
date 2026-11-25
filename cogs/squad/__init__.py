@@ -1,5 +1,8 @@
 # cogs/squad/__init__.py
 """/squad account <1|4> [user]  ·  /squad roster <1|4>  ·  /squad editor <squadcode>  ·  /squad share <squadcode> [private]"""
+import asyncio
+import io
+import re
 import time
 from typing import Dict, List, Optional
 
@@ -10,10 +13,49 @@ from logger import log
 
 from cogs.calendar.helpers import PUBLIC_COOLDOWN
 from cogs.profile.store import ProfileStore
-from . import codec, render
-from .build import ACCENT, BuilderView, State
+from . import codec, image, render
+from .build import ACCENT, DEFAULT_URL, BuilderView, State
+
+OPEN_ID = "squad_open"
+_CODE_RE = re.compile(r"squadcode=([A-Za-z0-9_-]+)")
+
+
+def _texts(components):
+    """Todos los textos de un mensaje de Components V2 (recorre contenedores y secciones)."""
+    for comp in components or ():
+        content = getattr(comp, "content", None)
+        if isinstance(content, str):
+            yield content
+        yield from _texts(getattr(comp, "children", None))
+        accessory = getattr(comp, "accessory", None)
+        if accessory is not None:
+            yield from _texts([accessory])
+
+
+def extract_code(message) -> Optional[str]:
+    """``squadcode`` del enlace ``[:](<url?squadcode=...>)`` de un mensaje, o None."""
+    if message is None:
+        return None
+    for text in (*_texts(getattr(message, "components", None)), getattr(message, "content", "") or ""):
+        found = _CODE_RE.search(text)
+        if found:
+            return found.group(1)
+    return None
+
 
 NO_UNITS = "{who} claimed any characters yet. Use `/profile edit` to add them."
+
+
+def _channel_url(interaction: discord.Interaction) -> str:
+    return getattr(interaction.channel, "jump_url", None) or DEFAULT_URL
+
+
+def _text_view(text: str) -> ui.LayoutView:
+    view = ui.LayoutView(timeout=None)
+    box = ui.Container(accent_colour=ACCENT)
+    box.add_item(ui.TextDisplay(text))
+    view.add_item(box)
+    return view
 
 
 def _nobody(account_id: int, me: int) -> str:
@@ -59,7 +101,8 @@ class Squad(commands.GroupCog, name="squad"):
                 NO_UNITS.format(who=_nobody(account.id, interaction.user.id))
             await interaction.response.send_message(text, ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
             return
-        state = State(interaction.user.id, count, pool, account.id if account else None)
+        state = State(interaction.user.id, count, pool, account.id if account else None,
+                      url=_channel_url(interaction))
         await interaction.response.send_message(view=BuilderView(state), ephemeral=True)
 
     # ---------------- /squad account ----------------
@@ -86,16 +129,25 @@ class Squad(commands.GroupCog, name="squad"):
     @app_commands.command(name="editor", description="Load a squad code into the builder to keep editing it.")
     @app_commands.describe(squadcode="The code of the build (from /squad share or the builder)")
     async def editor(self, interaction: discord.Interaction, squadcode: str):
+        await self._open_editor(interaction, squadcode)
+
+    async def _open_editor(self, interaction: discord.Interaction, raw: str):
+        """Responde al instante ("Reading build...") y luego abre el editor en el mismo mensaje."""
+        shown = "".join((raw or "").replace("`", "").split())
+        if shown.lower().startswith("squadcode:"):
+            shown = shown[len("squadcode:"):]
+        await interaction.response.send_message(
+            view=_text_view(f"Reading build...\n-# `squadcode:{shown[:1500]}`"), ephemeral=True)
         try:
-            build = codec.decode(squadcode)
+            build = codec.decode(raw)
         except codec.CodeError as err:
-            await interaction.response.send_message(f"❌ {err}.", ephemeral=True)
+            await interaction.edit_original_response(view=_text_view(f"❌ {err}."))
             return
         pool = self._pool(build.account_id)
         if not pool:
             text = "The character list is empty." if build.account_id is None else \
                 NO_UNITS.format(who=_nobody(build.account_id, interaction.user.id))
-            await interaction.response.send_message(text, ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
+            await interaction.edit_original_response(view=_text_view(text))
             return
         known = {c["uuid"] for c in pool}             # con cuenta: solo las unidades que esa cuenta tiene
         slots, seen = [], set()
@@ -103,8 +155,9 @@ class Squad(commands.GroupCog, name="squad"):
             keep = uuid in known and uuid not in seen
             slots.append(uuid if keep else 0)
             seen.add(uuid)
-        state = State(interaction.user.id, len(slots), pool, build.account_id, slots, build.description)
-        await interaction.response.send_message(view=BuilderView(state), ephemeral=True)
+        state = State(interaction.user.id, len(slots), pool, build.account_id, slots, build.description,
+                      url=_channel_url(interaction))
+        await interaction.edit_original_response(view=BuilderView(state))
 
     # ---------------- /squad share ----------------
     @app_commands.command(name="share", description="Show a build from its squad code.")
@@ -123,22 +176,80 @@ class Squad(commands.GroupCog, name="squad"):
                 return
             self._public_cooldowns[channel] = now + PUBLIC_COOLDOWN
 
+        await interaction.response.defer(ephemeral=private)      # dibujar la imagen puede tardar
         self.store.roster.reload_if_changed()
         by_uuid = self.store.roster.by_uuid
-        head = f"## Build made by <@{build.creator_id}>"
-        if build.account_id:
-            head += f"\n### <@{build.account_id}>'s character list"
+        code = codec.encode(build.creator_id, build.slots, build.account_id, build.description)
+        none = discord.AllowedMentions.none()
 
+        file = None
+        try:
+            creator = await self._username(build.creator_id)
+            account = await self._username(build.account_id) if build.account_id else None
+            data = image.build_data(build, by_uuid, creator or str(build.creator_id), account)
+            png = await asyncio.to_thread(image.render_png, data)
+            file = discord.File(io.BytesIO(png), filename="squad.png")
+        except Exception as err:                                  # sin imagen: se comparte en texto
+            log(f"[SQUAD]: share image failed: {type(err).__name__}: {err}", "squad", level="CRIT", show=False)
+
+        # el mensaje lleva el codigo en el enlace del titulo: asi el boton lo lee del propio mensaje
+        channel = interaction.channel
+        url = getattr(channel, "jump_url", None) or DEFAULT_URL
+        view = self._share_view(build, by_uuid, code, url, bool(file))
+        kwargs = {"file": file} if file else {}
+        await interaction.followup.send(view=view, ephemeral=private, allowed_mentions=none, **kwargs)
+        if not private:                                           # ahora que existe, el enlace apunta al mensaje
+            try:
+                message = await interaction.original_response()
+                await interaction.edit_original_response(
+                    view=self._share_view(build, by_uuid, code, message.jump_url, bool(file)))
+            except Exception as err:
+                log(f"[SQUAD]: could not link the share message: {err}", "squad", level="WARN", show=False)
+
+    def _share_view(self, build: codec.Build, by_uuid: Dict[int, dict], code: str, url: str, has_image: bool) -> ui.LayoutView:
         box = ui.Container(accent_colour=ACCENT)
-        box.add_item(ui.TextDisplay(head + ("\n" + build.description if build.description else "")))
-        box.add_item(ui.Separator())
-        box.add_item(ui.TextDisplay(render.icons(build.slots, by_uuid, big=True)))
-        box.add_item(ui.TextDisplay(render.names(build.slots, by_uuid)))
-        box.add_item(ui.TextDisplay(f"||```/squad editor squadcode:{codec.encode(build.creator_id, build.slots, build.account_id, build.description)}```||"))
+        if has_image:
+            gallery = ui.MediaGallery()
+            gallery.add_item(media="attachment://squad.png")
+            box.add_item(gallery)
+        else:
+            head = f"## Build made by <@{build.creator_id}>"
+            if build.account_id:
+                head += f"\n### <@{build.account_id}>'s character list"
+            box.add_item(ui.TextDisplay(head + ("\n" + build.description if build.description else "")))
+            box.add_item(ui.Separator())
+            box.add_item(ui.TextDisplay(render.icons(build.slots, by_uuid, big=True)))
+            box.add_item(ui.TextDisplay(render.slot_list(build.slots, by_uuid)))
+        # texto discreto + boton; el ":" es un enlace escondido que lleva el codigo
+        button = ui.Button(label="Edit", emoji="✏️", style=discord.ButtonStyle.primary, custom_id=OPEN_ID)
+        box.add_item(ui.Section(
+            ui.TextDisplay(f"-# You can edit this build by tapping here[:](<{url}?squadcode={code}>)"),
+            accessory=button))
         view = ui.LayoutView(timeout=None)
         view.add_item(box)
-        await interaction.response.send_message(view=view, ephemeral=private,
-                                                allowed_mentions=discord.AllowedMentions.none())
+        return view
+
+    @commands.Cog.listener()
+    async def on_interaction(self, interaction: discord.Interaction):
+        """Boton "Open editor": el codigo se lee del enlace escondido del mensaje, sin cache (sirve tras reiniciar)."""
+        if interaction.type != discord.InteractionType.component:
+            return
+        if (interaction.data or {}).get("custom_id") != OPEN_ID:
+            return
+        code = extract_code(interaction.message)
+        if code is None:
+            await interaction.response.send_message("❌ I couldn't read the build from this message.", ephemeral=True)
+            return
+        await self._open_editor(interaction, code)
+
+    async def _username(self, user_id: int) -> Optional[str]:
+        user = self.bot.get_user(user_id)
+        if user is None:
+            try:
+                user = await self.bot.fetch_user(user_id)
+            except Exception:
+                return None
+        return user.name
 
 
 async def setup(bot: commands.Bot):

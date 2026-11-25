@@ -15,6 +15,7 @@ from typing import List, NamedTuple, Optional
 
 VERSION = 1
 MAX_DESCRIPTION = 240
+MAX_NEWLINES = 10             # saltos de linea que admite la descripcion
 SLOT_COUNTS = (4, 16)
 _F_WIDE16, _F_WIDE_UUID, _F_ACCOUNT, _F_DESC = 1, 2, 4, 8
 
@@ -30,6 +31,24 @@ class CodeError(ValueError):
     pass
 
 
+def count_newlines(text: str) -> int:
+    return (text or "").replace("\r\n", "\n").replace("\r", "\n").count("\n")
+
+
+def fit_description(text: str) -> str:
+    """Limpia la descripcion: sin \\r, sin espacios en los bordes, maximo MAX_DESCRIPTION caracteres
+    y MAX_NEWLINES saltos (los que sobran pasan a ser espacios)."""
+    text = (text or "").replace("\r\n", "\n").replace("\r", "\n").strip()[:MAX_DESCRIPTION]
+    head, *rest = text.split("\n")
+    lines = [head]
+    for i, line in enumerate(rest):
+        if i < MAX_NEWLINES:
+            lines.append(line)
+        else:
+            lines[-1] = f"{lines[-1]} {line}".strip()
+    return "\n".join(lines)
+
+
 def _checksum(body: bytes) -> bytes:
     return (zlib.crc32(body) & 0xFFFF).to_bytes(2, "big")
 
@@ -37,7 +56,7 @@ def _checksum(body: bytes) -> bytes:
 def encode(creator_id: int, slots: List[int], account_id: Optional[int] = None, description: str = "") -> str:
     if len(slots) not in SLOT_COUNTS:
         raise ValueError("a build has 4 or 16 slots")
-    description = (description or "").strip()[:MAX_DESCRIPTION]
+    description = fit_description(description)
     wide = any(uuid > 255 for uuid in slots)
     head = (VERSION << 4) | (_F_WIDE16 if len(slots) == 16 else 0) | (_F_WIDE_UUID if wide else 0) \
         | (_F_ACCOUNT if account_id else 0) | (_F_DESC if description else 0)
@@ -90,7 +109,8 @@ def decode(code: str) -> Build:
             raise damaged
         try:                                       # tope de tamaño: no se descomprime una bomba
             reader = zlib.decompressobj()
-            description = reader.decompress(chunk, 4 * MAX_DESCRIPTION * 2).decode("utf-8")[:MAX_DESCRIPTION]
+            description = reader.decompress(chunk, 4 * MAX_DESCRIPTION * 2).decode("utf-8")
+            description = fit_description(description)
         except Exception:
             raise damaged
         pos += 2 + size

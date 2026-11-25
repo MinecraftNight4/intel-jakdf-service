@@ -44,6 +44,20 @@ def icons(slots: List[int], by_uuid: Dict[int, dict], big: bool = True) -> str:
     return "\n".join(f"{mark}{_KEYCAPS[i]} {line}" for i, line in enumerate(lines))
 
 
+def tagged_name(char: Optional[dict], uuid: int = 0) -> str:
+    """``[Prefijo] Nombre`` (el prefijo va primero)."""
+    if not uuid:
+        return EMPTY_NAME
+    if char is None:
+        return f"❔ #{uuid}"
+    return f"{char['prev_name']} {char['full_name']}".strip()
+
+
+def slot_list(slots: List[int], by_uuid: Dict[int, dict]) -> str:
+    """Una linea pequeña por casilla: ``-# 01. [Prefijo] Nombre``."""
+    return "\n".join(f"-# {i + 1:02d}. {tagged_name(by_uuid.get(u), u)}" for i, u in enumerate(slots))
+
+
 def names(slots: List[int], by_uuid: Dict[int, dict]) -> str:
     """``A [x], B [y], ...`` (4 casillas) o ``1: A [x], B [y], ...`` por fila (16 casillas)."""
     lines = [", ".join(unit_name(by_uuid.get(u), u) for u in row) for row in _rows(slots)]

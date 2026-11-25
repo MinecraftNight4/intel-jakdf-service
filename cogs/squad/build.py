@@ -12,6 +12,7 @@ ACCENT = 0x43D7D7
 MAX_OPTIONS = 25            # opciones maximas de un menu desplegable
 UNITS_WITH_JUMPS = MAX_OPTIONS - 2      # si hay mas de 25 unidades: 2 huecos para saltar de pagina
 SEARCH_LIMIT = 25
+DEFAULT_URL = "https://discord.com/channels/@me"
 NO_RESULTS = "none"         # valor de la opcion "relleno" del menu de busqueda
 
 
@@ -23,6 +24,7 @@ class State:
     account_id: Optional[int] = None            # cuenta de referencia (None = todo el roster)
     slots: List[int] = field(default_factory=list)
     description: str = ""
+    url: str = DEFAULT_URL                      # enlace del titulo (el canal donde se abrio el editor)
 
     def __post_init__(self):
         if not self.slots:
@@ -39,6 +41,10 @@ class State:
             if current == uuid:
                 self.slots[i] = 0
         self.slots[slot] = uuid
+
+    def title_link(self) -> str:
+        """Enlace escondido en el titulo. Solo lleva ``?squadcode=`` si ya estan todas las casillas."""
+        return f"{self.url}?squadcode={self.code()}" if self.complete else self.url
 
     def code(self) -> str:
         return codec.encode(self.owner_id, self.slots, self.account_id, self.description)
@@ -62,7 +68,7 @@ class _OwnerView(ui.LayoutView):
 class BuilderView(_OwnerView):
     def __init__(self, state: State):
         super().__init__(state)
-        title = "## SQUAD BUILDER"
+        title = f"## [SQUAD BUILDER](<{state.title_link()}>)"
         if state.account_id:
             title += f" - <@{state.account_id}>"
 
@@ -70,7 +76,7 @@ class BuilderView(_OwnerView):
         box.add_item(ui.TextDisplay(title))
         box.add_item(ui.Separator())
         box.add_item(ui.TextDisplay(render.icons(state.slots, state.by_uuid)))
-        box.add_item(ui.TextDisplay(render.names(state.slots, state.by_uuid)))
+        box.add_item(ui.TextDisplay(render.slot_list(state.slots, state.by_uuid)))
 
         box.add_item(self._swap_row())
         for start in range(0, state.count, 4):
@@ -81,11 +87,31 @@ class BuilderView(_OwnerView):
                 row.add_item(button)
             box.add_item(row)
 
-        if state.complete:
-            describe = ui.Button(label="Add a note", style=discord.ButtonStyle.success)
-            describe.callback = self._ask_description
-            box.add_item(ui.Section(ui.TextDisplay(f"ℹ️ Copy this message to share or save the build: ```/squad share squadcode:{state.code()} private:```"), accessory=describe))
+        box.add_item(self._note_text())
+        box.add_item(self._actions_row())
         self.add_item(box)
+
+    def _note_text(self) -> ui.TextDisplay:
+        note = self.state.description
+        return ui.TextDisplay(f"**Note**\n{note}" if note
+                              else "**Note**\n-# No note yet. It will be shown with the shared build.")
+
+    def _actions_row(self) -> ui.ActionRow:
+        """[Edit note] [Share build]; "Share build" va roja y apagada hasta completar todas las casillas."""
+        state, ready = self.state, self.state.complete
+        note = ui.Button(label="Edit note", style=discord.ButtonStyle.secondary)
+        share = ui.Button(label="Share build", disabled=not ready,
+                          style=discord.ButtonStyle.success if ready else discord.ButtonStyle.danger)
+
+        async def show_codes(interaction: discord.Interaction):
+            await interaction.response.send_modal(CodesModal(state.code()))
+
+        note.callback = self._ask_description
+        share.callback = show_codes
+        row = ui.ActionRow()
+        row.add_item(note)
+        row.add_item(share)
+        return row
 
     def _swap_row(self) -> ui.ActionRow:
         state = self.state
@@ -116,17 +142,38 @@ class BuilderView(_OwnerView):
         await interaction.response.send_modal(DescriptionModal(self.state))
 
 
-class DescriptionModal(ui.Modal, title="Build description"):
+class CodesModal(ui.Modal, title="Share build"):
+    """Comandos para compartir y editar la build, y el codigo suelto. Se copian y se pegan donde haga falta."""
+
+    def __init__(self, code: str):
+        super().__init__()
+        for label, text in (("Share command", f"/squad share squadcode:{code} private:"),
+                            ("Edit command", f"/squad editor squadcode:{code}"),
+                            ("Squad code", code)):
+            self.add_item(ui.TextInput(label=label, style=discord.TextStyle.paragraph,
+                                       required=False, max_length=4000, default=text))
+
+    async def on_submit(self, interaction: discord.Interaction):
+        await interaction.response.defer()
+
+
+class DescriptionModal(ui.Modal, title="Build note"):
     def __init__(self, state: State):
         super().__init__()
         self.state = state
         self.text = ui.TextInput(
-            label=f"Description (max {codec.MAX_DESCRIPTION} characters)", style=discord.TextStyle.paragraph,
+            label=f"Note (max {codec.MAX_DESCRIPTION} characters)", style=discord.TextStyle.paragraph,
             required=False, max_length=codec.MAX_DESCRIPTION, default=state.description or None)
         self.add_item(self.text)
 
     async def on_submit(self, interaction: discord.Interaction):
-        self.state.description = (self.text.value or "").strip()
+        value = self.text.value or ""
+        if codec.count_newlines(value) > codec.MAX_NEWLINES:
+            await interaction.response.send_message(
+                f"❌ The note can only have {codec.MAX_NEWLINES} line breaks. Press **Add a note** again and shorten it.",
+                ephemeral=True)
+            return
+        self.state.description = codec.fit_description(value)
         await interaction.response.edit_message(view=BuilderView(self.state))
 
 
