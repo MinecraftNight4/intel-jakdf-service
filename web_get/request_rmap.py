@@ -99,14 +99,16 @@ def cleanup_expired_roadmaps(xcom: dict, rmap: dict) -> tuple[dict, dict]:
     removed = 0
 
     log(f"ROADMAP CLEANER:", "rmap", level="WARN", show=False)
+
     for account, account_data in list(xcom.items()):
         log(f"[@{account.upper()}]", "rmap", show=False)
         roadmap = account_data.get("roadmap", {})
+        status = account_data.get("status", {})   # ← los posts actuales
 
         for post_id in list(roadmap.keys()):
             post_id = str(post_id)
 
-            # Solo evaluamos los que ya fueron procesados
+
             if "ends_at" not in roadmap[post_id]:
                 continue
 
@@ -118,29 +120,29 @@ def cleanup_expired_roadmaps(xcom: dict, rmap: dict) -> tuple[dict, dict]:
             if not listed:
                 continue
 
-            # Obtenemos el timestamp más alto del roadmap
             max_ts = max(item.get("timestamp", 0) for item in listed)
+            still_listed = post_id in status
 
-            # Si el último evento ya pasó → eliminar
             if max_ts < now:
-                # Borrar de xcom
-                del xcom[account]["roadmap"][post_id]
-
-                # Borrar de rmap
-                if post_id in rmap:
-                    del rmap[post_id]
-
-                removed += 1
-                log(f"  - [DELETED: {post_id}] [EXPIRED AT: {max_ts}]", "rmap", level="WARN", show=False)
+                if still_listed:
+                    # Expiró pero el tweet sigue apareciendo → NO borrar
+                    log(f"  - [KEEP (still listed): {post_id}] [EXPIRED AT: {max_ts}]", "rmap", show=False)
+                else:
+                    # Expiró Y ya no está en la lista → borrar
+                    del xcom[account]["roadmap"][post_id]
+                    if post_id in rmap:
+                        del rmap[post_id]
+                    removed += 1
+                    log(f"  - [DELETED: {post_id}] [EXPIRED AT: {max_ts}]", "rmap", level="WARN", show=False)
             else:
-                log(f"  - [SKIPPED: {post_id}] [EXPIRES AT: {max_ts}]", "rmap", show=False)
+                # Todavía tiene eventos futuros → siempre mantener
+                log(f"  - [SKIPPED (future): {post_id}] [EXPIRES AT: {max_ts}]", "rmap", show=False)
 
     if removed > 0:
         log(f"[DELETED: {removed}]", "rmap", show=False)
         log(f" ", "rmap", show=False)
 
     return xcom, rmap
-
 
 # ============================================================
 # GEMINI SERVICE REQUEST
