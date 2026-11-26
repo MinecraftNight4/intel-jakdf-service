@@ -75,14 +75,18 @@ class BuilderView(_OwnerView):
         box = ui.Container(accent_colour=ACCENT)
         box.add_item(ui.TextDisplay(title))
         box.add_item(ui.Separator())
-        box.add_item(ui.TextDisplay(render.icons(state.slots, state.by_uuid)))
         box.add_item(ui.TextDisplay(render.slot_list(state.slots, state.by_uuid)))
 
         box.add_item(self._swap_row())
         for start in range(0, state.count, 4):
             row = ui.ActionRow()
             for slot in range(start, start + 4):
-                button = ui.Button(label=str(slot + 1), style=discord.ButtonStyle.primary)
+                uuid = state.slots[slot]
+                if uuid:       # con unidad: su icono; vacia: el numero de casilla
+                    button = ui.Button(emoji=render.unit_icon(state.by_uuid.get(uuid), uuid),
+                                       style=discord.ButtonStyle.primary)
+                else:
+                    button = ui.Button(label=str(slot + 1), style=discord.ButtonStyle.primary)
                 button.callback = self._open_picker(slot)
                 row.add_item(button)
             box.add_item(row)
@@ -120,6 +124,7 @@ class BuilderView(_OwnerView):
             char = state.by_uuid.get(uuid)
             options.append(discord.SelectOption(
                 label=f"Slot {slot + 1}", value=str(slot),
+                emoji=render.unit_icon(char, uuid) if uuid else "👤",
                 description=render.unit_name(char, uuid)[:100]))
         select = ui.Select(placeholder="Swap Placement (pick 2 slots)", min_values=2, max_values=2, options=options)
 
