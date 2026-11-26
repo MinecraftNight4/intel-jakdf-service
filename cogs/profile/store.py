@@ -63,8 +63,8 @@ class Roster:
       ``page_list``        uuid de los personajes de cada pestana del panel, ``PER_PAGE`` por pestana
       ``name_list``        nombres base (sin prefijo ni repetir) de cada pestana, en el mismo
                            orden que ``page_list``: el indice del panel solo los une con comas
-      ``squad_name_list``  nombre base de CADA personaje (repetido si tiene varias versiones),
-                           en el mismo orden que ``page_list`` aplanada (para /squad)
+      ``squad_name_list``  nombre base de CADA personaje, indexado por uuid: el de ``uuid`` esta en
+                           ``squad_name_list[uuid - 1]`` (para /squad; hueco = "" si falta un uuid)
     """
 
     def __init__(self, path: str = ROSTER_FILE):
@@ -103,7 +103,8 @@ class Roster:
         self.by_uuid = {c["uuid"]: c for c in self.items}
         self.pages = [[c["uuid"] for c in self.items[i:i + PER_PAGE]] for i in range(0, len(self.items), PER_PAGE)]
         self.names = [list(dict.fromkeys(self.by_uuid[u]["full_name"] for u in page)) for page in self.pages]
-        self.squad_names = [c["full_name"] for c in self.items]
+        top = max(self.by_uuid, default=0)
+        self.squad_names = [self.by_uuid[u]["full_name"] if u in self.by_uuid else "" for u in range(1, top + 1)]
 
     @staticmethod
     def _normalize(entry) -> Optional[dict]:
@@ -131,11 +132,16 @@ class Roster:
         def rows(lists):                          # una pestana por linea
             return "[\n\t\t" + ",\n\t\t".join(json.dumps(item, ensure_ascii=False) for item in lists) + "\n\t]"
 
+        def flat(items, per_line=4):                # un solo array, varios elementos por linea
+            lines = [", ".join(json.dumps(x, ensure_ascii=False) for x in items[i:i + per_line])
+                     for i in range(0, len(items), per_line)]
+            return "[\n\t\t" + ",\n\t\t".join(lines) + "\n\t]"
+
         parts = [
             '"characters": ' + indent(json.dumps(self.raw, ensure_ascii=False, indent="\t")),
             '"page_list": ' + rows(self.pages),
             '"name_list": ' + rows(self.names),
-            '"squad_name_list": ' + rows([self.squad_names[i:i + PER_PAGE] for i in range(0, len(self.squad_names), PER_PAGE)]),
+            '"squad_name_list": ' + flat(self.squad_names),
         ]
         text = "{\n\t" + ",\n\t".join(parts) + "\n}\n"
         try:
@@ -214,3 +220,9 @@ class ProfileStore:
         pairs = [(self.roster.by_uuid[c], d) for c, d in rows if c in self.roster.by_uuid]
         pairs.sort(key=lambda p: (-p[1], p[0]["name"].lower()))
         return pairs, (last[0] if last else None)
+    
+    def updated_at(self, user_id: int) -> Optional[int]:
+        """Fecha (timestamp) del último cambio del perfil, o None si no tiene datos."""
+        with closing(self._connect()) as db:
+            row = db.execute("SELECT updated_at FROM users WHERE user_id=?", (user_id,)).fetchone()
+        return row[0] if row else None

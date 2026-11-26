@@ -30,7 +30,7 @@ def _window(current: int, total: int):
 
 
 class BulkView(ui.LayoutView):
-    def __init__(self, store: ProfileStore, user_id: int, page: int = 0):
+    def __init__(self, store: ProfileStore, user_id: int, page: int = 0,):
         super().__init__(timeout=900)
         self.store, self.user_id = store, user_id
         store.roster.reload_if_changed()
@@ -38,12 +38,15 @@ class BulkView(ui.LayoutView):
         self.pages = max(1, len(roster.pages))
         self.page = min(max(page, 0), self.pages - 1)
         owned = store.owned(user_id)
+        updated_at = store.updated_at(user_id)
 
         box = ui.Container(accent_colour=ACCENT)
-        box.add_item(ui.TextDisplay(
-            "## ✏️ __EDIT PROFILE__\n"
-            f"-# Page {self.page + 1}/{self.pages} · Pick a state for each character, changes are saved instantly"
-        ))
+        titleheader = "## ✏️ __EDIT PROFILE__\n"
+        titleheader += "👁️ **PRIVACY REMINDER:**\n- This information is accessible on all servers that use this app.\n"
+        titleheader += "⌛ **INACTIVITY WARN:**\n- Profiles with inactive data are deleted after 1 year."
+        if updated_at:
+            titleheader += f" Last change made <t:{updated_at}:R>."
+        box.add_item(ui.TextDisplay(titleheader))
         box.add_item(ui.Separator())
 
         page_uuids = roster.pages[self.page] if roster.pages else []
@@ -122,3 +125,6 @@ class BulkView(ui.LayoutView):
 
     async def interaction_check(self, interaction: discord.Interaction) -> bool:
         return interaction.user.id == self.user_id
+
+
+

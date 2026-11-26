@@ -35,11 +35,11 @@ class ProfileView(ui.LayoutView):
 
         dupes = sum(d for _, d in entries)
         head = (
-            f"## 🪪 __PROFILE__ · {target.display_name}\n"
-            f"-# {len(entries)}/{total} characters unlocked · {dupes} dupes in total"
+            f"## 🪪 __PROFILE__ · {target.display_name.upper()}\n"
+            f"`{len(entries)}/{total}` characters unlocked"
         )
         if updated_at:
-            head += f"\n-# Last update <t:{updated_at}:R> · profiles are deleted after {INACTIVE_DAYS // 365} year without changes"
+            head += f"\n\n-# 🗑️ Profiles are removed after 1 year of inactivity.\n-#  `⤷` ⌛ Scheduled for removed <t:{updated_at + 31556926 }:R>."
         chunk = entries[self.page * PER_PAGE:(self.page + 1) * PER_PAGE]
         body = "\n".join(_line(c["icon"], c["name"], d) for c, d in chunk) or "*No characters claimed yet. Use `/profile edit`.*"
 
