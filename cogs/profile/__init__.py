@@ -39,7 +39,7 @@ class ProfileView(ui.LayoutView):
             f"`{len(entries)}/{total}` characters unlocked"
         )
         if updated_at:
-            head += f"\n\n-# 🗑️ Profiles are removed after 1 year of inactivity.\n-#  `⤷` ⌛ Scheduled for removed <t:{updated_at + 31556926 }:R>."
+            head += f"\n\n-# 🗑️ Profiles are removed after 1 year of inactivity.\n-#  `⤷` ⌛ Scheduled for removed <t:{updated_at + 31536000 }:R>."
         chunk = entries[self.page * PER_PAGE:(self.page + 1) * PER_PAGE]
         body = "\n".join(_line(c["icon"], c["name"], d) for c, d in chunk) or "*No characters claimed yet. Use `/profile edit`.*"
 

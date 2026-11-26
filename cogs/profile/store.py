@@ -196,7 +196,7 @@ class ProfileStore:
 
     def prune(self, now: Optional[int] = None) -> int:
         """Borra los perfiles sin cambios en ``INACTIVE_DAYS``. Devuelve cuantos."""
-        limit = int(now or time.time()) - INACTIVE_DAYS * 86400
+        limit = int(now or time.time()) - 31536000
         with closing(self._connect()) as db:
             with db:
                 removed = db.execute("DELETE FROM users WHERE updated_at < ?", (limit,)).rowcount

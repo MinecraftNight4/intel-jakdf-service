@@ -8,14 +8,14 @@ from .store import LOCKED, MAX_DUPES
 def stars(dupes: int) -> str:
     """0 dupes → ☆☆☆☆☆☆ · 3 dupes → ★★★☆☆☆ · 6 dupes → ★★★★★★"""
     dupes = max(0, min(MAX_DUPES, dupes))
-    return "★" * dupes + "☆" * (MAX_DUPES - dupes)
+    return "✧ " * dupes + "✦ " * (MAX_DUPES - dupes)
 
 
 def status_label(value: int) -> str:
     if value == LOCKED:
-        return "🔒 Locked"
+        return "🔒 Not obtained"
     if value == 0:
-        return f"{stars(0)} Unlocked (no dupes)"
+        return f"{stars(0)} First pull"
     return f"{stars(value)} +{value} dupe{'s' if value > 1 else ''}"
 
 
