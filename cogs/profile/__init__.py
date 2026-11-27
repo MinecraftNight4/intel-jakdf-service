@@ -17,6 +17,13 @@ from .remote import RemoteError
 
 PER_PAGE = 20
 ACCENT = 0x43D7D7
+async def reply(interaction: discord.Interaction, **kwargs):
+    """Responde, o continua con un followup si ya se hizo defer (Discord solo da 3 s para la 1.ª respuesta)."""
+    if interaction.response.is_done():
+        return await interaction.followup.send(**kwargs)
+    return await interaction.response.send_message(**kwargs)
+
+
 UNAVAILABLE = "The profile database isn't answering right now. Please try again in a minute."
 
 def _line(icon: str, name: str, dupes: int) -> str:
@@ -81,6 +88,7 @@ class Profile(commands.GroupCog, name="profile"):
         super().__init__()
 
     async def cog_load(self):
+        asyncio.create_task(asyncio.to_thread(self.store.warm))
         self.prune_loop.start()
         self.flush_loop.start()
 
@@ -135,24 +143,28 @@ class Profile(commands.GroupCog, name="profile"):
         if target.bot:
             await interaction.response.send_message("Bots don't play the game... yet.", ephemeral=True)
             return
+        if not self.store.cached(target.id):      # primera vez: hay que ir a la nube, puede tardar mas de 3 s
+            await interaction.response.defer(ephemeral=private)
         try:
             await self.store.load(target.id)
         except ProfileUnavailable:
-            await interaction.response.send_message(UNAVAILABLE, ephemeral=True)
+            await reply(interaction, content=UNAVAILABLE, ephemeral=True)
             return
         entries, updated_at = self.store.get(target.id)
         view = ProfileView(interaction.user.id, target, entries, len(self.store.roster.items), updated_at)
-        await interaction.response.send_message(view=view, ephemeral=private)
+        await reply(interaction, view=view, ephemeral=private)
 
     # ---------------- /profile edit ----------------
     @app_commands.command(name="edit", description="Edit your characters and dupes with a private panel.")
     async def edit(self, interaction: discord.Interaction):
+        if not self.store.cached(interaction.user.id):
+            await interaction.response.defer(ephemeral=True)
         try:
             await self.store.load(interaction.user.id)
         except ProfileUnavailable:
-            await interaction.response.send_message(UNAVAILABLE, ephemeral=True)
+            await reply(interaction, content=UNAVAILABLE, ephemeral=True)
             return
-        await interaction.response.send_message(view=BulkView(self.store, interaction.user.id), ephemeral=True)
+        await reply(interaction, view=BulkView(self.store, interaction.user.id), ephemeral=True)
 
 
 async def setup(bot: commands.Bot):

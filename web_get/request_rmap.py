@@ -108,7 +108,6 @@ def cleanup_expired_roadmaps(xcom: dict, rmap: dict) -> tuple[dict, dict]:
         for post_id in list(roadmap.keys()):
             post_id = str(post_id)
 
-
             if "ends_at" not in roadmap[post_id]:
                 continue
 

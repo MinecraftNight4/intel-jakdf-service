@@ -8,3 +8,4 @@ auditory/*
 sys_save/feed_system_data.json
 sys_save/request_xcom.json
 sys_save/request_news.json
+/tools

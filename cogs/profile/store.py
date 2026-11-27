@@ -315,6 +315,22 @@ class ProfileStore:
         with closing(self._connect()) as db:
             return self._local_row(db, user_id)
 
+    def cached(self, user_id: int) -> bool:
+        """True si leer este perfil NO necesita esperar a la nube (hay copia local, o no hay nube)."""
+        if self.remote is None:
+            return True
+        with closing(self._connect()) as db:
+            return self._local_row(db, user_id) is not None
+
+    def warm(self) -> None:
+        """Abre la conexion remota y prepara la tabla, para que el primer comando no pague ese tiempo."""
+        if self.remote is None:
+            return
+        try:
+            self.remote._open().close()
+        except RemoteError:
+            pass
+
     async def load(self, user_id: int) -> None:
         """Trae el perfil a la copia local sin bloquear el bot. Llamarlo antes de leerlo en un comando.
 

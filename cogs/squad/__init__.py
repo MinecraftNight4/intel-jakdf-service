@@ -12,6 +12,7 @@ from discord.ext import commands
 from logger import log
 
 from cogs.calendar.helpers import PUBLIC_COOLDOWN
+from cogs.profile import reply
 from cogs.profile.store import ProfileStore, ProfileUnavailable
 from . import codec, image, render
 from .build import ACCENT, DEFAULT_URL, BuilderView, State
@@ -97,20 +98,22 @@ class Squad(commands.GroupCog, name="squad"):
             await interaction.response.send_message("Bots don't play the game... yet.", ephemeral=True)
             return
         if account is not None:
+            if not self.store.cached(account.id):     # primera vez: hay que ir a la nube, puede tardar mas de 3 s
+                await interaction.response.defer(ephemeral=True)
             try:
                 await self.store.load(account.id)
             except ProfileUnavailable:
-                await interaction.response.send_message(UNAVAILABLE, ephemeral=True)
+                await reply(interaction, content=UNAVAILABLE, ephemeral=True)
                 return
         pool = self._pool(account.id if account else None)
         if not pool:
             text = "The character list is empty." if account is None else \
                 NO_UNITS.format(who=_nobody(account.id, interaction.user.id))
-            await interaction.response.send_message(text, ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
+            await reply(interaction, content=text, ephemeral=True, allowed_mentions=discord.AllowedMentions.none())
             return
         state = State(interaction.user.id, count, pool, account.id if account else None,
                       url=_channel_url(interaction))
-        await interaction.response.send_message(view=BuilderView(state), ephemeral=True)
+        await reply(interaction, view=BuilderView(state), ephemeral=True)
 
     # ---------------- /squad account ----------------
     @account.command(name="4", description="Create a Squad of 4 characters using a member's character list.")
