@@ -8,7 +8,7 @@ from .store import LOCKED, MAX_DUPES
 def stars(dupes: int) -> str:
     """0 dupes → ☆☆☆☆☆☆ · 3 dupes → ★★★☆☆☆ · 6 dupes → ★★★★★★"""
     dupes = max(0, min(MAX_DUPES, dupes))
-    return "✧ " * dupes + "✦ " * (MAX_DUPES - dupes)
+    return "✦ " * dupes + "✧ " * (MAX_DUPES - dupes)
 
 
 def status_label(value: int) -> str:
