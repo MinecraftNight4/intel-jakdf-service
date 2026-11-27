@@ -12,7 +12,7 @@ from discord.ext import commands
 from logger import log
 
 from cogs.calendar.helpers import PUBLIC_COOLDOWN
-from cogs.profile.store import ProfileStore
+from cogs.profile.store import ProfileStore, ProfileUnavailable
 from . import codec, image, render
 from .build import ACCENT, DEFAULT_URL, BuilderView, State
 
@@ -43,6 +43,7 @@ def extract_code(message) -> Optional[str]:
     return None
 
 
+UNAVAILABLE = "The profile database isn't answering right now. Please try again in a minute."
 NO_UNITS = "{who} claimed any characters yet. Use `/profile edit` to add them."
 
 
@@ -95,6 +96,12 @@ class Squad(commands.GroupCog, name="squad"):
         if account is not None and account.bot:
             await interaction.response.send_message("Bots don't play the game... yet.", ephemeral=True)
             return
+        if account is not None:
+            try:
+                await self.store.load(account.id)
+            except ProfileUnavailable:
+                await interaction.response.send_message(UNAVAILABLE, ephemeral=True)
+                return
         pool = self._pool(account.id if account else None)
         if not pool:
             text = "The character list is empty." if account is None else \
@@ -143,6 +150,12 @@ class Squad(commands.GroupCog, name="squad"):
         except codec.CodeError as err:
             await interaction.edit_original_response(view=_text_view(f"❌ {err}."))
             return
+        if build.account_id is not None:
+            try:
+                await self.store.load(build.account_id)
+            except ProfileUnavailable:
+                await interaction.edit_original_response(view=_text_view(UNAVAILABLE))
+                return
         pool = self._pool(build.account_id)
         if not pool:
             text = "The character list is empty." if build.account_id is None else \
