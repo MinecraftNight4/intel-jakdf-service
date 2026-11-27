@@ -17,7 +17,6 @@ class KaijuReadXCom:
             "kaijuno8_o_en",
             "Kj8_TheGame",
             "kaijuno8_o"
-            # Añade más cuentas aquí
         ]
 
         self.headers = {
@@ -203,8 +202,3 @@ class KaijuReadXCom:
 
         self.storage_data_xcom()
         log("XCOM: Finished.", "xcom", show=False)
-
-
-if __name__ == "__main__":
-    processor = KaijuReadXCom()
-    processor.run()

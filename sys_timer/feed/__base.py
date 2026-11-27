@@ -13,6 +13,7 @@ from logger import log
 from web_get.request_xcom import KaijuReadXCom
 
 from .feed_news import NEWS_FEEDS, process_news_feed
+from .feed_publish import publish_latest
 from .feed_store import process_feed_game_store
 from .feed_xcom import process_feed_xcom
 
@@ -58,3 +59,9 @@ async def run_all_feeds(bot, progress) -> None:
         for key in _xcom_keys():
             progress.failure(key)
         log(f"Feed XCom error: {e}", "feed", level="CRIT", show=False)
+
+    # Resumen "lo último" → sys_save/last.json y GitHub (nunca debe romper los feeds)
+    try:
+        await publish_latest()
+    except Exception as e:
+        log(f"Feed publish error: {type(e).__name__}: {e}", "feed", level="CRIT", show=False)
