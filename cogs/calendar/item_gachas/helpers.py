@@ -15,10 +15,10 @@ from typing import Any, Dict, List, Optional, Tuple
 import requests
 import typst
 
-from .helpers import now_as_unix
-from .item_gachas import GACHA_IMAGE_PATH, TYPE_LABELS, timesystem_countdown
+from ..helpers import now_as_unix
+from .code import GACHA_IMAGE_PATH, TYPE_LABELS, timesystem_countdown
 
-TEMPLATE = os.path.join(os.path.dirname(__file__), "gacha_template.typ")
+TEMPLATE = os.path.join(os.path.dirname(__file__), "item_gachas/template.typ")
 FONT_DIR = os.path.dirname(GACHA_IMAGE_PATH)      # sys_save/calendar (bungee-regular.ttf)
 LOGO_DIR = os.path.join(FONT_DIR, "logos")
 COLS, CARD_W, GAP, PAD = 3, 340, 10, 12

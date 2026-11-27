@@ -11,8 +11,8 @@ from zoneinfo import ZoneInfo
 
 from discord import File, ui
 
-from .helpers import NEWS_FILE, fetchjson, format_time_view, now_as_unix
-from .base import add_navigation_buttons
+from ..helpers import NEWS_FILE, fetchjson, format_time_view, now_as_unix
+from ..base import add_navigation_buttons
 
 JST = ZoneInfo("Asia/Tokyo")
 GACHA_IMAGE_PATH = "sys_save/calendar/gacha.png"
@@ -119,7 +119,7 @@ def bannerfetch_list() -> List[Dict[str, Any]]:
     for article in articles.values():
         if (article.get("article_type") or "").lower() != "gacha":
             continue
-        active.extend(article["metadata"])
+        active.extend(bannerfetch_index(article, now))
     active.sort(key=lambda banner: banner["pull_ends"])
     return active
 
