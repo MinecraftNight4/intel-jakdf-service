@@ -133,32 +133,13 @@ def calendar_rmap_view() -> Optional[str]:
 
 
 
-def status_show_warn(art: dict) -> bool:
-    text = format_full_text(art)
-    if "the data update has been successfully completed" in text:
-        return False
-    if "update is now available." in text:
-        return False
-    if "maintenance has been completed." in text:
-        return False
-    
-    unix_list = art.get("article_unix") or []
-    if len(unix_list) >= 2:
-        ends = unix_list[1]
-        if ends < now_as_unix():
-            return False
-    
-    if len(unix_list) == 1 and "data update" in text:
-        if unix_list[0] < now_as_unix():
-            return False
-    
-    return True
-
-def status_show_display() -> bool:
+def get_active_service_notice() -> Optional[dict]:
+    """Devuelve la noticia maintenance/update más reciente si tiene una ventana activa en metadata."""
     news = fetchjson(NEWS_FILE, {})
+    now = now_as_unix()
     candidate_data = None
     candidate_time = 0
-    
+
     for art in news.values():
         if art.get("article_type") in ("update", "maintenance"):
             art_time = art.get("article_time", 0)
@@ -166,10 +147,21 @@ def status_show_display() -> bool:
                 candidate_time = art_time
                 candidate_data = art
 
-    if candidate_data:
-        if not status_show_warn(candidate_data):
-            return False
-        else:
-            return True
-    return False
+    if not candidate_data:
+        return None
+
+    meta = candidate_data.get("metadata") or {}
+    time_down = meta.get("time_down")
+    time_back = meta.get("time_back")
+    time_post = meta.get("time_post")
+
+    if time_back and int(time_back) > now:
+        return candidate_data
+    if time_post and int(time_post) > now:
+        return candidate_data
+    return None
+
+
+def status_show_display() -> bool:
+    return get_active_service_notice() is not None
 

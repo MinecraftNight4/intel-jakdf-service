@@ -183,49 +183,28 @@ class FeedGachaPageView(ui.LayoutView):
 # -------------------------------------------------
 def build_gacha_info_text(article: dict) -> Optional[str]:
     """
-    Intenta interpretar si la noticia indexada es
-    valida con alguna plantilla de noticia.
+    Construye el resumen de fechas del gacha directamente desde article['metadata'].
     """
-    # ARTICLE - VALUE CHECK
-    article_item = article.get("article_item") or []
-    article_unix = article.get("article_unix") or []
-    article_text = "\n".join(str(i) for i in article_item).lower()
-    try:
-        rule_unix = sorted(int(unix) for unix in article_unix if unix is not None)
-        rule_pull = "__availability period__" in article_text
-        rule_shop = "exchange period" in article_text
-    except (ValueError, TypeError):
+    meta = article.get("metadata")
+    if not isinstance(meta, dict):
         return None
 
-    # ARTICLE TYPE FILTER:
-    # GACHA PULL | EXCHANGE + AVAILABILITY + 3 UNIX
-    if rule_pull and rule_shop and len(rule_unix) == 3:
-        time_1, time_2, time_3 = rule_unix
-        return (
-            f"- [REPLACE_RELEASE] <t:{time_1}:f> (<t:{time_1}:R>)\n"
-            f"- [REPLACE_GACHA_LEAVE] <t:{time_2}:f> (<t:{time_2}:R>)\n"
-            f"- [REPLACE_STORE_LEAVE] <t:{time_3}:f> (<t:{time_3}:R>)"
-        )
+    release_ts = as_int(article.get("article_time"))
+    banner_ts = meta.get("banner")
+    event_ts = meta.get("event")
+    store_ts = meta.get("store")
 
-    # EVENT PULL | !EXCHANGE + AVAILABILITY + 3 UNIX
-    if rule_pull and not rule_shop and len(rule_unix) == 3:
-        time_1, time_2, time_3 = rule_unix
-        return (
-            f"- [REPLACE_RELEASE] <t:{time_1}:f> (<t:{time_1}:R>)\n"
-            f"- [REPLACE_EVENT_LEAVE] <t:{time_2}:f> (<t:{time_2}:R>)\n"
-            f"- [REPLACE_GACHA_LEAVE] <t:{time_3}:f> (<t:{time_3}:R>)"
-        )
+    if not banner_ts:
+        return None
 
-    # SPECIAL EVENT | !EXCHANGE + AVAILABILITY + 2 UNIX
-    if rule_pull and not rule_shop and len(rule_unix) == 2:
-        time_1, time_2 = rule_unix
-        return (
-            f"- [REPLACE_RELEASE] <t:{time_1}:f> (<t:{time_1}:R>)\n"
-            f"- [REPLACE_GACHA_LEAVE] <t:{time_2}:f> (<t:{time_2}:R>)"
-        )
+    lines = [f"- [REPLACE_RELEASE] <t:{release_ts}:f> (<t:{release_ts}:R>)"]
+    if event_ts:
+        lines.append(f"- [REPLACE_EVENT_LEAVE] <t:{event_ts}:f> (<t:{event_ts}:R>)")
+    lines.append(f"- [REPLACE_GACHA_LEAVE] <t:{banner_ts}:f> (<t:{banner_ts}:R>)")
+    if store_ts:
+        lines.append(f"- [REPLACE_STORE_LEAVE] <t:{store_ts}:f> (<t:{store_ts}:R>)")
 
-    # NOT COMPATIBLE WITH CONTENT
-    return None
+    return "\n".join(lines)
 
 
 # -------------------------------------------------

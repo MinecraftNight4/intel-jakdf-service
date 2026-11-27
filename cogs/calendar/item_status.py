@@ -1,108 +1,60 @@
 # cogs/calendar/update.py
-import re
 from discord import ui
-from .helpers import (
-    fetchjson, now_as_unix, format_time_view, NEWS_FILE,
-    status_show_display, format_full_text
-)
+from .helpers import now_as_unix, format_time_view, get_active_service_notice
 from .base import add_navigation_buttons
 
 
 def panelbuilder_status(relative: bool = False) -> ui.LayoutView:
     view = ui.LayoutView()
-    news = fetchjson(NEWS_FILE, {})
     now = now_as_unix()
+    candidate_data = get_active_service_notice()
 
-    #===================#
-    # CANDIDATE FILTER
-    #===================#
-    candidate_data = None
-    candidate_time = 0
-    candidate_name = None          # ← también conviene inicializarla
-
-    for art in news.values():
-        if art.get("article_type") in ("update", "maintenance"):
-            art_time = art.get("article_time", 0)
-            if art_time > candidate_time:
-                candidate_name = art.get("article_name")
-                candidate_time = art_time
-                candidate_data = art
-    
-    #==================#
-    # CALENDAR BUILDER #
-    #==================#
-    
-    # Valores por defecto (cuando no hay mantenimiento/update)
-    rgbs = 0x546e7a
+    rgbs = 0x546E7A
     text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
 
     if candidate_data:
-        #                   
-        #   CONTENT FILTER
-        #                   
-        display_unix_open = 0
-        display_unix_ends = 0
-        candidate_text = format_full_text(candidate_data)
-        candidate_unix = candidate_data.get("article_unix") or []
-        
-        for i, unix in enumerate(candidate_unix):
-            # MAINTENANCE
-            if i + 1 < len(candidate_unix):
-                temp_unix_next = candidate_unix[i + 1]
-                # ENGLISH TRANSLATION
-                if (f"<t:{unix}> - <t:{temp_unix_next}>") in candidate_text:
-                    display_unix_open = unix
-                    display_unix_ends = temp_unix_next
-                    break
-                # NO TRANSLATION
-                if (f"<t:{unix}> 〜 <t:{temp_unix_next}>") in candidate_text:
-                    display_unix_open = unix
-                    display_unix_ends = temp_unix_next
-                    break
-            # DATA UPDATE
-            if (f"a data update is scheduled for the following time:\n<t:{unix}>") in candidate_text:
-                display_unix_ends = unix
-                break
-                
-        
-        #                   
-        #   DATA DISPLAY
-        #                   
-        if "DATA UPDATE" in (candidate_data.get("article_name") or "").upper():
-            rgbs = 0x11d6d0
-            text = f"## 📥__{candidate_name}__ 📥 \n## > 📨 __DATA UPDATE!__ 📨 \n- Everyone will be forced to update {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
-        
-        elif display_unix_open and display_unix_ends:
-            
-            if display_unix_open > now:
-                rgbs = 0xfcd703
-                text = f"## ⚠️ __{candidate_name}__ ⚠️ \n## > ℹ️ __MAINTENANCE SCHEDULE!__ ℹ️ \n- The maintenance operations will start {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n- Service should be restored {'at ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
+        candidate_name = candidate_data.get("article_name") or ""
+        meta = candidate_data.get("metadata") or {}
+        time_down = meta.get("time_down")
+        time_back = meta.get("time_back")
+        time_post = meta.get("time_post")
 
-            elif display_unix_ends > now:
-                rgbs = 0xfc2803
-                text = f"## 🚧 __{candidate_name}__ 🚧 \n## > 🔴 __SERVERS OFFLINE!__ 🔴 \n- The maintenance operations started {'at ' if not relative else ''}{format_time_view(display_unix_open, relative, 'f')}. \n \n## > 🟢 __ETA OF THE MAINTENANCE__ 🟢\n- Service is expected to be restored {'on ' if not relative else ''}{format_time_view(display_unix_ends, relative, 'f')}."
-            
+        if time_post and int(time_post) > now:
+            rgbs = 0x11D6D0
+            text = (
+                f"## 📥 __{candidate_name}__ 📥\n"
+                f"## > 📨 __DATA UPDATE!__ 📨\n"
+                f"- Everyone will be forced to update {'at ' if not relative else ''}"
+                f"{format_time_view(int(time_post), relative, 'f')}."
+            )
+        elif time_down and time_back and int(time_back) > now:
+            t_down, t_back = int(time_down), int(time_back)
+            if t_down > now:
+                rgbs = 0xFCD703
+                text = (
+                    f"## ⚠️ __{candidate_name}__ ⚠️\n"
+                    f"## > ℹ️ __MAINTENANCE SCHEDULE!__ ℹ️\n"
+                    f"- The maintenance operations will start {'at ' if not relative else ''}{format_time_view(t_down, relative, 'f')}.\n"
+                    f"- Service should be restored {'at ' if not relative else ''}{format_time_view(t_back, relative, 'f')}."
+                )
             else:
-                rgbs = 0x546e7a
-                text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
-            
-        else:
-            rgbs = 0x546e7a
-            text = "## __WELP... THIS IS EMPTY... `≡(▔﹏▔)≡`__"
+                rgbs = 0xFC2803
+                text = (
+                    f"## 🚧 __{candidate_name}__ 🚧\n"
+                    f"## > 🔴 __SERVERS OFFLINE!__ 🔴\n"
+                    f"- The maintenance operations started {'at ' if not relative else ''}{format_time_view(t_down, relative, 'f')}.\n\n"
+                    f"## > 🟢 __ETA OF THE MAINTENANCE__ 🟢\n"
+                    f"- Service is expected to be restored {'on ' if not relative else ''}{format_time_view(t_back, relative, 'f')}."
+                )
 
-
-    #                   
-    #   EMBED BUILDER
-    #                   
     container = ui.Container(accent_colour=rgbs)
     if candidate_data and candidate_data.get("article_logo"):
         gallery = ui.MediaGallery()
         gallery.add_item(media=candidate_data["article_logo"])
         container.add_item(gallery)
-        
+
     container.add_item(ui.TextDisplay(text))
     container.add_item(ui.Separator())
     add_navigation_buttons(container, current="status", relative=relative)
     view.add_item(container)
     return view
-    

@@ -63,137 +63,54 @@ def timesystem_countdown(end: Optional[int], now: int) -> str:
 # ============================================================
 # TEXTO DE LA NOTICIA
 # ============================================================
-def textfetch_listed_unit(text: str) -> List[str]:
-    """Personajes con forma ``[Rol] Nombre``, hasta 8."""
-    found: List[str] = []
-    pattern = r"(\[[^\]]+\]\s*[A-Za-z0-9\s\-']+?)(?:\s*\(Optimal|\s*$|\n)"
-    for match in re.finditer(pattern, text, re.IGNORECASE | re.MULTILINE):
-        name = re.sub(r"\s+", " ", match.group(1).strip())
-        if 5 < len(name) < 80 and name not in found:
-            found.append(name)
-    return found[:8]
-
-
-def textfetch_listed_gear(text: str) -> List[str]:
-    """Armas con prefijo de tipo (``AR-``, ``GS-``, …), hasta 8."""
-    found: List[str] = []
-    pattern = r"((?:HM|SH|AR|GS|Lc|SW|Ax|RF|AW|GG|SB|Fs|T|S|PS|HG|SG)[-‐][A-Za-z0-9\- ]+?)(?=\s*[\|\(\[]|$|\n)"
-    for match in re.finditer(pattern, text):
-        name = match.group(1).strip()
-        if name not in found:
-            found.append(name)
-    return found[:8]
-
-
-def textfetch_listed_type(name: str, type: str) -> str:
-    """PAID-ONLY y LIMITED ganan a la categoría que trae la plantilla."""
-    name = name.upper()
-    if type == "event":
-        return "EVENT"
-    if type == "special" or "PAID-ONLY" in name or "PAID ONLY" in name:
+def textfetch_listed_type(name: str, meta: dict) -> str:
+    name_up = name.upper()
+    if "PAID-ONLY" in name_up or "PAID ONLY" in name_up:
         return "PAID-ONLY"
-    if "[LIMITED]" in name or "LIMITED" in name:
+    if meta.get("event"):
+        return "EVENT"
+    if "[LIMITED]" in name_up or "LIMITED" in name_up:
         return "LIMITED"
     return "STANDARD"
 
-
-def textfetch_listed_times(text: str) -> List[int]:
-    """Timestamps únicos de rangos ``<t:a> - <t:b>``, ordenados."""
-    if not text:
-        return []
-    seen = set()
-    unique: List[int] = []
-    for start_s, end_s in re.findall(r"<t:(\d+)>\s*-\s*<t:(\d+)>", text):
-        start, end = int(start_s), int(end_s)
-        if start >= end:
-            continue
-        for ts in (start, end):
-            if ts not in seen:
-                seen.add(ts)
-                unique.append(ts)
-    return sorted(unique)
-
-
-def textfetch_clear_name(name: str) -> str:
-    for noise in _NAME_NOISE:
-        name = name.replace(noise, "")
-    return name.strip()
-
-
-def _banner_span(
-    kind: str,
-    post: int,
-    pull: int,
-    play: Optional[int] = None,
-    sell: Optional[int] = None,
-) -> Dict[str, Any]:
-    return {
-        "type": kind,
-        "time_post": post,
-        "time_pull": pull,
-        "time_play": play,
-        "time_sell": sell,
-    }
-
-
-def article_template(art: dict) -> Optional[Dict[str, Any]]:
-    """Clasifica la noticia según cuántos rangos de tiempo trae.
-
-    - 3 marcas + tienda  → gacha normal (post, pull, exchange)
-    - 3 marcas sin tienda → evento (post, fin de evento, fin de gacha)
-    - 2 marcas sin tienda → special / paid (post, pull)
-    """
-    body = "\n".join(str(item) for item in (art.get("article_item") or [])).lower()
-    has_pull = "__availability period__" in body
-    has_shop = "exchange period" in body
-    stamps = textfetch_listed_times(body)
-    if not has_pull or not stamps:
-        return None
-
-    if has_shop and len(stamps) == 3:
-        post, pull, sell = stamps
-        return _banner_span("gacha", post, pull, sell=sell)
-    if not has_shop and len(stamps) == 3:
-        post, play, pull = stamps
-        return _banner_span("event", post, pull, play=play)
-    if not has_shop and len(stamps) == 2:
-        post, pull = stamps
-        return _banner_span("special", post, pull)
-    return None
-
-
-def _still_active(kind: str, pull: int, play: Optional[int], sell: Optional[int], now: int) -> bool:
+def _still_active(kind: str, pull: Optional[int], play: Optional[int], sell: Optional[int], now: int) -> bool:
+    if not pull:
+        return False
     if kind == "PAID-ONLY":
         return pull > now
     if kind == "EVENT":
         return bool(play and play > now) or pull > now
     return pull > now or (sell is not None and sell > now)
 
-
 def bannerfetch_index(art: dict, now: int) -> List[Dict[str, Any]]:
-    """0 o 1 banner. Lista para poder hacer ``extend`` en el listado."""
-    info = article_template(art)
-    if info is None:
+    meta = art.get("metadata")
+    if not isinstance(meta, dict):
         return []
 
+    pull = meta.get("banner")
+    play = meta.get("event")
+    sell = meta.get("store")
     raw_name = art.get("article_name") or ""
-    featured_type = textfetch_listed_type(raw_name, info["type"])
-    pull, play, sell = info["time_pull"], info["time_play"], info["time_sell"]
+    featured_type = textfetch_listed_type(raw_name, meta)
+
     if not _still_active(featured_type, pull, play, sell, now):
         return []
 
-    full_text = "\n".join(str(part) for part in (art.get("article_item") or []))
     return [{
         "banner_name": textfetch_clear_name(raw_name.upper()),
         "banner_type": featured_type,
         "banner_logo": art.get("article_logo"),
-        "pull_unit": textfetch_listed_unit(full_text),
-        "pull_gear": textfetch_listed_gear(full_text),
+        "pull_unit": (meta.get("unit") or [])[:8],
+        "pull_gear": (meta.get("gear") or [])[:8],
         "pull_ends": pull,
         "sell_ends": sell,
         "play_ends": play,
     }]
 
+def textfetch_clear_name(name: str) -> str:
+    for noise in _NAME_NOISE:
+        name = name.replace(noise, "")
+    return name.strip()
 
 def bannerfetch_list() -> List[Dict[str, Any]]:
     articles = fetchjson(NEWS_FILE, {})
@@ -202,7 +119,7 @@ def bannerfetch_list() -> List[Dict[str, Any]]:
     for article in articles.values():
         if (article.get("article_type") or "").lower() != "gacha":
             continue
-        active.extend(bannerfetch_index(article, now))
+        active.extend(article["metadata"])
     active.sort(key=lambda banner: banner["pull_ends"])
     return active
 

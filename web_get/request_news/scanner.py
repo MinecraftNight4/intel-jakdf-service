@@ -1,13 +1,16 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from logger import info, warn, crit, log
-from datetime import datetime, timezone
+from datetime import datetime
 from bs4 import BeautifulSoup
-import requests
 import hashlib
 import json
 import math
 import os
 import re
+import requests
+
+from logger import log
+from .gacha import build_gacha_metadata
+from .service import build_service_metadata
 
 
 class KaijuReadNews:
@@ -18,44 +21,38 @@ class KaijuReadNews:
     def storage_data_news(self):
         try:
             os.makedirs(os.path.dirname(self.storage_file), exist_ok=True)
-            
-            with open(self.storage_file, 'w', encoding='utf-8') as f:
+            with open(self.storage_file, "w", encoding="utf-8") as f:
                 json.dump(self.news_storage, f, ensure_ascii=False, indent=4)
             log(f"DATABASE: [x{len(self.news_storage)} news] SUCCESS!", "news", show=False)
         except Exception as e:
             log(f"DATABASE: [x{len(self.news_storage)} news] FAILURE! | {e}", "news", level="CRIT", show=False)
-    
-    
+
     def tool_for_text(self, element, newsid) -> str:
         try:
-            # 1. Primero convertir los <a> a markdown ANTES de sacar el texto plano
             for a in element.select("a[href]"):
                 href = a.get("href", "").strip()
                 htxt = a.get_text(strip=True)
                 if not htxt or not href:
                     continue
-
-                # Arreglar URL relativa
                 if not href.startswith(("http://", "https://")):
                     if href.startswith("/"):
                         href = "https://info.kj8-thegame.com" + href
                     else:
                         href = "https://info.kj8-thegame.com/news/" + href.lstrip("./")
                 a.replace_with(f"[{htxt}]({href})")
-
             text = element.get_text(strip=False)
         except Exception:
             return ""
 
-        # 2. Timestamps
         timestamp_regex = r"\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})?\b"
+
         def replace_ts(match):
             unix = self.transform_unix(match.group(0), False, newsid)
             return f"<t:{unix}>"
+
         text = text.replace("{;;nl;;}", "\n")
         text = re.sub(timestamp_regex, replace_ts, text)
 
-        # 3. Líneas que empiezan con * (notas del juego)
         lines = text.split("\n")
         new_lines = []
         for line in lines:
@@ -65,16 +62,13 @@ class KaijuReadNews:
                 new_lines.append(f"*{content}*")
             else:
                 new_lines.append(line)
-        text = "\n".join(new_lines)
-
-        return text.strip()
+        return "\n".join(new_lines).strip()
 
     def tool_for_raws(self, element) -> str:
         try:
-            text = element.get_text(strip=False)
-        except:
+            return element.get_text(strip=False).strip()
+        except Exception:
             return ""
-        return text.strip()
 
     def tool_for_colors(self, category: str) -> str:
         category = category.lower().strip() if category else ""
@@ -84,21 +78,19 @@ class KaijuReadNews:
             "update": "1e88e5",
             "event": "43a047",
             "gacha": "8e24aa",
-            "news":  "546e7a",
+            "news": "546e7a",
             "known issue": "fb8c00",
         }
         return colors.get(category, "ffffff")
- 
+
     def tool_for_limit(self, buffer, tag) -> bool:
         if tag in ("h1", "h2", "h3"):
             return True
-        elif len(buffer) >= 700:
+        if len(buffer) >= 700:
             return True
-        elif buffer.count("\n") >= 6:
+        if buffer.count("\n") >= 6:
             return True
         return False
-
-    
 
     def transform_unix(self, time: str, format: bool = False, saveit: str = "SYNTAX ERROR") -> str:
         if not re.search(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-])", time):
@@ -108,35 +100,31 @@ class KaijuReadNews:
             time = f"{clean[0:4]}-{clean[4:6]}-{clean[6:8]}T{clean[8:10]}:{clean[10:12]}:{clean[12:14]}Z"
         try:
             unix = int(datetime.fromisoformat(time.replace("Z", "+00:00")).timestamp())
-        except:
+        except Exception:
             unix = int(datetime.now().timestamp())
         if saveit != "SYNTAX ERROR":
             if unix not in self.news_storage[saveit]["article_unix"]:
                 self.news_storage[saveit]["article_unix"].append(unix)
-        return str(unix) if (format == False) else str(f"<t:{unix}>")
+        return str(unix) if not format else str(f"<t:{unix}>")
 
     def transform_table(self, table, news_id) -> list[str]:
         rows = table.select("tr")
         if not rows:
             return [f"`TABLE ERROR: {len(rows)}`"]
-        
-        max_cols = 0
-        for row in rows:
-            max_cols = max(max_cols, len(row.select("td, th")))
-        
+
+        max_cols = max((len(row.select("td, th")) for row in rows), default=0)
         response_output = []
         last_values = [""] * max_cols
-        
+
         for row_id, row in enumerate(rows, 1):
             cells = row.select("td, th")
             current_row = []
             cell_index = 0
-            
+
             for col in range(max_cols):
                 if cell_index < len(cells):
                     cell = cells[cell_index]
                     cell_index += 1
-                    
                     paragraphs = cell.select("p")
                     if paragraphs:
                         texts = []
@@ -144,37 +132,38 @@ class KaijuReadNews:
                             processed = self.tool_for_text(p, news_id)
                             if processed.strip():
                                 texts.append(processed)
-                            value = "\n> `❚ └─` ".join(texts) if texts else ""
+                        value = "\n> `❚ └─` ".join(texts) if texts else ""
                     else:
                         value = cell.get_text(strip=True, separator=" ")
                     last_values[col] = value
-                    
                 else:
                     value = last_values[col]
-                
                 current_row.append(value)
-            
-            row_output = ""
-            for i, value in enumerate(current_row):
-                row_output += f"> `❚ {i+1}:` {value}\n"
-            
-            final_row = f"`━ ROW {row_id} OF {len(rows)}:`\n{row_output.strip()}"
-            response_output.append(final_row)
+
+            row_output = "".join(f"> `❚ {i+1}:` {val}\n" for i, val in enumerate(current_row))
+            response_output.append(f"`━ ROW {row_id} OF {len(rows)}:`\n{row_output.strip()}")
         return response_output
-    
-    
-    
+
+    def _attach_category_metadata(self, news_id: str) -> None:
+        article = self.news_storage[news_id]
+        art_type = (article.get("article_type") or "").lower().strip()
+        if art_type == "gacha":
+            article.update(build_gacha_metadata(article))
+        elif art_type in ("maintenance", "update"):
+            article.update(build_service_metadata(article))
+
     def scan_news(self, news_id: str, html: str):
         html = html.replace("<br/>", "{;;nl;;}")
-        soup = BeautifulSoup(html, 'html.parser')
+        soup = BeautifulSoup(html, "html.parser")
         try:
             post_time = soup.select_one("p.ui-contents-header-date span.nowrap").get_text(strip=True)
-        except:
+        except Exception:
             post_time = ""
 
         self.news_storage[news_id]["article_time"] = int(self.transform_unix(post_time, False))
         body_container = soup.select_one("div.ui-contents-main-detail.js-detail-body")
         if not body_container:
+            self._attach_category_metadata(news_id)
             return
 
         elements = body_container.select("h2, h3, p, li, img, table")
@@ -189,7 +178,7 @@ class KaijuReadNews:
                     if self.news_storage[news_id]["article_logo"] is None:
                         self.news_storage[news_id]["article_logo"] = img_url
                     else:
-                        if buffer_item.strip() != "":
+                        if buffer_item.strip():
                             self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
                             self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                             self.news_storage[news_id]["article_node"].append("txt")
@@ -203,20 +192,20 @@ class KaijuReadNews:
             if tag == "table":
                 table_lines = self.transform_table(el, news_id)
                 for table_text in table_lines:
-                    if self.tool_for_limit(f"{buffer_item}{table_text}", tag) == True:
+                    if self.tool_for_limit(f"{buffer_item}{table_text}", tag):
                         self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
                         self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                         self.news_storage[news_id]["article_node"].append("txt")
                         buffer_item = ""
                         buffer_raws = ""
-                    buffer_raws += f"[TABLE ITEM]⤷"
+                    buffer_raws += "[TABLE ITEM]⤷"
                     buffer_item += f"{table_text}\n"
                 continue
 
             text_raws = self.tool_for_raws(el)
             text_form = self.tool_for_text(el, news_id)
-            if self.tool_for_limit(f"{buffer_item}{text_form}", tag) == True:
-                if buffer_item.strip() != "":
+            if self.tool_for_limit(f"{buffer_item}{text_form}", tag):
+                if buffer_item.strip():
                     self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
                     self.news_storage[news_id]["article_item"].append(buffer_item.strip())
                     self.news_storage[news_id]["article_node"].append("txt")
@@ -237,29 +226,34 @@ class KaijuReadNews:
                     continue
                 buffer_item += f"{text_form}\n"
                 buffer_raws += f"{text_raws}⤷"
+
         if buffer_item.strip():
-            if buffer_item.strip() != "":
-                self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
-                self.news_storage[news_id]["article_item"].append(buffer_item.strip())
-                self.news_storage[news_id]["article_node"].append("txt")
+            self.news_storage[news_id]["article_raws"].append(buffer_raws.strip())
+            self.news_storage[news_id]["article_item"].append(buffer_item.strip())
+            self.news_storage[news_id]["article_node"].append("txt")
 
         full_text = ""
         for item, node in zip(
-            self.news_storage[news_id]["article_item"], 
-            self.news_storage[news_id]["article_node"]
+            self.news_storage[news_id]["article_item"],
+            self.news_storage[news_id]["article_node"],
         ):
             if node == "txt":
                 full_text += item + "\n\n"
-        
-        news_hash_dedicated = hashlib.sha256(full_text.encode('utf-8')).hexdigest()
+
+        news_hash_dedicated = hashlib.sha256(full_text.encode("utf-8")).hexdigest()
         self.news_storage[news_id]["article_hash"] = f"{news_id}_{news_hash_dedicated}"
+
+        # Generar metadata específica de categoría (gacha / maintenance / update)
+        self._attach_category_metadata(news_id)
 
     def fetch_single_news(self, news_id: str):
         try:
             url = f"https://info.kj8-thegame.com/news/{news_id}?language=en"
-            log(f"[ARTICLE {news_id}]: [WRITE: 🔁] [STATUS: 🔁] [TIME: 🔁] [URL: {url}]", "news", show=False)
-            response = requests.get(url, timeout=60, headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING UPDATES - @mnight4)"})
-            log(f"[ARTICLE {news_id}]: [WRITE: 🔁] [STATUS: {response.status_code}] [TIME: {response.elapsed}] [URL: {url}]", "news", show=False)
+            response = requests.get(
+                url,
+                timeout=60,
+                headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING UPDATES - @mnight4)"},
+            )
             response.raise_for_status()
             self.scan_news(news_id, response.text)
             log(f"[ARTICLE {news_id}]: [WRITE: ✅] [STATUS: {response.status_code}] [TIME: {response.elapsed}] [URL: {url}]", "news", show=False)
@@ -269,26 +263,27 @@ class KaijuReadNews:
             return news_id, False
 
     def scan_index(self, batch_size: int = 3):
-        log(f"NEWS UUID INDEX: [Reading...]", "news", show=False)
+        log("NEWS UUID INDEX: [Reading...]", "news", show=False)
         try:
-            response = requests.get('https://info.kj8-thegame.com/news?language=en', timeout=60, headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING UPDATES - @mnight4)"})
+            response = requests.get(
+                "https://info.kj8-thegame.com/news?language=en",
+                timeout=60,
+                headers={"User-Agent": "Mozilla/5.0 (JAKDF DISCORD BOT - SCANNING UPDATES - @mnight4)"},
+            )
             response.raise_for_status()
         except Exception as e:
             log(f"NEWS UUID INDEX: [Failure] {e}", "news", level="CRIT", show=False)
             return
 
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, "html.parser")
         articles = soup.select("div.ui-list-block.js-each-content")
         self.news_storage.clear()
-        
-        log(f"NEWS UUID INDEX: [Success] - x{len(articles)} ITEMS", "news", show=False)
-        
-        # === Crear estructura base ===
+
         for article in articles:
             article_uuid = article.get("data-content-id")
             if not article_uuid:
                 continue
-                
+
             article_uuid = str(article_uuid)
             article_node = article.select_one("p.ui-list-category")
             article_node = article_node.get_text(strip=True).lower() if article_node else "unknown"
@@ -306,21 +301,18 @@ class KaijuReadNews:
                 "article_node": [],
                 "article_raws": [],
                 "article_item": [],
-                "article_unix": []
+                "article_unix": [],
             }
 
-        news_ids = list(self.news_storage.keys())        
+        news_ids = list(self.news_storage.keys())
         math_all = math.ceil(len(news_ids) / batch_size)
-        math_eta = math_all * 3
-        log(f"NEWS UUID READ: [x{batch_size} Items per batch] [x{math_all} Batch] [ETA: {math_eta}s]", "news", show=False)
-        
-        # === Procesamiento en paralelo por lotes ===
+        log(f"NEWS UUID READ: [x{batch_size} Items per batch] [x{math_all} Batch] [ETA: {math_all * 3}s]", "news", show=False)
+
         with ThreadPoolExecutor(max_workers=batch_size) as executor:
             for i in range(0, len(news_ids), batch_size):
-                log(f"NEWS UUID READ: [BATCH N°{i//batch_size + 1}]", "news", show=False)
                 batch = news_ids[i:i + batch_size]
                 future_to_id = {executor.submit(self.fetch_single_news, nid): nid for nid in batch}
                 for future in as_completed(future_to_id):
-                    news_id, success = future.result()
+                    future.result()
 
         log(f"NEWS UUID READ: [CLOSED] [x{len(self.news_storage)} ITEMS]", "news", show=False)

@@ -62,27 +62,23 @@ class KaijuReadXCom:
         return (raw.get("text") or "").strip()
 
     # --------------------------------------------------
-    # Imagen más nítida del post
+    # Primer recurso estático (video -> thumbnail_url, photo -> url)
     # --------------------------------------------------
-    def get_best_image(self, post: dict) -> str | None:
+    def get_first_static_media(self, post: dict) -> dict | None:
         media = (post.get("media") or {}).get("all") or []
-        best_url = None
-        best_area = 0
-
         for item in media:
-            if (item.get("type") or "").lower() not in ("photo", "image"):
+            if not isinstance(item, dict):
                 continue
-            url = item.get("url")
-            if not url:
-                continue
-            w = item.get("width") or 0
-            h = item.get("height") or 0
-            area = w * h
-            if area >= best_area:
-                best_area = area
-                best_url = url
-
-        return best_url
+            mtype = (item.get("type") or "").lower()
+            if mtype == "video":
+                thumb = item.get("thumbnail_url")
+                if thumb:
+                    return {"type": "video", "thumbnail_url": thumb}
+            elif mtype in ("photo", "image"):
+                url = item.get("url")
+                if url:
+                    return {"type": "photo", "url": url}
+        return None
 
     # --------------------------------------------------
     # Procesar un post
@@ -103,12 +99,17 @@ class KaijuReadXCom:
         if "status" not in self.xcom_storage[account]:
             self.xcom_storage[account]["status"] = {}
 
-        self.xcom_storage[account]["status"][uuid] = {
+        entry: dict = {
             "link": url,
             "uuid": uuid,
             "text": text,
-            "hash": f"{uuid}_{post_hash}"
+            "hash": f"{uuid}_{post_hash}",
         }
+        first_media = self.get_first_static_media(post)
+        if first_media:
+            entry["media"] = {"all": first_media}
+        self.xcom_storage[account]["status"][uuid] = entry
+        
 
         # ---- roadmap (solo si menciona "content schedule") ----
         if "content schedule" in text.lower():
